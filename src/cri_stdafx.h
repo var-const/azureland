@@ -3,6 +3,7 @@
 #ifdef LAZY_INCLUDE
 
 #include <algorithm>
+#include <cassert>
 #include <deque>
 #include <fstream>
 #include <iostream>

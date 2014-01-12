@@ -2,14 +2,37 @@
 
 #include <cinder/app/AppBasic.h>
 
-class CRIApp : public ci::app::AppBasic {
+class CRIGameScene;
+
+class CRIApp : public ci::app::AppBasic
+{
 public:	
-	//void mouseDown( MouseEvent event );
-	//void mouseUp( MouseEvent event );
-	//void mouseWheel( MouseEvent event );
-	//void mouseMove( MouseEvent event );
-	//void mouseDrag( MouseEvent event );
-	//void keyDown( KeyEvent event );
-	//void keyUp( KeyEvent event );
-	//void fileDrop( FileDropEvent event );
+    CRIApp();
+    ~CRIApp();
+
+    // Implemented virtual functions
+    void prepareSettings(Settings* settings);
+    void setup();
+
+    void draw();
+    void update();
+
+    /* For future use
+    void mouseDown(ci::app::MouseEvent event);
+    void mouseUp(ci::app::MouseEvent event);
+    void mouseMove(ci::app::MouseEvent event);
+    void mouseDrag(ci::app::MouseEvent event);
+    void mouseWheel(ci::app::MouseEvent event);
+    void keyDown(ci::app::KeyEvent event);
+    void keyUp(ci::app::KeyEvent event);
+    */
+
+    void SetScene(CRIGameScene* pScene);
+
+private:
+    // No nees
+    CRIApp(const CRIApp&);
+    CRIApp& operator=(const CRIApp&);
+
+    CRIGameScene* m_pScene;
 };

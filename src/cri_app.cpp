@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "cri_stdafx.h"
 
 #include "cri_app.h"
 

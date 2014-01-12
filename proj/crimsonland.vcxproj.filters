@@ -10,7 +10,7 @@
     <ClCompile Include="..\src\cri_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\stdafx.cpp">
+    <ClCompile Include="..\src\cri_stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -18,7 +18,7 @@
     <ClInclude Include="..\src\cri_app.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\stdafx.h">
+    <ClInclude Include="..\src\cri_stdafx.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

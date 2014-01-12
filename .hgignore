@@ -1,0 +1,12 @@
+syntax: glob
+*.suo
+*.sdf
+*.opensdf
+*.vcxproj.user
+*.ipch
+*.obj
+*.pch
+*.tlog
+*.log
+*.exe
+*.idb

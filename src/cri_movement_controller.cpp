@@ -113,7 +113,8 @@ void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
 
 void CRIMovementController::OnKeyUp(const int Key)
 {
-    if (m_IsMoveKeyPressed && IsMoveKey(Key)) {
+    if (m_IsMoveKeyPressed && IsMoveKey(Key))
+    {
         m_IsMoveKeyPressed = false;
     }
 }

@@ -6,6 +6,10 @@
 
 #include <cmath>
 
+CRI_AABB::CRI_AABB()
+{ 
+}
+
 CRI_AABB::CRI_AABB( const VecT Center, const VecT HalfSize )
 : m_Center(Center)
 , m_HalfSize(HalfSize)
@@ -77,4 +81,11 @@ ci::Rectf ToRect( const CRI_AABB Box )
 {
     using ci::Rectf;
     return Rectf(Box.m_Center - Box.m_HalfSize, Box.m_Center + Box.m_HalfSize);
+}
+
+void SetAABB( CRI_AABB& Box, const CRI_AABB::VecT Center,
+    const CRI_AABB::VecT HalfSize )
+{
+    Box.m_Center = Center;
+    Box.m_HalfSize = HalfSize;
 }

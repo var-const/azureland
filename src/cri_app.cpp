@@ -2,6 +2,7 @@
 
 #include "cri_app.h"
 
+#include "cri_build_game.h"
 #include "cri_game_scene.h"
 #include "cri_interface_input.h"
 
@@ -27,6 +28,7 @@ void CRIApp::setup()
 {
     hideCursor();
     m_Timer.start();
+    BuildGame(*this);
 }
 
 void CRIApp::draw()

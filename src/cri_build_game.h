@@ -2,5 +2,7 @@
 
 class CRIApp;
 class CRIGameScene;
+class CRIPlayer;
 
-void BuildGame(CRIApp& app);
+void BuildGame(CRIApp& App);
+CRIPlayer* CreatePlayer(CRIApp& App);

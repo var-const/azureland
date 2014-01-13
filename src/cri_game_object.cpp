@@ -49,9 +49,9 @@ void CRIGameObject::OnDestroyed()
 { 
 }
 
-void CRIGameObject::SetScene( const CRIGameScene& Scene )
+void CRIGameObject::SetScene( CRIGameScene& Scene )
 {
-    m_pScene = Scene;
+    m_pScene = &Scene;
 }
 
 CRIGameScene& CRIGameObject::GetScene()

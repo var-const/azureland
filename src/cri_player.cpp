@@ -83,3 +83,8 @@ void CRIPlayer::OnKeyUp( const int KeyCode, const KeyEvent Event )
     }
     // @TODO
 }
+
+void CRIPlayer::OnDestroyed()
+{
+    // @TODO
+}

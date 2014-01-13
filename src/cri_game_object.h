@@ -16,7 +16,7 @@ public:
     bool IsDying() const; // In case I have time for death animations
     bool IsDead() const;
 
-    void SetScene(const CRIGameScene& Scene);
+    void SetScene(CRIGameScene& Scene);
 
 protected:
     CRIGameScene& GetScene();

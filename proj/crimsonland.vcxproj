@@ -15,6 +15,7 @@
     <ClCompile Include="..\src\cri_app.cpp" />
     <ClCompile Include="..\src\cri_game_object.cpp" />
     <ClCompile Include="..\src\cri_game_scene.cpp" />
+    <ClCompile Include="..\src\cri_interface_input.cpp" />
     <ClCompile Include="..\src\cri_math.cpp" />
     <ClCompile Include="..\src\cri_movable.cpp" />
     <ClCompile Include="..\src\cri_stdafx.cpp">
@@ -27,6 +28,7 @@
     <ClInclude Include="..\src\cri_app.h" />
     <ClInclude Include="..\src\cri_game_object.h" />
     <ClInclude Include="..\src\cri_game_scene.h" />
+    <ClInclude Include="..\src\cri_interface_input.h" />
     <ClInclude Include="..\src\cri_math.h" />
     <ClInclude Include="..\src\cri_movable.h" />
     <ClInclude Include="..\src\cri_stdafx.h" />

@@ -3,6 +3,7 @@
 #include "cri_app.h"
 
 #include "cri_game_scene.h"
+#include "cri_interface_input.h"
 
 #include <cassert>
 
@@ -45,10 +46,80 @@ void CRIApp::update()
     }
 }
 
-void CRIApp::SetScene( CRIGameScene* pScene )
+void CRIApp::SetScene( CRIGameScene* const pScene )
 {
     delete m_pScene;
     m_pScene = pScene;
+}
+
+void CRIApp::mouseDown( const ci::app::MouseEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnMouseDown(Event.getPos(), Event);
+    }
+}
+
+void CRIApp::mouseUp( const ci::app::MouseEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnMouseUp(Event.getPos(), Event);
+    }
+}
+
+void CRIApp::mouseMove( const ci::app::MouseEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnMouseMove(Event.getPos(), Event);
+    }
+}
+
+void CRIApp::mouseDrag( const ci::app::MouseEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnMouseDrag(Event.getPos(), Event);
+    }
+}
+
+void CRIApp::mouseWheel( const ci::app::MouseEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnMouseWheel(Event.getWheelIncrement(), Event);
+    }
+}
+
+void CRIApp::keyDown( const ci::app::KeyEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnKeyDown(Event.getCode(), Event);
+    }
+}
+
+void CRIApp::keyUp( const ci::app::KeyEvent Event )
+{
+    for (InputListenersIterT i = m_InputListeners.begin();
+        i != m_InputListeners.end(); ++i)
+    {
+        (*i)->OnKeyUp(Event.getCode(), Event);
+    }
+}
+
+void CRIApp::AddInputListener( CRIInterfaceInput& Listener )
+{
+    assert(std::find(m_InputListeners.begin(), m_InputListeners.end(),
+        &Listener) == m_InputListeners.end());
+    m_InputListeners.push_back(&Listener);
 }
 
 CINDER_APP_BASIC( CRIApp, ci::app::RendererGl )

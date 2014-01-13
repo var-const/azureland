@@ -7,6 +7,7 @@
 #include "cri_interface_input.h"
 
 #include <cassert>
+#include <cstdlib>
 
 CRIApp::CRIApp()
 : m_pScene(NULL)
@@ -19,7 +20,7 @@ CRIApp::~CRIApp()
     m_pScene = NULL;
 }
 
-void CRIApp::prepareSettings( Settings* settings )
+void CRIApp::prepareSettings( Settings* const settings )
 {
     settings->setWindowSize(1280, 1024);
     settings->setFrameRate(60.f);
@@ -27,6 +28,9 @@ void CRIApp::prepareSettings( Settings* settings )
 
 void CRIApp::setup()
 {
+    using std::srand; using std::time;
+
+    srand(time(NULL));
     hideCursor();
     m_Timer.start();
     BuildGame(*this);

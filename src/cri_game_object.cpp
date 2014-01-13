@@ -7,7 +7,7 @@ void CRIGameObject::Draw()
     // @TODO
 }
 
-void CRIGameObject::Update()
+void CRIGameObject::Update(const float Dt)
 {
     // @TODO
 }

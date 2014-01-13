@@ -6,5 +6,5 @@ class CRIGameObject : public CRIMovable
 {
 public:	
     void Draw();
-    void Update();
+    void Update(float Dt);
 };

@@ -27,11 +27,11 @@ void CRIGameScene::Draw()
     }
 }
 
-void CRIGameScene::Update()
+void CRIGameScene::Update(const float Dt)
 {
     for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
     {
-        (*i)->Update();
+        (*i)->Update(Dt);
     }
     ProcessCollisions();
 }

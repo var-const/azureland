@@ -25,6 +25,7 @@ void CRIApp::prepareSettings( Settings* settings )
 void CRIApp::setup()
 {
     hideCursor();
+    m_Timer.start();
 }
 
 void CRIApp::draw()
@@ -39,7 +40,8 @@ void CRIApp::update()
 {
     if (m_pScene)
     {
-        m_pScene->Update();
+        m_pScene->Update( static_cast<float>(m_Timer.getSeconds()) );
+        m_Timer.start();
     }
 }
 

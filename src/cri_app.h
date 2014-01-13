@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cinder/Timer.h>
 #include <cinder/app/AppBasic.h>
 
 class CRIGameScene;
@@ -30,9 +31,11 @@ public:
     void SetScene(CRIGameScene* pScene);
 
 private:
-    // No nees
+    // No need
     CRIApp(const CRIApp&);
     CRIApp& operator=(const CRIApp&);
 
     CRIGameScene* m_pScene;
+
+    ci::Timer m_Timer;
 };

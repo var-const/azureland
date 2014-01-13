@@ -11,7 +11,7 @@ public:
     ~CRIGameScene();
 
     void Draw();
-    void Update();
+    void Update(float Dt);
 
     void AddObject(CRIGameObject& Object);
 

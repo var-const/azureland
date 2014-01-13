@@ -15,7 +15,7 @@ public:
     typedef ci::Vec2f VelT;
     typedef CRI_AABB BoxT;
 
-    CRIMovable(const SizeT& size, const PosT& StartPos);
+    CRIMovable(const SizeT& Size, const PosT& StartPos);
     CRIMovable(const SizeT& Size, const PosT& StartPos, const VelT& Velocity);
     virtual ~CRIMovable();
 

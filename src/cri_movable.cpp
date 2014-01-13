@@ -35,7 +35,7 @@ void CRIMovable::SetVelocity(const VelT& V)
     m_Velocity = V;
 }
 
-auto CRIMovable::GetCenterPos() const -> const PosT&
+const CRIMovable::PosT& CRIMovable::GetCenterPos() const
 {
     return m_Pos;
 }
@@ -46,7 +46,7 @@ void CRIMovable::SetCenterPos( const PosT& Pos )
     UpdateBoundingBox();
 }
 
-auto CRIMovable::GetSize() const -> const SizeT&
+const CRIMovable::SizeT& CRIMovable::GetSize() const
 {
     return m_Size;
 }
@@ -59,8 +59,8 @@ void CRIMovable::SetSize( const SizeT& Size )
 
 void CRIMovable::Move( const float delta )
 {
-    const auto path = GetVelocity() * delta;
-    const auto new_pos = GetCenterPos() + path;
+    const VelT path = GetVelocity() * delta;
+    const PosT new_pos = GetCenterPos() + path;
     SetCenterPos(new_pos);
 }
 

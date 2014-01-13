@@ -98,14 +98,13 @@ void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
     }
 
     // @FIXME hacky
-    const CRIMovable::VelT OldVelocity = Object.GetVelocity();
     const CRIMovable::VelT Vec = GetVector(Key);
-    CRIMovable::VelT NewVelocity;
-    if (abs(Vec.x) >= abs(OldVelocity.x))
+    CRIMovable::VelT NewVelocity = Object.GetVelocity();
+    if (abs(Vec.x) >= abs(NewVelocity.x))
     {
         NewVelocity.x = Vec.x;
     }
-    if (abs(Vec.y) >= abs(OldVelocity.y))
+    if (abs(Vec.y) >= abs(NewVelocity.y))
     {
         NewVelocity.y = Vec.y;
     }

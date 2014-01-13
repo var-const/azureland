@@ -8,6 +8,7 @@ class CRIGameObject : public CRIMovable
 {
 public:	
     CRIGameObject(const SizeT& Size, const PosT& StartPos);
+    ~CRIGameObject();
 
     void Draw();
     void Update(float Dt);
@@ -23,6 +24,7 @@ protected:
     const CRIGameScene& GetScene() const;
 
 private:
+    virtual void DoUpdate(float Dt);
     virtual void OnDestroyed();
 
     bool m_IsDead;

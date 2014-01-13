@@ -12,13 +12,17 @@ using ci::app::MouseEvent;
 
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
-, m_Speed(0.f)
 { 
 }
 
 void CRIPlayer::SetSpeed( const float Speed )
 {
-    m_Speed = Speed;
+    m_MovementController.SetSpeed(Speed);
+}
+
+void CRIPlayer::DoUpdate( const float Dt )
+{
+    m_MovementController.Deccelerate(*this);
 }
 
 void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
@@ -57,7 +61,7 @@ void CRIPlayer::OnMouseDrag( const Vec2f& Pos, const MouseEvent Event )
     // @TODO
 }
 
-void CRIPlayer::OnMouseWheel( float Increment, const MouseEvent Event )
+void CRIPlayer::OnMouseWheel( const float Increment, const MouseEvent Event )
 {
     if (IsDying())
     {
@@ -72,7 +76,7 @@ void CRIPlayer::OnKeyDown( const int KeyCode, const KeyEvent Event )
     {
         return;
     }
-    // @TODO
+    m_MovementController.OnKeyDown(KeyCode, *this);
 }
 
 void CRIPlayer::OnKeyUp( const int KeyCode, const KeyEvent Event )
@@ -81,7 +85,7 @@ void CRIPlayer::OnKeyUp( const int KeyCode, const KeyEvent Event )
     {
         return;
     }
-    // @TODO
+    m_MovementController.OnKeyUp(KeyCode);
 }
 
 void CRIPlayer::OnDestroyed()

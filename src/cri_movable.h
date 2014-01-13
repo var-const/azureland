@@ -25,7 +25,7 @@ public:
     void SetCenterPos(const PosT& Pos);
     const SizeT& GetSize() const;
 
-    void Move(float delta);
+    void Move(float Delta);
 
     const BoxT& GetAABBRef() const;
     BoxT GetAABB() const;

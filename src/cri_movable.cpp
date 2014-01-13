@@ -57,11 +57,11 @@ void CRIMovable::SetSize( const SizeT& Size )
     UpdateBoundingBox();
 }
 
-void CRIMovable::Move( const float delta )
+void CRIMovable::Move( const float Delta )
 {
-    const VelT path = GetVelocity() * delta;
-    const PosT new_pos = GetCenterPos() + path;
-    SetCenterPos(new_pos);
+    const VelT Path = GetVelocity() * Delta;
+    const PosT NewPos = GetCenterPos() + Path;
+    SetCenterPos(NewPos);
 }
 
 const CRIMovable::BoxT& CRIMovable::GetAABBRef() const

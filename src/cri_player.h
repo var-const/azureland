@@ -2,6 +2,7 @@
 
 #include "cri_game_object.h"
 #include "cri_interface_input.h"
+#include "cri_movement_controller.h"
 
 class CRIPlayer : public CRIGameObject, public CRIInterfaceInput
 {
@@ -25,7 +26,8 @@ public:
     void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
 
 private:
+    void DoUpdate(float Dt); // Override
     void OnDestroyed(); // Override
 
-    float m_Speed;
+    CRIMovementController m_MovementController;
 };

@@ -9,13 +9,14 @@
 #include <cassert>
 
 CRIApp::CRIApp()
-: m_pScene(0)
+: m_pScene(NULL)
 { 
 }
 
 CRIApp::~CRIApp()
 {
     delete m_pScene;
+    m_pScene = NULL;
 }
 
 void CRIApp::prepareSettings( Settings* settings )
@@ -33,8 +34,11 @@ void CRIApp::setup()
 
 void CRIApp::draw()
 {
+    using namespace ci;
+
     if (m_pScene)
     {
+        gl::clear();
         m_pScene->Draw();
     }
 }

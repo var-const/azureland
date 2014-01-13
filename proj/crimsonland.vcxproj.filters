@@ -37,6 +37,9 @@
     <ClCompile Include="..\src\cri_player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cri_movement_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_app.h">
@@ -67,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_player.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_movement_controller.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,25 +7,36 @@
 CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos )
 : CRIMovable(Size, StartPos)
 , m_IsDead(false)
-, m_pScene(0)
+, m_pScene(NULL)
 { 
+}
+
+CRIGameObject::~CRIGameObject()
+{
+    m_pScene = NULL;
 }
 
 void CRIGameObject::Draw()
 {
-    using namespace ci;
+    using ci::gl::drawStrokedRect;
     // @TODO: textures
-    gl::drawStrokedRect( ToRect(GetAABB()) );
+    drawStrokedRect( ToRect(GetAABB()) );
 }
 
 void CRIGameObject::Update(const float Dt)
 {
-    // @TODO
+    if (IsDying())
+    {
+        return;
+    }
+    Move(Dt);
+    DoUpdate(Dt);
 }
 
 void CRIGameObject::Destroy()
 {
-    if (IsDead()) {
+    if (IsDead())
+    {
         return;
     }
 
@@ -43,6 +54,10 @@ bool CRIGameObject::IsDying() const
 bool CRIGameObject::IsDead() const
 {
     return m_IsDead;
+}
+
+void CRIGameObject::DoUpdate( const float Dt )
+{ 
 }
 
 void CRIGameObject::OnDestroyed()

@@ -17,6 +17,7 @@ CRIGameScene::~CRIGameScene()
     {
         delete *i;
     }
+    m_Objects.clear();
 }
 
 void CRIGameScene::Draw()

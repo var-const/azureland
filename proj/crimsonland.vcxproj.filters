@@ -31,6 +31,12 @@
     <ClCompile Include="..\src\cri_interface_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cri_build_game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cri_player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_app.h">
@@ -55,6 +61,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_interface_input.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_build_game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

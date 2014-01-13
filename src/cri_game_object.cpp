@@ -6,14 +6,8 @@
 
 CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos )
 : CRIMovable(Size, StartPos)
-, m_IsDead()
-{ 
-}
-
-CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos,
-    const VelT& Velocity )
-: CRIMovable(Size, StartPos, Velocity)
-, m_IsDead()
+, m_IsDead(false)
+, m_pScene(0)
 { 
 }
 
@@ -53,4 +47,21 @@ bool CRIGameObject::IsDead() const
 
 void CRIGameObject::OnDestroyed()
 { 
+}
+
+void CRIGameObject::SetScene( const CRIGameScene& Scene )
+{
+    m_pScene = Scene;
+}
+
+CRIGameScene& CRIGameObject::GetScene()
+{
+    assert(m_pScene);
+    return *m_pScene;
+}
+
+const CRIGameScene& CRIGameObject::GetScene() const
+{
+    assert(m_pScene);
+    return *m_pScene;
 }

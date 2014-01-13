@@ -40,6 +40,7 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
 {
     assert(std::find(m_Objects.begin(), m_Objects.end(), &Object) ==
         m_Objects.end());
+    Object.SetScene(*this);
     m_Objects.push_back(&Object);
 }
 

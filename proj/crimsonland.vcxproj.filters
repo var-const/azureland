@@ -25,6 +25,9 @@
     <ClCompile Include="..\src\cri_aabb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cri_math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_app.h">
@@ -43,6 +46,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_aabb.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_math.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

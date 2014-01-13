@@ -2,6 +2,8 @@
 
 #include "cri_movable.h"
 
+#include "cri_math.h"
+
 CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
 : m_Size(Size)
 , m_Pos(StartPos)

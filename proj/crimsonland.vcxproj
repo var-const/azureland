@@ -14,6 +14,9 @@
     <ClCompile Include="..\src\cri_aabb.cpp" />
     <ClCompile Include="..\src\cri_app.cpp" />
     <ClCompile Include="..\src\cri_build_game.cpp" />
+    <ClCompile Include="..\src\cri_collider.cpp" />
+    <ClCompile Include="..\src\cri_collision.cpp" />
+    <ClCompile Include="..\src\cri_collision_detail.cpp" />
     <ClCompile Include="..\src\cri_enemy.cpp" />
     <ClCompile Include="..\src\cri_movement_controller.cpp" />
     <ClCompile Include="..\src\cri_game_object.cpp" />
@@ -31,6 +34,10 @@
     <ClInclude Include="..\src\cri_aabb.h" />
     <ClInclude Include="..\src\cri_app.h" />
     <ClInclude Include="..\src\cri_build_game.h" />
+    <ClInclude Include="..\src\cri_collider.h" />
+    <ClInclude Include="..\src\cri_collision.h" />
+    <ClInclude Include="..\src\cri_collision_detail.h" />
+    <ClInclude Include="..\src\cri_collision_typedefs.h" />
     <ClInclude Include="..\src\cri_enemy.h" />
     <ClInclude Include="..\src\cri_movement_controller.h" />
     <ClInclude Include="..\src\cri_game_object.h" />

@@ -2,6 +2,7 @@
 
 #include "cri_game_scene.h"
 
+#include "cri_collision.h"
 #include "cri_game_object.h"
 
 #include <algorithm>
@@ -30,7 +31,7 @@ void CRIGameScene::Draw()
 
 void CRIGameScene::Update(const float Dt)
 {
-    ProcessCollisions(Dt);
+    UpdateObjects(Dt);
 }
 
 void CRIGameScene::AddObject( CRIGameObject& Object )
@@ -40,29 +41,29 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
     Object.SetScene(*this);
     m_Objects.push_back(&Object);
     // @FIXME would be called many times during initialization
-    m_CollisionsBuffer.reserve(m_Objects.size());
+    m_Collider.Reserve(m_Objects.size());
 }
 
-void CRIGameScene::ProcessCollisions(float Dt)
+void CRIGameScene::UpdateObjects(float Dt)
 {
     do
     {
-        const float Time = m_Collider.BuildCollisions(m_CollisionsBuffer, Dt,
-            m_Objects.begin(), m_Objects.end());
-        if (m_CollisionsBuffer.empty())
+        const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
+            m_Objects.begin(), m_Objects.end(), Dt);
+        if (Collisions.IsEmpty())
         {
             break;
         }
 
         for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
         {
-            (*i)->Update(Time);
+            (*i)->Update(Collisions.m_Time);
         }
-        Dt -= Time;
-        for (??? i = m_CollisionsBuffer.begin(); i != m_CollisionsBuffer.end();
+        Dt -= Collisions.m_Time;
+        for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
             ++i)
         {
-            HandleCollision(*i);
+            //HandleCollision(*i); // @TODO:
         }
     }
     // Objects trajectory will change after collision, so we must take it

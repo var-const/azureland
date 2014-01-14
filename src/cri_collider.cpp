@@ -72,5 +72,5 @@ CRICollider::CmpCollisionTime::CmpCollisionTime( const float Time )
 bool CRICollider::CmpCollisionTime::operator()( const CRICollision& Other )
     const
 {
-    return Other.Time > m_Time;
+    return Other.m_Time > m_Time;
 }

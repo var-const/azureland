@@ -3,10 +3,10 @@
 #include "cri_collision.h"
 
 CRICollision::CRICollision()
-: ObjA(NULL)
-, ObjB(NULL)
-, Time(0.f)
-, Depth(0.f)
+: m_pObjA(NULL)
+, m_pObjB(NULL)
+, m_Time(0.f)
+, m_Depth(0.f)
 {
 }
 

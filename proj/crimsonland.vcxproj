@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\cri_interface_input.cpp" />
     <ClCompile Include="..\src\cri_math.cpp" />
     <ClCompile Include="..\src\cri_movable.cpp" />
+    <ClCompile Include="..\src\cri_on_collision.cpp" />
     <ClCompile Include="..\src\cri_player.cpp" />
     <ClCompile Include="..\src\cri_stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -41,12 +42,14 @@
     <ClInclude Include="..\src\cri_collision_detail.h" />
     <ClInclude Include="..\src\cri_collision_typedefs.h" />
     <ClInclude Include="..\src\cri_enemy.h" />
+    <ClInclude Include="..\src\cri_game_objects.h" />
     <ClInclude Include="..\src\cri_movement_controller.h" />
     <ClInclude Include="..\src\cri_game_object.h" />
     <ClInclude Include="..\src\cri_game_scene.h" />
     <ClInclude Include="..\src\cri_interface_input.h" />
     <ClInclude Include="..\src\cri_math.h" />
     <ClInclude Include="..\src\cri_movable.h" />
+    <ClInclude Include="..\src\cri_on_collision.h" />
     <ClInclude Include="..\src\cri_player.h" />
     <ClInclude Include="..\src\cri_stdafx.h" />
   </ItemGroup>

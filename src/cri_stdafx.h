@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cstddef>
 #include <deque>
 #include <fstream>
 #include <iostream>

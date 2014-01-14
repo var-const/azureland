@@ -22,9 +22,9 @@ CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
     CRICollision Result;
-    Result.ObjA = &Lhs;
-    Result.ObjB = &Rhs;
-    Result.Time = Time;
+    Result.m_pObjA = &Lhs;
+    Result.m_pObjB = &Rhs;
+    Result.m_Time = Time;
     // @TODO: depth, normal
     return Result;
 }

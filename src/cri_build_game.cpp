@@ -31,7 +31,7 @@ CRIPlayer* CreatePlayer( CRIApp& App )
     const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
         getWindowSize().y - 30.f);
     CRIPlayer* const Player = new CRIPlayer(Size, Pos);
-    Player->SetSpeed(300.f);
+    Player->SetSpeed(400.f);
     App.AddInputListener(*Player);
 
     return Player;
@@ -49,7 +49,7 @@ void CreateEnemies( CRIGameScene& Scene )
     CRIMovable::PosT CurPos = StartPos;
     const float MaxHorizOffset = getWindowWidth() - StartPos.x;
     
-    for (int i = 0; i != 30; ++i)
+    for (int i = 0; i != 1; ++i)
     {
         CRIEnemy* const Enemy = new CRIEnemy(Size, CurPos);
         // Possible rand values: -1, 0, 1, so they move left/stand still/
@@ -57,7 +57,8 @@ void CreateEnemies( CRIGameScene& Scene )
         const float VelX = VelocityBase.x * static_cast<float>(rand() % 3 - 1);
         // Same for y axis
         const float VelY = VelocityBase.y * static_cast<float>(rand() % 3 - 1);
-        Enemy->SetVelocity(CRIMovable::VelT(VelX, VelY));
+        //Enemy->SetVelocity(CRIMovable::VelT(VelX, VelY));
+        Enemy->SetVelocity(CRIMovable::VelT(0.f, 200.f));
         Scene.AddObject(*Enemy);
 
         CurPos.x += Size.x + 10.f;

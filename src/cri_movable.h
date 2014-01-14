@@ -46,3 +46,5 @@ private:
 
     bool m_IsMoving;
 };
+
+CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta );

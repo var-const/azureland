@@ -26,3 +26,6 @@ bool AContainsB(CRI_AABB A, CRI_AABB B);
 
 ci::Rectf ToRect(CRI_AABB Box);
 void SetAABB(CRI_AABB& Box, CRI_AABB::VecT Center, CRI_AABB::VecT HalfSize);
+
+CRI_AABB::VecT GetLeftUpper(CRI_AABB Box);
+CRI_AABB::VecT GetRightLower(CRI_AABB Box);

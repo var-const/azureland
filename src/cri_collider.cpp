@@ -4,6 +4,7 @@
 
 #include "cri_collision.h"
 #include "cri_collision_detail.h"
+#include "cri_game_object.h"
 
 #include <algorithm>
 #include <cassert>

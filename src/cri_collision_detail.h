@@ -2,7 +2,8 @@
 
 struct CRICollision;
 class CRIGameObject;
+class CRIMovable;
 
 CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     float Time );
-float GetCollisionTime(CRIGameObject& Lhs, CRIGameObject& Rhs);
+float GetCollisionTime(CRIMovable& Lhs, CRIMovable& Rhs);

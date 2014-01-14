@@ -1,6 +1,7 @@
 #pragma once
 
-namespace std { template <typename T, typename Allocator> class vector; }
+#include <vector>
+
 struct CRICollision;
 
 typedef std::vector<CRICollision> CollisionsContT;

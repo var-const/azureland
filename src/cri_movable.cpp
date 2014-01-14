@@ -59,9 +59,7 @@ void CRIMovable::SetSize( const SizeT& Size )
 
 void CRIMovable::Move( const float Delta )
 {
-    const VelT Path = GetVelocity() * Delta;
-    const PosT NewPos = GetCenterPos() + Path;
-    SetCenterPos(NewPos);
+    SetCenterPos(GetFuturePos(*this, Delta));
 }
 
 const CRIMovable::BoxT& CRIMovable::GetAABBRef() const
@@ -82,4 +80,10 @@ void CRIMovable::UpdateBoundingBox()
 bool CRIMovable::IsMoving() const
 {
     return m_IsMoving;
+}
+
+CRIMovable::PosT GetFuturePos( const CRIMovable& Object, const float Delta )
+{
+    const CRIMovable::VelT Path = Object.GetVelocity() * Delta;
+    return Object.GetCenterPos() + Path;
 }

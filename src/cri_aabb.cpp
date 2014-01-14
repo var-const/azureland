@@ -89,3 +89,13 @@ void SetAABB( CRI_AABB& Box, const CRI_AABB::VecT Center,
     Box.m_Center = Center;
     Box.m_HalfSize = HalfSize;
 }
+
+CRI_AABB::VecT GetLeftUpper( CRI_AABB Box )
+{
+    return Box.m_Center - Box.m_HalfSize / 2.f;
+}
+
+CRI_AABB::VecT GetRightLower( CRI_AABB Box )
+{
+    return Box.m_Center + Box.m_HalfSize / 2.f;
+}

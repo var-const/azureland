@@ -38,6 +38,11 @@ bool TouchOrIntersect( const CRI_AABB A, const CRI_AABB B )
         A.m_HalfSize.y + B.m_HalfSize.y;
 }
 
+bool TouchOnly( const CRI_AABB A, const CRI_AABB B )
+{
+    return TouchOrIntersect(A, B) && !Intersect(A, B);
+}
+
 CRI_AABB::VecT IntersectionDepth( const CRI_AABB A, const CRI_AABB B )
 {
     using std::abs;
@@ -92,10 +97,10 @@ void SetAABB( CRI_AABB& Box, const CRI_AABB::VecT Center,
 
 CRI_AABB::VecT GetLeftUpper( CRI_AABB Box )
 {
-    return Box.m_Center - Box.m_HalfSize / 2.f;
+    return Box.m_Center - Box.m_HalfSize;
 }
 
 CRI_AABB::VecT GetRightLower( CRI_AABB Box )
 {
-    return Box.m_Center + Box.m_HalfSize / 2.f;
+    return Box.m_Center + Box.m_HalfSize;
 }

@@ -28,8 +28,10 @@ CRIPlayer* CreatePlayer( CRIApp& App )
 
     // @FIXME hard coded values
     const CRIMovable::SizeT Size = CRIMovable::SizeT(30.f, 30.f);
-    const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
+    const CRIMovable::PosT Pos = CRIMovable::PosT(100.f,
         getWindowSize().y - 30.f);
+    //const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
+    //    getWindowSize().y - 30.f);
     CRIPlayer* const Player = new CRIPlayer(Size, Pos);
     Player->SetSpeed(400.f);
     App.AddInputListener(*Player);

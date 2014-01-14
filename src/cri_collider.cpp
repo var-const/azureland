@@ -5,6 +5,7 @@
 #include "cri_collision.h"
 #include "cri_collision_detail.h"
 #include "cri_game_object.h"
+#include "cri_math.h"
 
 #include <algorithm>
 #include <cassert>
@@ -55,6 +56,12 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 {
     const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
     if (CollisionTime < 0.f || CollisionTime > Time)
+    {
+        return;
+    }
+    // @FIXME hack
+    if ( IsFpointEq(CollisionTime, 0.f) &&
+        TouchOnly(Lhs.GetAABB(), Rhs.GetAABB()) )
     {
         return;
     }

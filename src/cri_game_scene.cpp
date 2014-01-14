@@ -56,16 +56,19 @@ void CRIGameScene::UpdateObjects(float Dt)
             break;
         }
 
-        assert(Collisions.m_Time > 0.f);
-        for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+        if (Collisions.m_Time > 0.f)
         {
-            (*i)->Update(Collisions.m_Time);
+            for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+            {
+                (*i)->Update(Collisions.m_Time);
+            }
+            Dt -= Collisions.m_Time;
         }
-        Dt -= Collisions.m_Time;
         for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
             ++i)
         {
-            assert( Intersect(i->m_pObjA->GetAABB(), i->m_pObjB->GetAABB()) );
+            assert( TouchOrIntersect(i->m_pObjA->GetAABB(),
+                i->m_pObjB->GetAABB()) );
             HandleCollision(*i); // @TODO:
         }
     }

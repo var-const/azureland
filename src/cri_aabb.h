@@ -17,6 +17,7 @@ struct CRI_AABB
 
 bool Intersect(CRI_AABB A, CRI_AABB B);
 bool TouchOrIntersect(CRI_AABB A, CRI_AABB B);
+bool TouchOnly(CRI_AABB A, CRI_AABB B);
 
 CRI_AABB::VecT IntersectionDepth(CRI_AABB A, CRI_AABB B);
 CRI_AABB::VecT IntersectionNormal(CRI_AABB A, CRI_AABB B);

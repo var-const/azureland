@@ -52,7 +52,7 @@ void CRICollider::BuildCollisions( CRIGameObject& Obj, const ObjIterT Begin,
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
-    const float CollisionTime = GetCollisionTime(Lhs, Rhs);
+    const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
     if (CollisionTime < 0.f || CollisionTime > Time)
     {
         return;

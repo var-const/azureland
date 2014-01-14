@@ -4,6 +4,7 @@
 
 #include "cri_axis_getter.h"
 #include "cri_collision.h"
+#include "cri_math.h"
 #include "cri_movable.h"
 
 namespace
@@ -14,7 +15,7 @@ typedef std::pair<float, float> TimeframeT; // @TODO: move out of here
 } // unnamed
 
 TimeframeT GetAxisCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs,
-    AxisGetter Axis );
+    AxisGetter Axis, float Time );
 TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
 
 CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
@@ -28,12 +29,12 @@ CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     return Result;
 }
 
-float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs )
+float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
 {
     // For each axis separately, find the timeframe within which the objects
     // could have collided
-    const TimeframeT Tx = GetAxisCollisionTime(Lhs, Rhs, AxisGetter::AxisX);
-    const TimeframeT Ty = GetAxisCollisionTime(Lhs, Rhs, AxisGetter::AxisY);
+    const TimeframeT Tx = GetAxisCollisionTime(Lhs, Rhs, AxisGetter::AxisX, Time);
+    const TimeframeT Ty = GetAxisCollisionTime(Lhs, Rhs, AxisGetter::AxisY, Time);
 
     // Find if there was a timeframe during which there was an
     // intersection for both axes
@@ -56,15 +57,10 @@ TimeframeT GetTimeframe(const TimeframeT A, const TimeframeT B)
 }
 
 TimeframeT GetAxisCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs,
-    const AxisGetter Axis )
+    const AxisGetter Axis, const float Time )
 {
-    using std::make_pair;
+    using std::make_pair; using std::max; using std::min;
     typedef CRIMovable::BoxT BoxT;
-
-    if ( Intersect(Lhs.GetAABB(), Rhs.GetAABB()) )
-    {
-        return TimeframeT(); // @FIXME
-    }
 
     const BoxT Lbox = Lhs.GetAABB();
     const float Lmin = Axis.ThisAxis(GetLeftUpper(Lbox));
@@ -74,33 +70,33 @@ TimeframeT GetAxisCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs,
     const float Rmin = Axis.ThisAxis(GetLeftUpper(Rbox));
     const float Rmax = Axis.ThisAxis(GetRightLower(Rbox));
 
+    // @FIXME
+    using std::abs;
+    const bool AreIntersecting = abs(Axis.ThisAxis(Lbox.m_Center) -
+        Axis.ThisAxis(Rbox.m_Center)) < Axis.ThisAxis(Lbox.m_HalfSize) +
+        Axis.ThisAxis(Rbox.m_HalfSize);
+    if (AreIntersecting)
+    {
+        //return TimeframeT(); // @FIXME
+    }
+
     const float VDiff = Axis.ThisAxis(Lhs.GetVelocity()) -
         Axis.ThisAxis(Rhs.GetVelocity());
-
-    float TEnter = -1.f;
-    float TLeave = -1.f;
-    if (VDiff > 0.f)
+    if (IsFpointEq(VDiff, 0.f))
     {
-        if (Rmax < Lmin)
+        if (AreIntersecting)
         {
-            TEnter = (Lmin - Rmax) / VDiff;
+            return TimeframeT(0.f, Time);
         }
-        else if (Lmax > Rmin)
+        else
         {
-            TLeave = (Lmax - Rmin) / VDiff;
-        }
-    }
-    else
-    {
-        if (Lmax < Rmin)
-        {
-            TEnter = (Lmax - Rmin) / VDiff;
-        }
-        else if (Rmax > Lmin)
-        {
-            TLeave = (Lmin - Rmax) / VDiff;
+            // If they were not intersecting to begin with, they never would
+            return TimeframeT(-1.f, -1.f);
         }
     }
 
-    return make_pair(TEnter, TLeave);
+    const float TEnter = (Rmin - Lmax) / VDiff;
+    const float TLeave = (Rmax - Lmin) / VDiff;
+
+    return make_pair(min(TEnter, TLeave), max(TEnter, TLeave));
 }

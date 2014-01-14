@@ -55,6 +55,7 @@ void CRIGameScene::UpdateObjects(float Dt)
             break;
         }
 
+        assert(Collisions.m_Time > 0.f);
         for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
         {
             (*i)->Update(Collisions.m_Time);

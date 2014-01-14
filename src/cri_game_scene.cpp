@@ -4,6 +4,7 @@
 
 #include "cri_collision.h"
 #include "cri_game_object.h"
+#include "cri_handle_collision.h"
 
 #include <algorithm>
 #include <cassert>
@@ -64,7 +65,7 @@ void CRIGameScene::UpdateObjects(float Dt)
         for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
             ++i)
         {
-            //HandleCollision(*i); // @TODO:
+            HandleCollision(*i); // @TODO:
         }
     }
     // Objects trajectory will change after collision, so we must take it

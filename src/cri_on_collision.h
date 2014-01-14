@@ -1,10 +1,8 @@
 #pragma once
 
-class CRIGameObject;
 class CRIEnemy;
 class CRIPlayer;
+struct CRICollision;
 
-void HandleCollision(CRIGameObject& Lhs, CRIGameObject& Rhs);
-
-void OnCollision( CRIEnemy& Lhs, CRIPlayer& Rhs );
-void OnCollision( CRIEnemy& Lhs, CRIEnemy& Rhs );
+void OnCollision(CRIEnemy& Lhs, CRIPlayer& Rhs, const CRICollision& Collision);
+void OnCollision(CRIEnemy& Lhs, CRIEnemy& Rhs, const CRICollision& Collision);

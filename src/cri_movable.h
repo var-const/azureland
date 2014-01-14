@@ -47,4 +47,5 @@ private:
     bool m_IsMoving;
 };
 
-CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta );
+CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta);
+void ShiftPos(CRIMovable& Object, CRIMovable::PosT Shift);

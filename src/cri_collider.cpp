@@ -24,6 +24,7 @@ void CRICollider::Reserve( const int Amount )
 CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
     const ObjIterT End, const float Time )
 {
+    m_CollisionsBuffer.clear();
     m_CurMinTime = Time + 1.f;
 
     // @FIXME naive approach (O(n * (n - 1)))

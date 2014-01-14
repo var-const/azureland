@@ -6,7 +6,6 @@ CRICollision::CRICollision()
 : m_pObjA(NULL)
 , m_pObjB(NULL)
 , m_Time(0.f)
-, m_Depth(0.f)
 {
 }
 

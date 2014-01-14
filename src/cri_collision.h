@@ -15,8 +15,6 @@ struct CRICollision
     CRIGameObject* m_pObjA;
     CRIGameObject* m_pObjB;
     float m_Time;
-    float m_Depth;
-    ci::Vec2f m_Normal;
 };
 
 struct CRICollisionsInfo

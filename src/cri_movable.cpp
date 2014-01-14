@@ -87,3 +87,8 @@ CRIMovable::PosT GetFuturePos( const CRIMovable& Object, const float Delta )
     const CRIMovable::VelT Path = Object.GetVelocity() * Delta;
     return Object.GetCenterPos() + Path;
 }
+
+void ShiftPos( CRIMovable& Object, const CRIMovable::PosT Shift )
+{
+    Object.SetCenterPos(Object.GetCenterPos() + Shift);
+}

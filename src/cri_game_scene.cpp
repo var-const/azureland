@@ -65,6 +65,7 @@ void CRIGameScene::UpdateObjects(float Dt)
         for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
             ++i)
         {
+            assert( Intersect(i->m_pObjA->GetAABB(), i->m_pObjB->GetAABB()) );
             HandleCollision(*i); // @TODO:
         }
     }
@@ -79,4 +80,4 @@ void CRIGameScene::UpdateObjects(float Dt)
             (*i)->Update(Dt);
         }
     }
-}
+} 

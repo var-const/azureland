@@ -32,35 +32,34 @@ T* GetObjByType( CRIGameObject& Lhs, CRIGameObject& Rhs )
 }
 
 template <class T, class U>
-bool TryProcessCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
-    const CRICollision& Collision )
+bool TryProcessCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
 {
     T* pT = GetObjByType<T>(Lhs, Rhs);
     if (!pT)
     {
         return false;
     }
-    U* pU = GetObjByType<U>(static_cast<CRIGameObject*>(pT) == &Lhs ? Rhs : Lhs);
+    U* pU = GetObjByType<U>(static_cast<CRIGameObject*>(pT) ==
+        &Lhs ? Rhs : Lhs);
     if (!pU)
     {
         return false;
     }
     
-    OnCollision(*pT, *pU, Collision);
+    OnCollision(*pT, *pU);
 
     return true;
 }
 
 // Double dispatch using typeids. Not elegant, but easy to implement
 
-void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
-    const CRICollision& Collision )
+void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
 {
-    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs, Collision))
+    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs))
     {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs, Collision))
+    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs))
     {
         return;
     }
@@ -70,5 +69,5 @@ void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 
 void HandleCollision(const CRICollision& Collision)
 {
-    HandleCollision(*Collision.m_pObjA, *Collision.m_pObjB, Collision);
+    HandleCollision(*Collision.m_pObjA, *Collision.m_pObjB);
 }

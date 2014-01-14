@@ -28,12 +28,13 @@ CRIPlayer* CreatePlayer( CRIApp& App )
 
     // @FIXME hard coded values
     const CRIMovable::SizeT Size = CRIMovable::SizeT(30.f, 30.f);
-    const CRIMovable::PosT Pos = CRIMovable::PosT(100.f,
+    const CRIMovable::PosT Pos = CRIMovable::PosT(400.f,
         getWindowSize().y - 30.f);
     //const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
     //    getWindowSize().y - 30.f);
     CRIPlayer* const Player = new CRIPlayer(Size, Pos);
     Player->SetSpeed(400.f);
+    //Player->SetVelocity(CRIMovable::VelT(0.f, -300.f));
     App.AddInputListener(*Player);
 
     return Player;
@@ -46,7 +47,7 @@ void CreateEnemies( CRIGameScene& Scene )
     // @FIXME hard coded values
 
     const CRIMovable::SizeT Size = CRIMovable::SizeT(20.f, 20.f);
-    const CRIMovable::PosT StartPos = CRIMovable::PosT(100.f, 100.f);
+    const CRIMovable::PosT StartPos = CRIMovable::PosT(990.f, 100.f);
     const CRIMovable::VelT VelocityBase = CRIMovable::VelT(200.f, 200.f);
     CRIMovable::PosT CurPos = StartPos;
     const float MaxHorizOffset = getWindowWidth() - StartPos.x;
@@ -60,7 +61,7 @@ void CreateEnemies( CRIGameScene& Scene )
         // Same for y axis
         const float VelY = VelocityBase.y * static_cast<float>(rand() % 3 - 1);
         //Enemy->SetVelocity(CRIMovable::VelT(VelX, VelY));
-        Enemy->SetVelocity(CRIMovable::VelT(0.f, 200.f));
+        Enemy->SetVelocity(CRIMovable::VelT(-200.f, 0.f));
         Scene.AddObject(*Enemy);
 
         CurPos.x += Size.x + 10.f;

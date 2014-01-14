@@ -39,7 +39,14 @@ float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
     // Find if there was a timeframe during which there was an
     // intersection for both axes
     const TimeframeT Timeframe = GetTimeframe(Tx, Ty);
-    return Timeframe.first; // @FIXME!
+    if (Timeframe.first > 0.f)
+    {
+        return Timeframe.first;
+    }
+    else
+    {
+        return Timeframe.second > 0.f ? 0.f : -1.f;
+    }
 }
 
 TimeframeT GetTimeframe(const TimeframeT A, const TimeframeT B)

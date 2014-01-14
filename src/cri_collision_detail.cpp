@@ -20,8 +20,12 @@ TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
 CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
-    // @TODO
-    return CRICollision();
+    CRICollision Result;
+    Result.ObjA = &Lhs;
+    Result.ObjB = &Rhs;
+    Result.Time = Time;
+    // @TODO: depth, normal
+    return Result;
 }
 
 float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs )
@@ -44,7 +48,7 @@ TimeframeT GetTimeframe(const TimeframeT A, const TimeframeT B)
     TimeframeT Result;
     Result.first = max(A.first, B.first);
     Result.second = min(A.second, B.second);
-    if (Result.second <= Result.first)
+    if (Result.second < Result.first)
     {
         Result.first = Result.second = -1.f; // @FIXME arbitrary value
     }

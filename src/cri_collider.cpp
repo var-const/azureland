@@ -24,6 +24,8 @@ void CRICollider::Reserve( const int Amount )
 CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
     const ObjIterT End, const float Time )
 {
+    m_CurMinTime = Time + 1.f;
+
     // @FIXME naive approach (O(n * (n - 1)))
     for (ObjIterT i = Begin; i != End; ++i)
     {
@@ -38,7 +40,6 @@ void CRICollider::BuildCollisions( CRIGameObject& Obj, const ObjIterT Begin,
 {
     using std::remove_if;
 
-    m_CurMinTime = Time + 1.f;
     for (ObjIterT i = Begin; i != End; ++i)
     {
         TryAddCollision(Obj, **i, Time);
@@ -59,7 +60,7 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     if (CollisionTime <= m_CurMinTime)
     {
         m_CurMinTime = CollisionTime;
-        m_CollisionsBuffer.push_back(CreateCollision(Lhs, Rhs, Time));
+        m_CollisionsBuffer.push_back(CreateCollision(Lhs, Rhs, CollisionTime));
     }
 }
 

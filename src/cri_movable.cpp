@@ -92,3 +92,18 @@ void ShiftPos( CRIMovable& Object, const CRIMovable::PosT Shift )
 {
     Object.SetCenterPos(Object.GetCenterPos() + Shift);
 }
+
+CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
+{
+    using ci::Rectf;
+    typedef CRIMovable::BoxT BoxT; typedef CRIMovable::PosT PosT;
+    typedef CRIMovable::SizeT SizeT;
+
+    const SizeT HalfSize = Object.GetSize() / 2.f;
+    const Rectf CurBox = Rectf(Object.GetCenterPos() - HalfSize,
+        Object.GetCenterPos() + HalfSize);
+    const PosT NewPos = GetFuturePos(Object, Delta);
+    const Rectf NewBox = Rectf(NewPos - HalfSize, NewPos + HalfSize);
+
+    return BoxT(CurBox.include(NewBox));
+}

@@ -8,6 +8,7 @@
 
 #include <cassert>
 #include <cstdlib>
+#include <iosfwd>
 
 CRIApp::CRIApp()
 : m_pScene(NULL)
@@ -32,6 +33,8 @@ void CRIApp::setup()
 
     srand(time(NULL));
     hideCursor();
+    setFpsSampleInterval(1.f);
+
     m_Timer.start();
     BuildGame(*this);
 }
@@ -45,6 +48,12 @@ void CRIApp::draw()
         gl::clear();
         m_pScene->Draw();
     }
+
+    using std::stringstream;
+    static stringstream s;
+    s.str("");
+    s << getAverageFps();
+    gl::drawString(s.str(), Vec2f());
 }
 
 void CRIApp::update()

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cri_collision_typedefs.h"
+#include "cri_spatial_grid.h"
 
 #include <vector>
 
@@ -26,20 +27,25 @@ public:
         ObjIterT Begin, ObjIterT End, float Time);
 
 private:
+    typedef CRISpatialGrid GridT;
+
     struct CmpCollisionTime
     {
         explicit CmpCollisionTime(float Time);
         bool operator()(const CRICollision& Other) const;
         float m_Time;
     };
+
     void BuildCollisionsWithObject(CRIGameObject& Obj, ObjConstIterT Begin,
         ObjConstIterT End, float Time);
     void TryAddCollision(CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);
 
     CollisionsContT m_CollisionsBuffer;
     float m_CurMinTime;
+    GridT m_Grid;
+    GridT::Parameters m_GridParams;
 
-//#ifdef _DEBUG
-    volatile int m_ChecksC;
-//#endif
+#ifdef _DEBUG
+    int m_ChecksC;
+#endif
 };

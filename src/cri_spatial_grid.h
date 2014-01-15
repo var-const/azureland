@@ -28,7 +28,8 @@ public:
     typedef std::vector<Cell> CellsContT;
     typedef CellsContT::const_iterator CellIterT;
 
-    CRISpatialGrid(ObjIterT Begin, ObjIterT End, float Time, Parameters Params);
+    void SetParams(Parameters Params);
+    void Reinit(ObjIterT Begin, ObjIterT End, float Time);
 
     CellIterT CellsBegin() const;
     CellIterT CellsEnd() const;

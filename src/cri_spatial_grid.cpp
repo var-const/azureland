@@ -4,13 +4,13 @@
 #include "cri_movable.h"
 #include "cri_spatial_grid.h"
 
-CRISpatialGrid::CRISpatialGrid( const ObjIterT Begin, const ObjIterT End,
-    const float Time, const Parameters Params )
+void CRISpatialGrid::SetParams(const Parameters Params) 
 {
-    using ci::Vec2f; using std::fill;
+    using ci::Vec2f;
 
     m_CellSize = Vec2f(Params.SceneSize.x / Params.CellsCount.x,
         Params.SceneSize.y / Params.CellsCount.y);
+    m_Cells.clear();
     m_Cells.reserve(Params.CellsCount.x * Params.CellsCount.y);
     const Vec2f HalfSize = m_CellSize / 2.f;
     for (int i = 0; i != Params.CellsCount.x; ++i)
@@ -22,6 +22,16 @@ CRISpatialGrid::CRISpatialGrid( const ObjIterT Begin, const ObjIterT End,
                 HalfSize;
             m_Cells.back().m_AABB = CRI_AABB(Center, HalfSize);
         }
+    }
+}
+
+void CRISpatialGrid::Reinit( const ObjIterT Begin, const ObjIterT End,
+    const float Time )
+{
+    for (CellMutableIterT cell = m_Cells.begin(); cell != m_Cells.end();
+        ++cell)
+    {
+        cell->m_Objects.clear();
     }
 
     for (ObjIterT i = Begin; i != End; ++i)

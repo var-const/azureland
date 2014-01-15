@@ -6,7 +6,6 @@
 #include "cri_collision_detail.h"
 #include "cri_game_object.h"
 #include "cri_math.h"
-#include "cri_spatial_grid.h"
 
 #include <cinder/Vector.h>
 
@@ -18,10 +17,22 @@ using ci::Vec2f;
 
 CRICollider::CRICollider()
 : m_CurMinTime(0.f)
-//#ifdef _DEBUG
+#ifdef _DEBUG
 , m_ChecksC(0)
-//#endif
+#endif
 {
+    using ci::Vec2f; using ci::Vec2i;
+    m_GridParams.SceneSize = Vec2f(1280.f, 1024.f); // @FIXME
+    //m_GridParams.CellsCount = Vec2i(8, 8);
+    //m_GridParams.CellsCount = Vec2i(13, 13);
+    //m_GridParams.CellsCount = Vec2i(15, 15); // 13
+    //m_GridParams.CellsCount = Vec2i(16, 16); // 8-10 cpu, 40% reinit
+    //m_GridParams.CellsCount = Vec2i(17, 17); // 8-10 cpu, 44% reinit
+    m_GridParams.CellsCount = Vec2i(18, 18); // 9-10 cpu, 49% reinit
+    //m_GridParams.CellsCount = Vec2i(19, 19); // 9-10
+    //m_GridParams.CellsCount = Vec2i(20, 20); // 9-11
+    //m_GridParams.CellsCount = Vec2i(22, 22); // 13
+    m_Grid.SetParams(m_GridParams);
 }
 
 void CRICollider::Reserve( const int Amount )
@@ -34,20 +45,16 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
     const ObjIterT Begin, const ObjIterT End, const float Time )
 {
     using ci::Vec2i;
-    typedef CRISpatialGrid GridT;
 
     m_CollisionsBuffer.clear();
     m_CurMinTime = Time + 1.f;
-//#ifdef _DEBUG
+#ifdef _DEBUG
     const int ObjectsC = std::distance(Begin, End);
     m_ChecksC = 0;
-//#endif
+#endif
 
-    GridT::Parameters Params;
-    Params.SceneSize = SceneSize;
-    Params.CellsCount = Vec2i(8, 8);
-    const GridT Grid = GridT(Begin, End, Time, Params);
-    for (GridT::CellIterT cell = Grid.CellsBegin(); cell != Grid.CellsEnd();
+    m_Grid.Reinit(Begin, End, Time);
+    for (GridT::CellIterT cell = m_Grid.CellsBegin(); cell != m_Grid.CellsEnd();
         ++cell)
     {
         const ObjConstIterT ObjEnd = cell->m_Objects.end();
@@ -57,11 +64,11 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
         }
     }
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
     const volatile float BetterThanBruteForce =
         static_cast<float>(ObjectsC * (ObjectsC - 1)) /
         static_cast<float>(m_ChecksC);
-//#endif
+#endif
 
     return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
         m_CollisionsBuffer.end());
@@ -84,9 +91,9 @@ void CRICollider::BuildCollisionsWithObject( CRIGameObject& Obj,
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
-//#ifdef _DEBUG
+#ifdef _DEBUG
     ++m_ChecksC;
-//#endif
+#endif
 
     const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
     if (CollisionTime < 0.f || CollisionTime > Time)

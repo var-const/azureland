@@ -12,14 +12,15 @@ CRISpatialGrid::CRISpatialGrid( const ObjIterT Begin, const ObjIterT End,
     m_CellSize = Vec2f(Params.SceneSize.x / Params.CellsCount.x,
         Params.SceneSize.y / Params.CellsCount.y);
     m_Cells.reserve(Params.CellsCount.x * Params.CellsCount.y);
+    const Vec2f HalfSize = m_CellSize / 2.f;
     for (int i = 0; i != Params.CellsCount.x; ++i)
     {
         for (int j = 0; j != Params.CellsCount.y; ++j)
         {
             m_Cells.push_back(Cell());
-            const Vec2f LeftUpper = Vec2f(i * m_CellSize.x, j * m_CellSize.y);
-            const Vec2f RightLower = LeftUpper + m_CellSize;
-            m_Cells.back().m_AABB = CRI_AABB(LeftUpper, RightLower);
+            const Vec2f Center = Vec2f(i * m_CellSize.x, j * m_CellSize.y) +
+                HalfSize;
+            m_Cells.back().m_AABB = CRI_AABB(Center, HalfSize);
         }
     }
 

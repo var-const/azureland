@@ -103,7 +103,8 @@ CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
     const Rectf CurBox = Rectf(Object.GetCenterPos() - HalfSize,
         Object.GetCenterPos() + HalfSize);
     const PosT NewPos = GetFuturePos(Object, Delta);
-    const Rectf NewBox = Rectf(NewPos - HalfSize, NewPos + HalfSize);
+    Rectf NewBox = Rectf(NewPos - HalfSize, NewPos + HalfSize);
+    NewBox.include(CurBox);
 
-    return BoxT(CurBox.include(NewBox));
+    return BoxT(NewBox);
 }

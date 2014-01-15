@@ -4,6 +4,8 @@
 
 #include <vector>
 
+namespace cinder { template <typename T> class Vec2; }
+
 class CRIGameObject;
 struct CRICollisionsInfo;
 
@@ -12,6 +14,7 @@ class CRICollider
 public:
     typedef std::vector<CRIGameObject*> ObjContT;
     typedef ObjContT::iterator ObjIterT;
+    typedef ObjContT::const_iterator ObjConstIterT;
 
     CRICollider();
 
@@ -19,7 +22,8 @@ public:
 
     // Could be templated on iterator types, but I thought that would
     // be overkill
-    CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
+    CRICollisionsInfo BuildCollisions(cinder::Vec2<float> SceneSize,
+        ObjIterT Begin, ObjIterT End, float Time);
 
 private:
     struct CmpCollisionTime
@@ -28,10 +32,14 @@ private:
         bool operator()(const CRICollision& Other) const;
         float m_Time;
     };
-    void BuildCollisions(CRIGameObject& Obj, ObjIterT Begin, ObjIterT End,
-        float Time);
+    void BuildCollisionsWithObject(CRIGameObject& Obj, ObjConstIterT Begin,
+        ObjConstIterT End, float Time);
     void TryAddCollision(CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);
 
     CollisionsContT m_CollisionsBuffer;
     float m_CurMinTime;
+
+#ifdef _DEBUG
+    int m_ChecksC;
+#endif
 };

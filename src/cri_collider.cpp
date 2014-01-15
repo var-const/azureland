@@ -6,13 +6,21 @@
 #include "cri_collision_detail.h"
 #include "cri_game_object.h"
 #include "cri_math.h"
+#include "cri_spatial_grid.h"
+
+#include <cinder/Vector.h>
 
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
 
+using ci::Vec2f;
+
 CRICollider::CRICollider()
 : m_CurMinTime(0.f)
+#ifdef _DEBUG
+, m_ChecksC(0)
+#endif
 {
 }
 
@@ -22,27 +30,49 @@ void CRICollider::Reserve( const int Amount )
     m_CollisionsBuffer.reserve(static_cast<std::size_t>(Amount));
 }
 
-CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
-    const ObjIterT End, const float Time )
+CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
+    const ObjIterT Begin, const ObjIterT End, const float Time )
 {
+    using ci::Vec2i;
+    typedef CRISpatialGrid GridT;
+
     m_CollisionsBuffer.clear();
     m_CurMinTime = Time + 1.f;
+#ifdef _DEBUG
+    const int ObjectsC = std::distance(Begin, End);
+    m_ChecksC = 0;
+#endif
 
-    // @FIXME naive approach (O(n * (n - 1)))
-    for (ObjIterT i = Begin; i != End; ++i)
+    GridT::Parameters Params;
+    Params.SceneSize = SceneSize;
+    Params.CellsCount = Vec2i(8, 8);
+    const GridT Grid = GridT(Begin, End, Time, Params);
+    for (GridT::CellIterT cell = Grid.CellsBegin(); cell != Grid.CellsEnd();
+        ++cell)
     {
-        BuildCollisions(**i, i + 1, End, Time);
+        const ObjConstIterT ObjEnd = cell->m_Objects.end();
+        for (ObjConstIterT i = cell->m_Objects.begin(); i != ObjEnd; ++i)
+        {
+            BuildCollisionsWithObject(**i, i + 1, ObjEnd, Time);
+        }
     }
+
+#ifdef _DEBUG
+    const float BetterThanBruteForce =
+        static_cast<float>(ObjectsC * (ObjectsC - 1)) /
+        static_cast<float>(m_ChecksC);
+#endif
+
     return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
         m_CollisionsBuffer.end());
 }
 
-void CRICollider::BuildCollisions( CRIGameObject& Obj, const ObjIterT Begin,
-    const ObjIterT End, const float Time )
+void CRICollider::BuildCollisionsWithObject( CRIGameObject& Obj,
+    const ObjConstIterT Begin, const ObjConstIterT End, const float Time )
 {
     using std::remove_if;
 
-    for (ObjIterT i = Begin; i != End; ++i)
+    for (ObjConstIterT i = Begin; i != End; ++i)
     {
         TryAddCollision(Obj, **i, Time);
     }
@@ -54,6 +84,10 @@ void CRICollider::BuildCollisions( CRIGameObject& Obj, const ObjIterT Begin,
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
+#ifdef _DEBUG
+    ++m_ChecksC;
+#endif
+
     const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
     if (CollisionTime < 0.f || CollisionTime > Time)
     {

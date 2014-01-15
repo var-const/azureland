@@ -2,8 +2,15 @@
 
 #include "cri_game_object.h"
 
+class CRIPlayer;
+
 class CRIEnemy : public CRIGameObject
 {
 public:	
-    CRIEnemy(const SizeT& Size, const PosT& StartPos);
+    CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
+    
+private:
+    void DoUpdate(float Dt); // override
+
+    CRIPlayer* m_pPlayer;
 };

@@ -39,7 +39,7 @@ private:
     CollisionsContT m_CollisionsBuffer;
     float m_CurMinTime;
 
-#ifdef _DEBUG
-    int m_ChecksC;
-#endif
+//#ifdef _DEBUG
+    volatile int m_ChecksC;
+//#endif
 };

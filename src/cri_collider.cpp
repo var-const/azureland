@@ -18,9 +18,9 @@ using ci::Vec2f;
 
 CRICollider::CRICollider()
 : m_CurMinTime(0.f)
-#ifdef _DEBUG
+//#ifdef _DEBUG
 , m_ChecksC(0)
-#endif
+//#endif
 {
 }
 
@@ -38,10 +38,10 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
 
     m_CollisionsBuffer.clear();
     m_CurMinTime = Time + 1.f;
-#ifdef _DEBUG
+//#ifdef _DEBUG
     const int ObjectsC = std::distance(Begin, End);
     m_ChecksC = 0;
-#endif
+//#endif
 
     GridT::Parameters Params;
     Params.SceneSize = SceneSize;
@@ -57,11 +57,11 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
         }
     }
 
-#ifdef _DEBUG
-    const float BetterThanBruteForce =
+//#ifdef _DEBUG
+    const volatile float BetterThanBruteForce =
         static_cast<float>(ObjectsC * (ObjectsC - 1)) /
         static_cast<float>(m_ChecksC);
-#endif
+//#endif
 
     return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
         m_CollisionsBuffer.end());
@@ -84,9 +84,9 @@ void CRICollider::BuildCollisionsWithObject( CRIGameObject& Obj,
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
-#ifdef _DEBUG
+//#ifdef _DEBUG
     ++m_ChecksC;
-#endif
+//#endif
 
     const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
     if (CollisionTime < 0.f || CollisionTime > Time)

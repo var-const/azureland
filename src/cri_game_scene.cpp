@@ -47,7 +47,7 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
 
 void CRIGameScene::UpdateObjects(float Dt)
 {
-    do
+    for (int i = 0; i != 5; ++i)
     {
         const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
             ci::Vec2f(1280.f, 1024.f), m_Objects.begin(), m_Objects.end(), Dt);
@@ -55,6 +55,7 @@ void CRIGameScene::UpdateObjects(float Dt)
         {
             break;
         }
+        const int Size = Collisions.GetSize();
 
         if (Collisions.m_Time > 0.f)
         {
@@ -67,14 +68,17 @@ void CRIGameScene::UpdateObjects(float Dt)
         for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
             ++i)
         {
-            assert( TouchOrIntersect(i->m_pObjA->GetAABB(),
-                i->m_pObjB->GetAABB()) );
+            //assert( TouchOrIntersect(i->m_pObjA->GetAABB(),
+            //    i->m_pObjB->GetAABB()) );
             HandleCollision(*i); // @TODO:
+        }
+        if (Dt <= 0.f)
+        {
+            break;
         }
     }
     // Objects trajectory will change after collision, so we must take it
     // into account. @TODO: optimize?
-    while (Dt > 0.f);
 
     if (Dt > 0.f)
     {

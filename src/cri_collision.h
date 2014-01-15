@@ -21,6 +21,7 @@ struct CRICollisionsInfo
 {
     CRICollisionsInfo(float Time, CollisionsIterT Begin, CollisionsIterT End);
     bool IsEmpty() const;
+    int GetSize() const;
 
     float m_Time;
     CollisionsIterT m_Begin;

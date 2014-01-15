@@ -2,6 +2,8 @@
 
 #include "cri_collision.h"
 
+#include <utility>
+
 CRICollision::CRICollision()
 : m_pObjA(NULL)
 , m_pObjB(NULL)
@@ -20,4 +22,10 @@ CRICollisionsInfo::CRICollisionsInfo( const float Time,
 bool CRICollisionsInfo::IsEmpty() const
 {
     return m_Begin == m_End;
+}
+
+int CRICollisionsInfo::GetSize() const
+{
+    using std::distance;
+    return distance(m_Begin, m_End);
 }

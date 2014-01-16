@@ -22,17 +22,18 @@ CRICollider::CRICollider()
 #endif
 {
     using ci::Vec2f; using ci::Vec2i;
-    m_GridParams.SceneSize = Vec2f(1280.f, 1024.f); // @FIXME
+    //m_GridParams.SceneSize = Vec2f(1280.f, 1024.f); // @FIXME
     //m_GridParams.CellsCount = Vec2i(8, 8);
     //m_GridParams.CellsCount = Vec2i(13, 13);
     //m_GridParams.CellsCount = Vec2i(15, 15); // 13
     //m_GridParams.CellsCount = Vec2i(16, 16); // 8-10 cpu, 40% reinit
     //m_GridParams.CellsCount = Vec2i(17, 17); // 8-10 cpu, 44% reinit
-    m_GridParams.CellsCount = Vec2i(18, 18); // 9-10 cpu, 49% reinit
+    //m_GridParams.CellsCount = Vec2i(18, 18); // 9-10 cpu, 49% reinit
     //m_GridParams.CellsCount = Vec2i(19, 19); // 9-10
     //m_GridParams.CellsCount = Vec2i(20, 20); // 9-11
     //m_GridParams.CellsCount = Vec2i(22, 22); // 13
-    m_Grid.SetParams(m_GridParams);
+    //m_Grid.SetParams(m_GridParams);
+    m_Grid.SetSize(Vec2i(1280, 1024));
 }
 
 void CRICollider::Reserve( const int Amount )
@@ -54,13 +55,17 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
 #endif
 
     m_Grid.Reinit(Begin, End, Time);
-    for (GridT::CellIterT cell = m_Grid.CellsBegin(); cell != m_Grid.CellsEnd();
-        ++cell)
+    for (int Row = 0; Row != GridT::RowsC; ++Row)
     {
-        const ObjConstIterT ObjEnd = cell->m_Objects.end();
-        for (ObjConstIterT i = cell->m_Objects.begin(); i != ObjEnd; ++i)
+        for (int Col = 0; Col != GridT::ColsC; ++Col)
         {
-            BuildCollisionsWithObject(**i, i + 1, ObjEnd, Time);
+            const ObjContT& Objects = m_Grid.m_Cells[Row][Col];
+            const ObjConstIterT ObjEnd = Objects.end();
+            for (ObjConstIterT ObjIter = Objects.begin(); ObjIter != ObjEnd;
+                ++ObjIter)
+            {
+                BuildCollisionsWithObject(**ObjIter, ObjIter + 1, ObjEnd, Time);
+            }
         }
     }
 

@@ -22,10 +22,11 @@ CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
     CRICollision Result;
+
     Result.m_pObjA = &Lhs;
     Result.m_pObjB = &Rhs;
     Result.m_Time = Time;
-    // @TODO: depth, normal
+
     return Result;
 }
 

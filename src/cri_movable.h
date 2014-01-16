@@ -4,6 +4,8 @@
 
 #include <cinder/Vector.h>
 
+#include <utility>
+
 // @TODO: it could make sense to extract size and pos to
 // another class, because, for example, obstacles don't move
 
@@ -29,6 +31,8 @@ public:
 
     const BoxT& GetAABBRef() const;
     BoxT GetAABB() const;
+    const BoxT& GetMovementAABBRef() const;
+    BoxT GetMovementAABB() const;
 
     bool IsMoving() const;
 
@@ -42,7 +46,8 @@ private:
     SizeT m_Size;
     PosT m_Pos;
     VelT m_Velocity;
-    BoxT m_ABBB;
+    BoxT m_AABB;
+    BoxT m_MovementAABB;
 
     bool m_IsMoving;
 };
@@ -50,3 +55,5 @@ private:
 CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta);
 void ShiftPos(CRIMovable& Object, CRIMovable::PosT Shift);
 CRIMovable::BoxT GetMovementAABB(const CRIMovable& Object, float Delta);
+std::pair<ci::Vec2i, ci::Vec2i> GetMovementBounds( const CRIMovable& Object,
+    float Delta);

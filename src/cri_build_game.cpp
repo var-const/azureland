@@ -53,6 +53,7 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
     const float MaxHorizOffset = getWindowWidth() - Size.x;
     
     for (int i = 0; i != 1000; ++i)
+    //for (int i = 0; i != 30; ++i)
     {
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
         Scene.AddObject(*Enemy);

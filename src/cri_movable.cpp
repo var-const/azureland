@@ -4,6 +4,9 @@
 
 #include "cri_math.h"
 
+using ci::Vec2i;
+using std::pair;
+
 CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
 : m_Size(Size)
 , m_Pos(StartPos)
@@ -64,17 +67,29 @@ void CRIMovable::Move( const float Delta )
 
 const CRIMovable::BoxT& CRIMovable::GetAABBRef() const
 {
-    return m_ABBB;
+    return m_AABB;
 }
 
 CRIMovable::BoxT CRIMovable::GetAABB() const
 {
-    return m_ABBB;
+    return m_AABB;
+}
+
+const CRIMovable::BoxT& CRIMovable::GetMovementAABBRef() const
+{
+    return m_MovementAABB;
+}
+
+CRIMovable::BoxT CRIMovable::GetMovementAABB() const
+{
+    return m_MovementAABB;
 }
 
 void CRIMovable::UpdateBoundingBox()
 {
-    SetAABB(m_ABBB, m_Pos, m_Size / 2.f);
+    using ::GetMovementAABB;
+    SetAABB(m_AABB, m_Pos, m_Size / 2.f);
+    m_MovementAABB = GetMovementAABB(*this, 1.f / 60.f);
 }
 
 bool CRIMovable::IsMoving() const
@@ -107,4 +122,23 @@ CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
     NewBox.include(CurBox);
 
     return BoxT(NewBox);
+}
+
+pair<Vec2i, Vec2i> GetMovementBounds( const CRIMovable& Object, float Delta )
+{
+    using ci::Rectf; using ci::Vec2f;
+    using std::make_pair;
+    typedef CRIMovable::BoxT BoxT; typedef CRIMovable::PosT PosT;
+    typedef CRIMovable::SizeT SizeT;
+
+    const SizeT HalfSize = Object.GetSize() / 2.f;
+    const Rectf CurBox = Rectf(Object.GetCenterPos() - HalfSize,
+        Object.GetCenterPos() + HalfSize);
+    const PosT NewPos = GetFuturePos(Object, Delta);
+    Rectf NewBox = Rectf(NewPos - HalfSize, NewPos + HalfSize);
+    NewBox.include(CurBox);
+    const Vec2i LeftUpper = NewBox.getUpperLeft();
+    const Vec2i RightLower = NewBox.getLowerRight() + Vec2f(1.f, 1.f);
+
+    return make_pair(LeftUpper, RightLower);
 }

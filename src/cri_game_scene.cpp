@@ -28,6 +28,7 @@ void CRIGameScene::Draw()
     {
         (*i)->Draw();
     }
+    //m_Collider.Draw();
 }
 
 void CRIGameScene::Update(const float Dt)

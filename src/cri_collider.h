@@ -27,7 +27,7 @@ public:
         ObjIterT Begin, ObjIterT End, float Time);
 
 private:
-    typedef CRISpatialGrid GridT;
+    typedef CRISpatialGrid<30, 30> GridT;
 
     struct CmpCollisionTime
     {
@@ -43,7 +43,6 @@ private:
     CollisionsContT m_CollisionsBuffer;
     float m_CurMinTime;
     GridT m_Grid;
-    GridT::Parameters m_GridParams;
 
 #ifdef _DEBUG
     int m_ChecksC;

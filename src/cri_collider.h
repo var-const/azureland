@@ -23,8 +23,7 @@ public:
 
     // Could be templated on iterator types, but I thought that would
     // be overkill
-    CRICollisionsInfo BuildCollisions(cinder::Vec2<float> SceneSize,
-        ObjIterT Begin, ObjIterT End, float Time);
+    CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
 
 private:
     typedef CRISpatialGrid<30, 30> GridT;

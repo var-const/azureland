@@ -45,8 +45,8 @@ void CRICollider::Reserve( const int Amount )
     m_Pairs.reserve(static_cast<std::size_t>(Amount * 10));
 }
 
-CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
-    const ObjIterT Begin, const ObjIterT End, const float Time )
+CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
+    const ObjIterT End, const float Time )
 {
     using ci::Vec2i;
 

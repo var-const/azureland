@@ -44,7 +44,7 @@ void CRICollider::Reserve( const int Amount )
 {
     assert(Amount > 0);
     ResizeAtLeast(m_CollisionsBuffer, Amount * 2);
-    ResizeAtLeast(m_Checks, Amount * 10);
+    ResizeAtLeast(m_Checks, Amount * 100);
 }
 
 CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,

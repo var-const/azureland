@@ -41,10 +41,12 @@ private:
     void TryAddCollision(CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);
 
     CollisionsContT m_CollisionsBuffer;
+    std::vector<std::pair<CRIGameObject*, CRIGameObject*> > m_Pairs;
     float m_CurMinTime;
     GridT m_Grid;
 
 #ifdef _DEBUG
     int m_ChecksC;
+    int m_CollisionsC;
 #endif
 };

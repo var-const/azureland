@@ -19,6 +19,7 @@ CRICollider::CRICollider()
 : m_CurMinTime(0.f)
 #ifdef _DEBUG
 , m_ChecksC(0)
+, m_CollisionsC(0)
 #endif
 {
     using ci::Vec2f; using ci::Vec2i;
@@ -40,6 +41,7 @@ void CRICollider::Reserve( const int Amount )
 {
     assert(Amount > 0);
     m_CollisionsBuffer.reserve(static_cast<std::size_t>(Amount));
+    m_Pairs.reserve(static_cast<std::size_t>(Amount * 10));
 }
 
 CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
@@ -51,8 +53,10 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
     m_CurMinTime = Time + 1.f;
 #ifdef _DEBUG
     const int ObjectsC = std::distance(Begin, End);
-    m_ChecksC = 0;
+    m_ChecksC = m_CollisionsC = 0;
 #endif
+
+    m_Pairs.clear();
 
     m_Grid.Reinit(Begin, End, Time);
     for (int Row = 0; Row != GridT::RowsC; ++Row)
@@ -64,15 +68,46 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
             for (ObjConstIterT ObjIter = Objects.begin(); ObjIter != ObjEnd;
                 ++ObjIter)
             {
-                BuildCollisionsWithObject(**ObjIter, ObjIter + 1, ObjEnd, Time);
+                for (ObjConstIterT Test = ObjIter + 1; Test != ObjEnd;
+                    ++Test)
+                {
+                    m_Pairs.push_back(*ObjIter < *Test ? std::make_pair(*ObjIter, *Test) :
+                        std::make_pair(*Test, *ObjIter));
+                //BuildCollisionsWithObject(**ObjIter, ObjIter + 1, ObjEnd, Time);
+                }
             }
         }
     }
+    std::sort(m_Pairs.begin(), m_Pairs.end());
+    CRIGameObject *a = 0, *b = 0;
+#ifdef _DEBUG
+    int duplicates = 0;
+#endif
+    for (auto i = m_Pairs.begin(); i != m_Pairs.end(); ++i)
+    {
+        if (a == i->first && b == i->second)
+        {
+#ifdef _DEBUG
+            ++duplicates;
+#endif
+            continue;
+        }
+        a = i->first;
+        b = i->second;
+        TryAddCollision(*i->first, *i->second, Time);
+    }
+    const CollisionsIterT Last = remove_if(m_CollisionsBuffer.begin(),
+        m_CollisionsBuffer.end(), CmpCollisionTime(m_CurMinTime));
+    m_CollisionsBuffer.erase(Last, m_CollisionsBuffer.end());
 
 #ifdef _DEBUG
     const volatile float BetterThanBruteForce =
         static_cast<float>(ObjectsC * (ObjectsC - 1)) /
         static_cast<float>(m_ChecksC);
+    const volatile float LessThanPerfect =
+        static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
+    const volatile float DuplicatesPercent =
+        static_cast<float>(duplicates) / static_cast<float>(m_Pairs.size());
 #endif
 
     return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
@@ -105,6 +140,11 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     {
         return;
     }
+
+#ifdef _DEBUG
+    ++m_CollisionsC;
+#endif
+
     // @FIXME hack
     if ( IsFpointEq(CollisionTime, 0.f) &&
         TouchOnly(Lhs.GetAABB(), Rhs.GetAABB()) )

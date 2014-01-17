@@ -14,8 +14,6 @@ typedef std::pair<float, float> TimeframeT; // @TODO: move out of here
 
 } // unnamed
 
-TimeframeT GetAxisCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs,
-    AxisGetter Axis, float Time );
 TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
 
 CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
@@ -32,11 +30,62 @@ CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 
 float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
 {
-    // For each axis separately, find the timeframe within which the objects
-    // could have collided
-    const TimeframeT Tx = GetAxisCollisionTime(Lhs, Rhs, AxisGetter::AxisX, Time);
-    const TimeframeT Ty = GetAxisCollisionTime(Lhs, Rhs, AxisGetter::AxisY, Time);
+    using ci::Vec2f;
+    using std::abs; using std::make_pair; using std::max; using std::min;
+    typedef CRIMovable::BoxT BoxT;
 
+    Vec2f TEnter;
+    Vec2f TLeave;
+
+    const Vec2f VDiff = Lhs.GetVelocity() - Rhs.GetVelocity();
+    if (VDiff.x < 0.001f)
+    {
+        const bool AreIntersecting = abs(Lhs.GetCenterPos().x -
+            Rhs.GetCenterPos().x) < Lhs.GetHalfSize().x + Rhs.GetHalfSize().x;
+        if (AreIntersecting)
+        {
+            TEnter.x = 0.f;
+            TLeave.x = Time;
+        }
+        else
+        {
+            // If they were not intersecting to begin with, they never would
+            return -1.f;
+        }
+    }
+    else
+    {
+        const Vec2f LBounds = Lhs.GetXBounds();
+        const Vec2f RBounds = Rhs.GetXBounds();
+        TEnter.x = (RBounds.x - LBounds.y) / VDiff.x;
+        TLeave.x = (RBounds.y - LBounds.x) / VDiff.x;
+    }
+
+    if (VDiff.y < 0.001f)
+    {
+        const bool AreIntersecting = abs(Lhs.GetCenterPos().y -
+            Rhs.GetCenterPos().y) < Lhs.GetHalfSize().y + Rhs.GetHalfSize().y;
+        if (AreIntersecting)
+        {
+            TEnter.y = 0.f;
+            TLeave.y = Time;
+        }
+        else
+        {
+            return -1.f;
+        }
+    }
+    else
+    {
+        const Vec2f LBounds = Lhs.GetYBounds();
+        const Vec2f RBounds = Rhs.GetYBounds();
+        TEnter.y = (RBounds.x - LBounds.y) / VDiff.y;
+        TLeave.y = (RBounds.y - LBounds.x) / VDiff.y;
+    }
+
+    
+    const TimeframeT Tx = make_pair(min(TEnter.x, TLeave.x), max(TEnter.x, TLeave.x));
+    const TimeframeT Ty = make_pair(min(TEnter.y, TLeave.y), max(TEnter.y, TLeave.y));
     // Find if there was a timeframe during which there was an
     // intersection for both axes
     const TimeframeT Timeframe = GetTimeframe(Tx, Ty);
@@ -62,49 +111,4 @@ TimeframeT GetTimeframe(const TimeframeT A, const TimeframeT B)
         Result.first = Result.second = -1.f; // @FIXME arbitrary value
     }
     return Result;
-}
-
-TimeframeT GetAxisCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs,
-    const AxisGetter Axis, const float Time )
-{
-    using std::make_pair; using std::max; using std::min;
-    typedef CRIMovable::BoxT BoxT;
-
-    const BoxT Lbox = Lhs.GetAABB();
-    const float Lmin = Axis.ThisAxis(GetLeftUpper(Lbox));
-    const float Lmax = Axis.ThisAxis(GetRightLower(Lbox));
-
-    const BoxT Rbox = Rhs.GetAABB();
-    const float Rmin = Axis.ThisAxis(GetLeftUpper(Rbox));
-    const float Rmax = Axis.ThisAxis(GetRightLower(Rbox));
-
-    // @FIXME
-    using std::abs;
-    const bool AreIntersecting = abs(Axis.ThisAxis(Lbox.m_Center) -
-        Axis.ThisAxis(Rbox.m_Center)) < Axis.ThisAxis(Lbox.m_HalfSize) +
-        Axis.ThisAxis(Rbox.m_HalfSize);
-    if (AreIntersecting)
-    {
-        //return TimeframeT(); // @FIXME
-    }
-
-    const float VDiff = Axis.ThisAxis(Lhs.GetVelocity()) -
-        Axis.ThisAxis(Rhs.GetVelocity());
-    if (IsFpointEq(VDiff, 0.f))
-    {
-        if (AreIntersecting)
-        {
-            return TimeframeT(0.f, Time);
-        }
-        else
-        {
-            // If they were not intersecting to begin with, they never would
-            return TimeframeT(-1.f, -1.f);
-        }
-    }
-
-    const float TEnter = (Rmin - Lmax) / VDiff;
-    const float TLeave = (Rmax - Lmin) / VDiff;
-
-    return make_pair(min(TEnter, TLeave), max(TEnter, TLeave));
 }

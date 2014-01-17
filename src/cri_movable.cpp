@@ -4,7 +4,7 @@
 
 #include "cri_math.h"
 
-using ci::Vec2i;
+using ci::Vec2f; using ci::Vec2i;
 using std::pair;
 
 CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
@@ -89,6 +89,8 @@ void CRIMovable::UpdateBoundingBox()
 {
     using ::GetMovementAABB;
     SetAABB(m_AABB, m_Pos, m_Size / 2.f);
+    m_XBounds = Vec2f(m_Pos.x - m_AABB.m_HalfSize.x, m_Pos.x + m_AABB.m_HalfSize.x);
+    m_YBounds = Vec2f(m_Pos.y - m_AABB.m_HalfSize.y, m_Pos.y + m_AABB.m_HalfSize.y);
     //m_MovementAABB = GetMovementAABB(*this, 1.f / 60.f);
 }
 
@@ -100,6 +102,21 @@ bool CRIMovable::IsMoving() const
 void CRIMovable::CacheMovementAABB( ci::Rectf Rect )
 {
     m_MovementAABB = CRI_AABBd(Rect);
+}
+
+Vec2f CRIMovable::GetHalfSize() const
+{
+    return m_AABB.m_HalfSize;
+}
+
+Vec2f CRIMovable::GetXBounds() const
+{
+    return m_XBounds;
+}
+
+Vec2f CRIMovable::GetYBounds() const
+{
+    return m_YBounds;
 }
 
 CRIMovable::PosT GetFuturePos( const CRIMovable& Object, const float Delta )

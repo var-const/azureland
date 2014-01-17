@@ -35,6 +35,10 @@ public:
     const CRI_AABBd& GetMovementAABBRef() const;
     CRI_AABBd GetMovementAABB() const;
 
+    ci::Vec2f GetHalfSize() const;
+    ci::Vec2f GetXBounds() const;
+    ci::Vec2f GetYBounds() const;
+
     bool IsMoving() const;
 
     void CacheMovementAABB(ci::Rectf Rect);
@@ -51,6 +55,8 @@ private:
     VelT m_Velocity;
     BoxT m_AABB;
     CRI_AABBd m_MovementAABB;
+    ci::Vec2f m_XBounds;
+    ci::Vec2f m_YBounds;
 
     bool m_IsMoving;
 };

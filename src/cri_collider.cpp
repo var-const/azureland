@@ -4,6 +4,7 @@
 
 #include "cri_collision.h"
 #include "cri_collision_detail.h"
+#include "cri_container_helpers.h"
 #include "cri_game_object.h"
 #include "cri_math.h"
 
@@ -17,10 +18,11 @@ using ci::Vec2f;
 
 CRICollider::CRICollider()
 : m_CurMinTime(0.f)
-#ifdef _DEBUG
+#ifdef PERFORMANCE_METRICS
 , m_ChecksC(0)
 , m_CollisionsC(0)
 , m_SimpleChecks(0)
+, m_Duplicates(0)
 #endif
 {
     using ci::Vec2f; using ci::Vec2i;
@@ -41,95 +43,109 @@ CRICollider::CRICollider()
 void CRICollider::Reserve( const int Amount )
 {
     assert(Amount > 0);
-    m_CollisionsBuffer.reserve(static_cast<std::size_t>(Amount));
-    m_Pairs.reserve(static_cast<std::size_t>(Amount * 10));
+    ResizeAtLeast(m_CollisionsBuffer, Amount * 2);
+    ResizeAtLeast(m_Checks, Amount * 10);
 }
 
 CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
     const ObjIterT End, const float Time )
 {
     using ci::Vec2i;
+    using std::make_pair;
 
-    m_CollisionsBuffer.clear();
     m_CurMinTime = Time + 1.f;
-#ifdef _DEBUG
+#ifdef PERFORMANCE_METRICS
     const int ObjectsC = std::distance(Begin, End);
-    m_ChecksC = m_CollisionsC = 0;
-    m_SimpleChecks = 0;
+    m_ChecksC = m_CollisionsC = m_SimpleChecks = 0;
+    m_Duplicates = 0;
 #endif
 
-    m_Pairs.clear();
+    BroadPhase(Begin, End, Time);
+    NarrowPhase(Time);
+
+#ifdef PERFORMANCE_METRICS
+    const volatile float BetterThanBruteForce =
+        static_cast<float>(ObjectsC * (ObjectsC - 1)) /
+        static_cast<float>(m_ChecksC);
+    const volatile float LessThanPerfect =
+        static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
+    const volatile int ChecksSize = std::distance(m_Checks.begin(),
+        m_ChecksEndIter);
+    const volatile float DuplicatesPercent =
+        static_cast<float>(m_Duplicates) / static_cast<float>(ChecksSize);
+    const volatile float SimpleChecksPercent =
+        static_cast<float>(m_SimpleChecks) /
+        static_cast<float>(m_SimpleChecks + m_ChecksC);
+    const volatile int Collisions = std::distance(m_CollisionsBuffer.begin(),
+        m_CollisionsEndIter);
+#endif
+
+    return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
+        m_CollisionsEndIter);
+}
+
+void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
+    const float Time )
+{
+    using std::sort;
 
     m_Grid.Reinit(Begin, End, Time);
-    for (int Row = 0; Row != GridT::RowsC; ++Row)
+    m_ChecksEndIter = m_Checks.begin();
+
+    for (std::size_t Row = 0U; Row != GridT::RowsC; ++Row)
     {
-        for (int Col = 0; Col != GridT::ColsC; ++Col)
+        for (std::size_t Col = 0U; Col != GridT::ColsC; ++Col)
         {
             const ObjContT& Objects = m_Grid.m_Cells[Row][Col];
             const ObjConstIterT ObjEnd = Objects.end();
             for (ObjConstIterT ObjIter = Objects.begin(); ObjIter != ObjEnd;
                 ++ObjIter)
             {
-                for (ObjConstIterT Test = ObjIter + 1; Test != ObjEnd;
-                    ++Test)
-                {
-                    m_Pairs.push_back(*ObjIter < *Test ? std::make_pair(*ObjIter, *Test) :
-                        std::make_pair(*Test, *ObjIter));
-                //BuildCollisionsWithObject(**ObjIter, ObjIter + 1, ObjEnd, Time);
-                }
+                AddChecks(*ObjIter, ObjIter + 1, ObjEnd);
             }
         }
     }
-    std::sort(m_Pairs.begin(), m_Pairs.end());
-    CRIGameObject *a = 0, *b = 0;
-#ifdef _DEBUG
-    int duplicates = 0;
-#endif
-    for (auto i = m_Pairs.begin(); i != m_Pairs.end(); ++i)
+
+    sort(m_Checks.begin(), m_ChecksEndIter);
+} 
+
+void CRICollider::AddChecks(CRIGameObject* const Obj, const ObjConstIterT Begin,
+    const ObjConstIterT End)
+{
+    using std::make_pair;
+
+    for (ObjConstIterT Iter = Begin; Iter != End; ++Iter)
     {
-        if (a == i->first && b == i->second)
-        {
-#ifdef _DEBUG
-            ++duplicates;
-#endif
-            continue;
-        }
-        a = i->first;
-        b = i->second;
-        TryAddCollision(*i->first, *i->second, Time);
+        *m_ChecksEndIter++ = Obj < *Iter ? make_pair(Obj, *Iter) :
+            make_pair(*Iter, Obj);
     }
-    const CollisionsIterT Last = remove_if(m_CollisionsBuffer.begin(),
-        m_CollisionsBuffer.end(), CmpCollisionTime(m_CurMinTime));
-    m_CollisionsBuffer.erase(Last, m_CollisionsBuffer.end());
-
-#ifdef _DEBUG
-    const volatile float BetterThanBruteForce =
-        static_cast<float>(ObjectsC * (ObjectsC - 1)) /
-        static_cast<float>(m_ChecksC);
-    const volatile float LessThanPerfect =
-        static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
-    const volatile float DuplicatesPercent =
-        static_cast<float>(duplicates) / static_cast<float>(m_Pairs.size());
-    const volatile float SimpleChecksPercent =
-        static_cast<float>(m_SimpleChecks) / static_cast<float>(m_SimpleChecks + m_ChecksC);
-#endif
-
-    return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
-        m_CollisionsBuffer.end());
 }
 
-void CRICollider::BuildCollisionsWithObject( CRIGameObject& Obj,
-    const ObjConstIterT Begin, const ObjConstIterT End, const float Time )
+void CRICollider::NarrowPhase(const float Time)
 {
     using std::remove_if;
 
-    for (ObjConstIterT i = Begin; i != End; ++i)
+    m_CollisionsEndIter = m_CollisionsBuffer.begin();
+
+    CRIGameObject* LastObjA = NULL;
+    CRIGameObject* LastObjB = NULL;
+    for (ChecksConstIterT i = m_Checks.begin(); i != m_ChecksEndIter; ++i)
     {
-        TryAddCollision(Obj, **i, Time);
+        if (LastObjA == i->first && LastObjB == i->second)
+        {
+#ifdef PERFORMANCE_METRICS
+            ++m_Duplicates;
+#endif
+            continue;
+        }
+        LastObjA = i->first;
+        LastObjB = i->second;
+
+        TryAddCollision(*i->first, *i->second, Time);
     }
-    const CollisionsIterT Last = remove_if(m_CollisionsBuffer.begin(),
-        m_CollisionsBuffer.end(), CmpCollisionTime(m_CurMinTime));
-    m_CollisionsBuffer.erase(Last, m_CollisionsBuffer.end());
+
+    m_CollisionsEndIter = remove_if(m_CollisionsBuffer.begin(),
+        m_CollisionsEndIter, CmpCollisionTime(m_CurMinTime));
 }
 
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
@@ -137,14 +153,16 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 {
     if ( !Intersect(Lhs.GetMovementAABB(), Rhs.GetMovementAABB()) )
     {
-#ifdef _DEBUG
+#ifdef PERFORMANCE_METRICS
         ++m_SimpleChecks;
+#endif
+#ifdef _DEBUG
         const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
         assert(CollisionTime < 0.f || CollisionTime > Time);
 #endif
         return;
     }
-#ifdef _DEBUG
+#ifdef PERFORMANCE_METRICS
     ++m_ChecksC;
 #endif
 
@@ -154,7 +172,7 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
         return;
     }
 
-#ifdef _DEBUG
+#ifdef PERFORMANCE_METRICS
     ++m_CollisionsC;
 #endif
 
@@ -167,7 +185,7 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     if (CollisionTime <= m_CurMinTime)
     {
         m_CurMinTime = CollisionTime;
-        m_CollisionsBuffer.push_back(CreateCollision(Lhs, Rhs, CollisionTime));
+        *m_CollisionsEndIter++ = CreateCollision(Lhs, Rhs, CollisionTime);
     }
 }
 

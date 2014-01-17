@@ -51,7 +51,7 @@ void CRIGameScene::UpdateObjects(float Dt)
     for (int i = 0; i != 5; ++i)
     {
         const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
-            ci::Vec2f(1280.f, 1024.f), m_Objects.begin(), m_Objects.end(), Dt);
+            m_Objects.begin(), m_Objects.end(), Dt);
         if (Collisions.IsEmpty())
         {
             break;

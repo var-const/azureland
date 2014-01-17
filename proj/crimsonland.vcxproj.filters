@@ -144,5 +144,8 @@
     <ClInclude Include="..\src\cri_aabb_int.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\cri_container_helpers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

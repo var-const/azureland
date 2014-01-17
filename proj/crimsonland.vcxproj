@@ -46,6 +46,7 @@
     <ClInclude Include="..\src\cri_collision.h" />
     <ClInclude Include="..\src\cri_collision_detail.h" />
     <ClInclude Include="..\src\cri_collision_typedefs.h" />
+    <ClInclude Include="..\src\cri_container_helpers.h" />
     <ClInclude Include="..\src\cri_enemy.h" />
     <ClInclude Include="..\src\cri_game_objects.h" />
     <ClInclude Include="..\src\cri_movement_controller.h" />

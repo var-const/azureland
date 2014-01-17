@@ -67,6 +67,9 @@
     <ClCompile Include="..\src\cri_quad_tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cri_aabb_int.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_app.h">
@@ -136,6 +139,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_quad_tree_node.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_aabb_int.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

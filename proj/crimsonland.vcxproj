@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cri_aabb.cpp" />
+    <ClCompile Include="..\src\cri_aabb_int.cpp" />
     <ClCompile Include="..\src\cri_app.cpp" />
     <ClCompile Include="..\src\cri_axis_getter.cpp" />
     <ClCompile Include="..\src\cri_build_game.cpp" />
@@ -37,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_aabb.h" />
+    <ClInclude Include="..\src\cri_aabb_int.h" />
     <ClInclude Include="..\src\cri_app.h" />
     <ClInclude Include="..\src\cri_axis_getter.h" />
     <ClInclude Include="..\src\cri_build_game.h" />

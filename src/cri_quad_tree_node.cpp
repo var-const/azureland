@@ -91,15 +91,15 @@ void CRIQuadTreeNode::Rearrange()
             ++ObjIter;
             continue;
         }
-        const CRI_AABB ValBox = Obj->GetMovementAABB();
-        if (Pop(Obj, ValBox) || InsertToChildren(Obj, ValBox))
-        { 
-            ObjIter = EraseLocal(Obj);
-        }
-        else
-        {
-            ++ObjIter;
-        }
+        //const CRI_AABB ValBox = Obj->GetMovementAABB();
+        //if (Pop(Obj, ValBox) || InsertToChildren(Obj, ValBox))
+        //{ 
+        //    ObjIter = EraseLocal(Obj);
+        //}
+        //else
+        //{
+        //    ++ObjIter;
+        //}
     }
 
     for (NodesIterT Node = m_Nodes.begin(); Node != m_Nodes.end(); ++Node)
@@ -240,14 +240,14 @@ void CRIQuadTreeNode::PushObjectsToChildren()
     for (ObjectsConstIterT ObjIter = m_Objects.begin();
         ObjIter != m_Objects.end(); /*omit*/)
     {
-        if ( InsertToChildren(*ObjIter, (*ObjIter)->GetMovementAABB()) )
-        {
-            ObjIter = m_Objects.erase(ObjIter);
-        }
-        else
-        {
-            ++ObjIter;
-        }
+        //if ( InsertToChildren(*ObjIter, (*ObjIter)->GetMovementAABB()) )
+        //{
+        //    ObjIter = m_Objects.erase(ObjIter);
+        //}
+        //else
+        //{
+        //    ++ObjIter;
+        //}
     }
 }
 

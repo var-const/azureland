@@ -20,6 +20,7 @@ CRICollider::CRICollider()
 #ifdef _DEBUG
 , m_ChecksC(0)
 , m_CollisionsC(0)
+, m_SimpleChecks(0)
 #endif
 {
     using ci::Vec2f; using ci::Vec2i;
@@ -54,6 +55,7 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
 #ifdef _DEBUG
     const int ObjectsC = std::distance(Begin, End);
     m_ChecksC = m_CollisionsC = 0;
+    m_SimpleChecks = 0;
 #endif
 
     m_Pairs.clear();
@@ -108,6 +110,8 @@ CRICollisionsInfo CRICollider::BuildCollisions( const Vec2f SceneSize,
         static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
     const volatile float DuplicatesPercent =
         static_cast<float>(duplicates) / static_cast<float>(m_Pairs.size());
+    const volatile float SimpleChecksPercent =
+        static_cast<float>(m_SimpleChecks) / static_cast<float>(m_SimpleChecks + m_ChecksC);
 #endif
 
     return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
@@ -131,6 +135,15 @@ void CRICollider::BuildCollisionsWithObject( CRIGameObject& Obj,
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
 {
+    if ( !Intersect(Lhs.GetMovementAABB(), Rhs.GetMovementAABB()) )
+    {
+#ifdef _DEBUG
+        ++m_SimpleChecks;
+        const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
+        assert(CollisionTime < 0.f || CollisionTime > Time);
+#endif
+        return;
+    }
 #ifdef _DEBUG
     ++m_ChecksC;
 #endif

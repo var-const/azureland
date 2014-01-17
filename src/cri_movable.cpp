@@ -75,12 +75,12 @@ CRIMovable::BoxT CRIMovable::GetAABB() const
     return m_AABB;
 }
 
-const CRIMovable::BoxT& CRIMovable::GetMovementAABBRef() const
+const CRI_AABBd& CRIMovable::GetMovementAABBRef() const
 {
     return m_MovementAABB;
 }
 
-CRIMovable::BoxT CRIMovable::GetMovementAABB() const
+CRI_AABBd CRIMovable::GetMovementAABB() const
 {
     return m_MovementAABB;
 }
@@ -89,12 +89,17 @@ void CRIMovable::UpdateBoundingBox()
 {
     using ::GetMovementAABB;
     SetAABB(m_AABB, m_Pos, m_Size / 2.f);
-    m_MovementAABB = GetMovementAABB(*this, 1.f / 60.f);
+    //m_MovementAABB = GetMovementAABB(*this, 1.f / 60.f);
 }
 
 bool CRIMovable::IsMoving() const
 {
     return m_IsMoving;
+}
+
+void CRIMovable::CacheMovementAABB( ci::Rectf Rect )
+{
+    m_MovementAABB = CRI_AABBd(Rect);
 }
 
 CRIMovable::PosT GetFuturePos( const CRIMovable& Object, const float Delta )
@@ -124,7 +129,7 @@ CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
     return BoxT(NewBox);
 }
 
-pair<Vec2i, Vec2i> GetMovementBounds( const CRIMovable& Object, float Delta )
+pair<Vec2i, Vec2i> GetMovementBounds( CRIMovable& Object, float Delta )
 {
     using ci::Rectf; using ci::Vec2f;
     using std::make_pair;
@@ -139,6 +144,7 @@ pair<Vec2i, Vec2i> GetMovementBounds( const CRIMovable& Object, float Delta )
     NewBox.include(CurBox);
     const Vec2i LeftUpper = NewBox.getUpperLeft();
     const Vec2i RightLower = NewBox.getLowerRight() + Vec2f(1.f, 1.f);
+    Object.CacheMovementAABB(NewBox);
 
     return make_pair(LeftUpper, RightLower);
 }

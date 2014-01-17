@@ -48,5 +48,6 @@ private:
 #ifdef _DEBUG
     int m_ChecksC;
     int m_CollisionsC;
+    int m_SimpleChecks;
 #endif
 };

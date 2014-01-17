@@ -11,7 +11,8 @@ CRIQuadTree::CRIQuadTree(const CRI_AABB Bounds, const int MaxObjects,
 
 bool CRIQuadTree::Insert(CRIGameObject* const Val)
 {
-    return m_Root.Insert(Val, Val->GetMovementAABB());
+    //return m_Root.Insert(Val, Val->GetMovementAABB());
+    return true;
 }
 
 bool CRIQuadTree::Erase(CRIGameObject* const Val)

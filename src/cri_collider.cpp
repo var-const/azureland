@@ -24,8 +24,7 @@ CRICollider::CRICollider(const int Width, const int Height)
 , m_CollisionsC(0)
 , m_SimpleChecks(0)
 , m_Duplicates(0)
-, m_PerformanceLog("performance_log")
-, m_Hits()
+, m_PerformanceLog("performance_log.txt")
 #endif
 {
 }
@@ -54,36 +53,7 @@ CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
     NarrowPhase(Time);
 
 #ifdef PERFORMANCE_METRICS
-    const volatile float BetterThanBruteForce =
-        static_cast<float>(ObjectsC * ObjectsC) /
-        static_cast<float>(m_ChecksC);
-    m_PerformanceLog << "Better than brute force: ";
-    m_PerformanceLog << ObjectsC * ObjectsC << " / " << m_ChecksC << " = " << BetterThanBruteForce << "\n";
-
-    const volatile float LessThanPerfect =
-        static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
-    m_PerformanceLog << "Less than perfect: ";
-    m_PerformanceLog << m_ChecksC << " / " << m_CollisionsC << " = " << LessThanPerfect << "\n";
-
-    const volatile int ChecksSize = std::distance(m_Checks.begin(),
-        m_ChecksEndIter);
-    m_PerformanceLog << "Checks size: " << ChecksSize << "\n";
-
-    const volatile float DuplicatesPercent =
-        static_cast<float>(m_Duplicates) / static_cast<float>(ChecksSize);
-    m_PerformanceLog << "Duplicates percent: ";
-    m_PerformanceLog << m_Duplicates << " / " << ChecksSize << " = " << DuplicatesPercent << "\n";
-
-    const volatile float SimpleChecksPercent =
-        static_cast<float>(m_SimpleChecks) /
-        static_cast<float>(m_SimpleChecks + m_ChecksC);
-    m_PerformanceLog << "Simple checks percent: ";
-    m_PerformanceLog << m_SimpleChecks << " / " << m_SimpleChecks + m_ChecksC << " = " << SimpleChecksPercent << "\n";
-    m_PerformanceLog << m_Hits << "\n";
-    m_PerformanceLog << "\n\n\n";
-
-    const volatile int Collisions = std::distance(m_CollisionsBuffer.begin(),
-        m_CollisionsEndIter);
+    OutputPerformanceMetrics(ObjectsC);
 #endif
 
     return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
@@ -110,19 +80,15 @@ void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
                 AddChecks(*ObjIter, ObjIter + 1, ObjEnd);
                 if (Row == 0 && (*ObjIter)->GetYBounds().x < 0.f)
                 {
-                    ++m_Hits;
                 }
                 if (Row == GridT::RowsC - 1 && (*ObjIter)->GetYBounds().y > 1024.f * 3.f)
                 {
-                    ++m_Hits;
                 }
                 if (Col == 0 && (*ObjIter)->GetXBounds().x < 0.f)
                 {
-                    ++m_Hits;
                 }
                 if (Col == GridT::ColsC - 1 && (*ObjIter)->GetXBounds().y > 1280.f * 3.f)
                 {
-                    ++m_Hits;
                 }
             }
         }
@@ -138,7 +104,8 @@ void CRICollider::AddChecks(CRIGameObject* const Obj, const ObjConstIterT Begin,
 
     for (ObjConstIterT Iter = Begin; Iter != End; ++Iter)
     {
-        *m_ChecksEndIter++ = CheckT(Obj, *Iter);
+        *m_ChecksEndIter++ = Obj < *Iter ? make_pair(Obj, *Iter) :
+            make_pair(*Iter, Obj);
     }
 }
 
@@ -152,17 +119,17 @@ void CRICollider::NarrowPhase(const float Time)
     CRIGameObject* LastObjB = NULL;
     for (ChecksConstIterT i = m_Checks.begin(); i != m_ChecksEndIter; ++i)
     {
-        if (LastObjA == i->m_Objects.first && LastObjB == i->m_Objects.second)
+        if (LastObjA == i->first && LastObjB == i->second)
         {
 #ifdef PERFORMANCE_METRICS
             ++m_Duplicates;
 #endif
             continue;
         }
-        LastObjA = i->m_Objects.first;
-        LastObjB = i->m_Objects.second;
+        LastObjA = i->first;
+        LastObjB = i->second;
 
-        TryAddCollision(*i->m_Objects.first, *i->m_Objects.second, Time);
+        TryAddCollision(*i->first, *i->second, Time);
     }
 
     m_CollisionsEndIter = remove_if(m_CollisionsBuffer.begin(),
@@ -208,15 +175,41 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
         m_CurMinTime = CollisionTime;
         *m_CollisionsEndIter++ = CreateCollision(Lhs, Rhs, CollisionTime);
     }
-    //if (m_CurMinTime > 1.f)
-    //{
-    //    m_CurMinTime = CollisionTime;
-    //}
-    //if (CollisionTime >= m_CurMinTime)
-    //{
-    //    m_CurMinTime = CollisionTime;
-    //}
-    //*m_CollisionsEndIter++ = CreateCollision(Lhs, Rhs, CollisionTime);
+}
+
+void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
+{
+    const volatile float BetterThanBruteForce =
+        static_cast<float>(ObjectsC * ObjectsC) /
+        static_cast<float>(m_ChecksC);
+    m_PerformanceLog << "Better than brute force: ";
+    m_PerformanceLog << ObjectsC * ObjectsC << " / " << m_ChecksC << " = " <<
+        BetterThanBruteForce << "\n";
+
+    const volatile float LessThanPerfect =
+        static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
+    m_PerformanceLog << "Less than perfect: ";
+    m_PerformanceLog << m_ChecksC << " / " << m_CollisionsC << " = " <<
+        LessThanPerfect << "\n";
+
+    const volatile int ChecksSize = std::distance(m_Checks.begin(),
+        m_ChecksEndIter);
+    m_PerformanceLog << "Checks size: " << ChecksSize << "\n";
+
+    const volatile float DuplicatesPercent =
+        static_cast<float>(m_Duplicates) / static_cast<float>(ChecksSize);
+    m_PerformanceLog << "Duplicates percent: ";
+    m_PerformanceLog << m_Duplicates << " / " << ChecksSize << " = " <<
+        DuplicatesPercent << "\n";
+
+    const volatile float SimpleChecksPercent =
+        static_cast<float>(m_SimpleChecks) /
+        static_cast<float>(m_SimpleChecks + m_ChecksC);
+    m_PerformanceLog << "Simple checks percent: ";
+    m_PerformanceLog << m_SimpleChecks << " / " << m_SimpleChecks + m_ChecksC <<
+        " = " << SimpleChecksPercent << "\n";
+
+    m_PerformanceLog << "\n\n\n";
 }
 
 CRICollider::CmpCollisionTime::CmpCollisionTime( const float Time )

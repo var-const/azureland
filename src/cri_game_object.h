@@ -12,6 +12,7 @@ public:
 
     void Draw();
     void Update(float Dt);
+    virtual void LogicUpdate();
 
     void Destroy();
     bool IsDying() const; // In case I have time for death animations

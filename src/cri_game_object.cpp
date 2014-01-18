@@ -60,6 +60,10 @@ void CRIGameObject::DoUpdate( const float Dt )
 { 
 }
 
+void CRIGameObject::LogicUpdate()
+{
+}
+
 void CRIGameObject::OnDestroyed()
 { 
 }

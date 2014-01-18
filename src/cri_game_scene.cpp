@@ -64,7 +64,6 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
 
 void CRIGameScene::UpdateObjects(float Dt)
 {
-    //std::map<std::pair<CRIGameObject*, CRIGameObject*>, float> impulses;
     for (int i = 0; i != 20; ++i)
     {
         const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
@@ -86,11 +85,6 @@ void CRIGameScene::UpdateObjects(float Dt)
         for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
             ++i)
         {
-            //assert( TouchOrIntersect(i->m_pObjA->GetAABB(),
-            //    i->m_pObjB->GetAABB()) );
-            //auto& amount = impulses[std::make_pair(i->m_pObjA, i->m_pObjB)];
-            //amount += 0.1f;
-            //HandleCollision(*i, amount); // @TODO:
             HandleCollision(*i);
         }
         if (Dt <= 0.f)
@@ -107,6 +101,11 @@ void CRIGameScene::UpdateObjects(float Dt)
         {
             (*i)->Update(Dt);
         }
+    }
+
+    for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+    {
+        (*i)->LogicUpdate();
     }
 } 
 

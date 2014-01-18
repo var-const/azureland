@@ -59,7 +59,8 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
     const float MaxHorizOffset = getWindowWidth() * 2 - Size.x;
     
     //for (int i = 0; i != 3; ++i)
-    for (int i = 0; i != 300; ++i)
+    for (int i = 0; i != 1000; ++i)
+    //for (int i = 0; i != 300; ++i)
     //for (int i = 0; i != 2500; ++i)
     //for (int i = 0; i != 100; ++i)
     //for (int i = 0; i != 10; ++i)

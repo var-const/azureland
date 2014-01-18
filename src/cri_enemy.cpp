@@ -2,43 +2,26 @@
 
 #include "cri_enemy.h"
 
-#include "cri_player.h"
 #include "cri_math.h"
-#include "cinder\Vector.h"
+#include "cri_player.h"
+
+#include <cinder/Vector.h>
 
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
 , m_pPlayer(&Player)
-, m_Sleep()
-, m_RecalcSleep()
-, m_Blocked()
+, m_Sleep(0)
+, m_Blocked(false)
 { 
 }
 
-void CRIEnemy::DoUpdate( const float Dt )
+void CRIEnemy::LogicUpdate()
 {
     if (m_Sleep)
     {
         --m_Sleep;
         return;
     }
-    if (m_RecalcSleep)
-    {
-        --m_RecalcSleep;
-        return;
-    }
-    //else
-    //{
-    //    for (auto i = m_Collide.begin(); i != m_Collide.end();)
-    //    {
-    //        if (Intersect(GetAABB(), (*i)->GetAABB()))
-    //        {
-    //            //m_Sleep = 1;
-    //            return;
-    //        }
-    //    }
-    //}
-    //m_Collide.clear();
 
     if (!m_Blocked)
     {
@@ -55,7 +38,7 @@ void CRIEnemy::DoUpdate( const float Dt )
         PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
         Direction.normalize();
         SetVelocity(Direction * 100.f);
-        m_RecalcSleep = 3;
+        m_Sleep = 3;
     }
     else
     {
@@ -69,9 +52,6 @@ void CRIEnemy::Collide( const CRIEnemy& Rhs )
     const float OtherDistance = m_pPlayer->GetCenterPos().distance(Rhs.GetCenterPos());
     if (MyDistance > OtherDistance)
     {
-        //SetVelocity(VelT());
-        //SetVelocity(GetVelocity() * 0.9f);
-        //m_Sleep = 3;
         m_Collide.insert(&Rhs);
         CheckBlocked();
     }
@@ -117,12 +97,10 @@ void CRIEnemy::CheckBlocked()
                 {
                     v.x = 0.f;
                     v.y = v.y > 0.f ? 100.f : -100.f;
-                    //v.y = (*i)->GetCenterPos().y > GetCenterPos().y ? 100.f : -100.f;
                 }
                 else
                 {
                     v.y = 0.f;
-                    //v.x = (*i)->GetCenterPos().x > GetCenterPos().x ? 100.f : -100.f;
                     v.x = v.x > 0.f ? 100.f : -100.f;
                 }
             }
@@ -147,32 +125,6 @@ void CRIEnemy::CheckBlocked()
     }
     else
     {
-        m_RecalcSleep = 3;
+        m_Sleep = 3;
     }
-
-        /*
-        const auto normal = IntersectionNormal(GetAABB(), (*i)->GetAABB());
-        if (!IsFpointEq(normal.x, 0.f) && !IsFpointEq(normal.y, 0.f))
-        {
-            SetVelocity(VelT());
-            ++i;
-            continue;
-        }
-        if (!IsFpointEq(normal.x, 0.f))
-        {
-            v.y = 100.f;
-            //v.y = v.y > 0.f ? 100.f : -100.f;
-            v.x = 0.f;
-        }
-        if (!IsFpointEq(normal.y, 0.f))
-        {
-            v.x = 100.f;
-            //v.x = v.x > 0.f ? 100.f : -100.f;
-            //v.x += v.y;
-            v.y = 0.f;
-        }
-        SetVelocity(v);
-        ++i;
-        */
-    //m_RecalcSleep = 3;
 }

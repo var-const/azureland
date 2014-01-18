@@ -11,14 +11,15 @@ public:
     CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
     
     void Collide(const CRIEnemy& Rhs);
+
+    void LogicUpdate(); // override
+
 private:
-    void DoUpdate(float Dt); // override
     void CheckBlocked();
 
     CRIPlayer* m_pPlayer;
     CRI_AABB m_Target;
-    int m_Sleep;
     std::set<const CRIEnemy*> m_Collide;
-    int m_RecalcSleep;
+    int m_Sleep;
     bool m_Blocked;
 };

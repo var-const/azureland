@@ -7,11 +7,16 @@
 
 #include <cinder/Vector.h>
 
+const int SleepAfterReadjustingPos = 3;
+const int SleepAfterBlocking = 3;
+const float Speed = 100.f;
+
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
 , m_pPlayer(&Player)
 , m_Sleep(0)
 , m_Blocked(false)
+, m_CheckBlocked(false)
 { 
 }
 
@@ -23,44 +28,58 @@ void CRIEnemy::LogicUpdate()
         return;
     }
 
+    if (m_CheckBlocked)
+    {
+        CheckBlocked();
+        m_CheckBlocked = false;
+        return;
+    }
     if (m_Blocked)
     {
         CheckBlocked();
         return;
     }
-    auto player_box = m_pPlayer->GetAABB();
+
+    m_Sleep = SleepAfterReadjustingPos;
+
+    BoxT player_box = m_pPlayer->GetAABB();
     player_box.m_HalfSize.x += 15.f;
     player_box.m_HalfSize.y += 15.f;
-    if ( TouchOrIntersect(GetAABB(), player_box) )
+    if (TouchOrIntersect(GetAABB(), player_box))
     {
         SetVelocity(VelT());
         return;
     }
     PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
     Direction.normalize();
-    SetVelocity(Direction * 100.f);
-    m_Sleep = 3;
+    SetVelocity(Direction * Speed);
 }
 
 void CRIEnemy::Collide( const CRIEnemy& Rhs )
 {
+    using std::find;
+
     const float MyDistance = m_pPlayer->GetCenterPos().distance(GetCenterPos());
-    const float OtherDistance = m_pPlayer->GetCenterPos().distance(Rhs.GetCenterPos());
+    const float OtherDistance = m_pPlayer->GetCenterPos().distance(
+        Rhs.GetCenterPos());
     if (MyDistance > OtherDistance)
     {
-        m_Collide.insert(&Rhs);
-        CheckBlocked();
+        if (find(m_Blockers.begin(), m_Blockers.end(), &Rhs) == m_Blockers.end())
+        {
+            m_Blockers.push_back(&Rhs);
+        }
+        m_CheckBlocked = true;
     }
 }
 
 void CRIEnemy::CheckBlocked()
 {
-    bool blocked = false;
-    for (auto i = m_Collide.begin(); i != m_Collide.end();)
+    bool Blocked = false;
+    for (auto i = m_Blockers.begin(); i != m_Blockers.end();)
     {
         if (!Intersect(GetMovementAABB(), (*i)->GetMovementAABB()))
         {
-            i = m_Collide.erase(i);
+            i = m_Blockers.erase(i);
             continue;
         }
         const float MyDistance = m_pPlayer->GetCenterPos().distance(GetCenterPos());
@@ -71,7 +90,7 @@ void CRIEnemy::CheckBlocked()
             continue;
         }
 
-        blocked = true;
+        Blocked = true;
 
         using ci::Vec2f;
         const auto my_dist_x = std::abs(m_pPlayer->GetCenterPos().x - GetCenterPos().x);
@@ -115,12 +134,13 @@ void CRIEnemy::CheckBlocked()
 
         ++i;
     }
-    if (m_Blocked && !blocked)
+
+    if (m_Blocked && !Blocked)
     {
         m_Blocked = false;
     }
     else
     {
-        m_Sleep = 3;
+        m_Sleep = SleepAfterBlocking;
     }
 }

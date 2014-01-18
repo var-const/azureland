@@ -123,7 +123,6 @@ void CRIEnemy::CheckBlocked()
                 }
             }
         }
-        // ≈сли он ближе, но не по оси столкновени€, и мы обходим, надо мен€ть направление
         else if (m_Blocked)
         {
             NewVelocity = NewVelocity * -1.f;

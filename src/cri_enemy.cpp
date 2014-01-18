@@ -55,7 +55,7 @@ void CRIEnemy::LogicUpdate()
     SetVelocity(Direction * Speed);
 }
 
-void CRIEnemy::Collide( const CRIEnemy& Rhs )
+void CRIEnemy::OnCollisionWithEnemy( const CRIEnemy& Rhs )
 {
     using std::find;
 

@@ -11,7 +11,7 @@ class CRIEnemy : public CRIGameObject
 public:	
     CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
     
-    void Collide(const CRIEnemy& Rhs);
+    void OnCollisionWithEnemy(const CRIEnemy& Rhs);
 
     void LogicUpdate(); // override
 

@@ -74,7 +74,7 @@ void CRIEnemy::Collide( const CRIEnemy& Rhs )
 
 void CRIEnemy::CheckBlocked()
 {
-    using ci::Vec2f;
+    using ci::Vec2f; using ci::Vec2i;
     using std::abs;
 
     bool Blocked = false;
@@ -101,11 +101,11 @@ void CRIEnemy::CheckBlocked()
         const auto my_dist_y = abs(m_pPlayer->GetCenterPos().y - GetCenterPos().y);
         const auto other_dist_y = abs(m_pPlayer->GetCenterPos().y - (*i)->GetCenterPos().y);
         const Vec2f Diff = Vec2f(my_dist_x - other_dist_x , my_dist_y - other_dist_y);
-        const auto Normal = IntersectionNormal(GetAABB(), (*i)->GetAABB());
+        const Vec2i Normal = IntersectionNormal(GetAABB(), (*i)->GetAABB());
         VelT NewVelocity = GetVelocity();
         // Если он ближе к цели по оси столкновения, и мы не обходим, надо обходить
-        const bool BlockedX = !IsFpointEq(Normal.x, 0.f) && Diff.x > Diff.y;
-        const bool BlockedY = !IsFpointEq(Normal.y, 0.f) && Diff.y > Diff.x;
+        const bool BlockedX = Normal.x != 0 && Diff.x > Diff.y;
+        const bool BlockedY = Normal.y != 0 && Diff.y > Diff.x;
         if (BlockedX || BlockedY)
         {
             if (!m_Blocked)

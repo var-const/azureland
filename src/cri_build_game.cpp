@@ -14,7 +14,7 @@ void BuildGame( CRIApp& App )
     using ci::Vec2f;
     using ci::app::getWindowSize;
 
-    CRIGameScene* const Scene = new CRIGameScene();
+    CRIGameScene* const Scene = new CRIGameScene(1280 * 3, 1024 * 3);
     CRIPlayer* const Player = CreatePlayer(App);
     Scene->AddObject(*Player);
     CreateEnemies(*Scene, *Player);
@@ -52,17 +52,20 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
     CRIMovable::PosT CurPos = StartPos;
     const float MaxHorizOffset = getWindowWidth() - Size.x;
     
-    for (int i = 0; i != 1000; ++i)
+    //for (int i = 0; i != 1000; ++i)
+    for (int i = 0; i != 100; ++i)
+    //for (int i = 0; i != 10; ++i)
+    //for (int i = 0; i != 2000; ++i)
     //for (int i = 0; i != 30; ++i)
     {
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
         Scene.AddObject(*Enemy);
 
-        CurPos.x += Size.x + 10.f;
+        CurPos.x += Size.x + 1.f;
         if (CurPos.x >= MaxHorizOffset)
         {
             CurPos.x = StartPos.x;
-            CurPos.y += Size.y + 10.f;
+            CurPos.y += Size.y + 1.f;
         }
     }
 }

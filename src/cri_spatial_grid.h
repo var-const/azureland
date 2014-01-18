@@ -24,6 +24,7 @@ public:
 
     typedef ObjContT CellsContT[MaxRows][MaxCols];
 
+    CRISpatialGrid(int Width, int Height);
     void SetSize(ci::Vec2i Size);
     void Reinit(ObjIterT Begin, ObjIterT End, float Time);
 
@@ -33,6 +34,14 @@ public:
 private:
     ci::Vec2i m_CellSize;
 };
+
+
+template <int MaxRows, int MaxCols>
+CRISpatialGrid<MaxRows, MaxCols>::CRISpatialGrid( const int Width,
+    const int Height )
+{
+    SetSize(ci::Vec2i(Width, Height));
+}
 
 template <int MaxRows, int MaxCols>
 void CRISpatialGrid<MaxRows, MaxCols>::SetSize( const ci::Vec2i Size )

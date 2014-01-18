@@ -16,8 +16,9 @@
 
 using ci::Vec2f;
 
-CRICollider::CRICollider()
-: m_CurMinTime(0.f)
+CRICollider::CRICollider(const int Width, const int Height)
+: m_Grid(Width, Height)
+, m_CurMinTime(0.f)
 #ifdef PERFORMANCE_METRICS
 , m_ChecksC(0)
 , m_CollisionsC(0)
@@ -25,19 +26,6 @@ CRICollider::CRICollider()
 , m_Duplicates(0)
 #endif
 {
-    using ci::Vec2f; using ci::Vec2i;
-    //m_GridParams.SceneSize = Vec2f(1280.f, 1024.f); // @FIXME
-    //m_GridParams.CellsCount = Vec2i(8, 8);
-    //m_GridParams.CellsCount = Vec2i(13, 13);
-    //m_GridParams.CellsCount = Vec2i(15, 15); // 13
-    //m_GridParams.CellsCount = Vec2i(16, 16); // 8-10 cpu, 40% reinit
-    //m_GridParams.CellsCount = Vec2i(17, 17); // 8-10 cpu, 44% reinit
-    //m_GridParams.CellsCount = Vec2i(18, 18); // 9-10 cpu, 49% reinit
-    //m_GridParams.CellsCount = Vec2i(19, 19); // 9-10
-    //m_GridParams.CellsCount = Vec2i(20, 20); // 9-11
-    //m_GridParams.CellsCount = Vec2i(22, 22); // 13
-    //m_Grid.SetParams(m_GridParams);
-    m_Grid.SetSize(Vec2i(1280, 1024));
 }
 
 void CRICollider::Reserve( const int Amount )

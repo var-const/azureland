@@ -2,6 +2,8 @@
 
 #include "cri_player.h"
 
+#include "cri_game_scene.h"
+
 #include <cinder/Vector.h>
 #include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
@@ -23,6 +25,7 @@ void CRIPlayer::SetSpeed( const float Speed )
 void CRIPlayer::DoUpdate( const float Dt )
 {
     m_MovementController.Deccelerate(*this);
+    GetScene().MoveCamera(GetCenterPos());
 }
 
 void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )

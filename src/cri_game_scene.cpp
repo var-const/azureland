@@ -9,7 +9,11 @@
 #include <algorithm>
 #include <cassert>
 
-CRIGameScene::CRIGameScene()
+using ci::Vec2f; using ci::Vec2i;
+
+CRIGameScene::CRIGameScene(const int Width, const int Height)
+: m_Collider(Width, Height)
+, m_Camera(Vec2i(Width, Height), Vec2i(1280, 1024))
 { 
 }
 
@@ -24,10 +28,7 @@ CRIGameScene::~CRIGameScene()
 
 void CRIGameScene::Draw()
 {
-    for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
-    {
-        (*i)->Draw();
-    }
+    m_Camera.Draw();
     //m_Collider.Draw();
 }
 
@@ -44,6 +45,7 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
     m_Objects.push_back(&Object);
     // @FIXME would be called many times during initialization
     m_Collider.Reserve(m_Objects.size());
+    m_Camera.AddObject(Object);
 }
 
 void CRIGameScene::UpdateObjects(float Dt)
@@ -89,3 +91,8 @@ void CRIGameScene::UpdateObjects(float Dt)
         }
     }
 } 
+
+void CRIGameScene::MoveCamera( const Vec2f NewCenter )
+{
+    m_Camera.Move(NewCenter);
+}

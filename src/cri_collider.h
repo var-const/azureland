@@ -23,7 +23,7 @@ public:
     typedef ObjContT::iterator ObjIterT;
     typedef ObjContT::const_iterator ObjConstIterT;
 
-    CRICollider();
+    CRICollider(int Width, int Height);
 
     void Reserve(int Amount);
 

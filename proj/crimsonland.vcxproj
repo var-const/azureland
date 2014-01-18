@@ -16,6 +16,7 @@
     <ClCompile Include="..\src\cri_app.cpp" />
     <ClCompile Include="..\src\cri_axis_getter.cpp" />
     <ClCompile Include="..\src\cri_build_game.cpp" />
+    <ClCompile Include="..\src\cri_camera.cpp" />
     <ClCompile Include="..\src\cri_collider.cpp" />
     <ClCompile Include="..\src\cri_collision.cpp" />
     <ClCompile Include="..\src\cri_collision_detail.cpp" />
@@ -29,8 +30,6 @@
     <ClCompile Include="..\src\cri_on_collision.cpp" />
     <ClCompile Include="..\src\cri_player.cpp" />
     <ClCompile Include="..\src\cri_handle_collision.cpp" />
-    <ClCompile Include="..\src\cri_quad_tree.cpp" />
-    <ClCompile Include="..\src\cri_quad_tree_node.cpp" />
     <ClCompile Include="..\src\cri_stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -42,6 +41,7 @@
     <ClInclude Include="..\src\cri_app.h" />
     <ClInclude Include="..\src\cri_axis_getter.h" />
     <ClInclude Include="..\src\cri_build_game.h" />
+    <ClInclude Include="..\src\cri_camera.h" />
     <ClInclude Include="..\src\cri_collider.h" />
     <ClInclude Include="..\src\cri_collision.h" />
     <ClInclude Include="..\src\cri_collision_detail.h" />
@@ -58,8 +58,6 @@
     <ClInclude Include="..\src\cri_on_collision.h" />
     <ClInclude Include="..\src\cri_player.h" />
     <ClInclude Include="..\src\cri_handle_collision.h" />
-    <ClInclude Include="..\src\cri_quad_tree.h" />
-    <ClInclude Include="..\src\cri_quad_tree_node.h" />
     <ClInclude Include="..\src\cri_spatial_grid.h" />
     <ClInclude Include="..\src\cri_stdafx.h" />
   </ItemGroup>

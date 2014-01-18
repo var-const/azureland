@@ -61,13 +61,10 @@
     <ClCompile Include="..\src\cri_handle_collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cri_quad_tree_node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cri_quad_tree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\cri_aabb_int.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cri_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,16 +132,13 @@
     <ClInclude Include="..\src\cri_spatial_grid.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\cri_quad_tree.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\cri_quad_tree_node.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\cri_aabb_int.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_container_helpers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_camera.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

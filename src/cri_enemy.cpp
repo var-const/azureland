@@ -23,27 +23,23 @@ void CRIEnemy::LogicUpdate()
         return;
     }
 
-    if (!m_Blocked)
-    {
-        auto player_box = m_pPlayer->GetAABB();
-        player_box.m_HalfSize.x += 15.f;
-        player_box.m_HalfSize.y += 15.f;
-        if ( TouchOrIntersect(GetAABB(), player_box) )
-        //if ( TouchOrIntersect(GetAABB(), m_pPlayer->GetAABB()) )
-        {
-            SetVelocity(VelT());
-            return;
-        }
-        //PosT Direction = m_pPlayer->GetCenterPos() + ci::Vec2f(0.f, -35.f) - GetCenterPos();
-        PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
-        Direction.normalize();
-        SetVelocity(Direction * 100.f);
-        m_Sleep = 3;
-    }
-    else
+    if (m_Blocked)
     {
         CheckBlocked();
+        return;
     }
+    auto player_box = m_pPlayer->GetAABB();
+    player_box.m_HalfSize.x += 15.f;
+    player_box.m_HalfSize.y += 15.f;
+    if ( TouchOrIntersect(GetAABB(), player_box) )
+    {
+        SetVelocity(VelT());
+        return;
+    }
+    PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
+    Direction.normalize();
+    SetVelocity(Direction * 100.f);
+    m_Sleep = 3;
 }
 
 void CRIEnemy::Collide( const CRIEnemy& Rhs )

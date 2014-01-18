@@ -2,8 +2,10 @@
 
 #include "cri_camera.h"
 #include "cri_collider.h"
+#include "cri_obstacle.h"
 
 #include <vector>
+#include <utility>
 
 namespace cinder { template <typename T> class Vec2; }
 
@@ -21,6 +23,7 @@ public:
     void AddObject(CRIGameObject& Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
+
 private:
     // No need
     CRIGameScene(const CRIGameScene&);
@@ -34,4 +37,7 @@ private:
     ObjectsContT m_Objects;
     CRICollider m_Collider;
     CRICamera m_Camera;
+
+    std::pair<CRIObstacle, CRIObstacle> m_XBounds;
+    std::pair<CRIObstacle, CRIObstacle> m_YBounds;
 };

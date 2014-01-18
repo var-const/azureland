@@ -1,5 +1,6 @@
 #pragma once
 
+#define PERFORMANCE_METRICS
 #ifdef _DEBUG
 #ifndef PERFORMANCE_METRICS
 #define PERFORMANCE_METRICS
@@ -9,6 +10,9 @@
 #include "cri_collision_typedefs.h"
 #include "cri_spatial_grid.h"
 
+#ifdef PERFORMANCE_METRICS
+#include <fstream>
+#endif
 #include <vector>
 
 namespace cinder { template <typename T> class Vec2; }
@@ -32,8 +36,26 @@ public:
     CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
 
 private:
+    struct Check
+    {
+        Check() : m_Hash(0) {}
+        Check(CRIGameObject* A, CRIGameObject* B)
+            : m_Objects(std::make_pair(A < B ? A : B, A < B ? B : A))
+            , m_Hash(m_Objects.first >= m_Objects.second ?
+            reinterpret_cast<int>(m_Objects.first) *
+                reinterpret_cast<int>(m_Objects.first) + reinterpret_cast<int>(m_Objects.first) +
+                reinterpret_cast<int>(m_Objects.second) :
+                reinterpret_cast<int>(m_Objects.first) + reinterpret_cast<int>(m_Objects.second) *
+                reinterpret_cast<int>(m_Objects.second))
+            {}
+        // a >= b ? a * a + a + b : a + b * b 
+        std::pair<CRIGameObject*, CRIGameObject*> m_Objects;
+        unsigned int m_Hash;
+        bool operator < (Check Rhs) const { return m_Hash < Rhs.m_Hash; }
+    };
+
     typedef CRISpatialGrid<30, 30> GridT;
-    typedef std::pair<CRIGameObject*, CRIGameObject*> CheckT;
+    typedef Check CheckT;
     typedef std::vector<CheckT> ChecksContT;
     typedef ChecksContT::iterator ChecksIterT;
     typedef ChecksContT::const_iterator ChecksConstIterT;
@@ -64,5 +86,7 @@ private:
     int m_CollisionsC;
     int m_SimpleChecks;
     int m_Duplicates;
+    int m_Hits;
+    std::ofstream m_PerformanceLog;
 #endif
 };

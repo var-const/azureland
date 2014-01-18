@@ -8,12 +8,26 @@
 
 #include <algorithm>
 #include <cassert>
+#include <map>
+#include <utility>
 
 using ci::Vec2f; using ci::Vec2i;
 
 CRIGameScene::CRIGameScene(const int Width, const int Height)
 : m_Collider(Width, Height)
 , m_Camera(Vec2i(Width, Height), Vec2i(1280, 1024))
+, m_XBounds(
+    std::make_pair(
+        CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)),
+        CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f))
+    )
+)
+, m_YBounds(
+    std::make_pair(
+        CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)),
+        CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f))
+    )
+)
 { 
 }
 
@@ -50,7 +64,8 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
 
 void CRIGameScene::UpdateObjects(float Dt)
 {
-    for (int i = 0; i != 5; ++i)
+    //std::map<std::pair<CRIGameObject*, CRIGameObject*>, float> impulses;
+    for (int i = 0; i != 20; ++i)
     {
         const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
             m_Objects.begin(), m_Objects.end(), Dt);
@@ -73,7 +88,10 @@ void CRIGameScene::UpdateObjects(float Dt)
         {
             //assert( TouchOrIntersect(i->m_pObjA->GetAABB(),
             //    i->m_pObjB->GetAABB()) );
-            HandleCollision(*i); // @TODO:
+            //auto& amount = impulses[std::make_pair(i->m_pObjA, i->m_pObjB)];
+            //amount += 0.1f;
+            //HandleCollision(*i, amount); // @TODO:
+            HandleCollision(*i);
         }
         if (Dt <= 0.f)
         {

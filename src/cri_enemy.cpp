@@ -86,9 +86,9 @@ void CRIEnemy::CheckBlocked()
             continue;
         }
 
-        const float MyDistance = m_pPlayer->GetCenterPos().distance(GetCenterPos());
-        const float OtherDistance = m_pPlayer->GetCenterPos().distance((*i)->GetCenterPos());
-        if (MyDistance < OtherDistance)
+        Vec2f MyDistance = m_pPlayer->GetCenterPos() - GetCenterPos();
+        Vec2f OtherDistance = m_pPlayer->GetCenterPos() - (*i)->GetCenterPos();
+        if (MyDistance.length() < OtherDistance.length())
         {
             ++i;
             continue;
@@ -96,14 +96,14 @@ void CRIEnemy::CheckBlocked()
 
         Blocked = true;
 
-        const auto my_dist_x = abs(m_pPlayer->GetCenterPos().x - GetCenterPos().x);
-        const auto other_dist_x = abs(m_pPlayer->GetCenterPos().x - (*i)->GetCenterPos().x);
-        const auto my_dist_y = abs(m_pPlayer->GetCenterPos().y - GetCenterPos().y);
-        const auto other_dist_y = abs(m_pPlayer->GetCenterPos().y - (*i)->GetCenterPos().y);
-        const Vec2f Diff = Vec2f(my_dist_x - other_dist_x , my_dist_y - other_dist_y);
+        MyDistance.x = abs(MyDistance.x);
+        MyDistance.y = abs(MyDistance.y);
+        OtherDistance.x = abs(OtherDistance.x);
+        OtherDistance.y = abs(OtherDistance.y);
+        const Vec2f Diff = MyDistance - OtherDistance;
         const Vec2i Normal = IntersectionNormal(GetAABB(), (*i)->GetAABB());
         VelT NewVelocity = GetVelocity();
-        // Если он ближе к цели по оси столкновения, и мы не обходим, надо обходить
+
         const bool BlockedX = Normal.x != 0 && Diff.x > Diff.y;
         const bool BlockedY = Normal.y != 0 && Diff.y > Diff.x;
         if (BlockedX || BlockedY)

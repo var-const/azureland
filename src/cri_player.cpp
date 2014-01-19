@@ -143,3 +143,8 @@ void CRIPlayer::OnDestroyed()
 {
     // @TODO
 }
+
+void CRIPlayer::Die()
+{
+    Destroy();
+}

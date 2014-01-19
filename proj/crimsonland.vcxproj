@@ -22,6 +22,7 @@
     <ClCompile Include="..\src\cri_collision_detail.cpp" />
     <ClCompile Include="..\src\cri_crosshair.cpp" />
     <ClCompile Include="..\src\cri_enemy.cpp" />
+    <ClCompile Include="..\src\cri_health_mixin.cpp" />
     <ClCompile Include="..\src\cri_movement_controller.cpp" />
     <ClCompile Include="..\src\cri_game_object.cpp" />
     <ClCompile Include="..\src\cri_game_scene.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="..\src\cri_crosshair.h" />
     <ClInclude Include="..\src\cri_enemy.h" />
     <ClInclude Include="..\src\cri_game_objects.h" />
+    <ClInclude Include="..\src\cri_health_mixin.h" />
     <ClInclude Include="..\src\cri_movement_controller.h" />
     <ClInclude Include="..\src\cri_game_object.h" />
     <ClInclude Include="..\src\cri_game_scene.h" />

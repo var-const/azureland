@@ -1,13 +1,15 @@
 #pragma once
 
 #include "cri_game_object.h"
+#include "cri_health_mixin.h"
 #include "cri_interface_input.h"
 #include "cri_movement_controller.h"
 
 class CRICrosshair;
 class CRIWeapon;
 
-class CRIPlayer : public CRIGameObject, public CRIInterfaceInput
+class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
+    public CRIInterfaceInput
 {
 public:	
     CRIPlayer(const SizeT& Size, const PosT& StartPos);
@@ -35,6 +37,8 @@ private:
     void DoUpdate(float Dt); // Override
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
+
+    void Die(); // Override
 
     PosT GetCrosshairPos() const;
 

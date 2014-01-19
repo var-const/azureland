@@ -142,3 +142,8 @@ void CRIEnemy::CheckBlocked()
         m_Sleep = SleepAfterBlocking;
     }
 }
+
+void CRIEnemy::Die()
+{
+    // @TODO: respawn
+}

@@ -243,3 +243,8 @@ void CRIEnemy::SetParalyzed( const int Milliseconds )
     m_IsParalyzed = true;
     m_ParalyzedTimer.SetExpiresFromNow(static_cast<int>(Milliseconds) / 1000.0);
 }
+
+bool CRIEnemy::IsParalyzed() const
+{
+    return m_IsParalyzed;
+}

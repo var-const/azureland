@@ -15,3 +15,4 @@ void OnCollision(CRIEnemy& Lhs, CRIProjectile& Rhs);
 void OnCollision(CRIEnemy& Lhs, CRIForcefield& Rhs);
 void OnCollision(CRIObstacle& Lhs, CRIProjectile& Rhs);
 void OnCollision(CRIPlayer& Lhs, CRIHealthPickup& Rhs);
+void OnCollision(CRIEnemy& Lhs, CRIHealthPickup& Rhs);

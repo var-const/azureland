@@ -2,20 +2,22 @@
 
 #include "cri_forcefield.h"
 
+#include "cri_player.h"
+
 #include <cinder/Vector.h>
 #include <cinder/gl/gl.h>
 
 using ci::Vec2f;
 
 CRIForcefield::CRIForcefield( const float Radius, const PosT& Pos, const int Time,
-    const int Damage, const float PushForce, const float PushDecceleration )
+    const int Damage, const float PushForce, const CRIPlayer& Player )
 : CRIGameObject(SizeT(), Pos)
 , m_TimeLeft(static_cast<float>(Time) / 1000.f)
 , m_EffectTime(static_cast<float>(Time) / 1000.f)
 , m_Damage(Damage)
 , m_PushForce(PushForce)
-, m_PushDecceleration(PushDecceleration)
 , m_TargetRadius(Radius)
+, m_pPlayer(&Player)
 { 
 }
 
@@ -27,6 +29,7 @@ void CRIForcefield::LogicUpdate(const float Dt)
         Destroy();
         return;
     }
+    SetCenterPos(m_pPlayer->GetCenterPos());
     const float Size = m_TargetRadius * (1.f - m_TimeLeft / m_EffectTime) * 2.f;
     SetSize(Vec2f(Size, Size));
 }

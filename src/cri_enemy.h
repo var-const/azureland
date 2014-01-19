@@ -20,6 +20,7 @@ public:
 
     void SetParalyzed(int Milliseconds);
     void UnsetParalyzed();
+    bool IsParalyzed() const;
 
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;

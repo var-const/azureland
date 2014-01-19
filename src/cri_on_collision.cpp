@@ -8,6 +8,11 @@ void OnCollision( CRIEnemy& Enemy, CRIPlayer& Player )
 {
     using std::min;
 
+    if (Enemy.IsDying() || Player.IsDying())
+    {
+        return;
+    }
+
     const CRI_AABB::VecT Depth = IntersectionDepth(Enemy.GetAABB(),
         Player.GetAABB());
     const CRI_AABB::VecT Normal = IntersectionNormal(Enemy.GetAABB(),
@@ -21,6 +26,11 @@ void OnCollision( CRIEnemy& Lhs, CRIEnemy& Rhs)
 {
     using std::min;
 
+    if (Lhs.IsDying() || Rhs.IsDying())
+    {
+        return;
+    }
+
     const CRI_AABB::VecT Depth = IntersectionDepth(Lhs.GetAABB(),
         Rhs.GetAABB());
     const CRI_AABB::VecT Normal = IntersectionNormal(Lhs.GetAABB(),
@@ -28,6 +38,7 @@ void OnCollision( CRIEnemy& Lhs, CRIEnemy& Rhs)
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
     ShiftPos(Lhs, Normal * Shift / 2.f);
     ShiftPos(Rhs, Normal * Shift * -1.f / 2.f);
+
     Lhs.OnCollisionWithEnemy(Rhs);
     Rhs.OnCollisionWithEnemy(Lhs);
 }
@@ -101,8 +112,16 @@ void OnCollision( CRIEnemy& Lhs, CRIForcefield& Rhs )
     if (Rhs.Affect(Lhs))
     {
         Lhs.ModifyHealth(Rhs.GetDamage() * -1);
-        Lhs.SetParalyzed(500);
+        Lhs.SetParalyzed(900);
         Lhs.SetVelocity(Rhs.GetPushVector(Lhs.GetCenterPos()));
-        //Lhs.SetAcceleration(Rhs.GetPushAcceleration());
     }
+}
+
+void OnCollision( CRIEnemy& Lhs, CRIHealthPickup& Rhs )
+{
+    if (Lhs.IsDying() || Rhs.IsDying())
+    {
+        return;
+    }
+    Rhs.Destroy();
 }

@@ -55,11 +55,11 @@ bool TryProcessCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
 
 void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
 {
-    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs))
+    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs))
     {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs))
+    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs))
     {
         return;
     }
@@ -84,6 +84,10 @@ void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
         return;
     }
     if (TryProcessCollision<CRIPlayer, CRIHealthPickup>(Lhs, Rhs))
+    {
+        return;
+    }
+    if (TryProcessCollision<CRIEnemy, CRIHealthPickup>(Lhs, Rhs))
     {
         return;
     }

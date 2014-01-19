@@ -79,6 +79,10 @@ void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
     {
         return;
     }
+    if (TryProcessCollision<CRIPlayer, CRIHealthPickup>(Lhs, Rhs))
+    {
+        return;
+    }
 }
 
 } // unnamed

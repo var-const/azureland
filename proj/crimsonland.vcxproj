@@ -31,6 +31,7 @@
     <ClCompile Include="..\src\cri_movable.cpp" />
     <ClCompile Include="..\src\cri_obstacle.cpp" />
     <ClCompile Include="..\src\cri_on_collision.cpp" />
+    <ClCompile Include="..\src\cri_pickups.cpp" />
     <ClCompile Include="..\src\cri_pickup_generator.cpp" />
     <ClCompile Include="..\src\cri_player.cpp" />
     <ClCompile Include="..\src\cri_handle_collision.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="..\src\cri_movable.h" />
     <ClInclude Include="..\src\cri_obstacle.h" />
     <ClInclude Include="..\src\cri_on_collision.h" />
+    <ClInclude Include="..\src\cri_pickups.h" />
     <ClInclude Include="..\src\cri_pickup_generator.h" />
     <ClInclude Include="..\src\cri_player.h" />
     <ClInclude Include="..\src\cri_handle_collision.h" />

@@ -29,6 +29,7 @@ CRIGameScene::CRIGameScene(const int Width, const int Height)
     )
 )
 { 
+    m_Pickups.SetScene(*this);
 }
 
 CRIGameScene::~CRIGameScene()
@@ -197,7 +198,7 @@ const CRICollider& CRIGameScene::GetCollider() const
     return m_Collider;
 }
 
-void CRIGameScene::OnEnemyDeath( const Vec2f PosForPickUp )
+void CRIGameScene::OnEnemyRespawn( const Vec2f PosForPickUp )
 {
     m_Pickups.Invoke(PosForPickUp);
 }

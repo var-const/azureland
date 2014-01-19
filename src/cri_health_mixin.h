@@ -20,3 +20,5 @@ private:
     int m_CurVal;
     int m_MaxVal;
 };
+
+bool HasFullHealth(const CRIHealthMixin& Mixin);

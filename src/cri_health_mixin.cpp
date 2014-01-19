@@ -60,3 +60,8 @@ int CRIHealthMixin::GetMaxHealthValue() const
 void CRIHealthMixin::OnHealthModified( const int NewVal, const int Modifier )
 {
 }
+
+bool HasFullHealth( const CRIHealthMixin& Mixin )
+{
+    return Mixin.GetCurHealthValue() >= Mixin.GetMaxHealthValue();
+}

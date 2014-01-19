@@ -76,3 +76,18 @@ void OnCollision( CRIObstacle& Lhs, CRIProjectile& Rhs )
 
     Rhs.Destroy();
 }
+
+void OnCollision( CRIPlayer& Lhs, CRIHealthPickup& Rhs )
+{
+    if (Lhs.IsDying() || Rhs.IsDying())
+    {
+        return;
+    }
+    if (HasFullHealth(Lhs))
+    {
+        return;
+    }
+
+    Lhs.ModifyHealth(Rhs.GetAmount());
+    Rhs.Destroy();
+}

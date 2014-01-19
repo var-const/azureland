@@ -211,7 +211,7 @@ void CRIEnemy::TryRespawn()
 
 void CRIEnemy::Respawn( const PosT Pos )
 {
-    GetScene().OnEnemyDeath(m_PointsForKilling, GetCenterPos());
+    GetScene().OnEnemyRespawn(GetCenterPos());
 
     m_NeedRespawn = false;
 

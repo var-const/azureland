@@ -3,6 +3,7 @@
 #include "cri_camera.h"
 #include "cri_collider.h"
 #include "cri_obstacle.h"
+#include "cri_pickup_generator.h"
 
 #include <vector>
 #include <utility>
@@ -31,7 +32,7 @@ public:
 
     const CRICollider& GetCollider() const;
 
-    void OnEnemyDeath(cinder::Vec2<float> PosForPickUp);
+    void OnEnemyRespawn(cinder::Vec2<float> PosForPickUp);
 
 private:
     // No need
@@ -57,4 +58,6 @@ private:
 
     std::pair<CRIObstacle, CRIObstacle> m_XBounds;
     std::pair<CRIObstacle, CRIObstacle> m_YBounds;
+
+    CRIPickupGenerator m_Pickups;
 };

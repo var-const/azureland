@@ -5,14 +5,13 @@
 #include "cri_crosshair.h"
 #include "cri_game_scene.h"
 #include "cri_text_object.h"
+#include "weapons/cri_crossbow.h"
+#include "weapons/cri_forcefield_emitter.h"
 
 #include <cinder/Font.h>
 #include <cinder/Vector.h>
 #include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
-
-
-#include "weapons/cri_crossbow.h"
 
 using ci::Vec2f;
 using ci::app::KeyEvent;
@@ -22,14 +21,15 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
 , m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
 , m_pWeaponA(new CRICrossbow())
-, m_pWeaponB(NULL)
+, m_pWeaponB(new CRIForcefieldEmitter())
 , m_AutofireWeaponA(false)
 , m_AutofireWeaponB(false)
 , m_pHealthLabel( new CRITextObject(PosT(100.f, 50.f)) )
 { 
     using ci::Font;
 
-    m_pWeaponA->SetReloadTime(500); // @FIXME hard coded
+    m_pWeaponA->SetReloadTime(200); // @FIXME hard coded
+    m_pWeaponB->SetReloadTime(1000); // @FIXME hard coded
 
     SetMaxHealth(100); // @FIXME hardcoded
     ForceSetHealthValue(100); // @FIXME hardcoded
@@ -54,7 +54,7 @@ void CRIPlayer::OnAddedToScene()
     GetScene().AddGUIObject(*m_pCrosshair);
     GetScene().AddGUIObject(*m_pHealthLabel);
     m_pWeaponA->SetScene(GetScene());
-    //m_pWeaponB->SetScene(GetScene());
+    m_pWeaponB->SetScene(GetScene());
 }
 
 void CRIPlayer::SetSpeed( const float Speed )
@@ -67,7 +67,7 @@ void CRIPlayer::DoUpdate( const float Dt )
     m_MovementController.Deccelerate(*this);
 }
 
-void CRIPlayer::LogicUpdate()
+void CRIPlayer::LogicUpdate(const float Dt)
 {
     GetScene().MoveCamera(GetCenterPos());
 

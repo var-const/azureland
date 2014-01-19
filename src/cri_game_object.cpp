@@ -68,7 +68,7 @@ void CRIGameObject::DoUpdate( const float Dt )
 { 
 }
 
-void CRIGameObject::LogicUpdate()
+void CRIGameObject::LogicUpdate(const float Dt)
 {
 }
 

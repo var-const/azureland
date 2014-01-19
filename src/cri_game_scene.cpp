@@ -134,6 +134,8 @@ void CRIGameScene::AddGUIObject( CRIGameObject& Object )
 
 void CRIGameScene::UpdateObjects(float Dt)
 {
+    const float FrameDt = Dt;
+
     for (int i = 0; i != 10; ++i)
     {
         const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
@@ -174,7 +176,7 @@ void CRIGameScene::UpdateObjects(float Dt)
 
     for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
     {
-        (*i)->LogicUpdate();
+        (*i)->LogicUpdate(FrameDt);
     }
 } 
 

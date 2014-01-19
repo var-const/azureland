@@ -34,7 +34,7 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
     m_Reload.SetReloadTime(1000);
 }
 
-void CRIEnemy::LogicUpdate()
+void CRIEnemy::LogicUpdate(const float Dt)
 {
     if (m_Sleep)
     {

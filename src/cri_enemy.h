@@ -15,7 +15,7 @@ public:
     
     void OnCollisionWithEnemy(const CRIEnemy& Rhs);
 
-    void LogicUpdate(); // override
+    void LogicUpdate(float Dt); // override
 
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;

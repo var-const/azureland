@@ -13,7 +13,7 @@ public:
     void Draw();
     void Update(float Dt);
 
-    virtual void LogicUpdate();
+    virtual void LogicUpdate(float Dt);
 
     void SetDying();
     void Destroy();

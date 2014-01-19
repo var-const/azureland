@@ -91,3 +91,15 @@ void OnCollision( CRIPlayer& Lhs, CRIHealthPickup& Rhs )
     Lhs.ModifyHealth(Rhs.GetAmount());
     Rhs.Destroy();
 }
+
+void OnCollision( CRIEnemy& Lhs, CRIForcefield& Rhs )
+{
+    if (Lhs.IsDying() || Rhs.IsDying())
+    {
+        return;
+    }
+    if (Rhs.Affect(Lhs))
+    {
+        Lhs.ModifyHealth(Rhs.GetDamage() * -1);
+    }
+}

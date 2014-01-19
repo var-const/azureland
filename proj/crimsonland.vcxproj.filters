@@ -106,6 +106,12 @@
     <ClCompile Include="..\src\cri_pickups.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\weapons\cri_forcefield.cpp">
+      <Filter>Source Files\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\weapons\cri_forcefield_emitter.cpp">
+      <Filter>Source Files\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_app.h">
@@ -215,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="..\src\cri_pickups.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\weapons\cri_forcefield.h">
+      <Filter>Source Files\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\weapons\cri_forcefield_emitter.h">
+      <Filter>Source Files\weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

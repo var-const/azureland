@@ -32,7 +32,7 @@ public:
     void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event);
     void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
 
-    void LogicUpdate(); // Override
+    void LogicUpdate(float Dt); // Override
 
 private:
     void DoUpdate(float Dt); // Override

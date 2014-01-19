@@ -43,6 +43,8 @@
     <ClCompile Include="..\src\cri_text_object.cpp" />
     <ClCompile Include="..\src\cri_timer.cpp" />
     <ClCompile Include="..\src\weapons\cri_crossbow.cpp" />
+    <ClCompile Include="..\src\weapons\cri_forcefield.cpp" />
+    <ClCompile Include="..\src\weapons\cri_forcefield_emitter.cpp" />
     <ClCompile Include="..\src\weapons\cri_reload.cpp" />
     <ClCompile Include="..\src\weapons\cri_weapon.cpp" />
     <ClCompile Include="..\src\weapons\cri_weapon_helpers.cpp" />
@@ -81,6 +83,8 @@
     <ClInclude Include="..\src\cri_text_object.h" />
     <ClInclude Include="..\src\cri_timer.h" />
     <ClInclude Include="..\src\weapons\cri_crossbow.h" />
+    <ClInclude Include="..\src\weapons\cri_forcefield.h" />
+    <ClInclude Include="..\src\weapons\cri_forcefield_emitter.h" />
     <ClInclude Include="..\src\weapons\cri_reload.h" />
     <ClInclude Include="..\src\weapons\cri_weapon.h" />
     <ClInclude Include="..\src\weapons\cri_weapon_helpers.h" />

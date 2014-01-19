@@ -47,3 +47,8 @@ void CRICamera::Move( const Vec2f NewCenter )
     m_CurTranslation.y = -1.f * math<float>::clamp(Translation.y, m_VertBounds.x,
         m_VertBounds.y);
 }
+
+Vec2f CRICamera::ToScreenPos( const Vec2f GamePos ) const
+{
+    return GamePos + m_CurTranslation;
+}

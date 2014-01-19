@@ -34,6 +34,8 @@ private:
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
 
+    void Shoot();
+
     CRIMovementController m_MovementController;
     CRICrosshair* m_pCrosshair;
 };

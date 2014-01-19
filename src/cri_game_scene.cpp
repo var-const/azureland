@@ -140,3 +140,8 @@ void CRIGameScene::MoveCamera( const Vec2f NewCenter )
 {
     m_Camera.Move(NewCenter);
 }
+
+Vec2f CRIGameScene::ToScreenPos( const Vec2f GamePos ) const
+{
+    return m_Camera.ToScreenPos(GamePos);
+}

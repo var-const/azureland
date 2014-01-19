@@ -24,6 +24,8 @@ public:
     void AddGUIObject(CRIGameObject& Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
+    cinder::Vec2<float> ToScreenPos(cinder::Vec2<float> GamePos) const;
+
 private:
     // No need
     CRIGameScene(const CRIGameScene&);

@@ -177,6 +177,7 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     }
 }
 
+#ifdef PERFORMANCE_METRICS
 void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
 {
     const volatile float BetterThanBruteForce =
@@ -211,6 +212,7 @@ void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
 
     m_PerformanceLog << "\n\n\n";
 }
+#endif
 
 CRICollider::CmpCollisionTime::CmpCollisionTime( const float Time )
 : m_Time(Time)

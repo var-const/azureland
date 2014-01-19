@@ -64,7 +64,7 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
 
 void CRIGameScene::UpdateObjects(float Dt)
 {
-    for (int i = 0; i != 20; ++i)
+    for (int i = 0; i != 10; ++i)
     {
         const CRICollisionsInfo Collisions = m_Collider.BuildCollisions(
             m_Objects.begin(), m_Objects.end(), Dt);
@@ -72,7 +72,6 @@ void CRIGameScene::UpdateObjects(float Dt)
         {
             break;
         }
-        const int Size = Collisions.GetSize();
 
         if (Collisions.m_Time > 0.f)
         {

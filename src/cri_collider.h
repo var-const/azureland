@@ -1,6 +1,5 @@
 #pragma once
 
-#define PERFORMANCE_METRICS
 #ifdef _DEBUG
 #ifndef PERFORMANCE_METRICS
 #define PERFORMANCE_METRICS

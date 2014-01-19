@@ -35,6 +35,8 @@ private:
     bool m_Blocked;
     bool m_CheckBlocked;
 
+    float m_MaxPursuitRange;
+
     bool m_NeedRespawn;
 
     CRIReload m_Reload;

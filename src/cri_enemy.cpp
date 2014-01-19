@@ -16,6 +16,7 @@
 const int SleepAfterReadjustingPos = 3;
 const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
+const int SleepAfterLosingTrail = 15;
 const float Speed = 100.f;
 
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
@@ -26,6 +27,7 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_CheckBlocked(false)
 , m_NeedRespawn(false)
 , m_PointsForKilling(10)
+, m_MaxPursuitRange(2000.f)
 { 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
@@ -68,6 +70,11 @@ void CRIEnemy::LogicUpdate()
         return;
     }
     PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
+    if (Direction.length() > m_MaxPursuitRange)
+    {
+        m_Sleep = SleepAfterLosingTrail;
+        return;
+    }
     Direction.normalize();
     SetVelocity(Direction * Speed);
 }

@@ -2,6 +2,7 @@
 
 #include "cri_game_object.h"
 #include "cri_health_mixin.h"
+#include "weapons/cri_reload.h"
 
 #include <vector>
 
@@ -26,6 +27,8 @@ private:
 
     void CheckBlocked();
 
+    void OnCaughtPlayer();
+
     CRIPlayer* m_pPlayer;
     BlockersContT m_Blockers;
     int m_Sleep;
@@ -33,4 +36,6 @@ private:
     bool m_CheckBlocked;
 
     bool m_NeedRespawn;
+
+    CRIReload m_Reload;
 };

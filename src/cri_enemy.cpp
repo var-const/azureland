@@ -28,6 +28,7 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 { 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
+    m_Reload.SetReloadTime(1000);
 }
 
 void CRIEnemy::LogicUpdate()
@@ -62,12 +63,24 @@ void CRIEnemy::LogicUpdate()
     player_box.m_HalfSize.y += 15.f;
     if (TouchOrIntersect(GetAABB(), player_box))
     {
-        SetVelocity(VelT());
+        OnCaughtPlayer();
         return;
     }
     PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
     Direction.normalize();
     SetVelocity(Direction * Speed);
+}
+
+void CRIEnemy::OnCaughtPlayer()
+{
+    SetVelocity(VelT());
+
+    // @TODO: refactor out as weapon
+    if (m_Reload.IsReady())
+    {
+        m_pPlayer->ModifyHealth(-10); // @FIXME hard coded
+        m_Reload.OnShot();
+    }
 }
 
 void CRIEnemy::OnCollisionWithEnemy( const CRIEnemy& Rhs )

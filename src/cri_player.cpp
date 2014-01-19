@@ -25,6 +25,8 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 , m_AutofireWeaponB(false)
 { 
     m_pWeaponA->SetReloadTime(500); // @FIXME hard coded
+    SetMaxHealth(100); // @FIXME hardcoded
+    ForceSetHealthValue(100); // @FIXME hardcoded
 }
 
 CRIPlayer::~CRIPlayer()

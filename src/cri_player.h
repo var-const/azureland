@@ -40,11 +40,14 @@ private:
 
     void OnHealthDepleted(); // Override
 
+    void Shoot(CRIWeapon& Weapon);
     PosT GetCrosshairPos() const;
 
     CRIMovementController m_MovementController;
 
     CRICrosshair* m_pCrosshair;
     CRIWeapon* m_pWeaponA;
+    bool m_AutofireWeaponA;
     CRIWeapon* m_pWeaponB;
+    bool m_AutofireWeaponB;
 };

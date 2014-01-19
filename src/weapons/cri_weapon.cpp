@@ -18,9 +18,19 @@ CRIWeapon::~CRIWeapon()
 {
 }
 
+void CRIWeapon::SetReloadTime( const int Milliseconds )
+{
+    m_Reload.SetReloadTime(Milliseconds);
+}
+
 void CRIWeapon::Shoot( const Vec2f StartPos, const Vec2f TargetPos )
 {
+    if (!m_Reload.IsReady())
+    {
+        return;
+    }
     DoShoot(StartPos, TargetPos);
+    m_Reload.OnShot();
 }
 
 void CRIWeapon::SetScene( CRIGameScene& Scene )

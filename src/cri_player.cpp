@@ -21,7 +21,10 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 , m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
 , m_pWeaponA(new CRICrossbow())
 , m_pWeaponB(NULL)
+, m_AutofireWeaponA(false)
+, m_AutofireWeaponB(false)
 { 
+    m_pWeaponA->SetReloadTime(500); // @FIXME hard coded
 }
 
 CRIPlayer::~CRIPlayer()
@@ -55,6 +58,17 @@ void CRIPlayer::DoUpdate( const float Dt )
 void CRIPlayer::LogicUpdate()
 {
     GetScene().MoveCamera(GetCenterPos());
+
+    if (m_AutofireWeaponA)
+    {
+        assert(m_pWeaponA);
+        Shoot(*m_pWeaponA);
+    }
+    if (m_AutofireWeaponB)
+    {
+        assert(m_pWeaponB);
+        Shoot(*m_pWeaponB);
+    }
 }
 
 void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
@@ -67,13 +81,20 @@ void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
     if (Event.isLeft())
     {
         assert(m_pWeaponA);
-        m_pWeaponA->Shoot(GetCenterPos(), GetCrosshairPos());
+        Shoot(*m_pWeaponA);
+        m_AutofireWeaponA = true;
     }
     else if (Event.isRight())
     {
-        assert(m_pWeaponA);
-        m_pWeaponB->Shoot(GetCenterPos(), GetCrosshairPos());
+        assert(m_pWeaponB);
+        Shoot(*m_pWeaponB);
+        m_AutofireWeaponB = true;
     }
+}
+
+void CRIPlayer::Shoot(CRIWeapon& Weapon)
+{
+    Weapon.Shoot(GetCenterPos(), GetCrosshairPos());
 }
 
 CRIMovable::PosT CRIPlayer::GetCrosshairPos() const
@@ -88,7 +109,15 @@ void CRIPlayer::OnMouseUp( const Vec2f& Pos, const MouseEvent Event )
     {
         return;
     }
-    // @TODO
+
+    if (Event.isLeft())
+    {
+        m_AutofireWeaponA = false;
+    }
+    else if (Event.isRight())
+    {
+        m_AutofireWeaponB = false;
+    }
 }
 
 void CRIPlayer::OnMouseMove( const Vec2f& Pos, const MouseEvent Event )

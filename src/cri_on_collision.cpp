@@ -101,5 +101,8 @@ void OnCollision( CRIEnemy& Lhs, CRIForcefield& Rhs )
     if (Rhs.Affect(Lhs))
     {
         Lhs.ModifyHealth(Rhs.GetDamage() * -1);
+        Lhs.SetParalyzed(500);
+        Lhs.SetVelocity(Rhs.GetPushVector(Lhs.GetCenterPos()));
+        //Lhs.SetAcceleration(Rhs.GetPushAcceleration());
     }
 }

@@ -31,8 +31,8 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
     m_pWeaponA->SetReloadTime(200); // @FIXME hard coded
     m_pWeaponB->SetReloadTime(1000); // @FIXME hard coded
 
-    SetMaxHealth(100); // @FIXME hardcoded
-    ForceSetHealthValue(100); // @FIXME hardcoded
+    SetMaxHealth(10000); // @FIXME hardcoded
+    ForceSetHealthValue(10000); // @FIXME hardcoded
 
     m_pHealthLabel->SetFont(Font("Verdana", 32));
     OnHealthModified(GetCurHealthValue(), 0);

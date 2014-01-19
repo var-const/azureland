@@ -2,6 +2,7 @@
 
 #include "cri_game_object.h"
 #include "cri_health_mixin.h"
+#include "cri_timer.h"
 #include "weapons/cri_reload.h"
 
 #include <vector>
@@ -16,6 +17,9 @@ public:
     void OnCollisionWithEnemy(const CRIEnemy& Rhs);
 
     void LogicUpdate(float Dt); // override
+
+    void SetParalyzed(int Milliseconds);
+    void UnsetParalyzed();
 
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
@@ -42,4 +46,7 @@ private:
     CRIReload m_Reload;
 
     int m_PointsForKilling;
+
+    bool m_IsParalyzed;
+    CRICountdownTimer m_ParalyzedTimer;
 };

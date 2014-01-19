@@ -13,7 +13,7 @@ void CRIForcefieldEmitter::DoShoot( const Vec2f StartPos, const Vec2f TargetPos 
 {
     typedef CRIMovable::SizeT SizeT;
 
-    CRIForcefield* const Field = new CRIForcefield(25.f, StartPos, 300, 50,
-        100.f, 0.5f);
+    CRIForcefield* const Field = new CRIForcefield(100.f, StartPos, 300, 10,
+        500.f, 0.5f);
     GetScene().AddObject(*Field);
 }

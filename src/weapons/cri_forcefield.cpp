@@ -34,7 +34,7 @@ void CRIForcefield::LogicUpdate(const float Dt)
 void CRIForcefield::DoDraw()
 {
     using ci::gl::drawStrokedCircle;
-    drawStrokedCircle(GetCenterPos(), GetSize().x);
+    drawStrokedCircle(GetCenterPos(), GetSize().x / 2.f);
 }
 
 int CRIForcefield::GetDamage() const
@@ -45,6 +45,7 @@ int CRIForcefield::GetDamage() const
 bool CRIForcefield::Affect( const CRIEnemy& Enemy )
 {
     using std::find;
+
     if (find(m_Affected.begin(), m_Affected.end(), &Enemy) != m_Affected.end())
     {
         return false;
@@ -52,4 +53,12 @@ bool CRIForcefield::Affect( const CRIEnemy& Enemy )
 
     m_Affected.push_back(&Enemy);
     return true;
+}
+
+Vec2f CRIForcefield::GetPushVector( const Vec2f ToPos ) const
+{
+    Vec2f Result = ToPos - GetCenterPos();
+    Result.safeNormalize();
+    Result *= m_PushForce;
+    return Result;
 }

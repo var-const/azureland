@@ -16,6 +16,7 @@ public:
     int GetDamage() const;
 
     void LogicUpdate(float Dt); // override
+    ci::Vec2f GetPushVector(ci::Vec2f ToPos) const;
 
 private:
     typedef std::vector<const CRIEnemy*> AffectedContT;

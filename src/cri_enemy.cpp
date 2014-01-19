@@ -28,6 +28,7 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_NeedRespawn(false)
 , m_PointsForKilling(10)
 , m_MaxPursuitRange(2000.f)
+, m_IsParalyzed(false)
 { 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
@@ -36,6 +37,12 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 
 void CRIEnemy::LogicUpdate(const float Dt)
 {
+    if (m_IsParalyzed)
+    {
+        m_IsParalyzed = m_ParalyzedTimer.IsExpired();
+        return;
+    }
+
     if (m_Sleep)
     {
         --m_Sleep;
@@ -228,4 +235,11 @@ void CRIEnemy::Respawn( const PosT Pos )
 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
+}
+
+void CRIEnemy::SetParalyzed( const int Milliseconds )
+{
+    SetVelocity(VelT());
+    m_IsParalyzed = true;
+    m_ParalyzedTimer.SetExpiresFromNow(static_cast<int>(Milliseconds) / 1000.0);
 }

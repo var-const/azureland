@@ -59,6 +59,7 @@ void OnCollision( CRIPlayer& Lhs, CRIObstacle& Rhs )
 void OnCollision( CRIEnemy& Lhs, CRIProjectile& Rhs )
 {
     Rhs.Destroy();
+    Lhs.ModifyHealth(Rhs.GetDamage());
 }
 
 void OnCollision( CRIObstacle& Lhs, CRIProjectile& Rhs )

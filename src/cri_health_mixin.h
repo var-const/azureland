@@ -6,15 +6,15 @@ public:
     CRIHealthMixin();
     virtual ~CRIHealthMixin();
 
-    void SetMax(int Max);
-    void Modify(int Val);
-    void ForceSetValue(int Val);
+    void SetMaxHealth(int Max);
+    void ModifyHealth(int Val);
+    void ForceSetHealthValue(int Val);
 
-    int GetCurValue() const;
-    int GetMaxValue() const;
+    int GetCurHealthValue() const;
+    int GetMaxHealthValue() const;
 
 private:
-    virtual void Die() = 0;
+    virtual void OnHealthDepleted() = 0;
 
     int m_CurVal;
     int m_MaxVal;

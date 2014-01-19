@@ -8,6 +8,8 @@ public:
     CRIProjectile(const SizeT& Size, const PosT& Pos, const VelT& Velocity,
         int Damage);
 
+    int GetDamage() const;
+
 private:
     int m_Damage;
 };

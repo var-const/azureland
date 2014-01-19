@@ -144,7 +144,7 @@ void CRIPlayer::OnDestroyed()
     // @TODO
 }
 
-void CRIPlayer::Die()
+void CRIPlayer::OnHealthDepleted()
 {
     Destroy();
 }

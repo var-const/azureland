@@ -20,7 +20,7 @@ private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
     typedef BlockersContT::iterator BlockersIterT;
 
-    void Die(); // override
+    void OnHealthDepleted(); // override
 
     void CheckBlocked();
 

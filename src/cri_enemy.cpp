@@ -18,6 +18,8 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_Blocked(false)
 , m_CheckBlocked(false)
 { 
+    SetMaxHealth(20); // @FIXME hardcoded
+    ForceSetHealthValue(20); // @FIXME hardcoded
 }
 
 void CRIEnemy::LogicUpdate()
@@ -143,7 +145,7 @@ void CRIEnemy::CheckBlocked()
     }
 }
 
-void CRIEnemy::Die()
+void CRIEnemy::OnHealthDepleted()
 {
     // @TODO: respawn
 }

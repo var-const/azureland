@@ -9,3 +9,8 @@ CRIProjectile::CRIProjectile( const SizeT& Size, const PosT& Pos,
 {
     SetVelocity(Velocity);
 }
+
+int CRIProjectile::GetDamage() const
+{
+    return m_Damage;
+}

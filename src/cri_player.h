@@ -38,7 +38,7 @@ private:
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
 
-    void Die(); // Override
+    void OnHealthDepleted(); // Override
 
     PosT GetCrosshairPos() const;
 

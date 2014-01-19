@@ -17,38 +17,38 @@ CRIHealthMixin::~CRIHealthMixin()
 {
 }
 
-void CRIHealthMixin::SetMax( const int Max )
+void CRIHealthMixin::SetMaxHealth( const int Max )
 {
     assert(Max >= 0);
     m_MaxVal = Max;
 }
 
-void CRIHealthMixin::Modify( const int Val )
+void CRIHealthMixin::ModifyHealth( const int Val )
 {
     using ci::math; using std::max;
 
     m_CurVal = math<int>::clamp(m_CurVal + Val, 0, max(m_CurVal, m_MaxVal));
     if (m_CurVal == 0)
     {
-        Die();
+        OnHealthDepleted();
     }
 }
 
-void CRIHealthMixin::ForceSetValue( const int Val )
+void CRIHealthMixin::ForceSetHealthValue( const int Val )
 {
     m_CurVal = Val;
     if (m_CurVal <= 0)
     {
-        Die();
+        OnHealthDepleted();
     }
 }
 
-int CRIHealthMixin::GetCurValue() const
+int CRIHealthMixin::GetCurHealthValue() const
 {
     return m_CurVal;
 }
 
-int CRIHealthMixin::GetMaxValue() const
+int CRIHealthMixin::GetMaxHealthValue() const
 {
     return m_MaxVal;
 }

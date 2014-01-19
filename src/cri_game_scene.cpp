@@ -202,3 +202,8 @@ void CRIGameScene::OnEnemyRespawn( const Vec2f PosForPickUp )
 {
     m_Pickups.Invoke(PosForPickUp);
 }
+
+Vec2i CRIGameScene::GetSize() const
+{
+    return m_Camera.GetSize();
+}

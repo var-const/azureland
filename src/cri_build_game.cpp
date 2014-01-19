@@ -6,7 +6,10 @@
 #include "cri_game_objects.h"
 #include "cri_game_scene.h"
 
+#include <cinder/Rand.h>
 #include <cinder/Vector.h>
+
+using ci::Vec2f;
 
 void BuildGame( CRIApp& App )
 {
@@ -39,7 +42,7 @@ CRIPlayer* CreatePlayer( CRIApp& App )
     //const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
     //    getWindowSize().y - 30.f);
     CRIPlayer* const Player = new CRIPlayer(Size, Pos);
-    Player->SetSpeed(400.f);
+    Player->SetSpeed(1800.f);
     //Player->SetVelocity(CRIMovable::VelT(0.f, -300.f));
     App.AddInputListener(*Player);
 
@@ -48,18 +51,43 @@ CRIPlayer* CreatePlayer( CRIApp& App )
 
 void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
 {
-    using ci::app::getWindowWidth;
+    SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 2400.f), 10, 5.f);
+    SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f);
+
+    SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f);
+    SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f);
+    SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f);
+    SpawnEnemies(Scene, Player, 100, Vec2f(2700.f, 2400.f), 10, 5.f);
+
+    SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f);
+    SpawnEnemies(Scene, Player, 50, Vec2f(2800.f, 600.f), 10, 55.f);
+    SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f);
+
+    SpawnEnemies(Scene, Player, 10, Vec2f(1500.f, 2000.f), 10, 55.f);
+    SpawnEnemies(Scene, Player, 10, Vec2f(600.f, 1000.f), 5, 55.f);
+    SpawnEnemies(Scene, Player, 10, Vec2f(360.f, 200.f), 10, 55.f);
+    SpawnEnemies(Scene, Player, 10, Vec2f(2860.f, 150.f), 10, 55.f);
+    SpawnEnemies(Scene, Player, 10, Vec2f(2300.f, 500.f), 10, 55.f);
+}
+
+void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
+    const Vec2f From, const int MaxRowLength, const float Dispersion )
+{
+    using ci::randFloat;
+
+    assert(Count >= 0);
+    assert(MaxRowLength > 0);
+    assert(Dispersion > 0.f);
 
     // @FIXME hard coded values
 
     const CRIMovable::SizeT Size = CRIMovable::SizeT(20.f, 20.f);
-    const CRIMovable::PosT StartPos = CRIMovable::PosT(90.f, 100.f);
     const CRIMovable::VelT VelocityBase = CRIMovable::VelT(200.f, 200.f);
-    CRIMovable::PosT CurPos = StartPos;
-    const float MaxHorizOffset = getWindowWidth() * 2 - Size.x;
+    CRIMovable::PosT CurPos = From;
     
-    //for (int i = 0; i != 3; ++i)
-    for (int i = 0; i != 1000; ++i)
+    int CurRow = 0;
+    for (int i = 0; i != Count; ++i)
+    //for (int i = 0; i != 1000; ++i)
     //for (int i = 0; i != 300; ++i)
     //for (int i = 0; i != 2500; ++i)
     //for (int i = 0; i != 100; ++i)
@@ -71,11 +99,12 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
         Scene.AddObject(*Enemy);
 
-        CurPos.x += Size.x + 1.f;
-        if (CurPos.x >= MaxHorizOffset)
+        CurPos.x += Size.x + randFloat(1.f, Dispersion);
+        if (CurRow++ == MaxRowLength)
         {
-            CurPos.x = StartPos.x;
-            CurPos.y += Size.y + 1.f;
+            CurRow = 0;
+            CurPos.x = From.x;
+            CurPos.y += Size.y + randFloat(1.f, Dispersion);
         }
     }
 }

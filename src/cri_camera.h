@@ -17,6 +17,8 @@ public:
     void Draw(ObjectsItT Begin, ObjectsItT End);
 
     void Move(ci::Vec2f NewCenter);
+
+    ci::Vec2i GetSize() const;
     ci::Vec2f ToScreenPos( ci::Vec2f GamePos ) const;
     ci::Vec2f ToGamePos( ci::Vec2f ScreenPos ) const;
 

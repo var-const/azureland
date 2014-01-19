@@ -52,3 +52,8 @@ Vec2f CRICamera::ToGamePos( const Vec2f ScreenPos ) const
 {
     return ScreenPos - m_CurTranslation;
 }
+
+Vec2i CRICamera::GetSize() const
+{
+    return Vec2i(m_HorizBounds.y, m_VertBounds.y);
+}

@@ -25,6 +25,8 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 , m_AutofireWeaponA(false)
 , m_AutofireWeaponB(false)
 , m_pHealthLabel( new CRITextObject(PosT(100.f, 50.f)) )
+, m_pScoreLabel( new CRITextObject(PosT(1100.f, 50.f)) )
+, m_Score(0)
 { 
     using ci::Font;
 
@@ -36,6 +38,8 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 
     m_pHealthLabel->SetFont(Font("Verdana", 32));
     OnHealthModified(GetCurHealthValue(), 0);
+    m_pScoreLabel->SetFont(Font("Verdana", 32));
+    AddScore(0);
 }
 
 CRIPlayer::~CRIPlayer()
@@ -51,10 +55,12 @@ void CRIPlayer::OnAddedToScene()
     assert(m_pWeaponA);
     assert(m_pWeaponB);
 
-    GetScene().AddGUIObject(*m_pCrosshair);
-    GetScene().AddGUIObject(*m_pHealthLabel);
     m_pWeaponA->SetScene(GetScene());
     m_pWeaponB->SetScene(GetScene());
+
+    GetScene().AddGUIObject(*m_pCrosshair);
+    GetScene().AddGUIObject(*m_pHealthLabel);
+    GetScene().AddGUIObject(*m_pScoreLabel);
 }
 
 void CRIPlayer::SetSpeed( const float Speed )
@@ -200,4 +206,19 @@ void CRIPlayer::OnHealthModified( const int NewVal, const int Modifier )
     stream.str("");
     stream << "Health: " << NewVal;
     m_pHealthLabel->SetText(stream.str());
+}
+
+void CRIPlayer::AddScore( const int Amount )
+{
+    using std::stringstream;
+
+    assert(Amount >= 0);
+    assert(m_pHealthLabel);
+
+    m_Score += Amount;
+
+    static stringstream stream;
+    stream.str("");
+    stream << "Score: " << m_Score;
+    m_pScoreLabel->SetText(stream.str());
 }

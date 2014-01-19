@@ -17,6 +17,7 @@ public:
     ~CRIPlayer();
 
     void SetSpeed(float Speed);
+    void AddScore(int Amount);
 
     // Overrides
 
@@ -54,4 +55,6 @@ private:
     bool m_AutofireWeaponB;
 
     CRITextObject* m_pHealthLabel;
+    CRITextObject* m_pScoreLabel;
+    int m_Score;
 };

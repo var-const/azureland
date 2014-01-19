@@ -188,6 +188,9 @@ void CRIEnemy::CheckBlocked()
 
 void CRIEnemy::OnHealthDepleted()
 {
+    assert(m_pPlayer);
+    m_pPlayer->AddScore(m_PointsForKilling);
+
     SetDying();
     m_NeedRespawn = true;
     TryRespawn();

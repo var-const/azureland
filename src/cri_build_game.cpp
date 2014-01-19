@@ -11,6 +11,10 @@
 
 using ci::Vec2f;
 
+#ifndef CHEATS
+//#define CHEATS
+#endif
+
 void BuildGame( CRIApp& App )
 {
     using ci::Vec2f;
@@ -35,14 +39,25 @@ CRIPlayer* CreatePlayer( CRIApp& App )
 
     // @FIXME hard coded values
     const CRIMovable::SizeT Size = CRIMovable::SizeT(30.f, 30.f);
-    const CRIMovable::PosT Pos = CRIMovable::PosT(40.f,
+    const CRIMovable::PosT Pos = CRIMovable::PosT(440.f,
         //getWindowSize().y - 30.f);
-        900.f);
+        1500.f);
         //90.f);
     //const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
     //    getWindowSize().y - 30.f);
-    CRIPlayer* const Player = new CRIPlayer(Size, Pos);
+#ifdef CHEATS
+    const int PlayerHealth = 10000;
+#else
+    const int PlayerHealth = 100;
+#endif
+
+    CRIPlayer* const Player = new CRIPlayer(Size, Pos, PlayerHealth);
+#ifdef CHEATS
     Player->SetSpeed(1800.f);
+#else
+    //Player->SetSpeed(130.f);
+    Player->SetSpeed(180.f);
+#endif
     //Player->SetVelocity(CRIMovable::VelT(0.f, -300.f));
     App.AddInputListener(*Player);
 
@@ -73,7 +88,7 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
 void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     const Vec2f From, const int MaxRowLength, const float Dispersion )
 {
-    using ci::randFloat;
+    using ci::randFloat; using ci::randInt;
 
     assert(Count >= 0);
     assert(MaxRowLength > 0);
@@ -96,7 +111,9 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     //for (int i = 0; i != 30; ++i)
     //for (int i = 0; i != 30; ++i)
     {
+        const float Speed = randInt(10) < 9 ? 100 : 200;
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
+        Enemy->SetSpeed(Speed);
         Scene.AddObject(*Enemy);
 
         CurPos.x += Size.x + randFloat(1.f, Dispersion);

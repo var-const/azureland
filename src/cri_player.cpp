@@ -17,7 +17,7 @@ using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
 
-CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
+CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health )
 : CRIGameObject(Size, StartPos)
 , m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
 , m_pWeaponA(new CRICrossbow())
@@ -30,11 +30,13 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 { 
     using ci::Font;
 
+    assert(Health > 0);
+
     m_pWeaponA->SetReloadTime(200); // @FIXME hard coded
     m_pWeaponB->SetReloadTime(1000); // @FIXME hard coded
 
-    SetMaxHealth(10000); // @FIXME hardcoded
-    ForceSetHealthValue(10000); // @FIXME hardcoded
+    SetMaxHealth(Health);
+    ForceSetHealthValue(Health);
 
     m_pHealthLabel->SetFont(Font("Verdana", 32));
     OnHealthModified(GetCurHealthValue(), 0);

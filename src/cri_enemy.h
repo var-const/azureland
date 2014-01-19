@@ -13,6 +13,8 @@ class CRIEnemy : public CRIGameObject, public CRIHealthMixin
 {
 public:	
     CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
+
+    void SetSpeed(int Speed);
     
     void OnCollisionWithEnemy(const CRIEnemy& Rhs);
 
@@ -43,6 +45,8 @@ private:
     float m_MaxPursuitRange;
 
     bool m_NeedRespawn;
+
+    float m_Speed;
 
     CRIReload m_Reload;
 

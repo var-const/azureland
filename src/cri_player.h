@@ -13,7 +13,7 @@ class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
     public CRIInterfaceInput
 {
 public:	
-    CRIPlayer(const SizeT& Size, const PosT& StartPos);
+    CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health);
     ~CRIPlayer();
 
     void SetSpeed(float Speed);

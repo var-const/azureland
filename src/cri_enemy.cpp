@@ -17,7 +17,6 @@ const int SleepAfterReadjustingPos = 3;
 const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
 const int SleepAfterLosingTrail = 15;
-const float Speed = 100.f;
 
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
@@ -83,7 +82,7 @@ void CRIEnemy::LogicUpdate(const float Dt)
         return;
     }
     Direction.normalize();
-    SetVelocity(Direction * Speed);
+    SetVelocity(Direction * m_Speed);
 }
 
 void CRIEnemy::OnCaughtPlayer()
@@ -157,12 +156,12 @@ void CRIEnemy::CheckBlocked()
                 if (Diff.x > Diff.y)
                 {
                     NewVelocity.x = 0.f;
-                    NewVelocity.y = NewVelocity.y > 0.f ? Speed : -Speed;
+                    NewVelocity.y = NewVelocity.y > 0.f ? m_Speed : -m_Speed;
                 }
                 else
                 {
                     NewVelocity.y = 0.f;
-                    NewVelocity.x = NewVelocity.x > 0.f ? Speed : -Speed;
+                    NewVelocity.x = NewVelocity.x > 0.f ? m_Speed : -m_Speed;
                 }
             }
         }
@@ -250,4 +249,10 @@ void CRIEnemy::SetParalyzed( const int Milliseconds )
 bool CRIEnemy::IsParalyzed() const
 {
     return m_IsParalyzed;
+}
+
+void CRIEnemy::SetSpeed( const int Speed )
+{
+    assert(Speed >= 0);
+    m_Speed = Speed;
 }

@@ -21,8 +21,8 @@ public:
     void Update(float Dt);
 
     void AddObject(CRIGameObject& Object);
+    void AddGUIObject(CRIGameObject& Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
-
 
 private:
     // No need
@@ -35,6 +35,7 @@ private:
     typedef ObjectsContT::iterator ObjectsItT;
 
     ObjectsContT m_Objects;
+    ObjectsContT m_GUIObjects;
     CRICollider m_Collider;
     CRICamera m_Camera;
 

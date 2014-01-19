@@ -64,6 +64,10 @@ void CRIGameObject::LogicUpdate()
 {
 }
 
+void CRIGameObject::OnAddedToScene()
+{ 
+}
+
 void CRIGameObject::OnDestroyed()
 { 
 }
@@ -71,6 +75,7 @@ void CRIGameObject::OnDestroyed()
 void CRIGameObject::SetScene( CRIGameScene& Scene )
 {
     m_pScene = &Scene;
+    OnAddedToScene();
 }
 
 CRIGameScene& CRIGameObject::GetScene()

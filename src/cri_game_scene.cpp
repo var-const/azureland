@@ -38,17 +38,37 @@ CRIGameScene::~CRIGameScene()
         delete *i;
     }
     m_Objects.clear();
+
+    for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
+        ++GUIObj)
+    {
+        delete *GUIObj;
+    }
+    m_GUIObjects.clear();
 }
 
 void CRIGameScene::Draw()
 {
     m_Camera.Draw();
+
+    for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
+        ++GUIObj)
+    {
+        (*GUIObj)->Draw();
+    }
+
     //m_Collider.Draw();
 }
 
 void CRIGameScene::Update(const float Dt)
 {
     UpdateObjects(Dt);
+
+    for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
+        ++GUIObj)
+    {
+        (*GUIObj)->Update(Dt);
+    }
 }
 
 void CRIGameScene::AddObject( CRIGameObject& Object )
@@ -60,6 +80,14 @@ void CRIGameScene::AddObject( CRIGameObject& Object )
     // @FIXME would be called many times during initialization
     m_Collider.Reserve(m_Objects.size());
     m_Camera.AddObject(Object);
+}
+
+void CRIGameScene::AddGUIObject( CRIGameObject& Object )
+{
+    assert(std::find(m_GUIObjects.begin(), m_GUIObjects.end(), &Object) ==
+        m_GUIObjects.end());
+    Object.SetScene(*this);
+    m_GUIObjects.push_back(&Object);
 }
 
 void CRIGameScene::UpdateObjects(float Dt)

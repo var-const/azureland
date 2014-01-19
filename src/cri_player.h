@@ -4,6 +4,8 @@
 #include "cri_interface_input.h"
 #include "cri_movement_controller.h"
 
+class CRICrosshair;
+
 class CRIPlayer : public CRIGameObject, public CRIInterfaceInput
 {
 public:	
@@ -25,9 +27,13 @@ public:
     void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event);
     void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
 
+    void LogicUpdate(); // Override
+
 private:
     void DoUpdate(float Dt); // Override
     void OnDestroyed(); // Override
+    void OnAddedToScene(); // Override
 
     CRIMovementController m_MovementController;
+    CRICrosshair* m_pCrosshair;
 };

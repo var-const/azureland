@@ -12,6 +12,7 @@ public:
 
     void Draw();
     void Update(float Dt);
+
     virtual void LogicUpdate();
 
     void Destroy();
@@ -27,6 +28,7 @@ protected:
 private:
     virtual void DoUpdate(float Dt);
     virtual void OnDestroyed();
+    virtual void OnAddedToScene();
 
     bool m_IsDead;
 

@@ -2,6 +2,7 @@
 
 #include "cri_player.h"
 
+#include "cri_crosshair.h"
 #include "cri_game_scene.h"
 
 #include <cinder/Vector.h>
@@ -14,7 +15,13 @@ using ci::app::MouseEvent;
 
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
+, m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
 { 
+}
+
+void CRIPlayer::OnAddedToScene()
+{
+    GetScene().AddGUIObject(*m_pCrosshair);
 }
 
 void CRIPlayer::SetSpeed( const float Speed )
@@ -25,6 +32,10 @@ void CRIPlayer::SetSpeed( const float Speed )
 void CRIPlayer::DoUpdate( const float Dt )
 {
     m_MovementController.Deccelerate(*this);
+}
+
+void CRIPlayer::LogicUpdate()
+{
     GetScene().MoveCamera(GetCenterPos());
 }
 
@@ -52,7 +63,9 @@ void CRIPlayer::OnMouseMove( const Vec2f& Pos, const MouseEvent Event )
     {
         return;
     }
-    // @TODO
+
+    assert(m_pCrosshair);
+    m_pCrosshair->SetCenterPos(Pos);
 }
 
 void CRIPlayer::OnMouseDrag( const Vec2f& Pos, const MouseEvent Event )
@@ -61,7 +74,8 @@ void CRIPlayer::OnMouseDrag( const Vec2f& Pos, const MouseEvent Event )
     {
         return;
     }
-    // @TODO
+
+    OnMouseMove(Pos, Event);
 }
 
 void CRIPlayer::OnMouseWheel( const float Increment, const MouseEvent Event )

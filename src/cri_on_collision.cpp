@@ -58,10 +58,10 @@ void OnCollision( CRIPlayer& Lhs, CRIObstacle& Rhs )
 
 void OnCollision( CRIEnemy& Lhs, CRIProjectile& Rhs )
 {
-    //Lhs.Destroy();
+    Rhs.Destroy();
 }
 
 void OnCollision( CRIObstacle& Lhs, CRIProjectile& Rhs )
 {
-    //Rhs.Destroy();
+    Rhs.Destroy();
 }

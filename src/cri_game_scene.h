@@ -24,6 +24,8 @@ public:
     void AddGUIObject(CRIGameObject& Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
+    void DestroyObject(CRIGameObject& Obj);
+
     cinder::Vec2<float> ToScreenPos(cinder::Vec2<float> GamePos) const;
     cinder::Vec2<float> ToGamePos(cinder::Vec2<float> ScreenPos) const;
 
@@ -32,13 +34,20 @@ private:
     CRIGameScene(const CRIGameScene&);
     CRIGameScene& operator=(const CRIGameScene&);
 
+    void AddPendingObjects();
+    void RemoveDeadObjects();
+
     void UpdateObjects(float Dt);
 
     typedef std::vector<CRIGameObject*> ObjectsContT;
     typedef ObjectsContT::iterator ObjectsItT;
 
     ObjectsContT m_Objects;
+    ObjectsContT m_PendingObjects;
+    ObjectsContT m_DeadObjects;
     ObjectsContT m_GUIObjects;
+    ObjectsContT m_PendingGUIObjects;
+
     CRICollider m_Collider;
     CRICamera m_Camera;
 

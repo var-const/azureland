@@ -2,6 +2,8 @@
 
 #include "cri_game_object.h"
 
+#include "cri_game_scene.h"
+
 #include <cinder/gl/gl.h>
 
 CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos )
@@ -41,8 +43,9 @@ void CRIGameObject::Destroy()
     }
 
     m_IsDead = true;
-    SetVelocity(VelT());
+    GetScene().DestroyObject(*this);
 
+    SetVelocity(VelT());
     OnDestroyed();
 }
 

@@ -49,7 +49,7 @@ CRIGameScene::~CRIGameScene()
 
 void CRIGameScene::Draw()
 {
-    m_Camera.Draw();
+    m_Camera.Draw(m_Objects.begin(), m_Objects.end());
 
     for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
         ++GUIObj)
@@ -62,6 +62,9 @@ void CRIGameScene::Draw()
 
 void CRIGameScene::Update(const float Dt)
 {
+    AddPendingObjects();
+    RemoveDeadObjects();
+
     UpdateObjects(Dt);
 
     for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
@@ -71,15 +74,53 @@ void CRIGameScene::Update(const float Dt)
     }
 }
 
+void CRIGameScene::AddPendingObjects()
+{
+    m_Objects.insert(m_Objects.end(), m_PendingObjects.begin(),
+        m_PendingObjects.end());
+    m_PendingObjects.clear();
+
+    m_Collider.Reserve(m_Objects.size());
+
+    m_GUIObjects.insert(m_GUIObjects.end(), m_PendingGUIObjects.begin(),
+        m_PendingGUIObjects.end());
+    m_PendingGUIObjects.clear();
+}
+
+void CRIGameScene::RemoveDeadObjects()
+{
+    using std::find;
+
+    for (ObjectsItT Obj = m_DeadObjects.begin(); Obj != m_DeadObjects.end();
+        ++Obj)
+    {
+        // Search from the end, because most of our objects never die,
+        // and those that do are all appended at end during the game
+        typedef ObjectsContT::reverse_iterator ReverseIterT;
+        const ReverseIterT Found = find(m_Objects.rbegin(), m_Objects.rend(),
+            *Obj); 
+        assert(Found != m_Objects.rend());
+        if (Found != m_Objects.rend())
+        {
+            delete *Found;
+            m_Objects.erase((Found + 1).base());
+        }
+    }
+
+    m_DeadObjects.clear();
+}
+
+void CRIGameScene::DestroyObject( CRIGameObject& Obj )
+{
+    m_DeadObjects.push_back(&Obj);
+}
+
 void CRIGameScene::AddObject( CRIGameObject& Object )
 {
     assert(std::find(m_Objects.begin(), m_Objects.end(), &Object) ==
         m_Objects.end());
     Object.SetScene(*this);
-    m_Objects.push_back(&Object);
-    // @FIXME would be called many times during initialization
-    m_Collider.Reserve(m_Objects.size());
-    m_Camera.AddObject(Object);
+    m_PendingObjects.push_back(&Object);
 }
 
 void CRIGameScene::AddGUIObject( CRIGameObject& Object )
@@ -87,7 +128,7 @@ void CRIGameScene::AddGUIObject( CRIGameObject& Object )
     assert(std::find(m_GUIObjects.begin(), m_GUIObjects.end(), &Object) ==
         m_GUIObjects.end());
     Object.SetScene(*this);
-    m_GUIObjects.push_back(&Object);
+    m_PendingGUIObjects.push_back(&Object);
 }
 
 void CRIGameScene::UpdateObjects(float Dt)

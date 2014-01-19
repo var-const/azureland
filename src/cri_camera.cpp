@@ -16,7 +16,7 @@ CRICamera::CRICamera( const Vec2i SceneSize, const Vec2i ViewSize )
 { 
 }
 
-void CRICamera::Draw()
+void CRICamera::Draw(const ObjectsItT Begin, const ObjectsItT End)
 {
     using namespace ci;
 
@@ -24,17 +24,12 @@ void CRICamera::Draw()
     //m_CurTranslation = Vec2f(200.f, 0.f);
     gl::translate(m_CurTranslation);
 
-    for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+    for (ObjectsItT i = Begin; i != End; ++i)
     {
         (*i)->Draw();
     }
 
     gl::popModelView();
-}
-
-void CRICamera::AddObject( CRIGameObject& Object )
-{
-    m_Objects.push_back(&Object);
 }
 
 void CRICamera::Move( const Vec2f NewCenter )

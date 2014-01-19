@@ -6,6 +6,7 @@
 #include "cri_movement_controller.h"
 
 class CRICrosshair;
+class CRITextObject;
 class CRIWeapon;
 
 class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
@@ -38,6 +39,7 @@ private:
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
 
+    void OnHealthModified(int NewVal, int Modifier); // Override
     void OnHealthDepleted(); // Override
 
     void Shoot(CRIWeapon& Weapon);
@@ -50,4 +52,6 @@ private:
     bool m_AutofireWeaponA;
     CRIWeapon* m_pWeaponB;
     bool m_AutofireWeaponB;
+
+    CRITextObject* m_pHealthLabel;
 };

@@ -4,7 +4,9 @@
 
 #include "cri_crosshair.h"
 #include "cri_game_scene.h"
+#include "cri_text_object.h"
 
+#include <cinder/Font.h>
 #include <cinder/Vector.h>
 #include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
@@ -23,10 +25,17 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 , m_pWeaponB(NULL)
 , m_AutofireWeaponA(false)
 , m_AutofireWeaponB(false)
+, m_pHealthLabel( new CRITextObject(PosT(100.f, 50.f)) )
 { 
+    using ci::Font;
+
     m_pWeaponA->SetReloadTime(500); // @FIXME hard coded
+
     SetMaxHealth(100); // @FIXME hardcoded
     ForceSetHealthValue(100); // @FIXME hardcoded
+
+    m_pHealthLabel->SetFont(Font("Verdana", 32));
+    OnHealthModified(GetCurHealthValue(), 0);
 }
 
 CRIPlayer::~CRIPlayer()
@@ -43,6 +52,7 @@ void CRIPlayer::OnAddedToScene()
     assert(m_pWeaponB);
 
     GetScene().AddGUIObject(*m_pCrosshair);
+    GetScene().AddGUIObject(*m_pHealthLabel);
     m_pWeaponA->SetScene(GetScene());
     //m_pWeaponB->SetScene(GetScene());
 }
@@ -178,4 +188,16 @@ void CRIPlayer::OnDestroyed()
 void CRIPlayer::OnHealthDepleted()
 {
     Destroy();
+}
+
+void CRIPlayer::OnHealthModified( const int NewVal, const int Modifier )
+{
+    using std::stringstream;
+
+    assert(m_pHealthLabel);
+
+    static stringstream stream;
+    stream.str("");
+    stream << "Health: " << NewVal;
+    m_pHealthLabel->SetText(stream.str());
 }

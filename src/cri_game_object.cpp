@@ -23,6 +23,7 @@ void CRIGameObject::Draw()
     using ci::gl::drawStrokedRect;
     // @TODO: textures
     drawStrokedRect( ToRect(GetAABB()) );
+    DoDraw();
 }
 
 void CRIGameObject::Update(const float Dt)
@@ -57,6 +58,10 @@ bool CRIGameObject::IsDying() const
 bool CRIGameObject::IsDead() const
 {
     return m_IsDead;
+}
+
+void CRIGameObject::DoDraw()
+{ 
 }
 
 void CRIGameObject::DoUpdate( const float Dt )

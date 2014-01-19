@@ -31,6 +31,7 @@
     <ClCompile Include="..\src\cri_movable.cpp" />
     <ClCompile Include="..\src\cri_obstacle.cpp" />
     <ClCompile Include="..\src\cri_on_collision.cpp" />
+    <ClCompile Include="..\src\cri_pickup_generator.cpp" />
     <ClCompile Include="..\src\cri_player.cpp" />
     <ClCompile Include="..\src\cri_handle_collision.cpp" />
     <ClCompile Include="..\src\cri_projectile.cpp" />
@@ -38,6 +39,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\cri_text_object.cpp" />
     <ClCompile Include="..\src\cri_timer.cpp" />
     <ClCompile Include="..\src\weapons\cri_crossbow.cpp" />
     <ClCompile Include="..\src\weapons\cri_reload.cpp" />
@@ -68,11 +70,13 @@
     <ClInclude Include="..\src\cri_movable.h" />
     <ClInclude Include="..\src\cri_obstacle.h" />
     <ClInclude Include="..\src\cri_on_collision.h" />
+    <ClInclude Include="..\src\cri_pickup_generator.h" />
     <ClInclude Include="..\src\cri_player.h" />
     <ClInclude Include="..\src\cri_handle_collision.h" />
     <ClInclude Include="..\src\cri_projectile.h" />
     <ClInclude Include="..\src\cri_spatial_grid.h" />
     <ClInclude Include="..\src\cri_stdafx.h" />
+    <ClInclude Include="..\src\cri_text_object.h" />
     <ClInclude Include="..\src\cri_timer.h" />
     <ClInclude Include="..\src\weapons\cri_crossbow.h" />
     <ClInclude Include="..\src\weapons\cri_reload.h" />

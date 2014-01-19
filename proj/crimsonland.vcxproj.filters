@@ -97,6 +97,12 @@
     <ClCompile Include="..\src\cri_timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cri_text_object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cri_pickup_generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cri_app.h">
@@ -196,6 +202,12 @@
       <Filter>Source Files\weapons</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_timer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_text_object.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_pickup_generator.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

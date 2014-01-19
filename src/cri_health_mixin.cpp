@@ -27,7 +27,9 @@ void CRIHealthMixin::ModifyHealth( const int Val )
 {
     using ci::math; using std::max;
 
+    const int OldVal = m_CurVal;
     m_CurVal = math<int>::clamp(m_CurVal + Val, 0, max(m_CurVal, m_MaxVal));
+    OnHealthModified(m_CurVal, m_CurVal - OldVal);
     if (m_CurVal == 0)
     {
         OnHealthDepleted();
@@ -36,7 +38,9 @@ void CRIHealthMixin::ModifyHealth( const int Val )
 
 void CRIHealthMixin::ForceSetHealthValue( const int Val )
 {
+    const int OldVal = m_CurVal;
     m_CurVal = Val;
+    OnHealthModified(m_CurVal, m_CurVal - OldVal);
     if (m_CurVal <= 0)
     {
         OnHealthDepleted();
@@ -51,4 +55,8 @@ int CRIHealthMixin::GetCurHealthValue() const
 int CRIHealthMixin::GetMaxHealthValue() const
 {
     return m_MaxVal;
+}
+
+void CRIHealthMixin::OnHealthModified( const int NewVal, const int Modifier )
+{
 }

@@ -25,6 +25,7 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_Blocked(false)
 , m_CheckBlocked(false)
 , m_NeedRespawn(false)
+, m_PointsForKilling(10)
 { 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
@@ -46,8 +47,8 @@ void CRIEnemy::LogicUpdate()
 
     if (m_CheckBlocked)
     {
-        CheckBlocked();
         m_CheckBlocked = false;
+        CheckBlocked();
         return;
     }
     if (m_Blocked)
@@ -210,6 +211,8 @@ void CRIEnemy::TryRespawn()
 
 void CRIEnemy::Respawn( const PosT Pos )
 {
+    GetScene().OnEnemyDeath(m_PointsForKilling, GetCenterPos());
+
     m_NeedRespawn = false;
 
     Ressurect();

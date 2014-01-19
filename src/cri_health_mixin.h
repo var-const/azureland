@@ -15,6 +15,7 @@ public:
 
 private:
     virtual void OnHealthDepleted() = 0;
+    virtual void OnHealthModified(int NewVal, int Modifier);
 
     int m_CurVal;
     int m_MaxVal;

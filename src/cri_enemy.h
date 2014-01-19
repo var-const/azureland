@@ -38,4 +38,6 @@ private:
     bool m_NeedRespawn;
 
     CRIReload m_Reload;
+
+    int m_PointsForKilling;
 };

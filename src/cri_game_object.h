@@ -29,6 +29,7 @@ protected:
     void Ressurect();
 
 private:
+    virtual void DoDraw();
     virtual void DoUpdate(float Dt);
     virtual void OnDestroyed();
     virtual void OnAddedToScene();

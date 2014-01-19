@@ -15,6 +15,7 @@ public:
 
     virtual void LogicUpdate();
 
+    void SetDying();
     void Destroy();
     bool IsDying() const; // In case I have time for death animations
     bool IsDead() const;
@@ -24,6 +25,8 @@ public:
 protected:
     CRIGameScene& GetScene();
     const CRIGameScene& GetScene() const;
+
+    void Ressurect();
 
 private:
     virtual void DoUpdate(float Dt);

@@ -29,6 +29,8 @@ public:
     cinder::Vec2<float> ToScreenPos(cinder::Vec2<float> GamePos) const;
     cinder::Vec2<float> ToGamePos(cinder::Vec2<float> ScreenPos) const;
 
+    const CRICollider& GetCollider() const;
+
 private:
     // No need
     CRIGameScene(const CRIGameScene&);

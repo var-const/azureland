@@ -2,6 +2,7 @@
 #include "cri_aabb.h"
 #include "cri_movable.h"
 
+#include <cinder/Rect.h>
 #include <cinder/Vector.h>
 
 class CRIGameObject;
@@ -25,10 +26,16 @@ public:
     typedef ObjContT CellsContT[MaxRows][MaxCols];
 
     CRISpatialGrid(int Width, int Height);
+
     void SetSize(ci::Vec2i Size);
     void Reinit(ObjIterT Begin, ObjIterT End, float Time);
 
+    ci::Vec2i GetCellCenter(int Row, int Col) const;
+    ci::Rectf GetCellRect(int Row, int Col) const;
+    ci::Vec2i GetCellSize() const;
+
     //CellsContT m_Cells; // @FIXME make iterator
+    // @FIXME public data member
     ObjContT m_Cells[RowsC][ColsC];
 
 private:
@@ -83,4 +90,42 @@ void CRISpatialGrid<MaxRows, MaxCols>::Reinit( const ObjIterT Begin,
             }
         }
     }
+}
+
+template <int MaxRows, int MaxCols>
+ci::Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellCenter( const int Row,
+    const int Col ) const
+{
+    using ci::Vec2i;
+
+    assert(Row >= 0 && Row < RowsC);
+    assert(Col >= 0 && Col < ColsC);
+
+    Vec2i Result = GetCellSize();
+    Result.x *= Col;
+    Result.y *= Row;
+    Result += GetCellSize() / 2;
+
+    return Result;
+}
+
+template <int MaxRows, int MaxCols>
+ci::Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellSize() const
+{
+    return m_CellSize;
+}
+
+template <int MaxRows, int MaxCols>
+ci::Rectf CRISpatialGrid<MaxRows, MaxCols>::GetCellRect( const int Row,
+    const int Col ) const
+{
+    using ci::Rectf;
+
+    assert(Row >= 0 && Row < RowsC);
+    assert(Col >= 0 && Col < ColsC);
+
+    Vec2i LeftUpper = GetCellSize();
+    LeftUpper.x *= Col;
+    LeftUpper.y *= Row;
+    return Rectf(LeftUpper, LeftUpper + GetCellSize());
 }

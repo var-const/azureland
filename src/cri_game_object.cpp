@@ -92,3 +92,14 @@ const CRIGameScene& CRIGameObject::GetScene() const
     assert(m_pScene);
     return *m_pScene;
 }
+
+void CRIGameObject::Ressurect()
+{
+    assert(m_IsDead);
+    m_IsDead = false;
+}
+
+void CRIGameObject::SetDying()
+{
+    m_IsDead = true;
+}

@@ -2,13 +2,20 @@
 
 #include "cri_enemy.h"
 
+#include "cri_collider.h"
+#include "cri_game_scene.h"
 #include "cri_math.h"
 #include "cri_player.h"
 
+#include <cinder/Rand.h>
+#include <cinder/Rect.h>
 #include <cinder/Vector.h>
+
+#include <utility>
 
 const int SleepAfterReadjustingPos = 3;
 const int SleepAfterBlocking = 3;
+const int SleepAfterRespawnAttempt = 10;
 const float Speed = 100.f;
 
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
@@ -17,6 +24,7 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_Sleep(0)
 , m_Blocked(false)
 , m_CheckBlocked(false)
+, m_NeedRespawn(false)
 { 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
@@ -28,6 +36,11 @@ void CRIEnemy::LogicUpdate()
     {
         --m_Sleep;
         return;
+    }
+
+    if (m_NeedRespawn)
+    {
+        TryRespawn();
     }
 
     if (m_CheckBlocked)
@@ -147,5 +160,49 @@ void CRIEnemy::CheckBlocked()
 
 void CRIEnemy::OnHealthDepleted()
 {
-    // @TODO: respawn
+    SetDying();
+    m_NeedRespawn = true;
+    TryRespawn();
+}
+
+void CRIEnemy::TryRespawn()
+{
+    using ci::randBool; using ci::Rectf; using ci::Vec2i;
+    using std::pair;
+
+    const CRICollider& Collider = GetScene().GetCollider();
+    Vec2i Rows, Cols;
+    if (randBool())
+    {
+        Rows = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
+        Cols = Vec2i(0, 1000);
+    }
+    else
+    {
+        Cols = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
+        Rows = Vec2i(0, 1000);
+    }
+
+    const pair<bool, Rectf> EmptyCell = Collider.GetEmptyCell(Rows, Cols);
+    if (EmptyCell.first)
+    {
+        const Rectf& Cell = EmptyCell.second;
+        assert(Cell.getWidth() > GetSize().x && Cell.getHeight() > GetSize().y);
+        Respawn(Cell.getCenter());
+        return;
+    }
+
+    m_Sleep = SleepAfterRespawnAttempt;
+}
+
+void CRIEnemy::Respawn( const PosT Pos )
+{
+    m_NeedRespawn = false;
+
+    Ressurect();
+
+    SetCenterPos(Pos);
+
+    SetMaxHealth(20); // @FIXME hardcoded
+    ForceSetHealthValue(20); // @FIXME hardcoded
 }

@@ -58,11 +58,21 @@ void OnCollision( CRIPlayer& Lhs, CRIObstacle& Rhs )
 
 void OnCollision( CRIEnemy& Lhs, CRIProjectile& Rhs )
 {
+    if (Lhs.IsDying() || Rhs.IsDying())
+    {
+        return;
+    }
+
+    Lhs.ModifyHealth(Rhs.GetDamage() * -1);
     Rhs.Destroy();
-    Lhs.ModifyHealth(Rhs.GetDamage());
 }
 
 void OnCollision( CRIObstacle& Lhs, CRIProjectile& Rhs )
 {
+    if (Rhs.IsDying())
+    {
+        return;
+    }
+
     Rhs.Destroy();
 }

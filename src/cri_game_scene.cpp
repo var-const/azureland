@@ -191,3 +191,8 @@ Vec2f CRIGameScene::ToGamePos( const Vec2f ScreenPos ) const
 {
     return m_Camera.ToGamePos(ScreenPos);
 }
+
+const CRICollider& CRIGameScene::GetCollider() const
+{
+    return m_Collider;
+}

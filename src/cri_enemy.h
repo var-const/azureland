@@ -21,6 +21,8 @@ private:
     typedef BlockersContT::iterator BlockersIterT;
 
     void OnHealthDepleted(); // override
+    void TryRespawn();
+    void Respawn(PosT Pos);
 
     void CheckBlocked();
 
@@ -29,4 +31,6 @@ private:
     int m_Sleep;
     bool m_Blocked;
     bool m_CheckBlocked;
+
+    bool m_NeedRespawn;
 };

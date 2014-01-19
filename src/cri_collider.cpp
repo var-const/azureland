@@ -8,13 +8,16 @@
 #include "cri_game_object.h"
 #include "cri_math.h"
 
+#include <cinder/CinderMath.h>
+#include <cinder/Rect.h>
 #include <cinder/Vector.h>
 
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
 
-using ci::Vec2f;
+using ci::Rectf; using ci::Vec2f; using ci::Vec2i;
+using std::pair;
 
 CRICollider::CRICollider(const int Width, const int Height)
 : m_Grid(Width, Height)
@@ -175,6 +178,46 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
         m_CurMinTime = CollisionTime;
         *m_CollisionsEndIter++ = CreateCollision(Lhs, Rhs, CollisionTime);
     }
+}
+
+pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
+    const Vec2i ColLimits ) const
+{
+    using ci::math;
+    using std::make_pair; using std::swap;
+
+    int RowBegin = RowLimits.x >= 0 ? RowLimits.x : GridT::RowsC + RowLimits.x;
+    int RowEnd = RowLimits.y >= 0 ? RowLimits.y : GridT::RowsC + RowLimits.y;
+    if (RowBegin > RowEnd)
+    {
+        swap(RowBegin, RowEnd);
+    }
+    RowBegin = math<int>::clamp(RowBegin, 0, GridT::RowsC);
+    RowEnd = math<int>::clamp(RowEnd, 0, GridT::RowsC);
+
+    int ColBegin = ColLimits.x >= 0 ? ColLimits.x : GridT::ColsC + ColLimits.x;
+    int ColEnd = ColLimits.y >= 0 ? ColLimits.y : GridT::ColsC + ColLimits.y;
+    if (ColBegin > ColEnd)
+    {
+        swap(ColBegin, ColEnd);
+    }
+    ColBegin = math<int>::clamp(ColBegin, 0, GridT::ColsC);
+    ColEnd = math<int>::clamp(ColEnd, 0, GridT::ColsC);
+
+    for (int Row = RowBegin; Row != RowEnd; ++Row)
+    {
+        for (int Col = ColBegin; Col != ColEnd; ++Col)
+        {
+            if (m_Grid.m_Cells[Row][Col].empty())
+            {
+                return make_pair(true, m_Grid.GetCellRect(Row, Col));
+            }
+        }
+    }
+
+    // A better way would be to make a more thorough search for empty
+    // space, but the enemy who needs it can just wait, which is much simpler
+    return make_pair(false, Rectf());
 }
 
 #ifdef PERFORMANCE_METRICS

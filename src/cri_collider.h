@@ -12,9 +12,11 @@
 #ifdef PERFORMANCE_METRICS
 #include <fstream>
 #endif
+#include <utility>
 #include <vector>
 
-namespace cinder { template <typename T> class Vec2; }
+namespace cinder { template <typename T> class RectT;
+    template <typename T> class Vec2; }
 
 class CRIGameObject;
 struct CRICollisionsInfo;
@@ -33,6 +35,9 @@ public:
     // Could be templated on iterator types, but I thought that would
     // be overkill
     CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
+
+    std::pair<bool, cinder::RectT<float> > GetEmptyCell(cinder::Vec2<int>
+        RowLimits, cinder::Vec2<int> ColLimits) const;
 
 private:
     typedef CRISpatialGrid<30, 30> GridT;

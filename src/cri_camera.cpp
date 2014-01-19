@@ -52,3 +52,8 @@ Vec2f CRICamera::ToScreenPos( const Vec2f GamePos ) const
 {
     return GamePos + m_CurTranslation;
 }
+
+Vec2f CRICamera::ToGamePos( const Vec2f ScreenPos ) const
+{
+    return ScreenPos - m_CurTranslation;
+}

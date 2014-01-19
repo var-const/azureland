@@ -16,6 +16,7 @@ public:
     void AddObject(CRIGameObject& Object);
     void Move(ci::Vec2f NewCenter);
     ci::Vec2f ToScreenPos( ci::Vec2f GamePos ) const;
+    ci::Vec2f ToGamePos( ci::Vec2f ScreenPos ) const;
 
 private:
     typedef std::vector<CRIGameObject*> ObjectsContT;

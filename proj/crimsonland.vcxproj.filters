@@ -5,6 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\weapons">
+      <UniqueIdentifier>{4a46249b-582f-4eed-991c-08e52292bb39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cri_app.cpp">
@@ -71,6 +74,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cri_crosshair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\weapons\cri_crossbow.cpp">
+      <Filter>Source Files\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\weapons\cri_weapon.cpp">
+      <Filter>Source Files\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\weapons\cri_weapon_helpers.cpp">
+      <Filter>Source Files\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cri_projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -151,6 +166,18 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_crosshair.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\weapons\cri_crossbow.h">
+      <Filter>Source Files\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\weapons\cri_weapon.h">
+      <Filter>Source Files\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\weapons\cri_weapon_helpers.h">
+      <Filter>Source Files\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cri_projectile.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

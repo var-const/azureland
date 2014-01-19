@@ -9,6 +9,9 @@
 #include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
 
+
+#include "weapons/cri_crossbow.h"
+
 using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
@@ -16,12 +19,27 @@ using ci::app::MouseEvent;
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos )
 : CRIGameObject(Size, StartPos)
 , m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
+, m_pWeaponA(new CRICrossbow())
+, m_pWeaponB(NULL)
 { 
+}
+
+CRIPlayer::~CRIPlayer()
+{
+    delete m_pWeaponA;
+    m_pWeaponA = NULL;
+    delete m_pWeaponB;
+    m_pWeaponB = NULL;
 }
 
 void CRIPlayer::OnAddedToScene()
 {
+    assert(m_pWeaponA);
+    assert(m_pWeaponB);
+
     GetScene().AddGUIObject(*m_pCrosshair);
+    m_pWeaponA->SetScene(GetScene());
+    //m_pWeaponB->SetScene(GetScene());
 }
 
 void CRIPlayer::SetSpeed( const float Speed )
@@ -46,20 +64,22 @@ void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
         return;
     }
 
-    Shoot();
+    if (Event.isLeft())
+    {
+        assert(m_pWeaponA);
+        m_pWeaponA->Shoot(GetCenterPos(), GetCrosshairPos());
+    }
+    else if (Event.isRight())
+    {
+        assert(m_pWeaponA);
+        m_pWeaponB->Shoot(GetCenterPos(), GetCrosshairPos());
+    }
 }
 
-void CRIPlayer::Shoot()
+CRIMovable::PosT CRIPlayer::GetCrosshairPos() const
 {
     assert(m_pCrosshair);
-
-    const PosT PlayerPos = GetScene().ToScreenPos(GetCenterPos());
-    VelT Dist = m_pCrosshair->GetCenterPos() - PlayerPos;
-    Dist.safeNormalize();
-    const VelT ProjSpeed = Dist * 800.f; // @FIXME hardcoded
-    //const CRIProjectile* Projectile = new CRIProjectile(SizeT(10.f, 10.f),
-    //    GetCenterPos(), ProjSpeed);
-    //GetScene().AddObject(Projectile);
+    return GetScene().ToGamePos(m_pCrosshair->GetCenterPos());
 }
 
 void CRIPlayer::OnMouseUp( const Vec2f& Pos, const MouseEvent Event )

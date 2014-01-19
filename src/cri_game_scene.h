@@ -25,6 +25,7 @@ public:
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
     cinder::Vec2<float> ToScreenPos(cinder::Vec2<float> GamePos) const;
+    cinder::Vec2<float> ToGamePos(cinder::Vec2<float> ScreenPos) const;
 
 private:
     // No need

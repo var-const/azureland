@@ -55,3 +55,13 @@ void OnCollision( CRIPlayer& Lhs, CRIObstacle& Rhs )
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
     ShiftPos(Lhs, Normal * Shift);
 }
+
+void OnCollision( CRIEnemy& Lhs, CRIProjectile& Rhs )
+{
+    //Lhs.Destroy();
+}
+
+void OnCollision( CRIObstacle& Lhs, CRIProjectile& Rhs )
+{
+    //Rhs.Destroy();
+}

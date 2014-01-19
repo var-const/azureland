@@ -5,11 +5,13 @@
 #include "cri_movement_controller.h"
 
 class CRICrosshair;
+class CRIWeapon;
 
 class CRIPlayer : public CRIGameObject, public CRIInterfaceInput
 {
 public:	
     CRIPlayer(const SizeT& Size, const PosT& StartPos);
+    ~CRIPlayer();
 
     void SetSpeed(float Speed);
 
@@ -34,8 +36,11 @@ private:
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
 
-    void Shoot();
+    PosT GetCrosshairPos() const;
 
     CRIMovementController m_MovementController;
+
     CRICrosshair* m_pCrosshair;
+    CRIWeapon* m_pWeaponA;
+    CRIWeapon* m_pWeaponB;
 };

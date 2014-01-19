@@ -71,6 +71,14 @@ void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
     {
         return;
     }
+    if (TryProcessCollision<CRIEnemy, CRIProjectile>(Lhs, Rhs))
+    {
+        return;
+    }
+    if (TryProcessCollision<CRIObstacle, CRIProjectile>(Lhs, Rhs))
+    {
+        return;
+    }
 }
 
 } // unnamed

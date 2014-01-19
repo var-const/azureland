@@ -145,3 +145,8 @@ Vec2f CRIGameScene::ToScreenPos( const Vec2f GamePos ) const
 {
     return m_Camera.ToScreenPos(GamePos);
 }
+
+Vec2f CRIGameScene::ToGamePos( const Vec2f ScreenPos ) const
+{
+    return m_Camera.ToGamePos(ScreenPos);
+}

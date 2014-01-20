@@ -158,7 +158,6 @@ void CRIHighscore::DoDraw()
 
     if (m_State == StateDisplay)
     {
-        //drawString("Hall of fame:", Vec2f(100.f, 300.f), m_Color, m_Font);
         drawString("Here, obedient to Spartan law, we lie:",
             Vec2f(300.f, 100.f), m_Color, m_Font);
 

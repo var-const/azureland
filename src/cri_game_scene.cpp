@@ -2,9 +2,11 @@
 
 #include "cri_game_scene.h"
 
+#include "cri_app.h"
 #include "cri_collision.h"
 #include "cri_game_object.h"
 #include "cri_handle_collision.h"
+#include "cri_highscore.h"
 
 #include <algorithm>
 #include <cassert>
@@ -13,9 +15,11 @@
 
 using ci::Vec2f; using ci::Vec2i;
 
-CRIGameScene::CRIGameScene(const int Width, const int Height)
+CRIGameScene::CRIGameScene(CRIApp& App, const int Width, const int Height)
 : m_Collider(Width, Height)
 , m_Camera(Vec2i(Width, Height), Vec2i(1280, 1024))
+, m_IsPaused(false)
+, m_pApp(&App)
 , m_XBounds(
     std::make_pair(
         CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)),
@@ -66,7 +70,10 @@ void CRIGameScene::Update(const float Dt)
     AddPendingObjects();
     RemoveDeadObjects();
 
-    UpdateObjects(Dt);
+    if (!m_IsPaused)
+    {
+        UpdateObjects(Dt);
+    }
 
     for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
         ++GUIObj)
@@ -208,4 +215,18 @@ void CRIGameScene::OnEnemyRespawn( const Vec2f PosForPickUp )
 Vec2i CRIGameScene::GetSize() const
 {
     return m_Camera.GetSize();
+}
+
+void CRIGameScene::EndGame(const int Score)
+{
+	SetPause(true);
+	CRIHighscore* const Highscore = new CRIHighscore(Score);
+    m_pApp->AddInputListener(*Highscore);
+	AddGUIObject(*Highscore);
+	Highscore->Load("scores.yaml");
+}
+
+void CRIGameScene::SetPause( const bool Val )
+{
+    m_IsPaused = Val;
 }

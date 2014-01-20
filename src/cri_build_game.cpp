@@ -18,10 +18,8 @@ using ci::Vec2f;
 void BuildGame( CRIApp& App )
 {
     using ci::Vec2f;
-    using ci::app::getWindowSize;
 
-    CRIGameScene* const Scene = new CRIGameScene(1280 * 3, 1024 * 3);
-    //CreateSceneBounds(*Scene);
+    CRIGameScene* const Scene = new CRIGameScene(App, 1280 * 3, 1024 * 3);
     Scene->AddObject( *new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)) );
     Scene->AddObject( *new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f)) );
     Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)) );
@@ -51,7 +49,7 @@ CRIPlayer* CreatePlayer( CRIApp& App )
     const int PlayerHealth = 100;
 #endif
 
-    CRIPlayer* const Player = new CRIPlayer(Size, Pos, PlayerHealth);
+    CRIPlayer* const Player = new CRIPlayer(Size, Pos, PlayerHealth, App);
 #ifdef CHEATS
     Player->SetSpeed(1800.f);
 #else
@@ -102,14 +100,6 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     
     int CurRow = 0;
     for (int i = 0; i != Count; ++i)
-    //for (int i = 0; i != 1000; ++i)
-    //for (int i = 0; i != 300; ++i)
-    //for (int i = 0; i != 2500; ++i)
-    //for (int i = 0; i != 100; ++i)
-    //for (int i = 0; i != 10; ++i)
-    //for (int i = 0; i != 2000; ++i)
-    //for (int i = 0; i != 30; ++i)
-    //for (int i = 0; i != 30; ++i)
     {
         const float Speed = randInt(10) < 9 ? 100 : 200;
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);

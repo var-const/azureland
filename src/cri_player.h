@@ -5,6 +5,7 @@
 #include "cri_interface_input.h"
 #include "cri_movement_controller.h"
 
+class CRIApp;
 class CRICrosshair;
 class CRITextObject;
 class CRIWeapon;
@@ -13,7 +14,7 @@ class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
     public CRIInterfaceInput
 {
 public:	
-    CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health);
+    CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health, CRIApp& App);
     ~CRIPlayer();
 
     void SetSpeed(float Speed);
@@ -34,6 +35,7 @@ public:
     void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
 
     void LogicUpdate(float Dt); // Override
+    void BeforeRemoveFromScene(); // Override
 
 private:
     void DoUpdate(float Dt); // Override
@@ -57,4 +59,6 @@ private:
     CRITextObject* m_pHealthLabel;
     CRITextObject* m_pScoreLabel;
     int m_Score;
+
+    CRIApp* m_pApp; // Non-owning
 };

@@ -2,6 +2,7 @@
 
 #include "cri_player.h"
 
+#include "cri_app.h"
 #include "cri_crosshair.h"
 #include "cri_game_scene.h"
 #include "cri_text_object.h"
@@ -17,7 +18,8 @@ using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
 
-CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health )
+CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
+    CRIApp& App)
 : CRIGameObject(Size, StartPos)
 , m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
 , m_pWeaponA(new CRICrossbow())
@@ -27,6 +29,7 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health 
 , m_pHealthLabel( new CRITextObject(PosT(100.f, 50.f)) )
 , m_pScoreLabel( new CRITextObject(PosT(1100.f, 50.f)) )
 , m_Score(0)
+, m_pApp(&App)
 { 
     using ci::Font;
 
@@ -188,11 +191,6 @@ void CRIPlayer::OnKeyUp( const int KeyCode, const KeyEvent Event )
     m_MovementController.OnKeyUp(KeyCode);
 }
 
-void CRIPlayer::OnDestroyed()
-{
-    // @TODO
-}
-
 void CRIPlayer::OnHealthDepleted()
 {
     Destroy();
@@ -223,4 +221,10 @@ void CRIPlayer::AddScore( const int Amount )
     stream.str("");
     stream << "Score: " << m_Score;
     m_pScoreLabel->SetText(stream.str());
+}
+
+void CRIPlayer::OnDestroyed()
+{
+    m_pApp->RemoveInputListener(*this);
+	GetScene().EndGame(m_Score);
 }

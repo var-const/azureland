@@ -10,12 +10,13 @@
 
 namespace cinder { template <typename T> class Vec2; }
 
+class CRIApp;
 class CRIGameObject;
 
 class CRIGameScene
 {
 public:	
-    CRIGameScene(int Width, int Height);
+    CRIGameScene(CRIApp& App, int Width, int Height);
     ~CRIGameScene();
 
     void Draw();
@@ -35,6 +36,9 @@ public:
     const CRICollider& GetCollider() const;
 
     void OnEnemyRespawn(cinder::Vec2<float> PosForPickUp);
+
+    void EndGame(int Score);
+    void SetPause(bool Val);
 
 private:
     // No need
@@ -62,4 +66,8 @@ private:
     std::pair<CRIObstacle, CRIObstacle> m_YBounds;
 
     CRIPickupGenerator m_Pickups;
+
+    bool m_IsPaused;
+
+    CRIApp* m_pApp; // Non-owning
 };

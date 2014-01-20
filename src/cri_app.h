@@ -32,6 +32,7 @@ public:
 
     void SetScene(CRIGameScene* pScene);
     void AddInputListener(CRIInterfaceInput& Listener);
+    void RemoveInputListener(CRIInterfaceInput& Listener);
 
 private:
     typedef std::vector<CRIInterfaceInput*> InputListenersContT;

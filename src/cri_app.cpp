@@ -141,4 +141,20 @@ void CRIApp::AddInputListener( CRIInterfaceInput& Listener )
     m_InputListeners.push_back(&Listener);
 }
 
+void CRIApp::RemoveInputListener( CRIInterfaceInput& Listener )
+{
+    using std::find;
+
+    const InputListenersIterT Found = find(m_InputListeners.begin(),
+        m_InputListeners.end(), &Listener);
+    if (Found != m_InputListeners.end())
+    {
+        m_InputListeners.erase(Found);
+    }
+    else
+    {
+        assert(0);
+    }
+}
+
 CINDER_APP_BASIC( CRIApp, ci::app::RendererGl )

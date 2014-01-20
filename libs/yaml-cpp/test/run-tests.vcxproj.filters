@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="emittertests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spectests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="new-api\nodetests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="new-api\parsertests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="new-api\spectests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="emittertests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="genemittertests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="handlermacros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nodetests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parsertests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="specexamples.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spectests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="teststruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F58A8C70-1117-4EF6-9B9A-022F2AC92791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4D6D4711-886A-46BE-8A3A-8B20FFEF5CED}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -16,7 +16,6 @@ public:
 	explicit CRIHighscore(const int NewScore);
 
 	void Load(const std::string& FileName);
-	void OnAddedToScene(); // override
 
     void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event); // override
 
@@ -26,9 +25,9 @@ private:
 
 	enum States
 	{
-		StateDisplay,
+		StateDeath,
 		StatePrompt,
-		StateUninitialized
+		StateDisplay
 	};
 
 	void DoDraw(); // override
@@ -36,7 +35,7 @@ private:
     void ReadFromFile();
 
 	void AddScore();
-	void Display();
+	void DisplayScores();
 	void PromptForName();
 
 	bool Validate();

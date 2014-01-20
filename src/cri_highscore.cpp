@@ -35,14 +35,25 @@ bool IsChar(const KeyEvent& Event)
     return false;
 }
 
+template <typename T>
+string ToString(const T& Val)
+{
+    using std::stringstream;
+
+    static stringstream Stream;
+    Stream.str("");
+    Stream << Val;
+    return Stream.str();
+}
+
 } // unnamed
 
 CRIHighscore::CRIHighscore( const int NewScore )
 : CRIGameObject(PosT(), SizeT())
 , m_NewScore(NewScore)
-, m_State(StateUninitialized)
+, m_State(StateDeath)
 , m_MaxNameLength(16)
-, m_MaxEntries(10)
+, m_MaxEntries(5)
 , m_Color(1.f, 1.f, 1.f)
 , m_Font("Verdana", 48)
 {
@@ -54,15 +65,6 @@ void CRIHighscore::Load( const string& FileName )
 
     m_FileName = FileName;
     ReadFromFile();
-
-    if (m_Scores.size() < m_MaxEntries || m_Scores.rbegin()->first < m_NewScore)
-    {
-        PromptForName();
-    }
-    else
-    {
-        Display();
-    }
 }
 
 void CRIHighscore::ReadFromFile()
@@ -91,22 +93,31 @@ void CRIHighscore::ReadFromFile()
     }
 }
 
-void CRIHighscore::OnAddedToScene()
-{
-    //GetScene().AddInputListener(*this);
-}
-
 void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
 {
-    if (m_State != StatePrompt)
+    if (m_State == StateDisplay)
     {
+        return;
+    }
+
+    if (m_State == StateDeath)
+    {
+        if (m_Scores.size() < m_MaxEntries ||
+            m_Scores.rbegin()->first < m_NewScore)
+        {
+            PromptForName();
+        }
+        else
+        {
+            DisplayScores();
+        }
         return;
     }
 
     if (KeyCode == KeyEvent::KEY_RETURN && !m_CurName.empty())
     {
         AddScore();
-        Display();
+        DisplayScores();
     }
     else if (KeyCode == KeyEvent::KEY_BACKSPACE && !m_CurName.empty())
     {
@@ -120,29 +131,55 @@ void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
 
 void CRIHighscore::DoDraw()
 {
-    using ci::Vec2f; using ci::gl::drawString;
+    using ci::Vec2f;
+    using ci::app::getWindowBounds;
+    using ci::gl::color; using ci::gl::drawSolidRect; using ci::gl::drawString;
+    using ci::gl::enableAlphaBlending; using ci::gl::SaveColorState;
+
+    {
+        SaveColorState S;
+        enableAlphaBlending();
+        color(0.f, 0.f, 0.f, 0.7f);
+        drawSolidRect(getWindowBounds());
+    }
+
+    if (m_State == StateDeath)
+    {
+        drawString("The inevitable happened", Vec2f(400.f, 400.f), m_Color,
+            m_Font);
+    }
+
+    if (m_State == StatePrompt)
+    {
+        drawString("Your courage is timeless", Vec2f(380.f, 350.f), m_Color, m_Font);
+        drawString("Enter your name:", Vec2f(450.f, 450.f), m_Color, m_Font);
+        drawString(m_CurName, Vec2f(450.f, 550.f), m_Color, m_Font);
+    }
 
     if (m_State == StateDisplay)
     {
-    //    int Counter = 0;
-    //    settings.player_speed = player["speed"].as<T>();
-    //    settings.player_stop_time = player["stop_time_ms"].as<T>();
-    //    settings.player_reload_time = player["reload_time_ms"].as<T>();
+        //drawString("Hall of fame:", Vec2f(100.f, 300.f), m_Color, m_Font);
+        drawString("Here, obedient to Spartan law, we lie:",
+            Vec2f(300.f, 100.f), m_Color, m_Font);
 
-    //    return settings;
-    //    for (??? Iter = m_Score.begin(); Iter != m_Score.end(); ++Iter)
-    //    {
-    //        drawString(Counter);
-    //        drawString((*Iter)["name"], ???);
-    //        drawString((*Iter)["score"], ???);
-    //    }
-    }
-    else if (m_State == StatePrompt)
-    {
-        drawString("The grim reaper got you", Vec2f(100.f, 100.f), m_Color,
-            m_Font);
-        drawString("Enter your name:", Vec2f(100.f, 300.f), m_Color, m_Font);
-        drawString(m_CurName, Vec2f(100.f, 500.f), m_Color, m_Font);
+        Vec2f CurOffset = Vec2f(200.f, 200.f);
+        int Counter = 1;
+        for (ScoresConstIterT Iter = m_Scores.begin(); Iter != m_Scores.end();
+            ++Iter)
+        {
+            if (Counter == m_MaxEntries + 1)
+            {
+                break;
+            }
+
+            drawString(ToString(Counter), CurOffset - Vec2f(60.f, 0.f), m_Color,
+                m_Font);
+            drawString(Iter->second, CurOffset, m_Color, m_Font);
+            drawString(ToString(Iter->first), CurOffset + Vec2f(400.f, 0.f),
+                m_Color, m_Font);
+            CurOffset.y += 100.f;
+            ++Counter;
+        }
     }
 }
 
@@ -172,7 +209,7 @@ void CRIHighscore::AddScore()
     }
 }
 
-void CRIHighscore::Display()
+void CRIHighscore::DisplayScores()
 {
     m_State = StateDisplay;
 }

@@ -22,7 +22,7 @@ void CRIGameObject::Draw()
 {
     using ci::gl::drawStrokedRect;
     // @TODO: textures
-    drawStrokedRect( ToRect(GetAABB()) );
+    //drawStrokedRect( ToRect(GetAABB()) );
     DoDraw();
 }
 

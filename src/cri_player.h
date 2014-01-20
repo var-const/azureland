@@ -38,6 +38,7 @@ public:
     void BeforeRemoveFromScene(); // Override
 
 private:
+    void DoDraw();
     void DoUpdate(float Dt); // Override
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override

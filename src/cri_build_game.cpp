@@ -46,7 +46,8 @@ CRIPlayer* CreatePlayer( CRIApp& App )
 #ifdef CHEATS
     const int PlayerHealth = 10000;
 #else
-    const int PlayerHealth = 100;
+    //const int PlayerHealth = 100;
+    const int PlayerHealth = 10000;
 #endif
 
     CRIPlayer* const Player = new CRIPlayer(Size, Pos, PlayerHealth, App);
@@ -94,7 +95,8 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
 
     // @FIXME hard coded values
 
-    const CRIMovable::SizeT Size = CRIMovable::SizeT(20.f, 20.f);
+    //const CRIMovable::SizeT Size = CRIMovable::SizeT(20.f, 20.f);
+    const CRIMovable::SizeT Size = CRIMovable::SizeT(60.f, 60.f);
     const CRIMovable::VelT VelocityBase = CRIMovable::VelT(200.f, 200.f);
     CRIMovable::PosT CurPos = From;
     

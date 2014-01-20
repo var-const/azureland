@@ -6,6 +6,7 @@
 #include "weapons/cri_reload.h"
 
 #include <vector>
+#include "cinder/gl/Texture.h"
 
 class CRIPlayer;
 
@@ -27,6 +28,7 @@ public:
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
     typedef BlockersContT::iterator BlockersIterT;
+    void DoDraw();
 
     void OnHealthDepleted(); // override
     void TryRespawn();
@@ -54,4 +56,5 @@ private:
 
     bool m_IsParalyzed;
     CRICountdownTimer m_ParalyzedTimer;
+    ci::gl::Texture m_Tex;
 };

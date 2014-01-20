@@ -14,6 +14,13 @@
 #include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
 
+
+#include "cinder/ImageIo.h"
+#include "cinder/app/App.h"
+#include "cinder/gl/gl.h"
+#include <cinder/gl/Texture.h>
+#include <math.h>
+
 using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
@@ -227,4 +234,28 @@ void CRIPlayer::OnDestroyed()
 {
     m_pApp->RemoveInputListener(*this);
 	GetScene().EndGame(m_Score);
+}
+
+void CRIPlayer::DoDraw()
+{
+    using namespace ci;
+
+    Vec2f dir = GetCrosshairPos() - GetCenterPos();
+    dir.safeNormalize();
+    auto angle = math<float>::atan2(0.f, 1.f) - math<float>::atan2(dir.x, dir.y);
+    angle *= 180.f / 3.14f;
+
+    const gl::Texture text = loadImage(app::loadAsset("player.png"));
+    gl::pushModelView();
+
+    gl::translate( GetCenterPos().x, GetCenterPos().y);
+    gl::rotate(angle);
+    gl::scale(0.16f, 0.16f);
+    //gl::scale(0.13f, 0.13f);
+    //gl::scale(0.2f, 0.2f);
+    gl::translate( -GetSize().x / 2.f, -GetSize().y / 2.f );
+
+    gl::draw(text);
+    //gl::draw(text, Rectf(GetCenterPos() - GetSize() * 2.f, GetCenterPos() + GetSize() * 2.f));
+    gl::popModelView();
 }

@@ -12,6 +12,10 @@
 #include <cinder/Vector.h>
 
 #include <utility>
+#include "cinder/gl/Texture.h"
+#include "cinder/ImageIo.h"
+#include "cinder/app/App.h"
+#include "cinder/gl/gl.h"
 
 const int SleepAfterReadjustingPos = 3;
 const int SleepAfterBlocking = 3;
@@ -29,6 +33,16 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_MaxPursuitRange(2000.f)
 , m_IsParalyzed(false)
 { 
+    using namespace ci;
+    //m_Tex = loadImage(app::loadAsset("enemy.jpg"));
+    if (randBool())
+    {
+        m_Tex = loadImage(app::loadAsset("enemy.png"));
+    }
+    else
+    {
+        m_Tex = loadImage(app::loadAsset("enemy2.png"));
+    }
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
     m_Reload.SetReloadTime(1000);
@@ -255,4 +269,30 @@ void CRIEnemy::SetSpeed( const int Speed )
 {
     assert(Speed >= 0);
     m_Speed = Speed;
+}
+
+void CRIEnemy::DoDraw()
+{
+    using namespace ci;
+
+    Vec2f dir = m_pPlayer->GetCenterPos() - GetCenterPos();
+    dir.safeNormalize();
+    auto angle = math<float>::atan2(0.f, 1.f) - math<float>::atan2(dir.x, dir.y);
+    angle *= 180.f / 3.14f;
+    angle += 180.f;
+
+    gl::pushModelView();
+
+    gl::enableAlphaBlending();
+    gl::translate( GetCenterPos().x, GetCenterPos().y);
+    gl::rotate(angle);
+    //gl::scale(0.6f, 0.6f);
+    //gl::scale(0.5f, 0.5f);
+    gl::scale(0.4f, 0.4f);
+    gl::translate( -GetSize().x / 2.f, -GetSize().y / 2.f );
+
+    gl::draw(m_Tex);
+    //gl::draw(text, Rectf(GetCenterPos() - GetSize() * 2.f, GetCenterPos() + GetSize() * 2.f));
+    gl::popModelView();
+
 }

@@ -277,22 +277,18 @@ void CRIEnemy::DoDraw()
 
     Vec2f dir = m_pPlayer->GetCenterPos() - GetCenterPos();
     dir.safeNormalize();
-    auto angle = math<float>::atan2(0.f, 1.f) - math<float>::atan2(dir.x, dir.y);
+    auto angle = math<float>::atan2(0.f, -1.f) - math<float>::atan2(dir.x, dir.y);
     angle *= 180.f / 3.14f;
-    angle += 180.f;
 
     gl::pushModelView();
 
     gl::enableAlphaBlending();
-    gl::translate( GetCenterPos().x, GetCenterPos().y);
+
+    gl::translate(GetCenterPos());
     gl::rotate(angle);
-    //gl::scale(0.6f, 0.6f);
-    //gl::scale(0.5f, 0.5f);
-    gl::scale(0.4f, 0.4f);
-    gl::translate( -GetSize().x / 2.f, -GetSize().y / 2.f );
+    gl::translate(-m_Tex.getSize() / 2.f);
 
     gl::draw(m_Tex);
-    //gl::draw(text, Rectf(GetCenterPos() - GetSize() * 2.f, GetCenterPos() + GetSize() * 2.f));
-    gl::popModelView();
 
+    gl::popModelView();
 }

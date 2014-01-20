@@ -36,7 +36,7 @@ CRIPlayer* CreatePlayer( CRIApp& App )
     using ci::app::getWindowSize;
 
     // @FIXME hard coded values
-    const CRIMovable::SizeT Size = CRIMovable::SizeT(30.f, 30.f);
+    const CRIMovable::SizeT Size = CRIMovable::SizeT(85.f, 85.f);
     const CRIMovable::PosT Pos = CRIMovable::PosT(440.f,
         //getWindowSize().y - 30.f);
         1500.f);
@@ -68,14 +68,14 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
     SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 2400.f), 10, 5.f);
     SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f);
 
-    SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f);
-    SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f);
-    SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f);
-    SpawnEnemies(Scene, Player, 100, Vec2f(2700.f, 2400.f), 10, 5.f);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(2700.f, 2400.f), 10, 5.f);
 
-    SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f);
-    SpawnEnemies(Scene, Player, 50, Vec2f(2800.f, 600.f), 10, 55.f);
-    SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f);
+    //SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f);
+    //SpawnEnemies(Scene, Player, 50, Vec2f(2800.f, 600.f), 10, 55.f);
+    //SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f);
 
     SpawnEnemies(Scene, Player, 10, Vec2f(1500.f, 2000.f), 10, 55.f);
     SpawnEnemies(Scene, Player, 10, Vec2f(600.f, 1000.f), 5, 55.f);
@@ -103,7 +103,9 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     int CurRow = 0;
     for (int i = 0; i != Count; ++i)
     {
-        const float Speed = randInt(10) < 9 ? 100 : 200;
+        //const float Speed = randInt(10) < 9 ? 100 : 200;
+        const float Speed = 50;
+        //const float Speed = 10;
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
         Enemy->SetSpeed(Speed);
         Scene.AddObject(*Enemy);

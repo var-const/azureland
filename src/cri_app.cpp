@@ -43,6 +43,7 @@ void CRIApp::draw()
 {
     using namespace ci;
 
+    gl::enableAlphaBlending();
     if (m_pScene)
     {
         gl::clear();

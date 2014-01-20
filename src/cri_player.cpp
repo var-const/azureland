@@ -14,16 +14,14 @@
 #include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
 
+#include <cinder/CinderMath.h>
 
-#include "cinder/ImageIo.h"
-#include "cinder/app/App.h"
-#include "cinder/gl/gl.h"
-#include <cinder/gl/Texture.h>
-#include <math.h>
+#include <cmath>
 
 using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
+using ci::gl::Texture;
 
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
     CRIApp& App)
@@ -236,25 +234,22 @@ void CRIPlayer::OnDestroyed()
 	GetScene().EndGame(m_Score);
 }
 
+float CRIPlayer::GetAngle() const
+{
+    using ci::math; using ci::Vec2f;
+
+    Vec2f Dir = GetCrosshairPos() - GetCenterPos();
+    Dir.safeNormalize();
+    const float Angle = math<float>::atan2(0.f, -1.f) - math<float>::atan2(Dir.x, Dir.y);
+    return Angle * 180.f / M_PI;
+}
+
+void CRIPlayer::SetTexture( const Texture& Texture )
+{
+    m_Texture = Texture;
+}
+
 void CRIPlayer::DoDraw()
 {
-    using namespace ci;
-
-    Vec2f dir = GetCrosshairPos() - GetCenterPos();
-    dir.safeNormalize();
-    auto angle = math<float>::atan2(0.f, -1.f) - math<float>::atan2(dir.x, dir.y);
-    angle *= 180.f / 3.14f;
-
-    const gl::Texture text = loadImage(app::loadAsset("player.png"));
-    gl::pushModelView();
-
-    gl::enableAlphaBlending();
-
-    gl::translate(GetCenterPos());
-    gl::rotate(angle);
-    gl::translate(-text.getSize() / 2.f);
-
-    gl::draw(text);
-
-    gl::popModelView();
+    ::Draw(*this, GetAngle(), m_Texture);
 }

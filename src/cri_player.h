@@ -5,6 +5,8 @@
 #include "cri_interface_input.h"
 #include "cri_movement_controller.h"
 
+#include <cinder/gl/Texture.h>
+
 class CRIApp;
 class CRICrosshair;
 class CRITextObject;
@@ -19,6 +21,8 @@ public:
 
     void SetSpeed(float Speed);
     void AddScore(int Amount);
+
+    void SetTexture(const ci::gl::Texture& Texture);
 
     // Overrides
 
@@ -38,7 +42,8 @@ public:
     void BeforeRemoveFromScene(); // Override
 
 private:
-    void DoDraw();
+    void DoDraw(); // Override
+    float GetAngle() const;
     void DoUpdate(float Dt); // Override
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
@@ -62,4 +67,6 @@ private:
     int m_Score;
 
     CRIApp* m_pApp; // Non-owning
+
+    ci::gl::Texture m_Texture;
 };

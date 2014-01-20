@@ -7,22 +7,23 @@
 #include "cri_math.h"
 #include "cri_player.h"
 
+#include <cinder/CinderMath.h>
 #include <cinder/Rand.h>
 #include <cinder/Rect.h>
 #include <cinder/Vector.h>
 
+#include <cmath>
 #include <utility>
-#include "cinder/gl/Texture.h"
-#include "cinder/ImageIo.h"
-#include "cinder/app/App.h"
-#include "cinder/gl/gl.h"
+
+using ci::gl::Texture;
 
 const int SleepAfterReadjustingPos = 3;
 const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
 const int SleepAfterLosingTrail = 15;
 
-CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
+CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos,
+    const bool IsTextureA )
 : CRIGameObject(Size, StartPos)
 , m_pPlayer(&Player)
 , m_Sleep(0)
@@ -32,17 +33,8 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos )
 , m_PointsForKilling(10)
 , m_MaxPursuitRange(2000.f)
 , m_IsParalyzed(false)
+, m_IsTextureA(IsTextureA)
 { 
-    using namespace ci;
-    //m_Tex = loadImage(app::loadAsset("enemy.jpg"));
-    if (randBool())
-    {
-        m_Tex = loadImage(app::loadAsset("enemy.png"));
-    }
-    else
-    {
-        m_Tex = loadImage(app::loadAsset("enemy2.png"));
-    }
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
     m_Reload.SetReloadTime(1000);
@@ -273,22 +265,19 @@ void CRIEnemy::SetSpeed( const int Speed )
 
 void CRIEnemy::DoDraw()
 {
-    using namespace ci;
-
-    Vec2f dir = m_pPlayer->GetCenterPos() - GetCenterPos();
-    dir.safeNormalize();
-    auto angle = math<float>::atan2(0.f, -1.f) - math<float>::atan2(dir.x, dir.y);
-    angle *= 180.f / 3.14f;
-
-    gl::pushModelView();
-
-    gl::enableAlphaBlending();
-
-    gl::translate(GetCenterPos());
-    gl::rotate(angle);
-    gl::translate(-m_Tex.getSize() / 2.f);
-
-    gl::draw(m_Tex);
-
-    gl::popModelView();
+    ::Draw(*this, GetAngle(), m_IsTextureA ? TextureA : TextureB);
 }
+
+float CRIEnemy::GetAngle() const
+{
+    using ci::Vec2f; using ci::math;
+
+    Vec2f Dir = m_pPlayer->GetCenterPos() - GetCenterPos();
+    Dir.safeNormalize();
+    const float Angle = math<float>::atan2(0.f, -1.f) -
+        math<float>::atan2(Dir.x, Dir.y);
+    return Angle * 180.f / M_PI;
+}
+
+Texture CRIEnemy::TextureB;
+Texture CRIEnemy::TextureA;

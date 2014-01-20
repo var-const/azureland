@@ -6,6 +6,8 @@
 
 #include <cinder/gl/gl.h>
 
+using ci::gl::Texture;
+
 CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos )
 : CRIMovable(Size, StartPos)
 , m_IsDead(false)
@@ -20,8 +22,7 @@ CRIGameObject::~CRIGameObject()
 
 void CRIGameObject::Draw()
 {
-    using ci::gl::drawStrokedRect;
-    // @TODO: textures
+    //using ci::gl::drawStrokedRect;
     //drawStrokedRect( ToRect(GetAABB()) );
     DoDraw();
 }
@@ -34,6 +35,11 @@ void CRIGameObject::Update(const float Dt)
     }
     Move(Dt);
     DoUpdate(Dt);
+}
+
+void CRIGameObject::SetTexture( const Texture& Texture )
+{
+
 }
 
 void CRIGameObject::Destroy()
@@ -107,4 +113,19 @@ void CRIGameObject::Ressurect()
 void CRIGameObject::SetDying()
 {
     m_IsDead = true;
+}
+
+void Draw(const CRIGameObject& Object, const float Angle, const Texture& Texture)
+{
+    using namespace ci;
+
+    gl::pushModelView();
+
+    gl::translate(Object.GetCenterPos());
+    gl::rotate(Angle);
+    gl::translate(-Texture.getSize() / 2.f);
+
+    gl::draw(Texture);
+
+    gl::popModelView();
 }

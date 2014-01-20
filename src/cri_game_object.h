@@ -2,6 +2,8 @@
 
 #include "cri_movable.h"
 
+#include <cinder/gl/Texture.h> // @TODO: move to cpp
+
 class CRIGameScene;
 
 class CRIGameObject : public CRIMovable
@@ -12,6 +14,8 @@ public:
 
     void Draw();
     void Update(float Dt);
+
+    void SetTexture(const ci::gl::Texture& Texture);
 
     virtual void LogicUpdate(float Dt);
 
@@ -38,3 +42,5 @@ private:
 
     CRIGameScene* m_pScene; // Non-owning
 };
+
+void Draw(const CRIGameObject& Object, float Angle, const ci::gl::Texture& Texture);

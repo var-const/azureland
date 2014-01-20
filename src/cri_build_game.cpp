@@ -6,14 +6,26 @@
 #include "cri_game_objects.h"
 #include "cri_game_scene.h"
 
+#include <cinder/ImageIo.h>
 #include <cinder/Rand.h>
 #include <cinder/Vector.h>
+#include <cinder/app/App.h>
+
+#include <string>
 
 using ci::Vec2f;
+using ci::gl::Texture;
+using std::string;
 
 #ifndef CHEATS
 //#define CHEATS
 #endif
+
+Texture TextureFromAsset(const string& Id)
+{
+    using ci::loadImage; using ci::app::loadAsset;
+    return loadImage(loadAsset(Id));
+}
 
 void BuildGame( CRIApp& App )
 {
@@ -57,6 +69,7 @@ CRIPlayer* CreatePlayer( CRIApp& App )
     //Player->SetSpeed(130.f);
     Player->SetSpeed(180.f);
 #endif
+    Player->SetTexture(TextureFromAsset("player.png"));
     //Player->SetVelocity(CRIMovable::VelT(0.f, -300.f));
     App.AddInputListener(*Player);
 
@@ -65,6 +78,9 @@ CRIPlayer* CreatePlayer( CRIApp& App )
 
 void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
 {
+    CRIEnemy::TextureA = TextureFromAsset("enemy.png");
+    CRIEnemy::TextureB = TextureFromAsset("enemy2.png");
+
     SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 2400.f), 10, 5.f);
     SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f);
 
@@ -87,7 +103,7 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
 void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     const Vec2f From, const int MaxRowLength, const float Dispersion )
 {
-    using ci::randFloat; using ci::randInt;
+    using ci::randBool; using ci::randFloat; using ci::randInt;
 
     assert(Count >= 0);
     assert(MaxRowLength > 0);
@@ -95,7 +111,6 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
 
     // @FIXME hard coded values
 
-    //const CRIMovable::SizeT Size = CRIMovable::SizeT(20.f, 20.f);
     const CRIMovable::SizeT Size = CRIMovable::SizeT(60.f, 60.f);
     const CRIMovable::VelT VelocityBase = CRIMovable::VelT(200.f, 200.f);
     CRIMovable::PosT CurPos = From;
@@ -106,7 +121,7 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
         //const float Speed = randInt(10) < 9 ? 100 : 200;
         const float Speed = 50;
         //const float Speed = 10;
-        CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
+        CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos, randBool());
         Enemy->SetSpeed(Speed);
         Scene.AddObject(*Enemy);
 

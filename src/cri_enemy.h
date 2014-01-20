@@ -5,15 +5,17 @@
 #include "cri_timer.h"
 #include "weapons/cri_reload.h"
 
+#include <cinder/gl/Texture.h>
+
 #include <vector>
-#include "cinder/gl/Texture.h"
 
 class CRIPlayer;
 
 class CRIEnemy : public CRIGameObject, public CRIHealthMixin
 {
 public:	
-    CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
+    CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos,
+        bool IsTextureA);
 
     void SetSpeed(int Speed);
     
@@ -25,10 +27,15 @@ public:
     void UnsetParalyzed();
     bool IsParalyzed() const;
 
+    static ci::gl::Texture TextureA;
+    static ci::gl::Texture TextureB;
+
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
     typedef BlockersContT::iterator BlockersIterT;
-    void DoDraw();
+
+    void DoDraw(); // override
+    float GetAngle() const;
 
     void OnHealthDepleted(); // override
     void TryRespawn();
@@ -56,5 +63,6 @@ private:
 
     bool m_IsParalyzed;
     CRICountdownTimer m_ParalyzedTimer;
-    ci::gl::Texture m_Tex;
+
+    bool m_IsTextureA;
 };

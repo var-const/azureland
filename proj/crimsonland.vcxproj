@@ -23,6 +23,7 @@
     <ClCompile Include="..\src\cri_crosshair.cpp" />
     <ClCompile Include="..\src\cri_enemy.cpp" />
     <ClCompile Include="..\src\cri_health_mixin.cpp" />
+    <ClCompile Include="..\src\cri_highscore.cpp" />
     <ClCompile Include="..\src\cri_movement_controller.cpp" />
     <ClCompile Include="..\src\cri_game_object.cpp" />
     <ClCompile Include="..\src\cri_game_scene.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="..\src\cri_enemy.h" />
     <ClInclude Include="..\src\cri_game_objects.h" />
     <ClInclude Include="..\src\cri_health_mixin.h" />
+    <ClInclude Include="..\src\cri_highscore.h" />
     <ClInclude Include="..\src\cri_movement_controller.h" />
     <ClInclude Include="..\src\cri_game_object.h" />
     <ClInclude Include="..\src\cri_game_scene.h" />
@@ -127,7 +129,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\src\;$(SolutionDir)\..\libs\cinder\include;$(SolutionDir)\..\libs\cinder\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\src\;$(SolutionDir)\..\libs\cinder\include;$(SolutionDir)\..\libs\cinder\boost;$(SolutionDir)\..\libs\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;LAZY_INCLUDE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -141,8 +143,8 @@
       <TreatSpecificWarningsAsErrors>4172;4715;4099</TreatSpecificWarningsAsErrors>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>cinder_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\libs\cinder\lib\msw\;$(SolutionDir)\..\libs\cinder\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cinder_d.lib;libyaml-cppmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\libs\cinder\lib\msw\;$(SolutionDir)\..\libs\cinder\lib\;$(SolutionDir)\..\libs\yaml-cpp\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -156,7 +158,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\src\;$(SolutionDir)\..\libs\cinder\include;$(SolutionDir)\..\libs\cinder\boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\src\;$(SolutionDir)\..\libs\cinder\include;$(SolutionDir)\..\libs\cinder\boost;$(SolutionDir)\..\libs\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -169,8 +171,8 @@
       <TreatSpecificWarningsAsErrors>4172;4715;4099</TreatSpecificWarningsAsErrors>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>cinder.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\libs\cinder\lib\;$(SolutionDir)\..\libs\cinder\lib\msw\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cinder.lib;libyaml-cppmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\libs\cinder\lib\;$(SolutionDir)\..\libs\cinder\lib\msw\;$(SolutionDir)\..\libs\yaml-cpp\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

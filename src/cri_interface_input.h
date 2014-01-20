@@ -10,15 +10,15 @@ public:
     virtual ~CRIInterfaceInput();
 
     virtual void OnMouseDown(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) = 0;
+        cinder::app::MouseEvent Event);
     virtual void OnMouseUp(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) = 0;
+        cinder::app::MouseEvent Event);
     virtual void OnMouseMove(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) = 0;
+        cinder::app::MouseEvent Event);
     virtual void OnMouseDrag(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) = 0;
+        cinder::app::MouseEvent Event);
     virtual void OnMouseWheel(float Increment,
-        cinder::app::MouseEvent Event) = 0;
-    virtual void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event) = 0;
-    virtual void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event) = 0;
+        cinder::app::MouseEvent Event);
+    virtual void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event);
+    virtual void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
 };

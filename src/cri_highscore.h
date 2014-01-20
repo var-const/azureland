@@ -21,6 +21,9 @@ public:
     void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event); // override
 
 private:
+    typedef std::multimap<int, std::string, std::greater<int> > ScoresContT;
+    typedef ScoresContT::const_iterator ScoresConstIterT;
+
 	enum States
 	{
 		StateDisplay,
@@ -39,7 +42,7 @@ private:
 	bool Validate();
 
     int m_NewScore;
-    std::multimap<int, std::string, std::greater<int> > m_Scores;
+    ScoresContT m_Scores;
     int m_MaxEntries;
 	std::string m_FileName;
 

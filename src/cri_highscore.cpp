@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <exception>
+#include <fstream>
 #include <ostream>
 
 using ci::app::KeyEvent;
@@ -42,6 +43,8 @@ CRIHighscore::CRIHighscore( const int NewScore )
 , m_State(StateUninitialized)
 , m_MaxNameLength(16)
 , m_MaxEntries(10)
+, m_Color(1.f, 1.f, 1.f)
+, m_Font("Verdana", 48)
 {
 }
 
@@ -102,8 +105,8 @@ void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
 
     if (KeyCode == KeyEvent::KEY_RETURN && !m_CurName.empty())
     {
-        //AddHighscore();
-        //Display();
+        AddScore();
+        Display();
     }
     else if (KeyCode == KeyEvent::KEY_BACKSPACE && !m_CurName.empty())
     {
@@ -136,18 +139,37 @@ void CRIHighscore::DoDraw()
     }
     else if (m_State == StatePrompt)
     {
-        drawString("The grim reaper got you", Vec2f(100.f, 100.f));
-        drawString("Enter your name:", Vec2f(100.f, 300.f));
-        drawString(m_CurName, Vec2f(100.f, 500.f));
+        drawString("The grim reaper got you", Vec2f(100.f, 100.f), m_Color,
+            m_Font);
+        drawString("Enter your name:", Vec2f(100.f, 300.f), m_Color, m_Font);
+        drawString(m_CurName, Vec2f(100.f, 500.f), m_Color, m_Font);
     }
 }
 
 void CRIHighscore::AddScore()
 {
+    using std::make_pair; using std::ofstream;
+
     assert(Validate());
-    //m_Scores.append(m_CurName, m_HighScore);
-    //const auto file = ???.open(m_FileName);
-    //file << m_Scores;
+
+    m_Scores.insert(make_pair(m_NewScore, m_CurName));
+    assert(m_Scores.size() <= m_MaxEntries);
+
+    ofstream Output = ofstream(m_FileName);
+    if (Output)
+    {
+        YAML::Node Text;
+        for (ScoresConstIterT Iter = m_Scores.begin(); Iter != m_Scores.end();
+            ++Iter)
+        {
+            YAML::Node Entry;
+            Entry["score"] = Iter->first;
+            Entry["name"] = Iter->second;
+            Text.push_back(Entry);
+        }
+
+        Output << Text;
+    }
 }
 
 void CRIHighscore::Display()

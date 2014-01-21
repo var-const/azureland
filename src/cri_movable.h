@@ -61,7 +61,7 @@ private:
     ci::Vec2f m_XBounds;
     ci::Vec2f m_YBounds;
 
-    bool m_Angle;
+    float m_Angle;
 
     bool m_IsMoving;
 };

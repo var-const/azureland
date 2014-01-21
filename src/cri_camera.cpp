@@ -75,8 +75,11 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
         BufIter->clear();
     }
 
-    m_CollisionsEnd = Collider.CopyColliding(Vec2i(m_HorizBounds.x, m_VertBounds.x),
-        Vec2i(m_HorizBounds.y, m_VertBounds.y), m_CollisionsBuffer.begin());
+    const Vec2i LeftUpper = m_CurTranslation - Vec2f(1.f, 1.f);
+    const Vec2i RightLower = m_CurTranslation + m_ViewHalfSize * 2.f +
+        Vec2f(1.f, 1.f);
+    m_CollisionsEnd = Collider.CopyColliding(LeftUpper, RightLower,
+        m_CollisionsBuffer.begin());
 
     for (CollisionsIterT CollisionsIter = m_CollisionsBuffer.begin();
         CollisionsIter != m_CollisionsEnd; ++CollisionsIter)

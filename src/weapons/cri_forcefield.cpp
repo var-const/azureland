@@ -19,6 +19,7 @@ CRIForcefield::CRIForcefield( const float Radius, const PosT& Pos, const int Tim
 , m_TargetRadius(Radius)
 , m_pPlayer(&Player)
 { 
+    SetTextureDescriptor(TextureDescr);
 }
 
 void CRIForcefield::LogicUpdate(const float Dt)
@@ -30,8 +31,10 @@ void CRIForcefield::LogicUpdate(const float Dt)
         return;
     }
     SetCenterPos(m_pPlayer->GetCenterPos());
-    const float Size = m_TargetRadius * (1.f - m_TimeLeft / m_EffectTime) * 2.f;
+    const float Scale = 1.f - m_TimeLeft / m_EffectTime;
+    const float Size = m_TargetRadius * Scale * 2.f;
     SetSize(Vec2f(Size, Size));
+    SetScale(Scale);
 }
 
 void CRIForcefield::DoDraw()
@@ -65,3 +68,5 @@ Vec2f CRIForcefield::GetPushVector( const Vec2f ToPos ) const
     Result *= m_PushForce;
     return Result;
 }
+
+int CRIForcefield::TextureDescr = -1;

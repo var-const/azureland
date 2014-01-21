@@ -19,12 +19,6 @@ using ci::Vec2f; using ci::Vec2i;
 using ci::gl::Texture;
 using std::string;
 
-Texture TextureFromAsset(const string& Id)
-{
-    using ci::loadImage; using ci::app::loadAsset;
-    return loadImage(loadAsset(Id));
-}
-
 
 CRICamera::CRICamera( const Vec2i SceneSize, const Vec2i ViewSize )
 : m_ViewHalfSize(ViewSize / 2.f)
@@ -184,6 +178,7 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
 
     gl::translate(DrawData.GetCenterPos());
     gl::rotate(DrawData.GetAngle());
+    gl::scale(DrawData.GetScale().x, DrawData.GetScale().y);
     gl::translate(-Tex.getSize() / 2.f);
 
 	glEnableClientState( GL_VERTEX_ARRAY );
@@ -208,4 +203,10 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
 	glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
 
     gl::popModelView();
+}
+
+Texture TextureFromAsset(const string& Id)
+{
+    using ci::loadImage; using ci::app::loadAsset;
+    return loadImage(loadAsset(Id));
 }

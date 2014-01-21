@@ -19,6 +19,8 @@ public:
     void LogicUpdate(float Dt); // override
     ci::Vec2f GetPushVector(ci::Vec2f ToPos) const;
 
+    static int TextureDescr;
+
 private:
     typedef std::vector<const CRIEnemy*> AffectedContT;
     typedef AffectedContT::iterator AffectedIterT;

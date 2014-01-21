@@ -50,5 +50,6 @@ private:
     ci::gl::Texture m_Back;
 };
 
+ci::gl::Texture TextureFromAsset(const std::string& Id);
 void BindTexture(const ci::gl::Texture& Texture);
 void Draw(const CRIMovable& DrawData, const ci::gl::Texture& Texture);

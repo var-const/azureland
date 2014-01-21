@@ -42,12 +42,14 @@ public:
     bool IsMoving() const;
 
     float GetAngle() const;
+    ci::Vec2f GetScale() const;
 
     void CacheMovementAABB(ci::Rectf Rect);
 
 protected:
     void SetSize(const SizeT& Size);
-    void SetAngle(const float Deg);
+    void SetAngle(float Deg);
+    void SetScale(float Scale);
 
 private:
     // Cache the box to avoid recalculating it several times during the frame
@@ -62,6 +64,7 @@ private:
     ci::Vec2f m_YBounds;
 
     float m_Angle;
+    ci::Vec2f m_Scale;
 
     bool m_IsMoving;
 };

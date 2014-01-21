@@ -39,8 +39,8 @@ void BuildGame( CRIApp& App )
     CreateEnemies(*Scene, *Player);
     const int ProjectileTexture = Scene->GetCamera().RegisterTexture("energy.png");
     CRIProjectile::TextureDescr = ProjectileTexture;
-    //const int FieldTexture = Scene->GetCamera().RegisterTexture("field.png");
-    //CRIForcefield::TextureDescr = ProjectileTexture;
+    const int FieldTexture = Scene->GetCamera().RegisterTexture("field.png");
+    CRIForcefield::TextureDescr = FieldTexture;
     const int HealthTexture = Scene->GetCamera().RegisterTexture("health.png");
     CRIHealthPickup::TextureDescr = HealthTexture;
     

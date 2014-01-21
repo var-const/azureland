@@ -12,6 +12,7 @@ CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
 , m_Pos(StartPos)
 , m_IsMoving(false)
 , m_Angle(0.f)
+, m_Scale(1.f, 1.f)
 {
     UpdateBoundingBox();
 }
@@ -23,6 +24,7 @@ CRIMovable::CRIMovable(const SizeT& Size, const PosT& StartPos,
 , m_Velocity(Velocity)
 , m_IsMoving(false)
 , m_Angle(0.f)
+, m_Scale(1.f, 1.f)
 {
     UpdateBoundingBox();
 }
@@ -129,6 +131,16 @@ void CRIMovable::SetAngle( const float Deg )
 float CRIMovable::GetAngle() const
 {
     return m_Angle;
+}
+
+void CRIMovable::SetScale( const float Scale )
+{
+    m_Scale.x = m_Scale.y = Scale;
+}
+
+Vec2f CRIMovable::GetScale() const
+{
+    return m_Scale;
 }
 
 CRIMovable::PosT GetFuturePos( const CRIMovable& Object, const float Delta )

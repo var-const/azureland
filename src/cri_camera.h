@@ -33,6 +33,8 @@ private:
     typedef std::vector<CRIGameObject*> CollisionsBufferT;
     typedef CollisionsBufferT::iterator CollisionsIterT;
 
+    void DrawBack();
+
     ci::Vec2f m_ViewHalfSize;
     ci::Vec2i m_HorizBounds;
     ci::Vec2i m_VertBounds;
@@ -44,6 +46,8 @@ private:
 
     CollisionsBufferT m_CollisionsBuffer;
     CollisionsIterT m_CollisionsEnd;
+
+    ci::gl::Texture m_Back;
 };
 
 void BindTexture(const ci::gl::Texture& Texture);

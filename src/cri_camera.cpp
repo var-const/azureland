@@ -19,7 +19,7 @@ using ci::Vec2f; using ci::Vec2i;
 using ci::gl::Texture;
 using std::string;
 
-Texture TextureFromAsset(const string& Id) // @TODO: use
+Texture TextureFromAsset(const string& Id)
 {
     using ci::loadImage; using ci::app::loadAsset;
     return loadImage(loadAsset(Id));
@@ -33,13 +33,14 @@ CRICamera::CRICamera( const Vec2i SceneSize, const Vec2i ViewSize )
 { 
     // @FIXME hard coded
     m_CollisionsBuffer.resize(5000);
+    m_Back = TextureFromAsset("back.png");
 }
 
 int CRICamera::RegisterTexture( const string& Id )
 {
     using ci::loadImage; using ci::app::loadAsset;
 
-    m_Textures.push_back( loadImage(loadAsset(Id)) );
+    m_Textures.push_back(TextureFromAsset(Id));
     ResizeAtLeast( m_Buffers, static_cast<int>(m_Textures.size()) );
     return m_Textures.size() - 1;
 }
@@ -48,6 +49,10 @@ void CRICamera::Draw()
 {
     using ::Draw;
     using namespace ci;
+
+    gl::pushModelView();
+    DrawBack();
+    gl::popModelView();
 
     gl::pushModelView();
     gl::translate(m_CurTranslation);
@@ -122,6 +127,48 @@ Vec2f CRICamera::ToGamePos( const Vec2f ScreenPos ) const
 Vec2i CRICamera::GetSize() const
 {
     return Vec2i(m_HorizBounds.y, m_VertBounds.y);
+}
+
+void CRICamera::DrawBack()
+{
+    using namespace ci;
+
+    m_Back.enableAndBind();
+
+    Rectf rect(0.f, 0.f, m_ViewHalfSize.x * 2.f, m_ViewHalfSize.y * 2.f);
+    glEnableClientState( GL_VERTEX_ARRAY );
+    GLfloat verts[8];
+    glVertexPointer( 2, GL_FLOAT, 0, verts );
+    glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+    GLfloat texCoords[8];
+    glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
+    verts[0*2+0] = rect.getX2();
+    verts[0*2+1] = rect.getY1();
+    verts[1*2+0] = rect.getX1();
+    verts[1*2+1] = rect.getY1();
+    verts[2*2+0] = rect.getX2();
+    verts[2*2+1] = rect.getY2();
+    verts[3*2+0] = rect.getX1();
+    verts[3*2+1] = rect.getY2();
+
+    const Vec2f LeftUpper = -m_CurTranslation - Vec2f(1.f, 1.f);
+    const Vec2f RightLower = -m_CurTranslation + m_ViewHalfSize * 2.f +
+        Vec2f(1.f, 1.f);
+    const Vec2f TextureSize = m_Back.getSize();
+    const float x1 = LeftUpper.x / TextureSize.x;
+    const float x2 = RightLower.x / TextureSize.x;
+    const float y1 = LeftUpper.y / TextureSize.y;
+    const float y2 = RightLower.y / TextureSize.y;
+
+    texCoords[0*2+0] = x2; texCoords[0*2+1] = y1;
+    texCoords[1*2+0] = x1; texCoords[1*2+1] = y1;
+    texCoords[2*2+0] = x2; texCoords[2*2+1] = y2;
+    texCoords[3*2+0] = x1; texCoords[3*2+1] = y2;
+
+    glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
+
+    glDisableClientState( GL_VERTEX_ARRAY );
+    glDisableClientState( GL_TEXTURE_COORD_ARRAY );        
 }
 
 void BindTexture( const Texture& Tex )

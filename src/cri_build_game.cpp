@@ -79,8 +79,9 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy.png"));
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy2.png"));
 
-	SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
-    SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f, Textures);
+	SpawnEnemies(Scene, Player, 1, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
+	//SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
+ //   SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f, Textures);
 
 //    SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f);
 //    SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f);

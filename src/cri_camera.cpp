@@ -13,6 +13,7 @@
 #include <cinder/gl/gl.h>
 
 #include <string>
+#include <algorithm>
 
 using ci::Vec2f; using ci::Vec2i;
 using ci::gl::Texture;
@@ -75,8 +76,8 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
         BufIter->clear();
     }
 
-    const Vec2i LeftUpper = m_CurTranslation - Vec2f(1.f, 1.f);
-    const Vec2i RightLower = m_CurTranslation + m_ViewHalfSize * 2.f +
+    const Vec2i LeftUpper = -m_CurTranslation - Vec2f(1.f, 1.f);
+    const Vec2i RightLower = -m_CurTranslation + m_ViewHalfSize * 2.f +
         Vec2f(1.f, 1.f);
     m_CollisionsEnd = Collider.CopyColliding(LeftUpper, RightLower,
         m_CollisionsBuffer.begin());
@@ -89,6 +90,13 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
         {
             m_Buffers[TextureDescr].push_back(*CollisionsIter);
         }
+    }
+
+    for (int TextureDescr = 0; TextureDescr != m_Textures.size(); ++TextureDescr)
+    {
+        auto& cont = m_Buffers[TextureDescr];
+        std::sort(cont.begin(), cont.end());
+        cont.erase(std::unique(cont.begin(), cont.end()), cont.end());
     }
 }
 

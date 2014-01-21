@@ -8,9 +8,12 @@ CRIProjectile::CRIProjectile( const SizeT& Size, const PosT& Pos,
 , m_Damage(Damage)
 {
     SetVelocity(Velocity);
+    SetTextureDescriptor(TextureDescr);
 }
 
 int CRIProjectile::GetDamage() const
 {
     return m_Damage;
 }
+
+int CRIProjectile::TextureDescr = -1;

@@ -10,6 +10,8 @@ public:
 
     int GetDamage() const;
 
+    static int TextureDescr;
+
 private:
     int m_Damage;
 };

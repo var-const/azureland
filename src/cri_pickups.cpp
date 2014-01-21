@@ -8,6 +8,7 @@ CRIHealthPickup::CRIHealthPickup( const SizeT& Size, const PosT& StartPos,
 , m_Amount(Amount)
 {
     m_Timer.SetExpiresFromNow(static_cast<double>(LifetimeSeconds));
+    SetTextureDescriptor(TextureDescr);
 }
 
 int CRIHealthPickup::GetAmount() const
@@ -22,3 +23,5 @@ void CRIHealthPickup::LogicUpdate( const float Dt )
         Destroy();
     }
 }
+
+int CRIHealthPickup::TextureDescr = -1;

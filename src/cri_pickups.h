@@ -13,6 +13,8 @@ public:
     
     void LogicUpdate(float Dt); // override
 
+    static int TextureDescr;
+
 private:
     int m_Amount;
     CRICountdownTimer m_Timer;

@@ -102,6 +102,11 @@ void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
 
     if (m_State == StateDeath)
     {
+        if (KeyCode != KeyEvent::KEY_RETURN)
+        {
+            return;
+        }
+
         if (m_Scores.size() < m_MaxEntries ||
             m_Scores.rbegin()->first < m_NewScore)
         {
@@ -151,7 +156,7 @@ void CRIHighscore::DoDraw()
 
     if (m_State == StatePrompt)
     {
-        drawString("Your courage is timeless", Vec2f(380.f, 350.f), m_Color, m_Font);
+        drawString("Your sacrifice is timeless", Vec2f(380.f, 350.f), m_Color, m_Font);
         drawString("Enter your name:", Vec2f(450.f, 450.f), m_Color, m_Font);
         drawString(m_CurName, Vec2f(450.f, 550.f), m_Color, m_Font);
     }

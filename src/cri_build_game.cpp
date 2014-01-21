@@ -22,7 +22,7 @@ using std::string;
 using std::vector;
 
 #ifndef CHEATS
-//#define CHEATS
+#define CHEATS
 #endif
 
 void CreateObstacle(CRIGameScene& Scene, const float LeftUpperTileX,
@@ -45,13 +45,68 @@ void BuildGame( CRIApp& App )
     Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)) );
     Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f)) );
 
+    // Centurion
     CreateObstacle(*Scene, 15.627f, 16.875f, 11.408f, 12.656f); 
+    // Pipes
     CreateObstacle(*Scene, 41.355f, 0.238f, 1.485f, 27.510f);
+    // Bridge 1
     CreateObstacle(*Scene, 26.560f, 27.748f, 17.409f, 1.010f);
+    // Bridge 2
     CreateObstacle(*Scene, 16.043f, 37.314f, 27.926f, 0.891f);
-    CreateObstacle(*Scene, 44.029f, 34.878f, 35.948f, 3.209f);
+    // Wall
+    //CreateObstacle(*Scene, 44.029f, 34.878f, 35.948f, 3.209f);
+    // Police robot
     CreateObstacle(*Scene, 66.013f, 38.206f, 14.023f, 8.853f);
+    // Shaft
     CreateObstacle(*Scene, 16.043f, 37.908f, 5.229f, 7.368f);
+
+    // Ship 1
+    CreateObstacle(*Scene, 42.954f, 0.105f, 6.039f, 7.869f);
+    // Ship 2
+    CreateObstacle(*Scene, 49.046f, 0.f, 6.196f, 10.092f);
+    // Ship 3
+    CreateObstacle(*Scene, 55.268f, 0.f, 4.209f, 9.856f);
+    // Ship 4
+    CreateObstacle(*Scene, 59.529f, 0.f, 4.183f, 8.680f);
+    // Ship 5
+    CreateObstacle(*Scene, 63.712f, 0.f, 4.157f, 6.954f);
+    // Ship 6
+    CreateObstacle(*Scene, 67.895f, 0.f, 3.320f, 5.595f);
+    // Ship 7
+    CreateObstacle(*Scene, 71.294f, 0.f, 3.556f, 4.052f);
+
+    // Stairway
+    CreateObstacle(*Scene, 43.969f, 34.878f, 10.042f, 4.278f);
+    CreateObstacle(*Scene, 58.405f, 34.797f, 21.752f, 3.791f);
+    CreateObstacle(*Scene, 49.359f, 43.268f, 4.758f, 4.654f);
+    CreateObstacle(*Scene, 58.118f, 43.059f, 4.654f, 5.020f);
+
+    // Pomps
+    CreateObstacle(*Scene, 36.549f, 0.745f, 4.745f, 3.216f);
+    CreateObstacle(*Scene, 36.471f, 5.647f, 4.824f, 3.725f);
+    CreateObstacle(*Scene, 36.471f, 10.902f, 4.824f, 3.725f);
+    CreateObstacle(*Scene, 36.471f, 15.765f, 4.824f, 3.725f);
+    CreateObstacle(*Scene, 36.471f, 20.863f, 4.824f, 3.725f);
+
+    // Crates near ship
+    CreateObstacle(*Scene, 60.941f, 20.980f, 7.843f, 4.039f);
+    CreateObstacle(*Scene, 61.176f, 28.157f, 7.529f, 3.961f);
+
+    // Far crates
+    CreateObstacle(*Scene, 26.039f, 38.078f, 7.725f, 3.882f);
+    CreateObstacle(*Scene, 34.039f, 38.118f, 7.804f, 3.882f);
+
+    // Wall 1
+    //CreateObstacle(*Scene, 43.910f, 34.878f, 16.518f, 3.209f);
+    //CreateObstacle(*Scene, 43.902f, 34.882f, 2.725f, 2.647f);
+    ////CreateObstacle(*Scene, 43.910f, 34.878f, 16.518f, 3.209f);
+    //CreateObstacle(*Scene, 55.471f, 35.000f, 5.078f, 2.510f);
+    //CreateObstacle(*Scene, 44.137f, 39.608f, 2.314f, 2.294f);
+    //CreateObstacle(*Scene, 48.569f, 39.608f, 4.941f, 2.314f);
+    //CreateObstacle(*Scene, 55.608f, 39.510f, 4.902f, 2.471f);
+    //CreateObstacle(*Scene, 62.569f, 39.510f, 2.412f, 2.451f);
+    //// Wall 3
+    //CreateObstacle(*Scene, 62.864f, 34.878f, 17.112f, 3.149f);
 
     CRIPlayer* const Player = CreatePlayer(App, *Scene);
     Scene->AddObject(*Player);

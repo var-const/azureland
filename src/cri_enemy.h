@@ -30,8 +30,6 @@ private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
     typedef BlockersContT::iterator BlockersIterT;
 
-    void DoDraw(); // override
-
     void UpdateAngle();
 
     void OnHealthDepleted(); // override

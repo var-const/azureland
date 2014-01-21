@@ -15,8 +15,6 @@
 #include <cmath>
 #include <utility>
 
-using ci::gl::Texture;
-
 const int SleepAfterReadjustingPos = 3;
 const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
@@ -33,9 +31,9 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
 , m_MaxPursuitRange(2000.f)
 , m_IsParalyzed(false)
 { 
-    SetMaxHealth(20); // @FIXME hardcoded
-    ForceSetHealthValue(20); // @FIXME hardcoded
-    m_Reload.SetReloadTime(1000);
+    SetMaxHealth(30); // @FIXME hardcoded
+    ForceSetHealthValue(30); // @FIXME hardcoded
+    m_Reload.SetReloadTime(800);
 }
 
 void CRIEnemy::LogicUpdate(const float Dt)
@@ -98,7 +96,7 @@ void CRIEnemy::OnCaughtPlayer()
     // @TODO: refactor out as weapon
     if (m_Reload.IsReady())
     {
-        m_pPlayer->ModifyHealth(-10); // @FIXME hard coded
+        m_pPlayer->ModifyHealth(-20); // @FIXME hard coded
         m_Reload.OnShot();
     }
 }
@@ -261,11 +259,6 @@ void CRIEnemy::SetSpeed( const int Speed )
 {
     assert(Speed >= 0);
     m_Speed = Speed;
-}
-
-void CRIEnemy::DoDraw()
-{
-    //::Draw(*this, GetAngle(), m_IsTextureA ? TextureA : TextureB);
 }
 
 void CRIEnemy::UpdateAngle()

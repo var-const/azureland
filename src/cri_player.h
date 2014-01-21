@@ -52,6 +52,8 @@ private:
     PosT GetCrosshairPos() const;
     void UpdateAngle();
 
+    void Paralyze(int Frames);
+
     CRIMovementController m_MovementController;
 
     CRICrosshair* m_pCrosshair;
@@ -65,4 +67,6 @@ private:
     int m_Score;
 
     CRIApp* m_pApp; // Non-owning
+
+    int m_ParalyzedCounter; 
 };

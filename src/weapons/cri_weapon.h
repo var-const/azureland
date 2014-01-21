@@ -15,6 +15,7 @@ public:
 
     void SetReloadTime(int Milliseconds);
     void Shoot(cinder::Vec2<float> StartPos, cinder::Vec2<float> TargetPos);
+    bool IsReady() const;
 
     void SetScene(CRIGameScene& Scene);
 

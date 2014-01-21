@@ -177,6 +177,7 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
     gl::pushModelView();
 
     gl::translate(DrawData.GetCenterPos());
+    //gl::drawStrokedRect( ToRect(DrawData.GetAABB()) );
     gl::rotate(DrawData.GetAngle());
     gl::scale(DrawData.GetScale().x, DrawData.GetScale().y);
     gl::translate(-Tex.getSize() / 2.f);

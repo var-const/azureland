@@ -33,6 +33,11 @@ void CRIWeapon::Shoot( const Vec2f StartPos, const Vec2f TargetPos )
     m_Reload.OnShot();
 }
 
+bool CRIWeapon::IsReady() const
+{
+    return m_Reload.IsReady();
+}
+
 void CRIWeapon::SetScene( CRIGameScene& Scene )
 {
     m_pScene = &Scene;

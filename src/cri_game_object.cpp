@@ -24,7 +24,7 @@ CRIGameObject::~CRIGameObject()
 void CRIGameObject::Draw()
 {
     using ci::gl::drawStrokedRect;
-    drawStrokedRect( ToRect(GetAABB()) );
+    //drawStrokedRect( ToRect(GetAABB()) );
     DoDraw();
 }
 

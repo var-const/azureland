@@ -35,13 +35,14 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
 , m_pScoreLabel( new CRITextObject(PosT(1100.f, 50.f)) )
 , m_Score(0)
 , m_pApp(&App)
+, m_ParalyzedCounter(0)
 { 
     using ci::Font;
 
     assert(Health > 0);
 
     m_pWeaponA->SetReloadTime(200); // @FIXME hard coded
-    m_pWeaponB->SetReloadTime(1000); // @FIXME hard coded
+    m_pWeaponB->SetReloadTime(1500); // @FIXME hard coded
 
     SetMaxHealth(Health);
     ForceSetHealthValue(Health);
@@ -80,6 +81,12 @@ void CRIPlayer::SetSpeed( const float Speed )
 
 void CRIPlayer::DoUpdate( const float Dt )
 {
+    if (m_ParalyzedCounter)
+    {
+        --m_ParalyzedCounter;
+        SetVelocity(VelT());
+        return;
+    }
     m_MovementController.Deccelerate(*this);
 }
 
@@ -97,6 +104,10 @@ void CRIPlayer::LogicUpdate(const float Dt)
     if (m_AutofireWeaponB)
     {
         assert(m_pWeaponB);
+        if (m_pWeaponB->IsReady())
+        {
+            Paralyze(20);
+        }
         Shoot(*m_pWeaponB);
     }
 }
@@ -117,6 +128,10 @@ void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
     else if (Event.isRight())
     {
         assert(m_pWeaponB);
+        if (m_pWeaponB->IsReady())
+        {
+            Paralyze(20);
+        }
         Shoot(*m_pWeaponB);
         m_AutofireWeaponB = true;
     }
@@ -187,6 +202,10 @@ void CRIPlayer::OnKeyDown( const int KeyCode, const KeyEvent Event )
         return;
     }
     m_MovementController.OnKeyDown(KeyCode, *this);
+    if (m_ParalyzedCounter)
+    {
+        SetVelocity(VelT());
+    }
 }
 
 void CRIPlayer::OnKeyUp( const int KeyCode, const KeyEvent Event )
@@ -249,4 +268,10 @@ void CRIPlayer::UpdateAngle()
 void CRIPlayer::DoDraw()
 {
     //::Draw(*this, GetAngle(), m_Texture);
+}
+
+void CRIPlayer::Paralyze(const int Frames)
+{
+    m_ParalyzedCounter = Frames;
+    SetVelocity(VelT());
 }

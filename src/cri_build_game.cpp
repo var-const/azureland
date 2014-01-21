@@ -25,18 +25,39 @@ using std::vector;
 //#define CHEATS
 #endif
 
+void CreateObstacle(CRIGameScene& Scene, const float LeftUpperTileX,
+    const float LeftUpperTileY, const float TileWidth, const float TileHeight)
+{
+    static const float TileSize = 51.f;
+    const Vec2f Size = Vec2f(TileWidth, TileHeight) * TileSize;
+    const Vec2f Pos = Vec2f(LeftUpperTileX, LeftUpperTileY) * TileSize;
+    Scene.AddObject(*new CRIObstacle(Size, Pos + Size / 2.f));
+}
+
 void BuildGame( CRIApp& App )
 {
     using ci::Vec2f;
 
     CRIGameScene* const Scene = new CRIGameScene(App, 1280 * 3, 1024 * 3);
+
     Scene->AddObject( *new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)) );
     Scene->AddObject( *new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f)) );
     Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)) );
     Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f)) );
+
+    CreateObstacle(*Scene, 15.627f, 16.875f, 11.408f, 12.656f); 
+    CreateObstacle(*Scene, 41.355f, 0.238f, 1.485f, 27.510f);
+    CreateObstacle(*Scene, 26.560f, 27.748f, 17.409f, 1.010f);
+    CreateObstacle(*Scene, 16.043f, 37.314f, 27.926f, 0.891f);
+    CreateObstacle(*Scene, 44.029f, 34.878f, 35.948f, 3.209f);
+    CreateObstacle(*Scene, 66.013f, 38.206f, 14.023f, 8.853f);
+    CreateObstacle(*Scene, 16.043f, 37.908f, 5.229f, 7.368f);
+
     CRIPlayer* const Player = CreatePlayer(App, *Scene);
     Scene->AddObject(*Player);
+
     CreateEnemies(*Scene, *Player);
+
     const int ProjectileTexture = Scene->GetCamera().RegisterTexture("energy.png");
     CRIProjectile::TextureDescr = ProjectileTexture;
     const int FieldTexture = Scene->GetCamera().RegisterTexture("field.png");
@@ -60,10 +81,10 @@ CRIPlayer* CreatePlayer( CRIApp& App, CRIGameScene& Scene )
     //const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
     //    getWindowSize().y - 30.f);
 #ifdef CHEATS
-    const int PlayerHealth = 10000;
+    const int PlayerHealth = 1000000;
 #else
-    //const int PlayerHealth = 100;
-    const int PlayerHealth = 10000;
+    const int PlayerHealth = 100;
+    //const int PlayerHealth = 10000;
 #endif
 
     CRIPlayer* const Player = new CRIPlayer(Size, Pos, PlayerHealth, App);
@@ -89,23 +110,37 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
 
 	//SpawnEnemies(Scene, Player, 1, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
  //   return;
-	SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
-    SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f, Textures);
 
-//    SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f, Textures);
-//    SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f, Textures);
-//    SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f, Textures);
-//    SpawnEnemies(Scene, Player, 100, Vec2f(2500.f, 2000.f), 10, 5.f, Textures);
-//
-//    SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f, Textures);
-//    SpawnEnemies(Scene, Player, 50, Vec2f(2500.f, 600.f), 10, 55.f, Textures);
-//    SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f, Textures);
-//
-//    SpawnEnemies(Scene, Player, 10, Vec2f(1500.f, 2000.f), 10, 55.f, Textures);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(600.f, 1000.f), 5, 55.f, Textures);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(360.f, 200.f), 10, 55.f, Textures);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(2160.f, 150.f), 10, 55.f, Textures);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(2300.f, 500.f), 10, 55.f, Textures);
+    // Bottom
+    SpawnEnemies(Scene, Player, 600, Vec2f(60.f, 2500.f), 70, 5.f, Textures);
+    // Top
+    SpawnEnemies(Scene, Player, 300, Vec2f(60.f, 60.f), 30, 5.f, Textures);
+    // Start screen 1
+    SpawnEnemies(Scene, Player, 50, Vec2f(60.f, 920.f), 10, 5.f, Textures);
+    // Start screen 2
+    SpawnEnemies(Scene, Player, 50, Vec2f(60.f, 1830.f), 10, 5.f, Textures);
+    // Bridge
+    SpawnEnemies(Scene, Player, 20, Vec2f(1530.f, 1530.f), 10, 5.f, Textures);
+    // Near the ship
+    SpawnEnemies(Scene, Player, 50, Vec2f(2240.f, 610.f), 25, 5.f, Textures);
+
+    //SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
+    //SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f, Textures);
+
+    //SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f, Textures);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f, Textures);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f, Textures);
+    //SpawnEnemies(Scene, Player, 100, Vec2f(2500.f, 2000.f), 10, 5.f, Textures);
+
+    //SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f, Textures);
+    //SpawnEnemies(Scene, Player, 50, Vec2f(2500.f, 600.f), 10, 55.f, Textures);
+    //SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f, Textures);
+
+    //SpawnEnemies(Scene, Player, 10, Vec2f(1500.f, 2000.f), 10, 55.f, Textures);
+    //SpawnEnemies(Scene, Player, 10, Vec2f(600.f, 1000.f), 5, 55.f, Textures);
+    //SpawnEnemies(Scene, Player, 10, Vec2f(360.f, 200.f), 10, 55.f, Textures);
+    //SpawnEnemies(Scene, Player, 10, Vec2f(2160.f, 150.f), 10, 55.f, Textures);
+    //SpawnEnemies(Scene, Player, 10, Vec2f(2300.f, 500.f), 10, 55.f, Textures);
 }
 
 void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,

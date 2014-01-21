@@ -40,7 +40,7 @@ int CRICamera::RegisterTexture( const string& Id )
 
     m_Textures.push_back( loadImage(loadAsset(Id)) );
     ResizeAtLeast( m_Buffers, static_cast<int>(m_Textures.size()) );
-    return m_Textures.size();
+    return m_Textures.size() - 1;
 }
 
 void CRICamera::Draw()
@@ -125,6 +125,14 @@ void BindTexture( const Texture& Tex )
 
 void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second param
 {
+    using namespace ci;
+
+    gl::pushModelView();
+
+    gl::translate(DrawData.GetCenterPos());
+    gl::rotate(DrawData.GetAngle());
+    gl::translate(-Tex.getSize() / 2.f);
+
 	glEnableClientState( GL_VERTEX_ARRAY );
 	GLfloat verts[8];
 	glVertexPointer( 2, GL_FLOAT, 0, verts );
@@ -145,4 +153,6 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
 	texCoords[3*2+0] = srcCoords.getX1(); texCoords[3*2+1] = srcCoords.getY2();	
 
 	glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
+
+    gl::popModelView();
 }

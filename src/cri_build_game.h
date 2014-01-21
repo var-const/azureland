@@ -13,4 +13,4 @@ CRIPlayer* CreatePlayer(CRIApp& App, CRIGameScene& Scene);
 void CreateEnemies(CRIGameScene& Scene, CRIPlayer& Player);
 void SpawnEnemies(CRIGameScene& Scene, CRIPlayer& Player, int Count,
     cinder::Vec2<float> From, int MaxRowLength, float Dispersion,
-    std::vector<int> Textures);
+    const std::vector<int>& Textures);

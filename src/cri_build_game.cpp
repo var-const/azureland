@@ -100,7 +100,7 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
 
 void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     const Vec2f From, const int MaxRowLength, const float Dispersion,
-    vector<int> Textures )
+    const vector<int>& Textures )
 {
     using ci::randBool; using ci::randFloat; using ci::randInt;
 

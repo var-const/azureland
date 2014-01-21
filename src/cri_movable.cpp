@@ -10,7 +10,8 @@ using std::pair;
 CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
 : m_Size(Size)
 , m_Pos(StartPos)
-, m_IsMoving()
+, m_IsMoving(false)
+, m_Angle(0.f)
 {
     UpdateBoundingBox();
 }
@@ -20,7 +21,8 @@ CRIMovable::CRIMovable(const SizeT& Size, const PosT& StartPos,
 : m_Size(Size)
 , m_Pos(StartPos)
 , m_Velocity(Velocity)
-, m_IsMoving()
+, m_IsMoving(false)
+, m_Angle(0.f)
 {
     UpdateBoundingBox();
 }
@@ -117,6 +119,16 @@ Vec2f CRIMovable::GetXBounds() const
 Vec2f CRIMovable::GetYBounds() const
 {
     return m_YBounds;
+}
+
+void CRIMovable::SetAngle( const float Deg )
+{
+    m_Angle = Deg;
+}
+
+float CRIMovable::GetAngle() const
+{
+    return m_Angle;
 }
 
 CRIMovable::PosT GetFuturePos( const CRIMovable& Object, const float Delta )

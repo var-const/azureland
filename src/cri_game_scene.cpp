@@ -54,7 +54,7 @@ CRIGameScene::~CRIGameScene()
 
 void CRIGameScene::Draw()
 {
-    m_Camera.Draw(m_Objects.begin(), m_Objects.end());
+    m_Camera.Draw();
 
     for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
         ++GUIObj)
@@ -80,6 +80,8 @@ void CRIGameScene::Update(const float Dt)
     {
         (*GUIObj)->Update(Dt);
     }
+
+    m_Camera.UpdateVisibility(m_Collider);
 }
 
 void CRIGameScene::AddPendingObjects()
@@ -205,6 +207,16 @@ Vec2f CRIGameScene::ToGamePos( const Vec2f ScreenPos ) const
 const CRICollider& CRIGameScene::GetCollider() const
 {
     return m_Collider;
+}
+
+CRICamera& CRIGameScene::GetCamera()
+{
+    return m_Camera;
+}
+
+const CRICamera& CRIGameScene::GetCamera() const
+{
+    return m_Camera;
 }
 
 void CRIGameScene::OnEnemyRespawn( const Vec2f PosForPickUp )

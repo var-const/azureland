@@ -85,6 +85,8 @@ void CRIPlayer::DoUpdate( const float Dt )
 
 void CRIPlayer::LogicUpdate(const float Dt)
 {
+    UpdateAngle();
+
     GetScene().MoveCamera(GetCenterPos());
 
     if (m_AutofireWeaponA)
@@ -234,22 +236,17 @@ void CRIPlayer::OnDestroyed()
 	GetScene().EndGame(m_Score);
 }
 
-float CRIPlayer::GetAngle() const
+void CRIPlayer::UpdateAngle()
 {
     using ci::math; using ci::Vec2f;
 
     Vec2f Dir = GetCrosshairPos() - GetCenterPos();
     Dir.safeNormalize();
     const float Angle = math<float>::atan2(0.f, -1.f) - math<float>::atan2(Dir.x, Dir.y);
-    return Angle * 180.f / M_PI;
-}
-
-void CRIPlayer::SetTexture( const Texture& Texture )
-{
-    m_Texture = Texture;
+    SetAngle(Angle * 180.f / M_PI);
 }
 
 void CRIPlayer::DoDraw()
 {
-    ::Draw(*this, GetAngle(), m_Texture);
+    //::Draw(*this, GetAngle(), m_Texture);
 }

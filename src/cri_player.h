@@ -22,8 +22,6 @@ public:
     void SetSpeed(float Speed);
     void AddScore(int Amount);
 
-    void SetTexture(const ci::gl::Texture& Texture);
-
     // Overrides
 
     void OnMouseDown(const cinder::Vec2<float>& Pos,
@@ -43,7 +41,6 @@ public:
 
 private:
     void DoDraw(); // Override
-    float GetAngle() const;
     void DoUpdate(float Dt); // Override
     void OnDestroyed(); // Override
     void OnAddedToScene(); // Override
@@ -53,6 +50,7 @@ private:
 
     void Shoot(CRIWeapon& Weapon);
     PosT GetCrosshairPos() const;
+    void UpdateAngle();
 
     CRIMovementController m_MovementController;
 
@@ -67,6 +65,4 @@ private:
     int m_Score;
 
     CRIApp* m_pApp; // Non-owning
-
-    ci::gl::Texture m_Texture;
 };

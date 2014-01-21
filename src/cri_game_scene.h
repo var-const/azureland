@@ -34,6 +34,8 @@ public:
     cinder::Vec2<float> ToGamePos(cinder::Vec2<float> ScreenPos) const;
 
     const CRICollider& GetCollider() const;
+    CRICamera& GetCamera();
+    const CRICamera& GetCamera() const;
 
     void OnEnemyRespawn(cinder::Vec2<float> PosForPickUp);
 

@@ -14,8 +14,7 @@ class CRIPlayer;
 class CRIEnemy : public CRIGameObject, public CRIHealthMixin
 {
 public:	
-    CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos,
-        bool IsTextureA);
+    CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
 
     void SetSpeed(int Speed);
     
@@ -27,15 +26,13 @@ public:
     void UnsetParalyzed();
     bool IsParalyzed() const;
 
-    static ci::gl::Texture TextureA;
-    static ci::gl::Texture TextureB;
-
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
     typedef BlockersContT::iterator BlockersIterT;
 
     void DoDraw(); // override
-    float GetAngle() const;
+
+    void UpdateAngle();
 
     void OnHealthDepleted(); // override
     void TryRespawn();
@@ -63,6 +60,4 @@ private:
 
     bool m_IsParalyzed;
     CRICountdownTimer m_ParalyzedTimer;
-
-    bool m_IsTextureA;
 };

@@ -22,8 +22,7 @@ const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
 const int SleepAfterLosingTrail = 15;
 
-CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos,
-    const bool IsTextureA )
+CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
 : CRIGameObject(Size, StartPos)
 , m_pPlayer(&Player)
 , m_Sleep(0)
@@ -33,7 +32,6 @@ CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos,
 , m_PointsForKilling(10)
 , m_MaxPursuitRange(2000.f)
 , m_IsParalyzed(false)
-, m_IsTextureA(IsTextureA)
 { 
     SetMaxHealth(20); // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
@@ -89,6 +87,7 @@ void CRIEnemy::LogicUpdate(const float Dt)
     }
     Direction.normalize();
     SetVelocity(Direction * m_Speed);
+    UpdateAngle();
 }
 
 void CRIEnemy::OnCaughtPlayer()
@@ -265,10 +264,10 @@ void CRIEnemy::SetSpeed( const int Speed )
 
 void CRIEnemy::DoDraw()
 {
-    ::Draw(*this, GetAngle(), m_IsTextureA ? TextureA : TextureB);
+    //::Draw(*this, GetAngle(), m_IsTextureA ? TextureA : TextureB);
 }
 
-float CRIEnemy::GetAngle() const
+void CRIEnemy::UpdateAngle()
 {
     using ci::Vec2f; using ci::math;
 
@@ -276,8 +275,5 @@ float CRIEnemy::GetAngle() const
     Dir.safeNormalize();
     const float Angle = math<float>::atan2(0.f, -1.f) -
         math<float>::atan2(Dir.x, Dir.y);
-    return Angle * 180.f / M_PI;
+    SetAngle(Angle * 180.f / M_PI);
 }
-
-Texture CRIEnemy::TextureB;
-Texture CRIEnemy::TextureA;

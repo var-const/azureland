@@ -81,23 +81,9 @@ void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
                 ++ObjIter)
             {
                 AddChecks(*ObjIter, ObjIter + 1, ObjEnd);
-                if (Row == 0 && (*ObjIter)->GetYBounds().x < 0.f)
-                {
-                }
-                if (Row == GridT::RowsC - 1 && (*ObjIter)->GetYBounds().y > 1024.f * 3.f)
-                {
-                }
-                if (Col == 0 && (*ObjIter)->GetXBounds().x < 0.f)
-                {
-                }
-                if (Col == GridT::ColsC - 1 && (*ObjIter)->GetXBounds().y > 1280.f * 3.f)
-                {
-                }
             }
         }
     }
-
-    //sort(m_Checks.begin(), m_ChecksEndIter);
 }
 
 void CRICollider::AddChecks(CRIGameObject* const Obj, const ObjConstIterT Begin,
@@ -220,6 +206,29 @@ pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
     return make_pair(false, Rectf());
 }
 
+CRICollider::ObjIterT CRICollider::CopyColliding( const Vec2i LeftUpper,
+    const Vec2i RightLower, ObjIterT OutputIter ) const
+{
+    using ci::Vec2i;
+    using std::max; using std::min;
+
+    const Vec2i Begin = LeftUpper / m_Grid.GetCellSize();
+    const Vec2i End = RightLower / m_Grid.GetCellSize();
+    for (int Row = max(Begin.y, 0); Row < min(GridT::RowsC, End.y + 1);
+        ++Row)
+    {
+        for (int Col = max(Begin.x, 0); Col < min(GridT::ColsC, End.x + 1);
+            ++Col)
+        {
+            const ObjContT& Objects = m_Grid.m_Cells[Row][Col];
+            OutputIter = copy(Objects.begin(), Objects.end(), OutputIter);
+        }
+    }
+
+    return OutputIter;
+}
+
+
 #ifdef PERFORMANCE_METRICS
 void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
 {
@@ -255,6 +264,7 @@ void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
 
     m_PerformanceLog << "\n\n\n";
 }
+
 #endif
 
 CRICollider::CmpCollisionTime::CmpCollisionTime( const float Time )

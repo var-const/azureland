@@ -15,13 +15,14 @@ public:
     void Draw();
     void Update(float Dt);
 
-    void SetTexture(const ci::gl::Texture& Texture);
+    void SetTextureDescriptor(int Descr);
+    int GetTextureDescriptor() const;
 
     virtual void LogicUpdate(float Dt);
 
     void SetDying();
     void Destroy();
-    bool IsDying() const; // In case I have time for death animations
+    bool IsDying() const;
     bool IsDead() const;
 
     void SetScene(CRIGameScene& Scene);
@@ -41,6 +42,8 @@ private:
     bool m_IsDead;
 
     CRIGameScene* m_pScene; // Non-owning
+
+    int m_TextureDescriptor;
 };
 
 void Draw(const CRIGameObject& Object, float Angle, const ci::gl::Texture& Texture);

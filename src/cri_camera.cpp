@@ -12,8 +12,8 @@
 #include <cinder/app/App.h>
 #include <cinder/gl/gl.h>
 
-#include <string>
 #include <algorithm>
+#include <string>
 
 using ci::Vec2f; using ci::Vec2i;
 using ci::gl::Texture;
@@ -70,6 +70,8 @@ void CRICamera::Draw()
 
 void CRICamera::UpdateVisibility( const CRICollider& Collider )
 {
+    using std::sort; using std::unique;
+
     for (BuffersIterT BufIter = m_Buffers.begin(); BufIter != m_Buffers.end();
         ++BufIter)
     {
@@ -82,6 +84,9 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
     m_CollisionsEnd = Collider.CopyColliding(LeftUpper, RightLower,
         m_CollisionsBuffer.begin());
 
+    sort(m_CollisionsBuffer.begin(), m_CollisionsEnd);
+    m_CollisionsEnd = unique(m_CollisionsBuffer.begin(), m_CollisionsEnd);
+
     for (CollisionsIterT CollisionsIter = m_CollisionsBuffer.begin();
         CollisionsIter != m_CollisionsEnd; ++CollisionsIter)
     {
@@ -90,13 +95,6 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
         {
             m_Buffers[TextureDescr].push_back(*CollisionsIter);
         }
-    }
-
-    for (int TextureDescr = 0; TextureDescr != m_Textures.size(); ++TextureDescr)
-    {
-        auto& cont = m_Buffers[TextureDescr];
-        std::sort(cont.begin(), cont.end());
-        cont.erase(std::unique(cont.begin(), cont.end()), cont.end());
     }
 }
 

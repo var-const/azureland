@@ -32,7 +32,7 @@ CRICamera::CRICamera( const Vec2i SceneSize, const Vec2i ViewSize )
 , m_VertBounds(0.f, SceneSize.y - ViewSize.y)
 { 
     // @FIXME hard coded
-    m_CollisionsBuffer.resize(1000);
+    m_CollisionsBuffer.resize(5000);
 }
 
 int CRICamera::RegisterTexture( const string& Id )

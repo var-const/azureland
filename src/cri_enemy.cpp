@@ -46,6 +46,8 @@ void CRIEnemy::LogicUpdate(const float Dt)
         return;
     }
 
+    UpdateAngle();
+
     if (m_Sleep)
     {
         --m_Sleep;
@@ -87,7 +89,6 @@ void CRIEnemy::LogicUpdate(const float Dt)
     }
     Direction.normalize();
     SetVelocity(Direction * m_Speed);
-    UpdateAngle();
 }
 
 void CRIEnemy::OnCaughtPlayer()

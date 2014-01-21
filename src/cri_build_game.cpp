@@ -79,24 +79,24 @@ void CreateEnemies( CRIGameScene& Scene, CRIPlayer& Player )
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy.png"));
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy2.png"));
 
-	SpawnEnemies(Scene, Player, 1, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
-	//SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
- //   SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f, Textures);
+	//SpawnEnemies(Scene, Player, 1, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
+	SpawnEnemies(Scene, Player, 200, Vec2f(300.f, 1900.f), 10, 5.f, Textures);
+    SpawnEnemies(Scene, Player, 200, Vec2f(2000.f, 200.f), 10, 5.f, Textures);
 
-//    SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f);
-//    SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f);
-//    SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f);
-//    SpawnEnemies(Scene, Player, 100, Vec2f(2500.f, 2000.f), 10, 5.f);
-//
-//    SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f);
-//    SpawnEnemies(Scene, Player, 50, Vec2f(2500.f, 600.f), 10, 55.f);
-//    SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f);
-//
-//    SpawnEnemies(Scene, Player, 10, Vec2f(1500.f, 2000.f), 10, 55.f);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(600.f, 1000.f), 5, 55.f);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(360.f, 200.f), 10, 55.f);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(2160.f, 150.f), 10, 55.f);
-//    SpawnEnemies(Scene, Player, 10, Vec2f(2300.f, 500.f), 10, 55.f);
+    SpawnEnemies(Scene, Player, 100, Vec2f(120.f, 90.f), 10, 5.f, Textures);
+    SpawnEnemies(Scene, Player, 100, Vec2f(360.f, 200.f), 10, 15.f, Textures);
+    SpawnEnemies(Scene, Player, 100, Vec2f(1700.f, 1400.f), 10, 15.f, Textures);
+    SpawnEnemies(Scene, Player, 100, Vec2f(2500.f, 2000.f), 10, 5.f, Textures);
+
+    SpawnEnemies(Scene, Player, 50, Vec2f(200.f, 1000.f), 10, 55.f, Textures);
+    SpawnEnemies(Scene, Player, 50, Vec2f(2500.f, 600.f), 10, 55.f, Textures);
+    SpawnEnemies(Scene, Player, 50, Vec2f(1500.f, 2000.f), 10, 55.f, Textures);
+
+    SpawnEnemies(Scene, Player, 10, Vec2f(1500.f, 2000.f), 10, 55.f, Textures);
+    SpawnEnemies(Scene, Player, 10, Vec2f(600.f, 1000.f), 5, 55.f, Textures);
+    SpawnEnemies(Scene, Player, 10, Vec2f(360.f, 200.f), 10, 55.f, Textures);
+    SpawnEnemies(Scene, Player, 10, Vec2f(2160.f, 150.f), 10, 55.f, Textures);
+    SpawnEnemies(Scene, Player, 10, Vec2f(2300.f, 500.f), 10, 55.f, Textures);
 }
 
 void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,

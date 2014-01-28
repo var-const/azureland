@@ -10,6 +10,10 @@
 #include <cstdlib>
 #include <iosfwd>
 
+#ifndef NO_VSYNC
+//#define NO_VSYNC
+#endif
+
 CRIApp::CRIApp()
 : m_pScene(NULL)
 { 
@@ -43,6 +47,9 @@ void CRIApp::draw()
 {
     using namespace ci;
 
+#ifdef NO_VSYNC
+    gl::disableVerticalSync();
+#endif
     gl::enableAlphaBlending();
     if (m_pScene)
     {

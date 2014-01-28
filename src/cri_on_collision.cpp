@@ -94,12 +94,12 @@ void OnCollision( CRIPlayer& Lhs, CRIHealthPickup& Rhs )
     {
         return;
     }
-    if (HasFullHealth(Lhs))
+    if (!HasFullHealth(Lhs))
     {
+        Lhs.ModifyHealth(Rhs.GetAmount());
         return;
     }
 
-    Lhs.ModifyHealth(Rhs.GetAmount());
     Rhs.Destroy();
 }
 

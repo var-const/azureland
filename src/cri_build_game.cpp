@@ -22,7 +22,7 @@ using std::string;
 using std::vector;
 
 #ifndef CHEATS
-#define CHEATS
+//#define CHEATS
 #endif
 
 void CreateObstacle(CRIGameScene& Scene, const float LeftUpperTileX,

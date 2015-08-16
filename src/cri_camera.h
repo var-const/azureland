@@ -18,11 +18,20 @@ public:
     void Draw();
     void UpdateVisibility(const CRICollider& Collider);
 
+#ifdef PASS_BY_VALUE
     void Move(ci::Vec2f NewCenter);
+#else
+    void Move(ci::Vec2f const& NewCenter);
+#endif
 
     ci::Vec2i GetSize() const;
+#ifdef PASS_BY_VALUE
     ci::Vec2f ToScreenPos( ci::Vec2f GamePos ) const;
     ci::Vec2f ToGamePos( ci::Vec2f ScreenPos ) const;
+#else
+    ci::Vec2f ToScreenPos( ci::Vec2f const& GamePos ) const;
+    ci::Vec2f ToGamePos( ci::Vec2f const& ScreenPos ) const;
+#endif
 
 private:
     typedef std::vector<const CRIMovable*> DrawBufferT;

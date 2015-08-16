@@ -86,8 +86,13 @@ void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
     }
 }
 
+#ifdef PASS_BY_VALUE
 void CRICollider::AddChecks(CRIGameObject* const Obj, const ObjConstIterT Begin,
     const ObjConstIterT End)
+#else
+void CRICollider::AddChecks(CRIGameObject* const Obj, ObjConstIterT const& Begin,
+    ObjConstIterT const& End)
+#endif
 {
     using std::make_pair;
 

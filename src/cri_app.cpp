@@ -11,7 +11,7 @@
 #include <iosfwd>
 
 #ifndef NO_VSYNC
-//#define NO_VSYNC
+#define NO_VSYNC
 #endif
 
 CRIApp::CRIApp()

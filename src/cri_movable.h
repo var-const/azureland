@@ -31,13 +31,25 @@ public:
     void Move(float Delta);
 
     const BoxT& GetAABBRef() const;
-    BoxT GetAABB() const;
     const CRI_AABBd& GetMovementAABBRef() const;
+
+#ifdef PASS_BY_VALUE
+    BoxT GetAABB() const;
     CRI_AABBd GetMovementAABB() const;
 
     ci::Vec2f GetHalfSize() const;
     ci::Vec2f GetXBounds() const;
     ci::Vec2f GetYBounds() const;
+
+#else
+    BoxT const& GetAABB() const;
+    CRI_AABBd const& GetMovementAABB() const;
+
+    ci::Vec2f const& GetHalfSize() const;
+    ci::Vec2f const& GetXBounds() const;
+    ci::Vec2f const& GetYBounds() const;
+
+#endif
 
     bool IsMoving() const;
 

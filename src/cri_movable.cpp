@@ -74,7 +74,11 @@ const CRIMovable::BoxT& CRIMovable::GetAABBRef() const
     return m_AABB;
 }
 
+#ifdef PASS_BY_VALUE
 CRIMovable::BoxT CRIMovable::GetAABB() const
+#else
+CRIMovable::BoxT const& CRIMovable::GetAABB() const
+#endif
 {
     return m_AABB;
 }
@@ -84,7 +88,11 @@ const CRI_AABBd& CRIMovable::GetMovementAABBRef() const
     return m_MovementAABB;
 }
 
+#ifdef PASS_BY_VALUE
 CRI_AABBd CRIMovable::GetMovementAABB() const
+#else
+CRI_AABBd const& CRIMovable::GetMovementAABB() const
+#endif
 {
     return m_MovementAABB;
 }
@@ -108,17 +116,29 @@ void CRIMovable::CacheMovementAABB( ci::Rectf Rect )
     m_MovementAABB = CRI_AABBd(Rect);
 }
 
+#ifdef PASS_BY_VALUE
 Vec2f CRIMovable::GetHalfSize() const
+#else
+Vec2f const& CRIMovable::GetHalfSize() const
+#endif
 {
     return m_AABB.m_HalfSize;
 }
 
+#ifdef PASS_BY_VALUE
 Vec2f CRIMovable::GetXBounds() const
+#else
+Vec2f const& CRIMovable::GetXBounds() const
+#endif
 {
     return m_XBounds;
 }
 
+#ifdef PASS_BY_VALUE
 Vec2f CRIMovable::GetYBounds() const
+#else
+Vec2f const& CRIMovable::GetYBounds() const
+#endif
 {
     return m_YBounds;
 }

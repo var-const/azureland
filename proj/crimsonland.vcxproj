@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,7 +14,6 @@
     <ClCompile Include="..\src\cri_aabb.cpp" />
     <ClCompile Include="..\src\cri_aabb_int.cpp" />
     <ClCompile Include="..\src\cri_app.cpp" />
-    <ClCompile Include="..\src\cri_axis_getter.cpp" />
     <ClCompile Include="..\src\cri_build_game.cpp" />
     <ClCompile Include="..\src\cri_camera.cpp" />
     <ClCompile Include="..\src\cri_collider.cpp" />
@@ -54,7 +53,6 @@
     <ClInclude Include="..\src\cri_aabb.h" />
     <ClInclude Include="..\src\cri_aabb_int.h" />
     <ClInclude Include="..\src\cri_app.h" />
-    <ClInclude Include="..\src\cri_axis_getter.h" />
     <ClInclude Include="..\src\cri_build_game.h" />
     <ClInclude Include="..\src\cri_camera.h" />
     <ClInclude Include="..\src\cri_collider.h" />
@@ -101,10 +99,12 @@
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

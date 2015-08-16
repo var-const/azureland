@@ -55,9 +55,6 @@
     <ClCompile Include="..\src\cri_collision_detail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cri_axis_getter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\cri_on_collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_collision_typedefs.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\cri_axis_getter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cri_on_collision.h">

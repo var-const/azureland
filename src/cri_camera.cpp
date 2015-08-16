@@ -97,7 +97,11 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
     }
 }
 
+#ifdef PASS_BY_VALUE
 void CRICamera::Move( const Vec2f NewCenter )
+#else
+void CRICamera::Move( Vec2f const& NewCenter )
+#endif
 {
     using ci::math;
 
@@ -108,12 +112,20 @@ void CRICamera::Move( const Vec2f NewCenter )
         m_VertBounds.y);
 }
 
+#ifdef PASS_BY_VALUE
 Vec2f CRICamera::ToScreenPos( const Vec2f GamePos ) const
+#else
+Vec2f CRICamera::ToScreenPos( Vec2f const& GamePos ) const
+#endif
 {
     return GamePos + m_CurTranslation;
 }
 
+#ifdef PASS_BY_VALUE
 Vec2f CRICamera::ToGamePos( const Vec2f ScreenPos ) const
+#else
+Vec2f CRICamera::ToGamePos( Vec2f const& ScreenPos ) const
+#endif
 {
     return ScreenPos - m_CurTranslation;
 }

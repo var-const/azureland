@@ -57,10 +57,12 @@ private:
     };
 
     void BroadPhase(ObjIterT Begin, ObjIterT End, float Time);
+#ifdef PASS_BY_VALUE
     void AddChecks(CRIGameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);
+#else
+    void AddChecks(CRIGameObject* Obj, ObjConstIterT const& Begin, ObjConstIterT const& End);
+#endif
     void NarrowPhase(float Time);
-    void BuildCollisionsWithObject(CRIGameObject& Obj, ObjConstIterT Begin,
-        ObjConstIterT End, float Time);
     void TryAddCollision(CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);
 
 #ifdef PERFORMANCE_METRICS

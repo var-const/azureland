@@ -19,3 +19,7 @@
 #include <vector>
 
 #endif // LAZY_INCLUDE
+
+#ifndef PASS_BY_VALUE
+//#define PASS_BY_VALUE
+#endif

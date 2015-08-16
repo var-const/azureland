@@ -19,7 +19,11 @@ struct CRICollision
 
 struct CRICollisionsInfo
 {
+#ifdef PASS_BY_VALUE
     CRICollisionsInfo(float Time, CollisionsIterT Begin, CollisionsIterT End);
+#else
+    CRICollisionsInfo(float Time, CollisionsIterT const& Begin, CollisionsIterT const& End);
+#endif
     bool IsEmpty() const;
     int GetSize() const;
 

@@ -14,7 +14,11 @@ typedef std::pair<float, float> TimeframeT; // @TODO: move out of here
 
 } // unnamed
 
+#ifdef PASS_BY_VALUE
 TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
+#else
+TimeframeT GetTimeframe(TimeframeT const& A, TimeframeT const& B);
+#endif
 
 CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     const float Time )
@@ -99,7 +103,11 @@ float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
     }
 }
 
+#ifdef PASS_BY_VALUE
 TimeframeT GetTimeframe(const TimeframeT A, const TimeframeT B)
+#else
+TimeframeT GetTimeframe(TimeframeT const& A, TimeframeT const& B)
+#endif
 {
     using std::max; using std::min;
 

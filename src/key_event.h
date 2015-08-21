@@ -80,9 +80,9 @@ bool is_char(int const keycode)
 
 class KeyEvent {
 public:
-    KeyEvent(KeyCode code, const ModifiersT& modifiers) : code_{code},
+    KeyEvent(KeyCode const code, const ModifiersT& modifiers) : code_{code},
         modifiers_{modifiers} {}
-    KeyEvent(SDL_keysym info) : KeyEvent(convert_sdl_keycodes(info.sym),
+    KeyEvent(SDL_keysym const info) : KeyEvent(convert_sdl_keycodes(info.sym),
         convert_sdl_modifiers(info.mod)) {}
 
     KeyCode get_code() const { return code_; }

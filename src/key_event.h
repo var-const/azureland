@@ -1,4 +1,4 @@
-#include <SDL/SDL_.h>
+#include <SDL/SDL_keysym.h>
 #include <bitset>
 
 // Only those used for now, and a handful of really common keys

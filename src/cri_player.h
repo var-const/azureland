@@ -24,17 +24,17 @@ public:
 
     // Overrides
 
-    void OnMouseDown(const cinder::Vec2<float>& Pos,
+    void on_mouse_down(const cinder::Vec2<float>& Pos,
         cinder::app::MouseEvent Event);
-    void OnMouseUp(const cinder::Vec2<float>& Pos,
+    void on_mouse_up(const cinder::Vec2<float>& Pos,
         cinder::app::MouseEvent Event);
-    void OnMouseMove(const cinder::Vec2<float>& Pos,
+    void on_mouse_move(const cinder::Vec2<float>& Pos,
         cinder::app::MouseEvent Event);
-    void OnMouseDrag(const cinder::Vec2<float>& Pos,
+    void on_mouse_drag(const cinder::Vec2<float>& Pos,
         cinder::app::MouseEvent Event);
-    void OnMouseWheel(float Increment, cinder::app::MouseEvent Event);
-    void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event);
-    void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
+    void on_mouse_wheel(float Increment, cinder::app::MouseEvent Event);
+    void on_key_down(KeyCode keycode, KeyEvent Event);
+    void on_key_up(KeyCode keycode, KeyEvent Event);
 
     void LogicUpdate(float Dt); // Override
     void BeforeRemoveFromScene(); // Override

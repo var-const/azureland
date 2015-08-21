@@ -15,8 +15,8 @@ public:
 
     void Deccelerate(CRIMovable& Object);
 
-    void OnKeyDown(int Key, CRIMovable& Object);
-    void OnKeyUp(int key);
+    void on_key_down(int Key, CRIMovable& Object);
+    void on_key_up(int key);
 
 private:
     // @TODO: need a flag for both movement keys

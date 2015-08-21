@@ -17,7 +17,7 @@ public:
 
 	void Load(const std::string& FileName);
 
-    void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event); // override
+    void on_key_down(KeyCode keycode, cinder::app::KeyEvent Event); // override
 
 private:
     typedef std::multimap<int, std::string, std::greater<int> > ScoresContT;

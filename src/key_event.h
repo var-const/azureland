@@ -5,13 +5,14 @@
 enum class KeyCode {
     Unknown,
 
-    Backspace,
-    Return,
-    Space,
-    Escape,
-    Up, Down, Left, Right,
+    Backspace = SDLK_BACKSPACE,
+    Escape = SDLK_ESCAPE,
+    Return = SDLK_RETURN,
+    Space = SDLK_SPACE,
 
-    a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
+    a = SDLK_a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
+
+    Up = SDLK_UP, Down, Right, Left,
 };
 
 // No need for meta/etc. for our purposes
@@ -72,6 +73,11 @@ KeyCode convert_sdl_keycodes(SDLKey const sdl_key)
     // any exceptions on "bad" input
 }
 
+bool is_char(int const keycode)
+{
+    return (keycode >= 32 && keycode <= 64) || (keycode >= 91 && keycode <= 122);
+}
+
 class KeyEvent {
 public:
     KeyEvent(KeyCode code, const ModifiersT& modifiers) : code_{code},
@@ -80,6 +86,8 @@ public:
         convert_sdl_modifiers(info.mod)) {}
 
     KeyCode get_code() const { return code_; }
+    std::experimental::optional<char> get_char() const
+        { return is_char(static_cast<int>(code_)) ? {static_cast<char>(code_)} : {}; }
     bool with_shift() const { return modifiers_[ModShift]; }
     bool with_alt() const { return modifiers_[ModAlt]; }
     bool with_ctrl() const { return modifiers_[ModCtrl]; }

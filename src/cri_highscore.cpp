@@ -1,10 +1,10 @@
 #include "cri_stdafx.h"
 
 #include "cri_highscore.h"
+#include "key_event.h"
 
 #include <cinder/Vector.h>
 #include <cinder/app/App.h>
-#include <cinder/app/KeyEvent.h>
 #include <cinder/gl/gl.h>
 
 #include <yaml-cpp/yaml.h>
@@ -13,27 +13,12 @@
 #include <exception>
 #include <fstream>
 #include <ostream>
+#include <experimental/optional>
 
-using ci::app::KeyEvent;
 using std::string;
 
 namespace
 {
-
-bool IsChar(const KeyEvent& Event)
-{
-    const int Code = Event.getCode();
-    if (Code >= 32 && Code <= 64)
-    {
-        return true;
-    }
-    if (Code >= 91 && Code <= 122)
-    {
-        return true;
-    }
-
-    return false;
-}
 
 template <typename T>
 string ToString(const T& Val)
@@ -93,7 +78,7 @@ void CRIHighscore::ReadFromFile()
     }
 }
 
-void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
+void CRIHighscore::on_key_down( const KeyCode keycode, const KeyEvent Event )
 {
     if (m_State == StateDisplay)
     {
@@ -102,7 +87,7 @@ void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
 
     if (m_State == StateDeath)
     {
-        if (KeyCode != KeyEvent::KEY_RETURN)
+        if (KeyCode != KeyCode::Return)
         {
             return;
         }
@@ -119,18 +104,19 @@ void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
         return;
     }
 
-    if (KeyCode == KeyEvent::KEY_RETURN && !m_CurName.empty())
+    if (KeyCode == KeyCode::Return && !m_CurName.empty())
     {
         AddScore();
         DisplayScores();
     }
-    else if (KeyCode == KeyEvent::KEY_BACKSPACE && !m_CurName.empty())
+    else if (KeyCode == KeyCode::Backspace && !m_CurName.empty())
     {
         m_CurName.resize(m_CurName.size() - 1);
     }
-    else if (IsChar(Event) && m_CurName.size() < m_MaxNameLength)
+    else if (m_CurName.size() < m_MaxNameLength)
     {
-        m_CurName += Event.getChar();
+        if (auto const ch = Event.get_char())
+            m_CurName += *ch;
     }
 }
 

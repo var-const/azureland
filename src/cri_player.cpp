@@ -6,12 +6,12 @@
 #include "cri_crosshair.h"
 #include "cri_game_scene.h"
 #include "cri_text_object.h"
+#include "key_event.h"
 #include "weapons/cri_crossbow.h"
 #include "weapons/cri_forcefield_emitter.h"
 
 #include <cinder/Font.h>
 #include <cinder/Vector.h>
-#include <cinder/app/KeyEvent.h>
 #include <cinder/app/MouseEvent.h>
 
 #include <cinder/CinderMath.h>
@@ -19,7 +19,6 @@
 #include <cmath>
 
 using ci::Vec2f;
-using ci::app::KeyEvent;
 using ci::app::MouseEvent;
 using ci::gl::Texture;
 
@@ -36,7 +35,7 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
 , m_Score(0)
 , m_pApp(&App)
 , m_ParalyzedCounter(0)
-{ 
+{
     using ci::Font;
 
     assert(Health > 0);
@@ -112,7 +111,7 @@ void CRIPlayer::LogicUpdate(const float Dt)
     }
 }
 
-void CRIPlayer::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
+void CRIPlayer::on_mouse_down( const Vec2f& Pos, const MouseEvent Event )
 {
     if (IsDying())
     {
@@ -148,7 +147,7 @@ CRIMovable::PosT CRIPlayer::GetCrosshairPos() const
     return GetScene().ToGamePos(m_pCrosshair->GetCenterPos());
 }
 
-void CRIPlayer::OnMouseUp( const Vec2f& Pos, const MouseEvent Event )
+void CRIPlayer::on_mouse_up( const Vec2f& Pos, const MouseEvent Event )
 {
     if (IsDying())
     {
@@ -165,7 +164,7 @@ void CRIPlayer::OnMouseUp( const Vec2f& Pos, const MouseEvent Event )
     }
 }
 
-void CRIPlayer::OnMouseMove( const Vec2f& Pos, const MouseEvent Event )
+void CRIPlayer::on_mouse_move( const Vec2f& Pos, const MouseEvent Event )
 {
     if (IsDying())
     {
@@ -176,17 +175,17 @@ void CRIPlayer::OnMouseMove( const Vec2f& Pos, const MouseEvent Event )
     m_pCrosshair->SetCenterPos(Pos);
 }
 
-void CRIPlayer::OnMouseDrag( const Vec2f& Pos, const MouseEvent Event )
+void CRIPlayer::on_mouse_drag( const Vec2f& Pos, const MouseEvent Event )
 {
     if (IsDying())
     {
         return;
     }
 
-    OnMouseMove(Pos, Event);
+    on_mouse_move(Pos, Event);
 }
 
-void CRIPlayer::OnMouseWheel( const float Increment, const MouseEvent Event )
+void CRIPlayer::on_mouse_wheel( const float Increment, const MouseEvent Event )
 {
     if (IsDying())
     {
@@ -195,26 +194,26 @@ void CRIPlayer::OnMouseWheel( const float Increment, const MouseEvent Event )
     // @TODO
 }
 
-void CRIPlayer::OnKeyDown( const int KeyCode, const KeyEvent Event )
+void CRIPlayer::on_key_down( const KeyCode keycode, const KeyEvent Event )
 {
     if (IsDying())
     {
         return;
     }
-    m_MovementController.OnKeyDown(KeyCode, *this);
+    m_MovementController.on_key_down(KeyCode, *this);
     if (m_ParalyzedCounter)
     {
         SetVelocity(VelT());
     }
 }
 
-void CRIPlayer::OnKeyUp( const int KeyCode, const KeyEvent Event )
+void CRIPlayer::on_key_up( const KeyCode keycode, const KeyEvent Event )
 {
     if (IsDying())
     {
         return;
     }
-    m_MovementController.OnKeyUp(KeyCode);
+    m_MovementController.on_key_up(KeyCode);
 }
 
 void CRIPlayer::OnHealthDepleted()

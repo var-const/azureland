@@ -5,7 +5,10 @@
 #include "cri_build_game.h"
 #include "cri_game_scene.h"
 #include "cri_interface_input.h"
+// @TODO: implement
+#include "render_string.h"
 
+#include <algorithm>
 #include <cassert>
 #include <cstdlib>
 #include <iosfwd>
@@ -16,7 +19,23 @@
 
 CRIApp::CRIApp()
 : m_pScene(NULL)
-{ 
+, library_{SDL_INIT_VIDEO}
+, window_{"Azureland 0.2", SDL_WINDOWPOS_UNDEFINED,
+    SDL_WINDOWPOS_UNDEFINED, 1280, 1024, SDL_WINDOW_RESIZABLE}
+, renderer_{window_, -1, SDL_RENDERER_ACCELERATED}
+{
+    using std::srand; using std::time;
+
+    srand(time(NULL));
+
+    // @TODO: include
+    SDL_ShowCursor(SDL_DISABLE);
+    // @TODO: sdl timer
+    settings->setFrameRate(60.f);
+    setFpsSampleInterval(1.f);
+    m_Timer.start();
+
+    BuildGame(*this);
 }
 
 CRIApp::~CRIApp()
@@ -25,35 +44,15 @@ CRIApp::~CRIApp()
     m_pScene = NULL;
 }
 
-void CRIApp::prepareSettings( Settings* const settings )
-{
-    settings->setWindowSize(1280, 1024);
-    settings->setFrameRate(60.f);
-}
-
-void CRIApp::setup()
-{
-    using std::srand; using std::time;
-
-    srand(time(NULL));
-    hideCursor();
-    setFpsSampleInterval(1.f);
-
-    m_Timer.start();
-    BuildGame(*this);
-}
-
 void CRIApp::draw()
 {
-    using namespace ci;
-
 #ifdef NO_VSYNC
     gl::disableVerticalSync();
 #endif
-    gl::enableAlphaBlending();
+    renderer_.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
     if (m_pScene)
     {
-        gl::clear();
+        renderer_.Clear();
         m_pScene->Draw();
     }
 
@@ -61,16 +60,34 @@ void CRIApp::draw()
     static stringstream s;
     s.str("");
     s << getAverageFps();
-    gl::drawString(s.str(), Vec2f());
+    render_string(s.str());
 }
 
-void CRIApp::update()
+bool CRIApp::update()
 {
+    SDL_Event event;
+    // @TODO: include
+    while (SDL_PollEvent(&event)) {
+        switch(event.type) {
+            case SDL_KEYDOWN:
+                on_key_down();
+                break;
+            case SDL_KEYUP:
+                break;
+            case SDL_QUIT:
+                return false;
+            default:
+                break;
+        }
+    }
+
     if (m_pScene)
     {
         m_pScene->Update( static_cast<float>(m_Timer.getSeconds()) );
         m_Timer.start();
     }
+
+    return true;
 }
 
 void CRIApp::SetScene( CRIGameScene* const pScene )
@@ -79,66 +96,66 @@ void CRIApp::SetScene( CRIGameScene* const pScene )
     m_pScene = pScene;
 }
 
-void CRIApp::mouseDown( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_down( const ci::app::MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnMouseDown(Event.getPos(), Event);
+        (*i)->on_mouse_down(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseUp( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_up( const ci::app::MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnMouseUp(Event.getPos(), Event);
+        (*i)->on_mouse_up(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseMove( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_move( const ci::app::MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnMouseMove(Event.getPos(), Event);
+        (*i)->on_mouse_move(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseDrag( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_drag( const ci::app::MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnMouseDrag(Event.getPos(), Event);
+        (*i)->on_mouse_drag(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseWheel( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_wheel( const ci::app::MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnMouseWheel(Event.getWheelIncrement(), Event);
+        (*i)->on_mouse_wheel(Event.getWheelIncrement(), Event);
     }
 }
 
-void CRIApp::keyDown( const ci::app::KeyEvent Event )
+void CRIApp::on_key_down( const KeyEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnKeyDown(Event.getCode(), Event);
+        (*i)->on_key_down(Event.get_code(), Event);
     }
 }
 
-void CRIApp::keyUp( const ci::app::KeyEvent Event )
+void CRIApp::on_key_up( const KeyEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->OnKeyUp(Event.getCode(), Event);
+        (*i)->on_key_up(Event.get_code(), Event);
     }
 }
 
@@ -164,5 +181,3 @@ void CRIApp::RemoveInputListener( CRIInterfaceInput& Listener )
         assert(0);
     }
 }
-
-CINDER_APP_BASIC( CRIApp, ci::app::RendererGl )

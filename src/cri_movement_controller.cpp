@@ -3,29 +3,27 @@
 #include "cri_movement_controller.h"
 
 #include "cri_movable.h"
+#include "key_event.h"
 
 #include <cinder/Vector.h>
-#include <cinder/app/KeyEvent.h>
 
 #include <cmath>
 
 namespace
 {
 
-typedef ci::app::KeyEvent KeysT;
-
 bool IsMoveKey(const int Key)
 {
     switch (Key)
     {
-    case KeysT::KEY_LEFT:
-    case KeysT::KEY_a:
-    case KeysT::KEY_RIGHT:
-    case KeysT::KEY_d:
-    case KeysT::KEY_UP:
-    case KeysT::KEY_w:
-    case KeysT::KEY_DOWN:
-    case KeysT::KEY_s:
+    case KeyCode::Left:
+    case KeyCode::a:
+    case KeyCode::Right:
+    case KeyCode::d:
+    case KeyCode::Up:
+    case KeyCode::w:
+    case KeyCode::Down:
+    case KeyCode::s:
         return true;
     default:
         return false;
@@ -50,20 +48,20 @@ cinder::Vec2<float> CRIMovementController::GetVector(const int Key) const
 
     switch (Key)
     {
-    case KeysT::KEY_LEFT:
-    case KeysT::KEY_a:
+    case KeyCode::Left:
+    case KeyCode::a:
         Result.x = -m_Speed;
         break;
-    case KeysT::KEY_RIGHT:
-    case KeysT::KEY_d:
+    case KeyCode::Right:
+    case KeyCode::d:
         Result.x = m_Speed;
         break;
-    case KeysT::KEY_UP:
-    case KeysT::KEY_w:
+    case KeyCode::Up:
+    case KeyCode::w:
         Result.y = -m_Speed;
         break;
-    case KeysT::KEY_DOWN:
-    case KeysT::KEY_s:
+    case KeyCode::Down:
+    case KeyCode::s:
         Result.y = m_Speed;
         break;
     }
@@ -84,7 +82,7 @@ void CRIMovementController::Deccelerate(CRIMovable& Object)
     }
 }
 
-void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
+void CRIMovementController::on_key_down(const int Key, CRIMovable& Object)
 {
     using std::abs;
 
@@ -111,7 +109,7 @@ void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
     Object.SetVelocity(NewVelocity);
 }
 
-void CRIMovementController::OnKeyUp(const int Key)
+void CRIMovementController::on_key_up(const int Key)
 {
     if (m_IsMoveKeyPressed && IsMoveKey(Key))
     {

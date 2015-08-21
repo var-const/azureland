@@ -6,9 +6,9 @@
 #include "../cri_game_scene.h"
 #include "../cri_projectile.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
-using ci::Vec2f;
+
 
 void CRICrossbow::DoShoot( const Vec2f StartPos, const Vec2f TargetPos )
 {

@@ -3,7 +3,7 @@
 #include "cri_movable.h"
 
 #include <cinder/Rect.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 class CRIGameObject;
 
@@ -27,19 +27,19 @@ public:
 
     CRISpatialGrid(int Width, int Height);
 
-    void SetSize(ci::Vec2i Size);
+    void SetSize(Vec2i Size);
     void Reinit(ObjIterT Begin, ObjIterT End, float Time);
 
-    ci::Vec2i GetCellCenter(int Row, int Col) const;
+    Vec2i GetCellCenter(int Row, int Col) const;
     ci::Rectf GetCellRect(int Row, int Col) const;
-    ci::Vec2i GetCellSize() const;
+    Vec2i GetCellSize() const;
 
     //CellsContT m_Cells; // @FIXME make iterator
     // @FIXME public data member
     ObjContT m_Cells[RowsC][ColsC];
 
 private:
-    ci::Vec2i m_CellSize;
+    Vec2i m_CellSize;
 };
 
 
@@ -47,13 +47,13 @@ template <int MaxRows, int MaxCols>
 CRISpatialGrid<MaxRows, MaxCols>::CRISpatialGrid( const int Width,
     const int Height )
 {
-    SetSize(ci::Vec2i(Width, Height));
+    SetSize(Vec2i(Width, Height));
 }
 
 template <int MaxRows, int MaxCols>
-void CRISpatialGrid<MaxRows, MaxCols>::SetSize( const ci::Vec2i Size )
+void CRISpatialGrid<MaxRows, MaxCols>::SetSize( const Vec2i Size )
 {
-    using ci::Vec2i;
+    
     m_CellSize = Size / Vec2i(MaxRows, MaxCols);
 }
 
@@ -61,7 +61,7 @@ template <int MaxRows, int MaxCols>
 void CRISpatialGrid<MaxRows, MaxCols>::Reinit( const ObjIterT Begin,
     const ObjIterT End, const float Time )
 {
-    using ci::Vec2i;
+    
     using std::max; using std::min; using std::pair;
     
     assert(m_CellSize != Vec2i::zero());
@@ -93,10 +93,10 @@ void CRISpatialGrid<MaxRows, MaxCols>::Reinit( const ObjIterT Begin,
 }
 
 template <int MaxRows, int MaxCols>
-ci::Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellCenter( const int Row,
+Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellCenter( const int Row,
     const int Col ) const
 {
-    using ci::Vec2i;
+    
 
     assert(Row >= 0 && Row < RowsC);
     assert(Col >= 0 && Col < ColsC);
@@ -110,7 +110,7 @@ ci::Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellCenter( const int Row,
 }
 
 template <int MaxRows, int MaxCols>
-ci::Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellSize() const
+Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellSize() const
 {
     return m_CellSize;
 }

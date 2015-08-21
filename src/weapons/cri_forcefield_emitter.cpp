@@ -5,9 +5,9 @@
 #include "cri_forcefield.h"
 #include "../cri_game_scene.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
-using ci::Vec2f;
+
 
 CRIForcefieldEmitter::CRIForcefieldEmitter()
 : m_pPlayer(NULL)

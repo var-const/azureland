@@ -2,7 +2,7 @@
 
 #include "cri_aabb.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <utility>
 #include "cri_aabb_int.h"
@@ -13,9 +13,9 @@
 class CRIMovable
 {
 public:
-    typedef ci::Vec2f SizeT;
-    typedef ci::Vec2f PosT;
-    typedef ci::Vec2f VelT;
+    typedef Vec2f SizeT;
+    typedef Vec2f PosT;
+    typedef Vec2f VelT;
     typedef CRI_AABB BoxT;
 
     CRIMovable(const SizeT& Size, const PosT& StartPos);
@@ -37,24 +37,24 @@ public:
     BoxT GetAABB() const;
     CRI_AABBd GetMovementAABB() const;
 
-    ci::Vec2f GetHalfSize() const;
-    ci::Vec2f GetXBounds() const;
-    ci::Vec2f GetYBounds() const;
+    Vec2f GetHalfSize() const;
+    Vec2f GetXBounds() const;
+    Vec2f GetYBounds() const;
 
 #else
     BoxT const& GetAABB() const;
     CRI_AABBd const& GetMovementAABB() const;
 
-    ci::Vec2f const& GetHalfSize() const;
-    ci::Vec2f const& GetXBounds() const;
-    ci::Vec2f const& GetYBounds() const;
+    Vec2f const& GetHalfSize() const;
+    Vec2f const& GetXBounds() const;
+    Vec2f const& GetYBounds() const;
 
 #endif
 
     bool IsMoving() const;
 
     float GetAngle() const;
-    ci::Vec2f GetScale() const;
+    Vec2f GetScale() const;
 
     void CacheMovementAABB(ci::Rectf Rect);
 
@@ -72,11 +72,11 @@ private:
     VelT m_Velocity;
     BoxT m_AABB;
     CRI_AABBd m_MovementAABB;
-    ci::Vec2f m_XBounds;
-    ci::Vec2f m_YBounds;
+    Vec2f m_XBounds;
+    Vec2f m_YBounds;
 
     float m_Angle;
-    ci::Vec2f m_Scale;
+    Vec2f m_Scale;
 
     bool m_IsMoving;
 };
@@ -84,5 +84,5 @@ private:
 CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta);
 void ShiftPos(CRIMovable& Object, CRIMovable::PosT Shift);
 CRIMovable::BoxT GetMovementAABB(const CRIMovable& Object, float Delta);
-std::pair<ci::Vec2i, ci::Vec2i> GetMovementBounds( CRIMovable& Object,
+std::pair<Vec2i, Vec2i> GetMovementBounds( CRIMovable& Object,
     float Delta);

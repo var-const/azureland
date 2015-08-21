@@ -5,7 +5,7 @@
 #include "cri_movable.h"
 #include "key_event.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <cmath>
 
@@ -42,7 +42,7 @@ void CRIMovementController::SetSpeed(const float Speed)
     m_Speed = Speed;
 }
 
-cinder::Vec2<float> CRIMovementController::GetVector(const int Key) const
+Vec2<float> CRIMovementController::GetVector(const int Key) const
 {
     CRIMovable::VelT Result;
 

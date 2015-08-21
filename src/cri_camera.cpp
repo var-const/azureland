@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <string>
 
-using ci::Vec2f; using ci::Vec2i;
+ 
 using ci::gl::Texture;
 using std::string;
 

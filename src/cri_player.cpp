@@ -12,13 +12,13 @@
 #include "weapons/cri_forcefield_emitter.h"
 
 #include <cinder/Font.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <cinder/CinderMath.h>
 
 #include <cmath>
 
-using ci::Vec2f;
+
 using ci::gl::Texture;
 
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
@@ -255,7 +255,7 @@ void CRIPlayer::OnDestroyed()
 
 void CRIPlayer::UpdateAngle()
 {
-    using ci::math; using ci::Vec2f;
+    using ci::math; 
 
     Vec2f Dir = GetCrosshairPos() - GetCenterPos();
     Dir.safeNormalize();

@@ -11,12 +11,12 @@
 
 #include <cinder/ImageIo.h>
 #include <cinder/Rand.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 #include <cinder/app/App.h>
 
 #include <string>
 
-using ci::Vec2f;
+
 using ci::gl::Texture;
 using std::string;
 using std::vector;
@@ -36,7 +36,7 @@ void CreateObstacle(CRIGameScene& Scene, const float LeftUpperTileX,
 
 void BuildGame( CRIApp& App )
 {
-    using ci::Vec2f;
+    
 
     CRIGameScene* const Scene = new CRIGameScene(App, 1280 * 3, 1024 * 3);
 

@@ -1,11 +1,11 @@
 #pragma once
 
 #include <cinder/Rect.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 struct CRI_AABB
 {
-    typedef ci::Vec2f VecT;
+    typedef Vec2f VecT;
 
     CRI_AABB();
 #ifdef PASS_BY_VALUE

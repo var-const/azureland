@@ -4,7 +4,7 @@
 
 #include "cri_math.h"
 
-using ci::Vec2f; using ci::Vec2i;
+ 
 using std::pair;
 
 CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
@@ -192,7 +192,7 @@ CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
 
 pair<Vec2i, Vec2i> GetMovementBounds( CRIMovable& Object, float Delta )
 {
-    using ci::Rectf; using ci::Vec2f;
+    using ci::Rectf; 
     using std::make_pair;
     typedef CRIMovable::BoxT BoxT; typedef CRIMovable::PosT PosT;
     typedef CRIMovable::SizeT SizeT;

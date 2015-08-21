@@ -19,7 +19,7 @@ CRI_AABBd::CRI_AABBd( const VecT Center, const VecT HalfSize )
 
 CRI_AABBd::CRI_AABBd( const ci::Rectf Rect )
 : m_Center(Rect.getCenter())
-, m_HalfSize(Rect.getSize() / 2 + ci::Vec2i(1, 1))
+, m_HalfSize(Rect.getSize() / 2 + Vec2i(1, 1))
 {
 }
 
@@ -115,7 +115,7 @@ CRI_AABBd::CRI_AABBd( VecT const& Center, VecT const& HalfSize )
 
 CRI_AABBd::CRI_AABBd( ci::Rectf const& Rect )
 : m_Center(Rect.getCenter())
-, m_HalfSize(Rect.getSize() / 2 + ci::Vec2i(1, 1))
+, m_HalfSize(Rect.getSize() / 2 + Vec2i(1, 1))
 {
 }
 

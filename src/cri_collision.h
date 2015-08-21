@@ -2,7 +2,7 @@
 
 #include "cri_collision_typedefs.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <vector>
 

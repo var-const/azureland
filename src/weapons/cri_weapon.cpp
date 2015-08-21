@@ -2,12 +2,12 @@
 
 #include "cri_weapon.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <cassert>
 #include <cstddef>
 
-using ci::Vec2f;
+
 
 CRIWeapon::CRIWeapon()
 : m_pScene(NULL)

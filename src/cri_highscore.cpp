@@ -3,7 +3,7 @@
 #include "cri_highscore.h"
 #include "key_event.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 #include <cinder/app/App.h>
 #include <cinder/gl/gl.h>
 
@@ -122,7 +122,7 @@ void CRIHighscore::on_key_down( const KeyCode keycode, const KeyEvent Event )
 
 void CRIHighscore::DoDraw()
 {
-    using ci::Vec2f;
+    
     using ci::app::getWindowBounds;
     using ci::gl::color; using ci::gl::drawSolidRect; using ci::gl::drawString;
     using ci::gl::enableAlphaBlending; using ci::gl::SaveColorState;

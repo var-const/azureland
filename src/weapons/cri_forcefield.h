@@ -17,7 +17,7 @@ public:
     int GetDamage() const;
 
     void LogicUpdate(float Dt); // override
-    ci::Vec2f GetPushVector(ci::Vec2f ToPos) const;
+    Vec2f GetPushVector(Vec2f ToPos) const;
 
     static int TextureDescr;
 

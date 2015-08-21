@@ -34,7 +34,7 @@ CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 
 float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
 {
-    using ci::Vec2f;
+    
     using std::abs; using std::make_pair; using std::max; using std::min;
     typedef CRIMovable::BoxT BoxT;
 

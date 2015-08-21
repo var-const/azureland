@@ -4,9 +4,9 @@
 #include "key_event.h"
 #include "mouse_event.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
-using ci::Vec2f;
+
 
 CRIInterfaceInput::~CRIInterfaceInput()
 {

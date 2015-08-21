@@ -4,10 +4,10 @@
 
 #include "cri_player.h"
 
-#include <cinder/Vector.h>
+#include "math_vector.h"
 #include <cinder/gl/gl.h>
 
-using ci::Vec2f;
+
 
 CRIForcefield::CRIForcefield( const float Radius, const PosT& Pos, const int Time,
     const int Damage, const float PushForce, const CRIPlayer& Player )

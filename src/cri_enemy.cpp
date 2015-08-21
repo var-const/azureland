@@ -10,7 +10,7 @@
 #include <cinder/CinderMath.h>
 #include <cinder/Rand.h>
 #include <cinder/Rect.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <cmath>
 #include <utility>
@@ -120,7 +120,7 @@ void CRIEnemy::OnCollisionWithEnemy( const CRIEnemy& Rhs )
 
 void CRIEnemy::CheckBlocked()
 {
-    using ci::Vec2f; using ci::Vec2i;
+     
     using std::abs;
 
     bool Blocked = false;
@@ -201,7 +201,7 @@ void CRIEnemy::OnHealthDepleted()
 
 void CRIEnemy::TryRespawn()
 {
-    using ci::randBool; using ci::Rectf; using ci::Vec2i;
+    using ci::randBool; using ci::Rectf; 
     using std::pair;
 
     const CRICollider& Collider = GetScene().GetCollider();
@@ -263,7 +263,7 @@ void CRIEnemy::SetSpeed( const int Speed )
 
 void CRIEnemy::UpdateAngle()
 {
-    using ci::Vec2f; using ci::math;
+     using ci::math;
 
     Vec2f Dir = m_pPlayer->GetCenterPos() - GetCenterPos();
     Dir.safeNormalize();

@@ -8,7 +8,7 @@
 #include <vector>
 #include <utility>
 
-namespace cinder { template <typename T> class Vec2; }
+template <typename T> class Vec2;
 
 class CRIApp;
 class CRIGameObject;
@@ -24,20 +24,20 @@ public:
 
     void AddObject(CRIGameObject& Object);
     void AddGUIObject(CRIGameObject& Object);
-    void MoveCamera(cinder::Vec2<float> NewCenter);
+    void MoveCamera(Vec2<float> NewCenter);
 
     void DestroyObject(CRIGameObject& Obj);
 
-    cinder::Vec2<int> GetSize() const;
+    Vec2<int> GetSize() const;
 
-    cinder::Vec2<float> ToScreenPos(cinder::Vec2<float> GamePos) const;
-    cinder::Vec2<float> ToGamePos(cinder::Vec2<float> ScreenPos) const;
+    Vec2<float> ToScreenPos(Vec2<float> GamePos) const;
+    Vec2<float> ToGamePos(Vec2<float> ScreenPos) const;
 
     const CRICollider& GetCollider() const;
     CRICamera& GetCamera();
     const CRICamera& GetCamera() const;
 
-    void OnEnemyRespawn(cinder::Vec2<float> PosForPickUp);
+    void OnEnemyRespawn(Vec2<float> PosForPickUp);
 
     void EndGame(int Score);
     void SetPause(bool Val);

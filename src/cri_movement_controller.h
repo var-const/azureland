@@ -1,6 +1,6 @@
 #pragma once
 
-namespace cinder { template <typename T> class Vec2; }
+template <typename T> class Vec2;
 
 class CRIMovable;
 
@@ -11,7 +11,7 @@ public:
 
     void SetSpeed(float Speed);
 
-    cinder::Vec2<float> GetVector(int Key) const;
+    Vec2<float> GetVector(int Key) const;
 
     void Deccelerate(CRIMovable& Object);
 

@@ -10,13 +10,13 @@
 
 #include <cinder/CinderMath.h>
 #include <cinder/Rect.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
 
-using ci::Rectf; using ci::Vec2f; using ci::Vec2i;
+using ci::Rectf;  
 using std::pair;
 
 CRICollider::CRICollider(const int Width, const int Height)
@@ -42,7 +42,7 @@ void CRICollider::Reserve( const int Amount )
 CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
     const ObjIterT End, const float Time )
 {
-    using ci::Vec2i;
+    
     using std::make_pair;
 
     m_CurMinTime = Time + 1.f;
@@ -214,7 +214,7 @@ pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
 CRICollider::ObjIterT CRICollider::CopyColliding( const Vec2i LeftUpper,
     const Vec2i RightLower, ObjIterT OutputIter ) const
 {
-    using ci::Vec2i;
+    
     using std::max; using std::min;
 
     const Vec2i Begin = LeftUpper / m_Grid.GetCellSize();

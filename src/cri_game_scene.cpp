@@ -13,7 +13,7 @@
 #include <map>
 #include <utility>
 
-using ci::Vec2f; using ci::Vec2i;
+ 
 
 CRIGameScene::CRIGameScene(CRIApp& App, const int Width, const int Height)
 : m_Collider(Width, Height)

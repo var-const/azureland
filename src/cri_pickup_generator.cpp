@@ -6,9 +6,9 @@
 #include "cri_pickups.h"
 
 #include <cinder/Rand.h>
-#include <cinder/Vector.h>
+#include "math_vector.h"
 
-using ci::Vec2f;
+
 
 CRIPickupGenerator::CRIPickupGenerator()
 : m_pScene(NULL)

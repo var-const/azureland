@@ -1,3 +1,5 @@
+#include "cri_math.h"
+
 template <typename T>
 class Vec2 {
 public:

@@ -96,43 +96,43 @@ void CRIApp::SetScene( CRIGameScene* const pScene )
     m_pScene = pScene;
 }
 
-void CRIApp::on_mouse_down( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_down( const MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->on_mouse_down(Event.getPos(), Event);
+        (*i)->on_mouse_down(Event.get_pos(), Event);
     }
 }
 
-void CRIApp::on_mouse_up( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_up( const MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->on_mouse_up(Event.getPos(), Event);
+        (*i)->on_mouse_up(Event.get_pos(), Event);
     }
 }
 
-void CRIApp::on_mouse_move( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_move( const MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->on_mouse_move(Event.getPos(), Event);
+        (*i)->on_mouse_move(Event.get_pos(), Event);
     }
 }
 
-void CRIApp::on_mouse_drag( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_drag( const MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)
     {
-        (*i)->on_mouse_drag(Event.getPos(), Event);
+        (*i)->on_mouse_drag(Event.get_pos(), Event);
     }
 }
 
-void CRIApp::on_mouse_wheel( const ci::app::MouseEvent Event )
+void CRIApp::on_mouse_wheel( const MouseEvent Event )
 {
     for (InputListenersIterT i = m_InputListeners.begin();
         i != m_InputListeners.end(); ++i)

@@ -7,19 +7,18 @@
 #include "cri_game_scene.h"
 #include "cri_text_object.h"
 #include "key_event.h"
+#include "mouse_event.h"
 #include "weapons/cri_crossbow.h"
 #include "weapons/cri_forcefield_emitter.h"
 
 #include <cinder/Font.h>
 #include <cinder/Vector.h>
-#include <cinder/app/MouseEvent.h>
 
 #include <cinder/CinderMath.h>
 
 #include <cmath>
 
 using ci::Vec2f;
-using ci::app::MouseEvent;
 using ci::gl::Texture;
 
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
@@ -118,13 +117,13 @@ void CRIPlayer::on_mouse_down( const Vec2f& Pos, const MouseEvent Event )
         return;
     }
 
-    if (Event.isLeft())
+    if (Event.is_left())
     {
         assert(m_pWeaponA);
         Shoot(*m_pWeaponA);
         m_AutofireWeaponA = true;
     }
-    else if (Event.isRight())
+    else if (Event.is_right())
     {
         assert(m_pWeaponB);
         if (m_pWeaponB->IsReady())
@@ -154,11 +153,11 @@ void CRIPlayer::on_mouse_up( const Vec2f& Pos, const MouseEvent Event )
         return;
     }
 
-    if (Event.isLeft())
+    if (Event.is_left())
     {
         m_AutofireWeaponA = false;
     }
-    else if (Event.isRight())
+    else if (Event.is_right())
     {
         m_AutofireWeaponB = false;
     }

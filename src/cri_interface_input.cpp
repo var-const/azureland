@@ -2,11 +2,11 @@
 
 #include "cri_interface_input.h"
 #include "key_event.h"
+#include "mouse_event.h"
 
 #include <cinder/Vector.h>
-#include <cinder/app/MouseEvent.h>
 
-using ci::Vec2f; using ci::app::MouseEvent;
+using ci::Vec2f;
 
 CRIInterfaceInput::~CRIInterfaceInput()
 {

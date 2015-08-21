@@ -16,7 +16,7 @@ public:
         bool const from_is_pressed) : pos_{from_pos}, button_{from_button},
             is_pressed_{from_is_pressed} {}
 
-    Vec2i get_pos() const { [return pos_; }
+    Vec2i get_pos() const { return pos_; }
     bool is_left() const { return button_ == MouseButton::Left; }
     bool is_right() const { return button_ == MouseButton::Right; }
     bool is_middle() const { return button_ == MouseButton::Middle; }

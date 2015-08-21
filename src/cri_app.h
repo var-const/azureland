@@ -1,8 +1,5 @@
 #pragma once
 
-#include "key_event.h"
-#include "mouse_event.h"
-
 #include <cinder/Timer.h>
 
 #include <SDL2pp/Renderer.hh>
@@ -13,6 +10,8 @@
 
 class CRIGameScene;
 class CRIInterfaceInput;
+class KeyEvent;
+class MouseEvent;
 
 class CRIApp
 {
@@ -23,11 +22,11 @@ public:
     void draw();
     bool update();
 
-    void on_mouse_down(ci::app::MouseEvent Event);
-    void on_mouse_up(ci::app::MouseEvent Event);
-    void on_mouse_move(ci::app::MouseEvent Event);
-    void on_mouse_drag(ci::app::MouseEvent Event);
-    void on_mouse_wheel(ci::app::MouseEvent Event);
+    void on_mouse_down(MouseEvent Event);
+    void on_mouse_up(MouseEvent Event);
+    void on_mouse_move(MouseEvent Event);
+    void on_mouse_drag(MouseEvent Event);
+    void on_mouse_wheel(MouseEvent Event);
     void on_key_down(KeyEvent Event);
     void on_key_up(KeyEvent Event);
 

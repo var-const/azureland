@@ -5,8 +5,6 @@
 #include "cri_interface_input.h"
 #include "cri_movement_controller.h"
 
-#include <cinder/gl/Texture.h>
-
 class CRIApp;
 class CRICrosshair;
 class CRITextObject;

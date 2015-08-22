@@ -2,8 +2,7 @@
 
 #include "cri_movable.h"
 
-#include <cinder/gl/Texture.h> // @TODO: move to cpp
-
+namespace ci { namespace gl { class Texture; } }
 class CRIGameScene;
 
 class CRIGameObject : public CRIMovable

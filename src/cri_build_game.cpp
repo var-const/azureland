@@ -7,11 +7,10 @@
 #include "cri_game_objects.h"
 #include "cri_game_scene.h"
 #include "cri_projectile.h"
+#include "math_vector.h"
 #include "weapons/cri_forcefield.h"
 
-#include <cinder/ImageIo.h>
-#include <cinder/Rand.h>
-#include "math_vector.h"
+#include "rand.h"
 #include <cinder/app/App.h>
 
 #include <string>
@@ -167,8 +166,6 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     const Vec2f From, const int MaxRowLength, const float Dispersion,
     const vector<int>& Textures )
 {
-    using ci::randBool; using ci::randFloat; using ci::randInt;
-
     assert(Count >= 0);
     assert(MaxRowLength > 0);
     assert(Dispersion > 0.f);
@@ -183,20 +180,20 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     int CurRow = 0;
     for (int i = 0; i != Count; ++i)
     {
-        //const float Speed = randInt(10) < 9 ? 100 : 200;
+        //const float Speed = rand_int(10) < 9 ? 100 : 200;
         const float Speed = 50;
         //const float Speed = 10;
         CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
-        Enemy->SetTextureDescriptor(Textures[randInt() % Textures.size()]);
+        Enemy->SetTextureDescriptor(Textures[rand_int() % Textures.size()]);
         Enemy->SetSpeed(Speed);
         Scene.AddObject(*Enemy);
 
-        CurPos.x += Size.x + randFloat(1.f, Dispersion);
+        CurPos.x += Size.x + rand_float(1.f, Dispersion);
         if (CurRow++ == MaxRowLength)
         {
             CurRow = 0;
             CurPos.x = From.x;
-            CurPos.y += Size.y + randFloat(1.f, Dispersion);
+            CurPos.y += Size.y + rand_float(1.f, Dispersion);
         }
     }
 }

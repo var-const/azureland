@@ -5,6 +5,7 @@
 #include "cri_game_scene.h"
 
 #include <cinder/gl/gl.h>
+#include <cinder/gl/Texture.h>
 
 using ci::gl::Texture;
 
@@ -121,6 +122,7 @@ int CRIGameObject::GetTextureDescriptor() const
     return m_TextureDescriptor;
 }
 
+// @TODO: is this method called?
 void Draw(const CRIGameObject& Object, const float Angle, const Texture& Texture)
 {
     using namespace ci;

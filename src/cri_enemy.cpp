@@ -8,7 +8,7 @@
 #include "cri_player.h"
 
 #include <cinder/CinderMath.h>
-#include <cinder/Rand.h>
+#include "rand.h"
 #include <cinder/Rect.h>
 #include "math_vector.h"
 
@@ -201,19 +201,19 @@ void CRIEnemy::OnHealthDepleted()
 
 void CRIEnemy::TryRespawn()
 {
-    using ci::randBool; using ci::Rectf; 
+    using ci::Rectf; 
     using std::pair;
 
     const CRICollider& Collider = GetScene().GetCollider();
     Vec2i Rows, Cols;
-    if (randBool())
+    if (rand_bool())
     {
-        Rows = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
+        Rows = rand_bool() ? Vec2i(0, 1) : Vec2i(-2, -1);
         Cols = Vec2i(0, 1000);
     }
     else
     {
-        Cols = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
+        Cols = rand_bool() ? Vec2i(0, 1) : Vec2i(-2, -1);
         Rows = Vec2i(0, 1000);
     }
 

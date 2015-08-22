@@ -5,7 +5,7 @@
 #include "cri_game_scene.h"
 #include "cri_pickups.h"
 
-#include <cinder/Rand.h>
+#include "rand.h"
 #include "math_vector.h"
 
 
@@ -17,12 +17,11 @@ CRIPickupGenerator::CRIPickupGenerator()
 
 void CRIPickupGenerator::Invoke( const Vec2f PosForPickUp )
 {
-    using ci::randBool;
     typedef CRIMovable::SizeT SizeT;
 
     assert(m_pScene);
 
-    if (randBool())
+    if (rand_bool())
     {
         CRIHealthPickup* const Pickup = new CRIHealthPickup(SizeT(8.f, 8.f),
             PosForPickUp, 50, 10); 

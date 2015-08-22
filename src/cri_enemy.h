@@ -5,8 +5,6 @@
 #include "cri_timer.h"
 #include "weapons/cri_reload.h"
 
-#include <cinder/gl/Texture.h>
-
 #include <vector>
 
 class CRIPlayer;

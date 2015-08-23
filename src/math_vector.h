@@ -26,5 +26,18 @@ public:
     T y{};
 };
 
+template <typename T>
+Vec2<T> operator+(Vec2<T> const lhs, Vec2<T> const rhs)
+    { return {lhs.x + rhs.x, lhs.y + rhs.y}; }
+template <typename T>
+Vec2<T> operator-(Vec2<T> const lhs, Vec2<T> const rhs)
+    { return {lhs.x - rhs.x, lhs.y - rhs.y}; }
+template <typename T>
+Vec2<T> operator*(Vec2<T> const vec, T const scalar)
+    { return {vec.x * scalar, vec.y * scalar}; }
+template <typename T>
+Vec2<T> operator/(Vec2<T> const vec, T const scalar)
+    { return {vec.x / scalar, vec.y / scalar}; }
+
 using Vec2i = Vec2<int>;
 using Vec2f = Vec2<float>;

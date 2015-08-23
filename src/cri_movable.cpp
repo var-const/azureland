@@ -111,7 +111,7 @@ bool CRIMovable::IsMoving() const
     return m_IsMoving;
 }
 
-void CRIMovable::CacheMovementAABB( ci::Rectf Rect )
+void CRIMovable::CacheMovementAABB( Rectf Rect )
 {
     m_MovementAABB = CRI_AABBd(Rect);
 }
@@ -176,7 +176,6 @@ void ShiftPos( CRIMovable& Object, const CRIMovable::PosT Shift )
 
 CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
 {
-    using ci::Rectf;
     typedef CRIMovable::BoxT BoxT; typedef CRIMovable::PosT PosT;
     typedef CRIMovable::SizeT SizeT;
 
@@ -192,7 +191,6 @@ CRIMovable::BoxT GetMovementAABB( const CRIMovable& Object, const float Delta )
 
 pair<Vec2i, Vec2i> GetMovementBounds( CRIMovable& Object, float Delta )
 {
-    using ci::Rectf; 
     using std::make_pair;
     typedef CRIMovable::BoxT BoxT; typedef CRIMovable::PosT PosT;
     typedef CRIMovable::SizeT SizeT;

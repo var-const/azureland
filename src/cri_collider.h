@@ -15,8 +15,8 @@
 #include <utility>
 #include <vector>
 
-namespace cinder { template <typename T> class RectT;
-    template <typename T> class Vec2; }
+template <typename T> class Rect;
+template <typename T> class Vec2;
 
 class CRIGameObject;
 struct CRICollisionsInfo;
@@ -39,7 +39,7 @@ public:
     ObjIterT CopyColliding(Vec2<int> LeftUpper,
         Vec2<int> RightLower, ObjIterT OutputIter) const;
 
-    std::pair<bool, cinder::RectT<float> > GetEmptyCell(Vec2<int>
+    std::pair<bool, Rect<float> > GetEmptyCell(Vec2<int>
         RowLimits, Vec2<int> ColLimits) const;
 
 private:

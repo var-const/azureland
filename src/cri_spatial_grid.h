@@ -2,7 +2,7 @@
 #include "cri_aabb.h"
 #include "cri_movable.h"
 
-#include <cinder/Rect.h>
+#include "math_rect.h"
 #include "math_vector.h"
 
 class CRIGameObject;
@@ -31,7 +31,7 @@ public:
     void Reinit(ObjIterT Begin, ObjIterT End, float Time);
 
     Vec2i GetCellCenter(int Row, int Col) const;
-    ci::Rectf GetCellRect(int Row, int Col) const;
+    Rectf GetCellRect(int Row, int Col) const;
     Vec2i GetCellSize() const;
 
     //CellsContT m_Cells; // @FIXME make iterator
@@ -116,10 +116,9 @@ Vec2i CRISpatialGrid<MaxRows, MaxCols>::GetCellSize() const
 }
 
 template <int MaxRows, int MaxCols>
-ci::Rectf CRISpatialGrid<MaxRows, MaxCols>::GetCellRect( const int Row,
+Rectf CRISpatialGrid<MaxRows, MaxCols>::GetCellRect( const int Row,
     const int Col ) const
 {
-    using ci::Rectf;
 
     assert(Row >= 0 && Row < RowsC);
     assert(Col >= 0 && Col < ColsC);

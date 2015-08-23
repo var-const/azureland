@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cinder/Rect.h>
+#include "math_rect.h"
 #include "math_vector.h"
 
 struct CRI_AABB
@@ -9,10 +9,10 @@ struct CRI_AABB
 
     CRI_AABB();
 #ifdef PASS_BY_VALUE
-    explicit CRI_AABB(ci::Rectf Rect);
+    explicit CRI_AABB(Rectf Rect);
     CRI_AABB(VecT Center, VecT HalfSize);
 #else
-    explicit CRI_AABB(ci::Rectf const& Rect);
+    explicit CRI_AABB(Rectf const& Rect);
     CRI_AABB(VecT const& Center, VecT const& HalfSize);
 #endif
 
@@ -31,7 +31,7 @@ CRI_AABB::VecT IntersectionNormal(CRI_AABB A, CRI_AABB B, CRI_AABB::VecT depth);
 
 bool AContainsB(CRI_AABB A, CRI_AABB B);
 
-ci::Rectf ToRect(CRI_AABB Box);
+Rectf ToRect(CRI_AABB Box);
 void SetAABB(CRI_AABB& Box, CRI_AABB::VecT Center, CRI_AABB::VecT HalfSize);
 
 CRI_AABB::VecT GetLeftUpper(CRI_AABB Box);
@@ -47,7 +47,7 @@ CRI_AABB::VecT IntersectionNormal(CRI_AABB const& A, CRI_AABB const& B, CRI_AABB
 
 bool AContainsB(CRI_AABB const& A, CRI_AABB const& B);
 
-ci::Rectf ToRect(CRI_AABB const& Box);
+Rectf ToRect(CRI_AABB const& Box);
 void SetAABB(CRI_AABB& Box, CRI_AABB::VecT const& Center, CRI_AABB::VecT const& HalfSize);
 
 CRI_AABB::VecT GetLeftUpper(CRI_AABB const& Box);

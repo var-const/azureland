@@ -142,16 +142,16 @@ void Draw(const CRIGameObject& Object, const float Angle, const Texture& Texture
 	glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
 
     const Rectf destRect = Texture.getCleanBounds();
-	verts[0*2+0] = destRect.getX2(); verts[0*2+1] = destRect.getY1();	
-	verts[1*2+0] = destRect.getX1(); verts[1*2+1] = destRect.getY1();	
-	verts[2*2+0] = destRect.getX2(); verts[2*2+1] = destRect.getY2();	
-	verts[3*2+0] = destRect.getX1(); verts[3*2+1] = destRect.getY2();	
+	verts[0*2+0] = destRect.get_x2(); verts[0*2+1] = destRect.get_y1();	
+	verts[1*2+0] = destRect.get_x1(); verts[1*2+1] = destRect.get_y1();	
+	verts[2*2+0] = destRect.get_x2(); verts[2*2+1] = destRect.get_y2();	
+	verts[3*2+0] = destRect.get_x1(); verts[3*2+1] = destRect.get_y2();	
 
 	const Rectf srcCoords = Texture.getAreaTexCoords( Texture.getCleanBounds() );
-	texCoords[0*2+0] = srcCoords.getX2(); texCoords[0*2+1] = srcCoords.getY1();	
-	texCoords[1*2+0] = srcCoords.getX1(); texCoords[1*2+1] = srcCoords.getY1();	
-	texCoords[2*2+0] = srcCoords.getX2(); texCoords[2*2+1] = srcCoords.getY2();	
-	texCoords[3*2+0] = srcCoords.getX1(); texCoords[3*2+1] = srcCoords.getY2();	
+	texCoords[0*2+0] = srcCoords.get_x2(); texCoords[0*2+1] = srcCoords.get_y1();	
+	texCoords[1*2+0] = srcCoords.get_x1(); texCoords[1*2+1] = srcCoords.get_y1();	
+	texCoords[2*2+0] = srcCoords.get_x2(); texCoords[2*2+1] = srcCoords.get_y2();	
+	texCoords[3*2+0] = srcCoords.get_x1(); texCoords[3*2+1] = srcCoords.get_y2();	
 
 
     for (int i = 0; i != 2400; ++i)

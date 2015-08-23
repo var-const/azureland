@@ -8,7 +8,7 @@
 #include "cri_player.h"
 
 #include "rand.h"
-#include <cinder/Rect.h>
+#include "math_rect.h"
 #include "math_vector.h"
 
 #include <cmath>
@@ -200,7 +200,6 @@ void CRIEnemy::OnHealthDepleted()
 
 void CRIEnemy::TryRespawn()
 {
-    using ci::Rectf; 
     using std::pair;
 
     const CRICollider& Collider = GetScene().GetCollider();
@@ -221,7 +220,7 @@ void CRIEnemy::TryRespawn()
     {
         const Rectf& Cell = EmptyCell.second;
         assert(Cell.getWidth() > GetSize().x && Cell.getHeight() > GetSize().y);
-        Respawn(Cell.getCenter());
+        Respawn(Cell.get_center());
         return;
     }
 

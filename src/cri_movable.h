@@ -56,7 +56,7 @@ public:
     float GetAngle() const;
     Vec2f GetScale() const;
 
-    void CacheMovementAABB(ci::Rectf Rect);
+    void CacheMovementAABB(Rectf Rect);
 
 protected:
     void SetSize(const SizeT& Size);

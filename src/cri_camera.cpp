@@ -148,14 +148,14 @@ void CRICamera::DrawBack()
     glEnableClientState( GL_TEXTURE_COORD_ARRAY );
     GLfloat texCoords[8];
     glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
-    verts[0*2+0] = rect.getX2();
-    verts[0*2+1] = rect.getY1();
-    verts[1*2+0] = rect.getX1();
-    verts[1*2+1] = rect.getY1();
-    verts[2*2+0] = rect.getX2();
-    verts[2*2+1] = rect.getY2();
-    verts[3*2+0] = rect.getX1();
-    verts[3*2+1] = rect.getY2();
+    verts[0*2+0] = rect.get_x2();
+    verts[0*2+1] = rect.get_y1();
+    verts[1*2+0] = rect.get_x1();
+    verts[1*2+1] = rect.get_y1();
+    verts[2*2+0] = rect.get_x2();
+    verts[2*2+1] = rect.get_y2();
+    verts[3*2+0] = rect.get_x1();
+    verts[3*2+1] = rect.get_y2();
 
     const Vec2f LeftUpper = -m_CurTranslation - Vec2f(1.f, 1.f);
     const Vec2f RightLower = -m_CurTranslation + m_ViewHalfSize * 2.f +
@@ -201,17 +201,17 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
 	GLfloat texCoords[8];
 	glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
 
-    const ci::Rectf destRect = Tex.getCleanBounds();
-	verts[0*2+0] = destRect.getX2(); verts[0*2+1] = destRect.getY1();	
-	verts[1*2+0] = destRect.getX1(); verts[1*2+1] = destRect.getY1();	
-	verts[2*2+0] = destRect.getX2(); verts[2*2+1] = destRect.getY2();	
-	verts[3*2+0] = destRect.getX1(); verts[3*2+1] = destRect.getY2();	
+    const Rectf destRect = Tex.getCleanBounds();
+	verts[0*2+0] = destRect.get_x2(); verts[0*2+1] = destRect.get_y1();	
+	verts[1*2+0] = destRect.get_x1(); verts[1*2+1] = destRect.get_y1();	
+	verts[2*2+0] = destRect.get_x2(); verts[2*2+1] = destRect.get_y2();	
+	verts[3*2+0] = destRect.get_x1(); verts[3*2+1] = destRect.get_y2();	
 
-	const ci::Rectf srcCoords = Tex.getAreaTexCoords( Tex.getCleanBounds() );
-	texCoords[0*2+0] = srcCoords.getX2(); texCoords[0*2+1] = srcCoords.getY1();	
-	texCoords[1*2+0] = srcCoords.getX1(); texCoords[1*2+1] = srcCoords.getY1();	
-	texCoords[2*2+0] = srcCoords.getX2(); texCoords[2*2+1] = srcCoords.getY2();	
-	texCoords[3*2+0] = srcCoords.getX1(); texCoords[3*2+1] = srcCoords.getY2();	
+	const Rectf srcCoords = Tex.getAreaTexCoords( Tex.getCleanBounds() );
+	texCoords[0*2+0] = srcCoords.get_x2(); texCoords[0*2+1] = srcCoords.get_y1();	
+	texCoords[1*2+0] = srcCoords.get_x1(); texCoords[1*2+1] = srcCoords.get_y1();	
+	texCoords[2*2+0] = srcCoords.get_x2(); texCoords[2*2+1] = srcCoords.get_y2();	
+	texCoords[3*2+0] = srcCoords.get_x1(); texCoords[3*2+1] = srcCoords.get_y2();	
 
 	glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
 

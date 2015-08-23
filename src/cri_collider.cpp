@@ -8,14 +8,13 @@
 #include "cri_game_object.h"
 #include "cri_math.h"
 
-#include <cinder/Rect.h>
+#include "math_rect.h"
 #include "math_vector.h"
 
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
 
-using ci::Rectf;  
 using std::pair;
 
 CRICollider::CRICollider(const int Width, const int Height)

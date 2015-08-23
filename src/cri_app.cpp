@@ -24,10 +24,6 @@ CRIApp::CRIApp()
     SDL_WINDOWPOS_UNDEFINED, 1280, 1024, SDL_WINDOW_RESIZABLE}
 , renderer_{window_, -1, SDL_RENDERER_ACCELERATED}
 {
-    using std::srand; using std::time;
-
-    srand(time(NULL));
-
     // @TODO: include
     SDL_ShowCursor(SDL_DISABLE);
     // @TODO: sdl timer

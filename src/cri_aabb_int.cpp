@@ -2,7 +2,7 @@
 
 #include "cri_aabb_int.h"
 
-#include <cinder/Rect.h>
+#include "math_rect.h"
 
 #include <cmath>
 
@@ -17,8 +17,8 @@ CRI_AABBd::CRI_AABBd( const VecT Center, const VecT HalfSize )
 {
 }
 
-CRI_AABBd::CRI_AABBd( const ci::Rectf Rect )
-: m_Center(Rect.getCenter())
+CRI_AABBd::CRI_AABBd( const Rectf Rect )
+: m_Center(Rect.get_center())
 , m_HalfSize(Rect.getSize() / 2 + Vec2i(1, 1))
 {
 }
@@ -83,9 +83,8 @@ bool AContainsB( const CRI_AABBd A, const CRI_AABBd B )
     return CenterDist.x <= MaxDist.x && CenterDist.y <= MaxDist.y;
 }
 
-ci::Rectf ToRect( const CRI_AABBd Box )
+Rectf ToRect( const CRI_AABBd Box )
 {
-    using ci::Rectf;
     return Rectf(Box.m_Center - Box.m_HalfSize, Box.m_Center + Box.m_HalfSize);
 }
 
@@ -113,8 +112,8 @@ CRI_AABBd::CRI_AABBd( VecT const& Center, VecT const& HalfSize )
 {
 }
 
-CRI_AABBd::CRI_AABBd( ci::Rectf const& Rect )
-: m_Center(Rect.getCenter())
+CRI_AABBd::CRI_AABBd( Rectf const& Rect )
+: m_Center(Rect.get_center())
 , m_HalfSize(Rect.getSize() / 2 + Vec2i(1, 1))
 {
 }
@@ -179,9 +178,8 @@ bool AContainsB( CRI_AABBd const& A, CRI_AABBd const& B )
     return CenterDist.x <= MaxDist.x && CenterDist.y <= MaxDist.y;
 }
 
-ci::Rectf ToRect( CRI_AABBd const& Box )
+Rectf ToRect( CRI_AABBd const& Box )
 {
-    using ci::Rectf;
     return Rectf(Box.m_Center - Box.m_HalfSize, Box.m_Center + Box.m_HalfSize);
 }
 

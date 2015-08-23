@@ -1,7 +1,3 @@
-#include <cinder/Timer.h>
-start()
-getSeconds()
-
 #include <cinder/Rect.h>
 getSize()
 getCenter()
@@ -62,6 +58,10 @@ using ci::rand_bool; using ci::rand_float; using ci::rand_int;
 #include <cinder/CinderMath.h>
 atan2
 clamp
+
+#include <cinder/Timer.h>
+start()
+getSeconds()
 
 TODO:
 listen to SDL's input events and translate

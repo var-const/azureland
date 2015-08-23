@@ -1,0 +1,68 @@
+#include <cinder/CinderMath.h>
+atan2
+clamp
+
+#include <cinder/Timer.h>
+start()
+getSeconds()
+
+#include <cinder/Rect.h>
+getSize()
+getCenter()
+
+#include <cinder/app/App.h>
+using ci::app::loadAsset;
+using ci::app::getWindowSize;
+using ci::app::getWindowBounds;
+using ci::app::console; console() << E.what() << endl;
+
+#include <cinder/ImageIo.h>
+using ci::loadImage; 
+#include <cinder/gl/Texture.h>
+// used as argument for ci::gl::draw
+getSize()
+enableAndBind()
+getCleanBounds()
+getAreaTexCoords()
+#include <cinder/gl/gl.h>
+using ci::gl::drawStrokedRect;
+gl::pushModelView();
+gl::translate(Object.GetCenterPos());
+gl::rotate(Angle);
+gl::translate(-Texture.getSize() / 2.f);
+gl::draw(Texture);
+gl::popModelView();
+using ci::gl::drawStrokedCircle;
+using ci::gl::drawString;
+using ci::gl::color;
+using ci::gl::drawSolidRect;
+using ci::gl::enableAlphaBlending;
+using ci::gl::SaveColorState;
+glEnableClientState( GL_VERTEX_ARRAY );
+GLfloat verts[8];
+glVertexPointer( 2, GL_FLOAT, 0, verts );
+glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+GLfloat texCoords[8];
+glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
+glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
+glDisableClientState( GL_VERTEX_ARRAY );
+
+#include <cinder/Color.h>
+// only used for ci::gl::drawString
+#include <cinder/Font.h>
+// font name, font size
+// only used for ci::gl::drawString
+
+// math (mostly vector and rect), window and input handling, fonts and colors,
+// rendering
+
+DONE:
+vector
+key/mouse events
+
+#include "rand.h"
+using ci::rand_bool; using ci::rand_float; using ci::rand_int;
+
+TODO:
+listen to SDL's input events and translate
+app basics

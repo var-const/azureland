@@ -14,7 +14,7 @@
 #include <cinder/Font.h>
 #include "math_vector.h"
 
-#include <cinder/CinderMath.h>
+#include 
 
 #include <cmath>
 
@@ -259,7 +259,7 @@ void CRIPlayer::UpdateAngle()
 
     Vec2f Dir = GetCrosshairPos() - GetCenterPos();
     Dir.safeNormalize();
-    const float Angle = math<float>::atan2(0.f, -1.f) - math<float>::atan2(Dir.x, Dir.y);
+    const float Angle = std::atan2(0.f, -1.f) - std::atan2(Dir.x, Dir.y);
     SetAngle(Angle * 180.f / M_PI);
 }
 

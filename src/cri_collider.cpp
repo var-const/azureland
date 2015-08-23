@@ -8,7 +8,6 @@
 #include "cri_game_object.h"
 #include "cri_math.h"
 
-#include <cinder/CinderMath.h>
 #include <cinder/Rect.h>
 #include "math_vector.h"
 
@@ -183,8 +182,8 @@ pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
     {
         swap(RowBegin, RowEnd);
     }
-    RowBegin = math<int>::clamp(RowBegin, 0, GridT::RowsC);
-    RowEnd = math<int>::clamp(RowEnd, 0, GridT::RowsC);
+    RowBegin = clamp(RowBegin, 0, GridT::RowsC);
+    RowEnd = clamp(RowEnd, 0, GridT::RowsC);
 
     int ColBegin = ColLimits.x >= 0 ? ColLimits.x : GridT::ColsC + ColLimits.x;
     int ColEnd = ColLimits.y >= 0 ? ColLimits.y : GridT::ColsC + ColLimits.y;
@@ -192,8 +191,8 @@ pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
     {
         swap(ColBegin, ColEnd);
     }
-    ColBegin = math<int>::clamp(ColBegin, 0, GridT::ColsC);
-    ColEnd = math<int>::clamp(ColEnd, 0, GridT::ColsC);
+    ColBegin = clamp(ColBegin, 0, GridT::ColsC);
+    ColEnd = clamp(ColEnd, 0, GridT::ColsC);
 
     for (int Row = RowBegin; Row != RowEnd; ++Row)
     {

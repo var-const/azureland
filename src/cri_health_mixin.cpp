@@ -1,8 +1,7 @@
 #include "cri_stdafx.h"
 
 #include "cri_health_mixin.h"
-
-#include <cinder/CinderMath.h>
+#include "cri_math.h"
 
 #include <algorithm>
 #include <cassert>
@@ -28,7 +27,7 @@ void CRIHealthMixin::ModifyHealth( const int Val )
     using ci::math; using std::max;
 
     const int OldVal = m_CurVal;
-    m_CurVal = math<int>::clamp(m_CurVal + Val, 0, max(m_CurVal, m_MaxVal));
+    m_CurVal = clamp(m_CurVal + Val, 0, max(m_CurVal, m_MaxVal));
     OnHealthModified(m_CurVal, m_CurVal - OldVal);
     if (m_CurVal == 0)
     {

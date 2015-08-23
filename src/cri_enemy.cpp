@@ -7,7 +7,6 @@
 #include "cri_math.h"
 #include "cri_player.h"
 
-#include <cinder/CinderMath.h>
 #include "rand.h"
 #include <cinder/Rect.h>
 #include "math_vector.h"
@@ -267,7 +266,6 @@ void CRIEnemy::UpdateAngle()
 
     Vec2f Dir = m_pPlayer->GetCenterPos() - GetCenterPos();
     Dir.safeNormalize();
-    const float Angle = math<float>::atan2(0.f, -1.f) -
-        math<float>::atan2(Dir.x, Dir.y);
+    const float Angle = std::atan2(0.f, -1.f) - std::atan2(Dir.x, Dir.y);
     SetAngle(Angle * 180.f / M_PI);
 }

@@ -5,9 +5,9 @@
 #include "cri_collider.h"
 #include "cri_container_helpers.h"
 #include "cri_game_object.h"
+#include "cri_math.h"
 #include "cri_movable.h"
 
-#include <cinder/CinderMath.h>
 #include <cinder/ImageIo.h>
 #include <cinder/app/App.h>
 #include <cinder/gl/gl.h>
@@ -106,9 +106,9 @@ void CRICamera::Move( Vec2f const& NewCenter )
     using ci::math;
 
     const Vec2f Translation = NewCenter - m_ViewHalfSize;
-    m_CurTranslation.x = -1.f * math<float>::clamp(Translation.x, m_HorizBounds.x,
+    m_CurTranslation.x = -1.f * clamp(Translation.x, m_HorizBounds.x,
         m_HorizBounds.y);
-    m_CurTranslation.y = -1.f * math<float>::clamp(Translation.y, m_VertBounds.x,
+    m_CurTranslation.y = -1.f * clamp(Translation.y, m_VertBounds.x,
         m_VertBounds.y);
 }
 

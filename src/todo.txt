@@ -1,7 +1,3 @@
-#include <cinder/Rect.h>
-getSize()
-getCenter()
-
 #include <cinder/app/App.h>
 using ci::app::loadAsset;
 using ci::app::getWindowSize;
@@ -62,6 +58,10 @@ clamp
 #include <cinder/Timer.h>
 start()
 getSeconds()
+
+#include <cinder/Rect.h>
+getSize()
+getCenter()
 
 TODO:
 listen to SDL's input events and translate

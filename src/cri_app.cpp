@@ -8,6 +8,9 @@
 // @TODO: implement
 #include "render_string.h"
 
+#include <SDL/SDL_events.h>
+#include <SDL/SDL_mouse.h>
+
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
@@ -23,13 +26,11 @@ CRIApp::CRIApp()
 , window_{"Azureland 0.2", SDL_WINDOWPOS_UNDEFINED,
     SDL_WINDOWPOS_UNDEFINED, 1280, 1024, SDL_WINDOW_RESIZABLE}
 , renderer_{window_, -1, SDL_RENDERER_ACCELERATED}
+, fps_limit_{60}
 {
-    // @TODO: include
     SDL_ShowCursor(SDL_DISABLE);
-    // @TODO: sdl timer
-    settings->setFrameRate(60.f);
-    setFpsSampleInterval(1.f);
     m_Timer.start();
+    // @TODO: show FPS
 
     BuildGame(*this);
 }
@@ -62,7 +63,6 @@ void CRIApp::draw()
 bool CRIApp::update()
 {
     SDL_Event event;
-    // @TODO: include
     while (SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN:
@@ -77,11 +77,13 @@ bool CRIApp::update()
         }
     }
 
+    auto const dt = static_cast<float>(m_Timer.get_seconds());
     if (m_pScene)
     {
-        m_pScene->Update( static_cast<float>(m_Timer.getSeconds()) );
-        m_Timer.start();
+        m_pScene->Update(dt);
     }
+    fps_limit_.enforce(m_Timer);
+    m_Timer.start();
 
     return true;
 }

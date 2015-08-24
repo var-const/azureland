@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cinder/Timer.h>
+#include "cri_timer.h"
+#include "fps_limit.h"
 
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/SDL2pp.hh>
@@ -46,7 +47,8 @@ private:
 
     InputListenersContT m_InputListeners; // Non-owning
 
-    ci::Timer m_Timer;
+    Timer m_Timer;
+    FPSLimit fps_limit_;
 
     SDL2pp::SDL library_;
     SDL2pp::Window window_;

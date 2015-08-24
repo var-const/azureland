@@ -66,10 +66,21 @@ bool CRIApp::update()
     while (SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN:
-                on_key_down();
+                on_key_down({event.keysym});
                 break;
             case SDL_KEYUP:
+                on_key_up({event.keysym});
                 break;
+            case SDL_MOUSEBUTTONDOWN:
+                on_mouse_down({event.button});
+                break;
+            case SDL_MOUSEBUTTONUP:
+                on_mouse_up({event.button});
+                break;
+            case SDL_MOUSEMOTION:
+                on_mouse_move({event.motion});
+                break;
+            // @TODO: drag, wheel
             case SDL_QUIT:
                 return false;
             default:
@@ -82,7 +93,7 @@ bool CRIApp::update()
     {
         m_pScene->Update(dt);
     }
-    fps_limit_.enforce(m_Timer);
+    fps_limit_.enforce(m_Timer); // May result in thread suspension
     m_Timer.start();
 
     return true;

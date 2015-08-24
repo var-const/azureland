@@ -10,6 +10,9 @@ enum class MouseButton {
 
 class MouseEvent {
 public:
+    MouseEvent(SDL_MouseMotionEvent const info) : MouseEvent({info.x, info.y},
+            // @FIXME always left button
+            MouseButton::Left, info.state == SDL_PRESSED) {}
     MouseEvent(SDL_MouseButtonEvent const info) : MouseEvent({info.x, info.y},
             get_mouse_button_from_index(info.button), info.state == SDL_PRESSED) {}
     MouseEvent(Vec2i const from_pos, MouseButton const from_button,

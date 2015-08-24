@@ -66,19 +66,20 @@ bool CRIApp::update()
     while (SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN:
-                on_key_down({event.keysym});
+                on_key_down(convert_sdl_keycodes(event.keysym.sym), {event.keysym});
                 break;
             case SDL_KEYUP:
-                on_key_up({event.keysym});
+                on_key_up(convert_sdl_keycodes(event.keysym.sym), {event.keysym});
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                on_mouse_down({event.button});
+                on_mouse_down({event.button.x, event.button.y}, {event.button});
                 break;
             case SDL_MOUSEBUTTONUP:
-                on_mouse_up({event.button});
+                on_mouse_up({event.button.x, event.button.y}, {event.button});
                 break;
             case SDL_MOUSEMOTION:
-                on_mouse_move({event.motion});
+                on_mouse_move({event.motion.x, event.motion.y},
+                    {event.motion});
                 break;
             // @TODO: drag, wheel
             case SDL_QUIT:

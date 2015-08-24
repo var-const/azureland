@@ -97,6 +97,8 @@ bool CRIApp::update()
     fps_limit_.enforce(m_Timer); // May result in thread suspension
     m_Timer.start();
 
+    draw();
+
     return true;
 }
 

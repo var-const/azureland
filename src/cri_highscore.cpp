@@ -10,6 +10,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include <algorithm>
+#include <cassert>
 #include <exception>
 #include <fstream>
 #include <ostream>
@@ -32,7 +33,7 @@ string ToString(const T& Val)
 
 } // unnamed
 
-CRIHighscore::CRIHighscore( const int NewScore )
+CRIHighscore::CRIHighscore( const int NewScore, const CRIApp* const app )
 : CRIGameObject(PosT(), SizeT())
 , m_NewScore(NewScore)
 , m_State(StateDeath)
@@ -40,6 +41,7 @@ CRIHighscore::CRIHighscore( const int NewScore )
 , m_MaxEntries(5)
 , m_Color(1.f, 1.f, 1.f)
 , m_Font("Verdana", 48)
+, app_{app}
 {
 }
 
@@ -121,8 +123,8 @@ void CRIHighscore::on_key_down( const KeyCode keycode, const KeyEvent Event )
 
 void CRIHighscore::DoDraw()
 {
-    
-    using ci::app::getWindowBounds;
+    assert(app_);
+
     using ci::gl::color; using ci::gl::drawSolidRect; using ci::gl::drawString;
     using ci::gl::enableAlphaBlending; using ci::gl::SaveColorState;
 
@@ -130,7 +132,7 @@ void CRIHighscore::DoDraw()
         SaveColorState S;
         enableAlphaBlending();
         color(0.f, 0.f, 0.f, 0.7f);
-        drawSolidRect(getWindowBounds());
+        drawSolidRect(app_->get_window_bounds());
     }
 
     if (m_State == StateDeath)

@@ -232,7 +232,7 @@ Vec2i CRIGameScene::GetSize() const
 void CRIGameScene::EndGame(const int Score)
 {
 	SetPause(true);
-	CRIHighscore* const Highscore = new CRIHighscore(Score);
+	CRIHighscore* const Highscore = new CRIHighscore(Score, *m_pApp);
     m_pApp->AddInputListener(*Highscore);
 	AddGUIObject(*Highscore);
 	Highscore->Load("scores.yaml");

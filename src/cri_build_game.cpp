@@ -110,16 +110,14 @@ void BuildGame( CRIApp& App )
 
 CRIPlayer* CreatePlayer( CRIApp& App, CRIGameScene& Scene )
 {
-    using ci::app::getWindowSize;
-
     // @FIXME hard coded values
     const CRIMovable::SizeT Size = CRIMovable::SizeT(85.f, 85.f);
     const CRIMovable::PosT Pos = CRIMovable::PosT(440.f,
-        //getWindowSize().y - 30.f);
+        //App.get_window_size().y - 30.f);
         1500.f);
         //90.f);
-    //const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
-    //    getWindowSize().y - 30.f);
+    //const CRIMovable::PosT Pos = CRIMovable::PosT(App.get_window_size().x / 2.f,
+    //    App.get_window_size().y - 30.f);
 #ifdef CHEATS
     const int PlayerHealth = 1000000;
 #else

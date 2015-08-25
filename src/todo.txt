@@ -1,7 +1,5 @@
 #include <cinder/app/App.h>
 using ci::app::loadAsset;
-using ci::app::getWindowSize;
-using ci::app::getWindowBounds;
 using ci::app::console; console() << E.what() << endl;
 
 #include <cinder/ImageIo.h>
@@ -12,8 +10,8 @@ getSize()
 enableAndBind()
 getCleanBounds()
 getAreaTexCoords()
+
 #include <cinder/gl/gl.h>
-using ci::gl::drawStrokedRect;
 gl::pushModelView();
 gl::translate(Object.GetCenterPos());
 gl::rotate(Angle);
@@ -23,9 +21,17 @@ gl::popModelView();
 using ci::gl::drawStrokedCircle;
 using ci::gl::drawString;
 using ci::gl::color;
+
 using ci::gl::drawSolidRect;
+extern DECLSPEC int SDLCALL SDL_RenderFillRect(SDL_Renderer * renderer,
+                                               const SDL_Rect * rect);
+using ci::gl::drawStrokedRect;
+extern DECLSPEC int SDLCALL SDL_RenderDrawRect(SDL_Renderer * renderer,
+                                               const SDL_Rect * rect);
+
 using ci::gl::enableAlphaBlending;
 using ci::gl::SaveColorState;
+
 glEnableClientState( GL_VERTEX_ARRAY );
 GLfloat verts[8];
 glVertexPointer( 2, GL_FLOAT, 0, verts );
@@ -63,6 +69,10 @@ getSeconds()
 getSize()
 getCenter()
 
-TODO:
+using ci::app::getWindowSize;
+using ci::app::getWindowBounds;
+
 listen to SDL's input events and translate
+
+TODO:
 app basics

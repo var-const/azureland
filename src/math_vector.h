@@ -1,9 +1,12 @@
 #include "cri_math.h"
+#include <SDL2pp/Point.hh>
+#include <cmath>
 
 template <typename T>
 class Vec2 {
 public:
     Vec2() = default;
+    Vec2(const SDL2pp::Point& p) : x{p.GetX()}, y{p.GetY()} {}
     Vec2(T const from_x, T const from_y) : x{from_x}, y{from_y} {}
 
     T magnitude() const { return std::sqrt(x*x + y*y); }
@@ -17,7 +20,7 @@ public:
 
     void safe_normalize()
     {
-        if (is_equal(x, y) || is_equal(x, T{}) is_equal(y, T{}))
+        if (is_equal(x, y) || is_equal(x, T{}) || is_equal(y, T{}))
             return;
         normalize();
     }

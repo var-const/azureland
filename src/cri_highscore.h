@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cri_app.h"
 #include "cri_game_object.h"
 #include "cri_interface_input.h"
 
@@ -13,7 +14,7 @@
 class CRIHighscore : public CRIGameObject, public CRIInterfaceInput
 {
 public:
-	explicit CRIHighscore(const int NewScore);
+	CRIHighscore(const int NewScore, const CRIApp& app);
 
 	void Load(const std::string& FileName);
 
@@ -52,4 +53,6 @@ private:
 
 	ci::Font m_Font;
 	ci::Color m_Color;
+
+    const CRIApp* app_{};
 };

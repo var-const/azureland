@@ -2,6 +2,8 @@
 
 #include "cri_timer.h"
 #include "fps_limit.h"
+#include "math_rect.h"
+#include "math_vector.h"
 
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/SDL2pp.hh>
@@ -35,6 +37,9 @@ public:
     void AddInputListener(CRIInterfaceInput& Listener);
     void RemoveInputListener(CRIInterfaceInput& Listener);
 
+    Vec2i get_window_size() const { return Vec2i{window_.GetSize()}; }
+    Vec2i get_window_pos() const { return Vec2i{window_.GetPosition()}; }
+
 private:
     typedef std::vector<CRIInterfaceInput*> InputListenersContT;
     typedef InputListenersContT::iterator InputListenersIterT;
@@ -54,3 +59,9 @@ private:
     SDL2pp::Window window_;
     SDL2pp::Renderer renderer_;
 };
+
+Rectd get_window_bounds(const CRIApp& app)
+{
+    auto const pos = app.get_window_pos();
+    return {pos, pos + app.get_window_size() / 2};
+}

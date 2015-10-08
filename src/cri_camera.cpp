@@ -57,10 +57,9 @@ void CRICamera::Draw()
         {
             BindTexture(m_Textures[TextureDescr]);
         }
-        for (DrawBufferIterT BufIter = m_Buffers[TextureDescr].begin();
-            BufIter != m_Buffers[TextureDescr].end(); ++BufIter)
+        for (auto&& buf : m_Buffers[TextureDescr])
         {
-            Draw(**BufIter, m_Textures[TextureDescr]);
+            Draw(*buf, m_Textures[TextureDescr]);
         }
     }
 
@@ -71,10 +70,9 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
 {
     using std::sort; using std::unique;
 
-    for (BuffersIterT BufIter = m_Buffers.begin(); BufIter != m_Buffers.end();
-        ++BufIter)
+    for (auto&& buf : m_Buffers)
     {
-        BufIter->clear();
+        buf.clear();
     }
 
     const Vec2i LeftUpper = -m_CurTranslation - Vec2f(1.f, 1.f);
@@ -86,7 +84,7 @@ void CRICamera::UpdateVisibility( const CRICollider& Collider )
     sort(m_CollisionsBuffer.begin(), m_CollisionsEnd);
     m_CollisionsEnd = unique(m_CollisionsBuffer.begin(), m_CollisionsEnd);
 
-    for (CollisionsIterT CollisionsIter = m_CollisionsBuffer.begin();
+    for (auto CollisionsIter = m_CollisionsBuffer.begin();
         CollisionsIter != m_CollisionsEnd; ++CollisionsIter)
     {
         const int TextureDescr = (*CollisionsIter)->GetTextureDescriptor();

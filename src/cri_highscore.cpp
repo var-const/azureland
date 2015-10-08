@@ -78,11 +78,10 @@ void CRIHighscore::ReadFromFile()
         const YAML::Node Scores = YAML::LoadFile(m_FileName);
         if (Scores && Scores.IsSequence())
         {
-            for (YAML::const_iterator Iter = Scores.begin(); Iter != 
-                Scores.end(); ++Iter)
+            for (auto&& s : Scores)
             {
-                const int Score = (*Iter)["score"].as<int>(0);
-                const string& Name = (*Iter)["name"].as<string>("");
+                const int Score = s["score"].as<int>(0);
+                const string& Name = s["name"].as<string>("");
                 m_Scores.insert(make_pair(Score, Name));
             }
         }
@@ -168,8 +167,7 @@ void CRIHighscore::DoDraw()
 
         Vec2f CurOffset = Vec2f(200.f, 200.f);
         int Counter = 1;
-        for (ScoresConstIterT Iter = m_Scores.begin(); Iter != m_Scores.end();
-            ++Iter)
+        for (auto&& score : m_Scores)
         {
             if (Counter == m_MaxEntries + 1)
             {
@@ -178,8 +176,8 @@ void CRIHighscore::DoDraw()
 
             drawString(ToString(Counter), CurOffset - Vec2f(60.f, 0.f), m_Color,
                 m_Font);
-            drawString(Iter->second, CurOffset, m_Color, m_Font);
-            drawString(ToString(Iter->first), CurOffset + Vec2f(400.f, 0.f),
+            drawString(score.second, CurOffset, m_Color, m_Font);
+            drawString(ToString(score.first), CurOffset + Vec2f(400.f, 0.f),
                 m_Color, m_Font);
             CurOffset.y += 100.f;
             ++Counter;
@@ -200,12 +198,11 @@ void CRIHighscore::AddScore()
     if (Output)
     {
         YAML::Node Text;
-        for (ScoresConstIterT Iter = m_Scores.begin(); Iter != m_Scores.end();
-            ++Iter)
+        for (auto&& score : m_Scores)
         {
             YAML::Node Entry;
-            Entry["score"] = Iter->first;
-            Entry["name"] = Iter->second;
+            Entry["score"] = score.first;
+            Entry["name"] = score.second;
             Text.push_back(Entry);
         }
 

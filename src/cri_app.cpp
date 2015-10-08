@@ -69,64 +69,57 @@ void CRIApp::SetScene( std::unique_ptr<CRIGameScene> pScene )
 
 void CRIApp::mouseDown( const ci::app::MouseEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnMouseDown(Event.getPos(), Event);
+        listener->OnMouseDown(Event.getPos(), Event);
     }
 }
 
 void CRIApp::mouseUp( const ci::app::MouseEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnMouseUp(Event.getPos(), Event);
+        listener->OnMouseUp(Event.getPos(), Event);
     }
 }
 
 void CRIApp::mouseMove( const ci::app::MouseEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnMouseMove(Event.getPos(), Event);
+        listener->OnMouseMove(Event.getPos(), Event);
     }
 }
 
 void CRIApp::mouseDrag( const ci::app::MouseEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnMouseDrag(Event.getPos(), Event);
+        listener->OnMouseDrag(Event.getPos(), Event);
     }
 }
 
 void CRIApp::mouseWheel( const ci::app::MouseEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnMouseWheel(Event.getWheelIncrement(), Event);
+        listener->OnMouseWheel(Event.getWheelIncrement(), Event);
     }
 }
 
 void CRIApp::keyDown( const ci::app::KeyEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnKeyDown(Event.getCode(), Event);
+        listener->OnKeyDown(Event.getCode(), Event);
     }
 }
 
 void CRIApp::keyUp( const ci::app::KeyEvent Event )
 {
-    for (InputListenersIterT i = m_InputListeners.begin();
-        i != m_InputListeners.end(); ++i)
+    for (auto&& listener : m_InputListeners)
     {
-        (*i)->OnKeyUp(Event.getCode(), Event);
+        listener->OnKeyUp(Event.getCode(), Event);
     }
 }
 
@@ -141,7 +134,7 @@ void CRIApp::RemoveInputListener( CRIInterfaceInput& Listener )
 {
     using std::find;
 
-    const InputListenersIterT Found = find(m_InputListeners.begin(),
+    const auto Found = find(m_InputListeners.begin(),
         m_InputListeners.end(), &Listener);
     if (Found != m_InputListeners.end())
     {

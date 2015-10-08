@@ -74,7 +74,7 @@ void CRISpatialGrid<MaxRows, MaxCols>::Reinit( const ObjIterT Begin,
         }
     }
 
-    for (ObjIterT ObjIter = Begin; ObjIter != End; ++ObjIter)
+    for (auto ObjIter = Begin; ObjIter != End; ++ObjIter)
     {
         const pair<Vec2i, Vec2i> MovementBounds =
             GetMovementBounds(**ObjIter, Time);

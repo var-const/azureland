@@ -124,7 +124,7 @@ void CRIEnemy::CheckBlocked()
     using std::abs;
 
     bool Blocked = false;
-    for (BlockersIterT i = m_Blockers.begin(); i != m_Blockers.end();)
+    for (auto i = m_Blockers.begin(); i != m_Blockers.end(); /*omitted*/)
     {
         if (!Intersect(GetMovementAABB(), (*i)->GetMovementAABB()))
         {

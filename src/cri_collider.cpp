@@ -75,10 +75,9 @@ void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
     {
         for (std::size_t Col = 0U; Col != GridT::ColsC; ++Col)
         {
-            const ObjContT& Objects = m_Grid.m_Cells[Row][Col];
-            const ObjConstIterT ObjEnd = Objects.end();
-            for (ObjConstIterT ObjIter = Objects.begin(); ObjIter != ObjEnd;
-                ++ObjIter)
+            const auto& Objects = m_Grid.m_Cells[Row][Col];
+            const auto ObjEnd = Objects.end();
+            for (auto ObjIter = Objects.begin(); ObjIter != ObjEnd; ++ObjIter)
             {
                 AddChecks(*ObjIter, ObjIter + 1, ObjEnd);
             }
@@ -96,7 +95,7 @@ void CRICollider::AddChecks(CRIGameObject* const Obj, ObjConstIterT const& Begin
 {
     using std::make_pair;
 
-    for (ObjConstIterT Iter = Begin; Iter != End; ++Iter)
+    for (auto Iter = Begin; Iter != End; ++Iter)
     {
         *m_ChecksEndIter++ = Obj < *Iter ? make_pair(Obj, *Iter) :
             make_pair(*Iter, Obj);
@@ -111,7 +110,7 @@ void CRICollider::NarrowPhase(const float Time)
 
     CRIGameObject* LastObjA = NULL;
     CRIGameObject* LastObjB = NULL;
-    for (ChecksConstIterT i = m_Checks.begin(); i != m_ChecksEndIter; ++i)
+    for (auto i = m_Checks.begin(); i != m_ChecksEndIter; ++i)
     {
         if (LastObjA == i->first && LastObjB == i->second)
         {

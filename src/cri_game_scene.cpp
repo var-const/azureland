@@ -91,9 +91,7 @@ void CRIGameScene::RemoveDeadObjects()
     {
         // Search from the end, because most of our objects never die,
         // and those that do are all appended at end during the game
-        typedef ObjectsContT::reverse_iterator ReverseIterT;
-        const ReverseIterT Found = find(m_Objects.rbegin(), m_Objects.rend(),
-            *Obj); 
+        const auto Found = find(m_Objects.rbegin(), m_Objects.rend(), *Obj);
         assert(Found != m_Objects.rend());
         if (Found != m_Objects.rend())
         {
@@ -143,10 +141,9 @@ void CRIGameScene::UpdateObjects(float Dt)
             }
             Dt -= Collisions.m_Time;
         }
-        for (CollisionsIterT i = Collisions.m_Begin; i != Collisions.m_End;
-            ++i)
+        for (auto&& c : Collisions)
         {
-            HandleCollision(*i);
+            HandleCollision(c);
         }
         if (Dt <= 0.f)
         {

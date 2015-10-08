@@ -14,17 +14,6 @@
 #define NO_VSYNC
 #endif
 
-CRIApp::CRIApp()
-: m_pScene(NULL)
-{ 
-}
-
-CRIApp::~CRIApp()
-{
-    delete m_pScene;
-    m_pScene = NULL;
-}
-
 void CRIApp::prepareSettings( Settings* const settings )
 {
     settings->setWindowSize(1280, 1024);
@@ -73,10 +62,9 @@ void CRIApp::update()
     }
 }
 
-void CRIApp::SetScene( CRIGameScene* const pScene )
+void CRIApp::SetScene( std::unique_ptr<CRIGameScene> pScene )
 {
-    delete m_pScene;
-    m_pScene = pScene;
+    m_pScene = std::move(pScene);
 }
 
 void CRIApp::mouseDown( const ci::app::MouseEvent Event )

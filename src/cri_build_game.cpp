@@ -14,6 +14,7 @@
 #include <cinder/Vector.h>
 #include <cinder/app/App.h>
 
+#include <memory>
 #include <string>
 
 using ci::Vec2f;
@@ -31,19 +32,19 @@ void CreateObstacle(CRIGameScene& Scene, const float LeftUpperTileX,
     static const float TileSize = 51.f;
     const Vec2f Size = Vec2f(TileWidth, TileHeight) * TileSize;
     const Vec2f Pos = Vec2f(LeftUpperTileX, LeftUpperTileY) * TileSize;
-    Scene.AddObject(*new CRIObstacle(Size, Pos + Size / 2.f));
+    Scene.AddObject(std::unique_ptr<CRIGameObject>(new CRIObstacle(Size, Pos + Size / 2.f)));
 }
 
 void BuildGame( CRIApp& App )
 {
     using ci::Vec2f;
 
-    CRIGameScene* const Scene = new CRIGameScene(App, 1280 * 3, 1024 * 3);
+    std::unique_ptr<CRIGameScene> Scene = new CRIGameScene(App, 1280 * 3, 1024 * 3);
 
-    Scene->AddObject( *new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)) );
-    Scene->AddObject( *new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f)) );
-    Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)) );
-    Scene->AddObject( *new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f)) );
+    Scene->AddObject(std::unique_ptr<CRIGameObject>( new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f))) );
+    Scene->AddObject(std::unique_ptr<CRIGameObject>( new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f))) );
+    Scene->AddObject(std::unique_ptr<CRIGameObject>( new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f))) );
+    Scene->AddObject(std::unique_ptr<CRIGameObject>( new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f))) );
 
     // Centurion
     CreateObstacle(*Scene, 15.627f, 16.875f, 11.408f, 12.656f); 
@@ -94,8 +95,7 @@ void BuildGame( CRIApp& App )
     CreateObstacle(*Scene, 26.039f, 38.078f, 7.725f, 3.882f);
     CreateObstacle(*Scene, 34.039f, 38.118f, 7.804f, 3.882f);
 
-    CRIPlayer* const Player = CreatePlayer(App, *Scene);
-    Scene->AddObject(*Player);
+    Scene->AddObject(CreatePlayer(App, *Scene));
 
     CreateEnemies(*Scene, *Player);
 
@@ -106,10 +106,10 @@ void BuildGame( CRIApp& App )
     const int HealthTexture = Scene->GetCamera().RegisterTexture("health.png");
     CRIHealthPickup::TextureDescr = HealthTexture;
     
-    App.SetScene(Scene);
+    App.SetScene(std::move(Scene));
 }
 
-CRIPlayer* CreatePlayer( CRIApp& App, CRIGameScene& Scene )
+std::unique_ptr<CRIPlayer> CreatePlayer( CRIApp& App, CRIGameScene& Scene )
 {
     using ci::app::getWindowSize;
 
@@ -128,7 +128,7 @@ CRIPlayer* CreatePlayer( CRIApp& App, CRIGameScene& Scene )
     //const int PlayerHealth = 10000;
 #endif
 
-    CRIPlayer* const Player = new CRIPlayer(Size, Pos, PlayerHealth, App);
+    std::unique_ptr<CRIPlayer> Player = new CRIPlayer(Size, Pos, PlayerHealth, App);
 #ifdef CHEATS
     Player->SetSpeed(1800.f);
 #else
@@ -186,10 +186,10 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
         //const float Speed = randInt(10) < 9 ? 100 : 200;
         const float Speed = 50;
         //const float Speed = 10;
-        CRIEnemy* const Enemy = new CRIEnemy(Player, Size, CurPos);
+        std::unique_ptr<CRIEnemy> const Enemy = new CRIEnemy(Player, Size, CurPos);
         Enemy->SetTextureDescriptor(Textures[randInt() % Textures.size()]);
         Enemy->SetSpeed(Speed);
-        Scene.AddObject(*Enemy);
+        Scene.AddObject(std::move(Enemy));
 
         CurPos.x += Size.x + randFloat(1.f, Dispersion);
         if (CurRow++ == MaxRowLength)

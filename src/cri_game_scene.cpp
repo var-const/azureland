@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include <map>
 #include <utility>
 
@@ -34,22 +35,6 @@ CRIGameScene::CRIGameScene(CRIApp& App, const int Width, const int Height)
 )
 { 
     m_Pickups.SetScene(*this);
-}
-
-CRIGameScene::~CRIGameScene()
-{
-    for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
-    {
-        delete *i;
-    }
-    m_Objects.clear();
-
-    for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
-        ++GUIObj)
-    {
-        delete *GUIObj;
-    }
-    m_GUIObjects.clear();
 }
 
 void CRIGameScene::Draw()
@@ -86,14 +71,14 @@ void CRIGameScene::Update(const float Dt)
 
 void CRIGameScene::AddPendingObjects()
 {
-    m_Objects.insert(m_Objects.end(), m_PendingObjects.begin(),
-        m_PendingObjects.end());
+    m_Objects.insert(m_Objects.end(), std::make_move_iterator(m_PendingObjects.begin()),
+        std::make_move_iterator(m_PendingObjects.end()));
     m_PendingObjects.clear();
 
     m_Collider.Reserve(m_Objects.size());
 
-    m_GUIObjects.insert(m_GUIObjects.end(), m_PendingGUIObjects.begin(),
-        m_PendingGUIObjects.end());
+    m_GUIObjects.insert(m_GUIObjects.end(), std::make_move_iterator(m_PendingGUIObjects.begin()),
+        std::make_move_iterator(m_PendingGUIObjects.end()));
     m_PendingGUIObjects.clear();
 }
 
@@ -112,7 +97,6 @@ void CRIGameScene::RemoveDeadObjects()
         assert(Found != m_Objects.rend());
         if (Found != m_Objects.rend())
         {
-            delete *Found;
             m_Objects.erase((Found + 1).base());
         }
     }
@@ -125,20 +109,17 @@ void CRIGameScene::DestroyObject( CRIGameObject& Obj )
     m_DeadObjects.push_back(&Obj);
 }
 
-void CRIGameScene::AddObject( CRIGameObject& Object )
+void CRIGameScene::AddObject( std::unique_ptr<CRIGameObject> Object )
 {
-    assert(std::find(m_Objects.begin(), m_Objects.end(), &Object) ==
-        m_Objects.end());
     Object.SetScene(*this);
-    m_PendingObjects.push_back(&Object);
+    m_PendingObjects.push_back(std::move(Object));
 }
 
-void CRIGameScene::AddGUIObject( CRIGameObject& Object )
+CRIGameObject* CRIGameScene::AddGUIObject( std::unique_ptr<CRIGameObject> Object )
 {
-    assert(std::find(m_GUIObjects.begin(), m_GUIObjects.end(), &Object) ==
-        m_GUIObjects.end());
     Object.SetScene(*this);
-    m_PendingGUIObjects.push_back(&Object);
+    m_PendingGUIObjects.push_back(std::move(Object));
+    return m_PendingGUIObjects.back().get();
 }
 
 void CRIGameScene::UpdateObjects(float Dt)
@@ -231,11 +212,11 @@ Vec2i CRIGameScene::GetSize() const
 
 void CRIGameScene::EndGame(const int Score)
 {
-	SetPause(true);
-	CRIHighscore* const Highscore = new CRIHighscore(Score);
+    SetPause(true);
+    std::unique_ptr<CRIHighscore> Highscore = new CRIHighscore(Score);
     m_pApp->AddInputListener(*Highscore);
-	AddGUIObject(*Highscore);
-	Highscore->Load("scores.yaml");
+    AddGUIObject(std::move(Highscore));
+    Highscore->Load("scores.yaml");
 }
 
 void CRIGameScene::SetPause( const bool Val )

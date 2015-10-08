@@ -26,13 +26,10 @@ using ci::gl::Texture;
 CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
     CRIApp& App)
 : CRIGameObject(Size, StartPos)
-, m_pCrosshair( new CRICrosshair(SizeT(10.f, 10.f), PosT()) )
 , m_pWeaponA(new CRICrossbow())
 , m_pWeaponB(new CRIForcefieldEmitter(*this))
 , m_AutofireWeaponA(false)
 , m_AutofireWeaponB(false)
-, m_pHealthLabel( new CRITextObject(PosT(100.f, 50.f)) )
-, m_pScoreLabel( new CRITextObject(PosT(1100.f, 50.f)) )
 , m_Score(0)
 , m_pApp(&App)
 , m_ParalyzedCounter(0)
@@ -46,19 +43,6 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
 
     SetMaxHealth(Health);
     ForceSetHealthValue(Health);
-
-    m_pHealthLabel->SetFont(Font("Verdana", 32));
-    OnHealthModified(GetCurHealthValue(), 0);
-    m_pScoreLabel->SetFont(Font("Verdana", 32));
-    AddScore(0);
-}
-
-CRIPlayer::~CRIPlayer()
-{
-    delete m_pWeaponA;
-    m_pWeaponA = NULL;
-    delete m_pWeaponB;
-    m_pWeaponB = NULL;
 }
 
 void CRIPlayer::OnAddedToScene()
@@ -69,9 +53,14 @@ void CRIPlayer::OnAddedToScene()
     m_pWeaponA->SetScene(GetScene());
     m_pWeaponB->SetScene(GetScene());
 
-    GetScene().AddGUIObject(*m_pCrosshair);
-    GetScene().AddGUIObject(*m_pHealthLabel);
-    GetScene().AddGUIObject(*m_pScoreLabel);
+    m_pCrosshair = GetScene().AddGUIObject(std::unique_ptr<CRIGameObject>(new CRICrosshair(SizeT(10.f, 10.f), PosT())));
+    m_pHealthLabel = GetScene().AddGUIObject(std::unique_ptr<CRIGameObject>(new CRITextObject(PosT(100.f, 50.f))));
+    m_pScoreLabel = GetScene().AddGUIObject(std::unique_ptr<CRIGameObject>(new CRITextObject(PosT(1100.f, 50.f))));
+
+    m_pHealthLabel->SetFont(Font("Verdana", 32));
+    OnHealthModified(GetCurHealthValue(), 0);
+    m_pScoreLabel->SetFont(Font("Verdana", 32));
+    AddScore(0);
 }
 
 void CRIPlayer::SetSpeed( const float Speed )

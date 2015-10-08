@@ -3,6 +3,8 @@
 #include <cinder/Timer.h>
 #include <cinder/app/AppBasic.h>
 
+#include <memory>
+
 class CRIGameScene;
 class CRIInterfaceInput;
 
@@ -30,7 +32,7 @@ public:
 
     // Own functions
 
-    void SetScene(CRIGameScene* pScene);
+    void SetScene(std::unique_ptr<CRIGameScene> Scene);
     void AddInputListener(CRIInterfaceInput& Listener);
     void RemoveInputListener(CRIInterfaceInput& Listener);
 
@@ -42,7 +44,7 @@ private:
     CRIApp(const CRIApp&);
     CRIApp& operator=(const CRIApp&);
 
-    CRIGameScene* m_pScene;
+    std::unique_ptr<CRIGameScene> m_pScene;
 
     InputListenersContT m_InputListeners; // Non-owning
 

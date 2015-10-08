@@ -5,6 +5,7 @@
 #include "cri_obstacle.h"
 #include "cri_pickup_generator.h"
 
+#include <memory>
 #include <vector>
 #include <utility>
 
@@ -22,8 +23,8 @@ public:
     void Draw();
     void Update(float Dt);
 
-    void AddObject(CRIGameObject& Object);
-    void AddGUIObject(CRIGameObject& Object);
+    void AddObject(std::unique_ptr<CRIGameObject> Object);
+    CRIGameObject* AddGUIObject(std::unique_ptr<CRIGameObject> Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
     void DestroyObject(CRIGameObject& Obj);
@@ -52,7 +53,7 @@ private:
 
     void UpdateObjects(float Dt);
 
-    typedef std::vector<CRIGameObject*> ObjectsContT;
+    typedef std::vector<std::unique_ptr<CRIGameObject>> ObjectsContT;
     typedef ObjectsContT::iterator ObjectsItT;
 
     ObjectsContT m_Objects;

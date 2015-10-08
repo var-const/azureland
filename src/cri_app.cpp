@@ -27,6 +27,7 @@ CRIApp::CRIApp()
     SDL_WINDOWPOS_UNDEFINED, 1280, 1024, SDL_WINDOW_RESIZABLE}
 , renderer_{window_, -1, SDL_RENDERER_ACCELERATED}
 , fps_limit_{60}
+, image_loading_{IMG_INIT_PNG}
 {
     SDL_ShowCursor(SDL_DISABLE);
     m_Timer.start();

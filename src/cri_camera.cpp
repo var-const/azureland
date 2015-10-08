@@ -44,11 +44,11 @@ void CRICamera::Draw()
     using ::Draw;
     using namespace ci;
 
-    gl::pushModelView();
-    DrawBack();
-    gl::popModelView();
+    glPushMatrix();
+    DrawBack();ush
+    glPopMatrix();
 
-    gl::pushModelView();
+    glPushMatrix();
     gl::translate(m_CurTranslation);
 
     for (int TextureDescr = 0; TextureDescr != m_Textures.size(); ++TextureDescr)
@@ -64,7 +64,7 @@ void CRICamera::Draw()
         }
     }
 
-    gl::popModelView();
+    glPopMatrix();
 }
 
 void CRICamera::UpdateVisibility( const CRICollider& Collider )
@@ -186,7 +186,7 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
 {
     using namespace ci;
 
-    gl::pushModelView();
+    glPushMatrix();
 
     gl::translate(DrawData.GetCenterPos());
     //gl::drawStrokedRect( ToRect(DrawData.GetAABB()) );
@@ -215,7 +215,7 @@ void Draw( const CRIMovable& DrawData, const Texture& Tex ) // @Remove second pa
 
 	glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
 
-    gl::popModelView();
+    glPopMatrix();
 }
 
 Texture TextureFromAsset(const string& Id)

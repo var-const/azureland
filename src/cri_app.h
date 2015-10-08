@@ -7,6 +7,8 @@
 
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/SDL2pp.hh>
+#include <SDL2pp/SDLImage.hh>
+#include <SDL2pp/SDLTTF.hh>
 #include <SDL2pp/Window.hh>
 
 #include <vector>
@@ -58,6 +60,8 @@ private:
     SDL2pp::SDL library_;
     SDL2pp::Window window_;
     SDL2pp::Renderer renderer_;
+    SDL2pp::SDLImage image_loading_;
+    SDL2pp::SDLTTF ttf_;
 };
 
 Rectd get_window_bounds(const CRIApp& app)

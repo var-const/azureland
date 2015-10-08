@@ -14,8 +14,8 @@ void CRICrosshair::DoDraw()
 {
     using namespace ci::gl;
 
-    pushModelView();
+    glPushMatrix();
     translate(GetCenterPos() - m_Texture.getSize() / 2.f);
     draw(m_Texture);
-    popModelView();
+    glPopMatrix();
 }

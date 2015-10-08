@@ -12,15 +12,13 @@ getCleanBounds()
 getAreaTexCoords()
 
 #include <cinder/gl/gl.h>
-gl::pushModelView();
+gl::draw(Texture);
+
 gl::translate(Object.GetCenterPos());
 gl::rotate(Angle);
-gl::translate(-Texture.getSize() / 2.f);
-gl::draw(Texture);
-gl::popModelView();
-using ci::gl::drawStrokedCircle;
-using ci::gl::drawString;
-using ci::gl::color;
+
+using ci::gl::enableAlphaBlending;
+using ci::gl::SaveColorState;
 
 using ci::gl::drawSolidRect;
 extern DECLSPEC int SDLCALL SDL_RenderFillRect(SDL_Renderer * renderer,
@@ -28,24 +26,15 @@ extern DECLSPEC int SDLCALL SDL_RenderFillRect(SDL_Renderer * renderer,
 using ci::gl::drawStrokedRect;
 extern DECLSPEC int SDLCALL SDL_RenderDrawRect(SDL_Renderer * renderer,
                                                const SDL_Rect * rect);
-
-using ci::gl::enableAlphaBlending;
-using ci::gl::SaveColorState;
-
-glEnableClientState( GL_VERTEX_ARRAY );
-GLfloat verts[8];
-glVertexPointer( 2, GL_FLOAT, 0, verts );
-glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-GLfloat texCoords[8];
-glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
-glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
-glDisableClientState( GL_VERTEX_ARRAY );
+using ci::gl::drawStrokedCircle;
 
 #include <cinder/Color.h>
 // only used for ci::gl::drawString
 #include <cinder/Font.h>
 // font name, font size
 // only used for ci::gl::drawString
+using ci::gl::color;
+using ci::gl::drawString;
 
 // math (mostly vector and rect), window and input handling, fonts and colors,
 // rendering
@@ -74,5 +63,45 @@ using ci::app::getWindowBounds;
 
 listen to SDL's input events and translate
 
+gl::pushModelView(); -> glPushMatrix();
+gl::popModelView(); -> glPopMatrix();
+
+PROBABLY UNNECESSARY:
+
+glEnableClientState( GL_VERTEX_ARRAY );
+GLfloat verts[8];
+glVertexPointer( 2, GL_FLOAT, 0, verts );
+glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+GLfloat texCoords[8];
+glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
+glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
+glDisableClientState( GL_VERTEX_ARRAY );
+
 TODO:
 app basics
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+void pushModelView()
+{
+	auto ctx = context();
+	ctx->getModelMatrixStack().push_back( ctx->getModelMatrixStack().back() );
+	ctx->getViewMatrixStack().push_back( ctx->getViewMatrixStack().back() );
+}
+
+void popModelView()
+{
+	auto ctx = context();
+	ctx->getModelMatrixStack().pop_back();
+	ctx->getViewMatrixStack().pop_back();
+}

@@ -127,7 +127,7 @@ void Draw(const CRIGameObject& Object, const float Angle, const Texture& Texture
 {
     using namespace ci;
 
-    gl::pushModelView();
+    glPushMatrix();
 
     gl::translate(Object.GetCenterPos());
     gl::rotate(Angle);
@@ -167,5 +167,5 @@ void Draw(const CRIGameObject& Object, const float Angle, const Texture& Texture
     //    gl::draw(Object.m_Texture2);
     //}
 
-    gl::popModelView();
+    glPopMatrix();
 }

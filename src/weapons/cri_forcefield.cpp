@@ -5,6 +5,7 @@
 #include "cri_player.h"
 
 #include "math_vector.h"
+#include "draw_shapes.h"
 #include <cinder/gl/gl.h>
 
 
@@ -39,8 +40,7 @@ void CRIForcefield::LogicUpdate(const float Dt)
 
 void CRIForcefield::DoDraw()
 {
-    using ci::gl::drawStrokedCircle;
-    drawStrokedCircle(GetCenterPos(), GetSize().x / 2.f);
+    draw_circle(GetCenterPos(), GetSize().x / 2.f);
 }
 
 int CRIForcefield::GetDamage() const

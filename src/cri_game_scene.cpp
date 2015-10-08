@@ -41,10 +41,9 @@ void CRIGameScene::Draw()
 {
     m_Camera.Draw();
 
-    for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
-        ++GUIObj)
+    for (auto&& obj : m_GUIObjects)
     {
-        (*GUIObj)->Draw();
+        obj->Draw();
     }
 
     //m_Collider.Draw();
@@ -60,10 +59,9 @@ void CRIGameScene::Update(const float Dt)
         UpdateObjects(Dt);
     }
 
-    for (ObjectsItT GUIObj = m_GUIObjects.begin(); GUIObj != m_GUIObjects.end();
-        ++GUIObj)
+    for (auto&& obj : m_GUIObjects)
     {
-        (*GUIObj)->Update(Dt);
+        obj->Update(Dt);
     }
 
     m_Camera.UpdateVisibility(m_Collider);
@@ -86,8 +84,7 @@ void CRIGameScene::RemoveDeadObjects()
 {
     using std::find;
 
-    for (ObjectsItT Obj = m_DeadObjects.begin(); Obj != m_DeadObjects.end();
-        ++Obj)
+    for (auto Obj = m_DeadObjects.begin(); Obj != m_DeadObjects.end(); ++Obj)
     {
         // Search from the end, because most of our objects never die,
         // and those that do are all appended at end during the game
@@ -135,9 +132,9 @@ void CRIGameScene::UpdateObjects(float Dt)
 
         if (Collisions.m_Time > 0.f)
         {
-            for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+            for (auto&& obj : m_Objects)
             {
-                (*i)->Update(Collisions.m_Time);
+                obj->Update(Collisions.m_Time);
             }
             Dt -= Collisions.m_Time;
         }
@@ -155,15 +152,15 @@ void CRIGameScene::UpdateObjects(float Dt)
 
     if (Dt > 0.f)
     {
-        for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+        for (auto&& obj : m_Objects)
         {
-            (*i)->Update(Dt);
+            obj->Update(Dt);
         }
     }
 
-    for (ObjectsItT i = m_Objects.begin(); i != m_Objects.end(); ++i)
+    for (auto&& obj : m_Objects)
     {
-        (*i)->LogicUpdate(FrameDt);
+        obj->LogicUpdate(FrameDt);
     }
 } 
 

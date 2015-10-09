@@ -58,8 +58,6 @@ CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
 void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
     const float Time )
 {
-    using std::sort;
-
     m_Grid.Reinit(Begin, End, Time);
     m_ChecksEndIter = m_Checks.begin();
 
@@ -118,7 +116,8 @@ void CRICollider::NarrowPhase(const float Time)
     }
 
     m_CollisionsEndIter = remove_if(m_CollisionsBuffer.begin(),
-        m_CollisionsEndIter, CmpCollisionTime(m_CurMinTime));
+        m_CollisionsEndIter, [this] (const CRICollision& other)
+        { return other.m_Time > m_CurMinTime; });
 }
 
 void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
@@ -262,14 +261,3 @@ void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
 }
 
 #endif
-
-CRICollider::CmpCollisionTime::CmpCollisionTime( const float Time )
-: m_Time(Time)
-{
-}
-
-bool CRICollider::CmpCollisionTime::operator()( const CRICollision& Other )
-    const
-{
-    return Other.m_Time > m_Time;
-}

@@ -56,8 +56,6 @@ CRIHighscore::CRIHighscore( const int NewScore )
 
 void CRIHighscore::Load( const string& FileName )
 {
-    using std::sort;
-
     m_FileName = FileName;
     ReadFromFile();
 }

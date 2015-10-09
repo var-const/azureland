@@ -50,13 +50,6 @@ private:
     typedef ChecksContT::iterator ChecksIterT;
     typedef ChecksContT::const_iterator ChecksConstIterT;
 
-    struct CmpCollisionTime
-    {
-        explicit CmpCollisionTime(float Time);
-        bool operator()(const CRICollision& Other) const;
-        float m_Time;
-    };
-
     void BroadPhase(ObjIterT Begin, ObjIterT End, float Time);
 #ifdef PASS_BY_VALUE
     void AddChecks(CRIGameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);

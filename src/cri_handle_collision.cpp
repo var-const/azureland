@@ -17,7 +17,7 @@ T* GetObjByType( CRIGameObject& Base )
     {
         return dynamic_cast<T*>(&Base);
     }
-    return NULL;
+    return nullptr;
 }
 
 template <class T>

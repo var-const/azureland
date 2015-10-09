@@ -100,8 +100,8 @@ void CRICollider::NarrowPhase(const float Time)
 
     m_CollisionsEndIter = m_CollisionsBuffer.begin();
 
-    CRIGameObject* LastObjA = NULL;
-    CRIGameObject* LastObjB = NULL;
+    CRIGameObject* LastObjA = nullptr;
+    CRIGameObject* LastObjB = nullptr;
     for (auto i = m_Checks.begin(); i != m_ChecksEndIter; ++i)
     {
         if (LastObjA == i->first && LastObjB == i->second)

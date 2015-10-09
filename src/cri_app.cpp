@@ -24,7 +24,7 @@ void CRIApp::setup()
 {
     using std::srand; using std::time;
 
-    srand(time(NULL));
+    srand(time(nullptr));
     hideCursor();
     setFpsSampleInterval(1.f);
 

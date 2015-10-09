@@ -16,23 +16,25 @@
 #include <cassert>
 #include <cstddef>
 
-using ci::Rectf; using ci::Vec2f; using ci::Vec2i;
+using ci::Rectf;
+using ci::Vec2f;
+using ci::Vec2i;
 using std::pair;
 
 CRICollider::CRICollider(const int Width, const int Height)
-: m_Grid(Width, Height)
+  : m_Grid(Width, Height)
 {
 }
 
-void CRICollider::Reserve( const int Amount )
+void CRICollider::Reserve(const int Amount)
 {
     assert(Amount > 0);
     ResizeAtLeast(m_CollisionsBuffer, Amount * 2);
     ResizeAtLeast(m_Checks, Amount * 100);
 }
 
-CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
-    const ObjIterT End, const float Time )
+CRICollisionsInfo CRICollider::BuildCollisions(
+    const ObjIterT Begin, const ObjIterT End, const float Time)
 {
     using ci::Vec2i;
     using std::make_pair;
@@ -51,24 +53,21 @@ CRICollisionsInfo CRICollider::BuildCollisions( const ObjIterT Begin,
     OutputPerformanceMetrics(ObjectsC);
 #endif
 
-    return CRICollisionsInfo(m_CurMinTime, m_CollisionsBuffer.begin(),
-        m_CollisionsEndIter);
+    return CRICollisionsInfo(
+        m_CurMinTime, m_CollisionsBuffer.begin(), m_CollisionsEndIter);
 }
 
-void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
-    const float Time )
+void CRICollider::BroadPhase(
+    const ObjIterT Begin, const ObjIterT End, const float Time)
 {
     m_Grid.Reinit(Begin, End, Time);
     m_ChecksEndIter = m_Checks.begin();
 
-    for (std::size_t Row = 0U; Row != GridT::RowsC; ++Row)
-    {
-        for (std::size_t Col = 0U; Col != GridT::ColsC; ++Col)
-        {
+    for (std::size_t Row = 0U; Row != GridT::RowsC; ++Row) {
+        for (std::size_t Col = 0U; Col != GridT::ColsC; ++Col) {
             const auto& Objects = m_Grid.m_Cells[Row][Col];
             const auto ObjEnd = Objects.end();
-            for (auto ObjIter = Objects.begin(); ObjIter != ObjEnd; ++ObjIter)
-            {
+            for (auto ObjIter = Objects.begin(); ObjIter != ObjEnd; ++ObjIter) {
                 AddChecks(*ObjIter, ObjIter + 1, ObjEnd);
             }
         }
@@ -79,16 +78,15 @@ void CRICollider::BroadPhase( const ObjIterT Begin, const ObjIterT End,
 void CRICollider::AddChecks(CRIGameObject* const Obj, const ObjConstIterT Begin,
     const ObjConstIterT End)
 #else
-void CRICollider::AddChecks(CRIGameObject* const Obj, ObjConstIterT const& Begin,
-    ObjConstIterT const& End)
+void CRICollider::AddChecks(CRIGameObject* const Obj,
+    ObjConstIterT const& Begin, ObjConstIterT const& End)
 #endif
 {
     using std::make_pair;
 
-    for (auto Iter = Begin; Iter != End; ++Iter)
-    {
-        *m_ChecksEndIter++ = Obj < *Iter ? make_pair(Obj, *Iter) :
-            make_pair(*Iter, Obj);
+    for (auto Iter = Begin; Iter != End; ++Iter) {
+        *m_ChecksEndIter++ =
+            Obj < *Iter ? make_pair(Obj, *Iter) : make_pair(*Iter, Obj);
     }
 }
 
@@ -100,10 +98,8 @@ void CRICollider::NarrowPhase(const float Time)
 
     CRIGameObject* LastObjA = nullptr;
     CRIGameObject* LastObjB = nullptr;
-    for (auto i = m_Checks.begin(); i != m_ChecksEndIter; ++i)
-    {
-        if (LastObjA == i->first && LastObjB == i->second)
-        {
+    for (auto i = m_Checks.begin(); i != m_ChecksEndIter; ++i) {
+        if (LastObjA == i->first && LastObjB == i->second) {
 #ifdef PERFORMANCE_METRICS
             ++m_Duplicates;
 #endif
@@ -116,15 +112,15 @@ void CRICollider::NarrowPhase(const float Time)
     }
 
     m_CollisionsEndIter = remove_if(m_CollisionsBuffer.begin(),
-        m_CollisionsEndIter, [this] (const CRICollision& other)
-        { return other.m_Time > m_CurMinTime; });
+        m_CollisionsEndIter, [this](const CRICollision& other) {
+            return other.m_Time > m_CurMinTime;
+        });
 }
 
-void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
-    const float Time )
+void CRICollider::TryAddCollision(
+    CRIGameObject& Lhs, CRIGameObject& Rhs, const float Time)
 {
-    if ( !Intersect(Lhs.GetMovementAABB(), Rhs.GetMovementAABB()) )
-    {
+    if (!Intersect(Lhs.GetMovementAABB(), Rhs.GetMovementAABB())) {
 #ifdef PERFORMANCE_METRICS
         ++m_SimpleChecks;
 #endif
@@ -139,8 +135,7 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 #endif
 
     const float CollisionTime = GetCollisionTime(Lhs, Rhs, Time);
-    if (CollisionTime < 0.f || CollisionTime > Time)
-    {
+    if (CollisionTime < 0.f || CollisionTime > Time) {
         return;
     }
 
@@ -149,28 +144,26 @@ void CRICollider::TryAddCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
 #endif
 
     // @FIXME hack
-    if ( IsFpointEq(CollisionTime, 0.f) &&
-        TouchOnly(Lhs.GetAABB(), Rhs.GetAABB()) )
-    {
+    if (IsFpointEq(CollisionTime, 0.f) &&
+        TouchOnly(Lhs.GetAABB(), Rhs.GetAABB())) {
         return;
     }
-    if (CollisionTime <= m_CurMinTime)
-    {
+    if (CollisionTime <= m_CurMinTime) {
         m_CurMinTime = CollisionTime;
         *m_CollisionsEndIter++ = CreateCollision(Lhs, Rhs, CollisionTime);
     }
 }
 
-pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
-    const Vec2i ColLimits ) const
+pair<bool, Rectf> CRICollider::GetEmptyCell(
+    const Vec2i RowLimits, const Vec2i ColLimits) const
 {
     using ci::math;
-    using std::make_pair; using std::swap;
+    using std::make_pair;
+    using std::swap;
 
     int RowBegin = RowLimits.x >= 0 ? RowLimits.x : GridT::RowsC + RowLimits.x;
     int RowEnd = RowLimits.y >= 0 ? RowLimits.y : GridT::RowsC + RowLimits.y;
-    if (RowBegin > RowEnd)
-    {
+    if (RowBegin > RowEnd) {
         swap(RowBegin, RowEnd);
     }
     RowBegin = math<int>::clamp(RowBegin, 0, GridT::RowsC);
@@ -178,19 +171,15 @@ pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
 
     int ColBegin = ColLimits.x >= 0 ? ColLimits.x : GridT::ColsC + ColLimits.x;
     int ColEnd = ColLimits.y >= 0 ? ColLimits.y : GridT::ColsC + ColLimits.y;
-    if (ColBegin > ColEnd)
-    {
+    if (ColBegin > ColEnd) {
         swap(ColBegin, ColEnd);
     }
     ColBegin = math<int>::clamp(ColBegin, 0, GridT::ColsC);
     ColEnd = math<int>::clamp(ColEnd, 0, GridT::ColsC);
 
-    for (int Row = RowBegin; Row != RowEnd; ++Row)
-    {
-        for (int Col = ColBegin; Col != ColEnd; ++Col)
-        {
-            if (m_Grid.m_Cells[Row][Col].empty())
-            {
+    for (int Row = RowBegin; Row != RowEnd; ++Row) {
+        for (int Col = ColBegin; Col != ColEnd; ++Col) {
+            if (m_Grid.m_Cells[Row][Col].empty()) {
                 return make_pair(true, m_Grid.GetCellRect(Row, Col));
             }
         }
@@ -201,20 +190,18 @@ pair<bool, Rectf > CRICollider::GetEmptyCell( const Vec2i RowLimits,
     return make_pair(false, Rectf());
 }
 
-CRICollider::ObjIterT CRICollider::CopyColliding( const Vec2i LeftUpper,
-    const Vec2i RightLower, ObjIterT OutputIter ) const
+CRICollider::ObjIterT CRICollider::CopyColliding(
+    const Vec2i LeftUpper, const Vec2i RightLower, ObjIterT OutputIter) const
 {
     using ci::Vec2i;
-    using std::max; using std::min;
+    using std::max;
+    using std::min;
 
     const Vec2i Begin = LeftUpper / m_Grid.GetCellSize();
     const Vec2i End = RightLower / m_Grid.GetCellSize();
-    for (int Row = max(Begin.y, 0); Row < min(GridT::RowsC, End.y + 1);
-        ++Row)
-    {
+    for (int Row = max(Begin.y, 0); Row < min(GridT::RowsC, End.y + 1); ++Row) {
         for (int Col = max(Begin.x, 0); Col < min(GridT::ColsC, End.x + 1);
-            ++Col)
-        {
+             ++Col) {
             const ObjContT& Objects = m_Grid.m_Cells[Row][Col];
             OutputIter = copy(Objects.begin(), Objects.end(), OutputIter);
         }
@@ -228,34 +215,33 @@ CRICollider::ObjIterT CRICollider::CopyColliding( const Vec2i LeftUpper,
 void CRICollider::OutputPerformanceMetrics(const int ObjectsC)
 {
     const volatile float BetterThanBruteForce =
-        static_cast<float>(ObjectsC * ObjectsC) /
-        static_cast<float>(m_ChecksC);
+        static_cast<float>(ObjectsC * ObjectsC) / static_cast<float>(m_ChecksC);
     m_PerformanceLog << "Better than brute force: ";
-    m_PerformanceLog << ObjectsC * ObjectsC << " / " << m_ChecksC << " = " <<
-        BetterThanBruteForce << "\n";
+    m_PerformanceLog << ObjectsC * ObjectsC << " / " << m_ChecksC << " = "
+                     << BetterThanBruteForce << "\n";
 
     const volatile float LessThanPerfect =
         static_cast<float>(m_ChecksC) / static_cast<float>(m_CollisionsC);
     m_PerformanceLog << "Less than perfect: ";
-    m_PerformanceLog << m_ChecksC << " / " << m_CollisionsC << " = " <<
-        LessThanPerfect << "\n";
+    m_PerformanceLog << m_ChecksC << " / " << m_CollisionsC << " = "
+                     << LessThanPerfect << "\n";
 
-    const volatile int ChecksSize = std::distance(m_Checks.begin(),
-        m_ChecksEndIter);
+    const volatile int ChecksSize =
+        std::distance(m_Checks.begin(), m_ChecksEndIter);
     m_PerformanceLog << "Checks size: " << ChecksSize << "\n";
 
     const volatile float DuplicatesPercent =
         static_cast<float>(m_Duplicates) / static_cast<float>(ChecksSize);
     m_PerformanceLog << "Duplicates percent: ";
-    m_PerformanceLog << m_Duplicates << " / " << ChecksSize << " = " <<
-        DuplicatesPercent << "\n";
+    m_PerformanceLog << m_Duplicates << " / " << ChecksSize << " = "
+                     << DuplicatesPercent << "\n";
 
     const volatile float SimpleChecksPercent =
         static_cast<float>(m_SimpleChecks) /
         static_cast<float>(m_SimpleChecks + m_ChecksC);
     m_PerformanceLog << "Simple checks percent: ";
-    m_PerformanceLog << m_SimpleChecks << " / " << m_SimpleChecks + m_ChecksC <<
-        " = " << SimpleChecksPercent << "\n";
+    m_PerformanceLog << m_SimpleChecks << " / " << m_SimpleChecks + m_ChecksC
+                     << " = " << SimpleChecksPercent << "\n";
 
     m_PerformanceLog << "\n\n\n";
 }

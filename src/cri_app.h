@@ -8,9 +8,8 @@
 class CRIGameScene;
 class CRIInterfaceInput;
 
-class CRIApp : public ci::app::AppBasic
-{
-public:
+class CRIApp : public ci::app::AppBasic {
+  public:
     void prepareSettings(Settings* settings) override;
     void setup() override;
 
@@ -29,7 +28,7 @@ public:
     void AddInputListener(CRIInterfaceInput& Listener);
     void RemoveInputListener(CRIInterfaceInput& Listener);
 
-private:
+  private:
     typedef std::vector<CRIInterfaceInput*> InputListenersContT;
 
     // No need

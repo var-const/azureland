@@ -1,8 +1,7 @@
 #pragma once
 
-class CRIHealthMixin
-{
-public:
+class CRIHealthMixin {
+  public:
     virtual ~CRIHealthMixin() {}
 
     void SetMaxHealth(int Max);
@@ -12,7 +11,7 @@ public:
     int GetCurHealthValue() const;
     int GetMaxHealthValue() const;
 
-private:
+  private:
     virtual void OnHealthDepleted() = 0;
     virtual void OnHealthModified(int NewVal, int Modifier);
 

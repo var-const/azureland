@@ -3,7 +3,9 @@
 #include <memory>
 #include <vector>
 
-namespace cinder { template <typename T> class Vec2; }
+namespace cinder {
+template <typename T> class Vec2;
+}
 
 class CRIApp;
 class CRIGameScene;

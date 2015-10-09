@@ -20,44 +20,39 @@ const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
 const int SleepAfterLosingTrail = 15;
 
-CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
-: CRIGameObject(Size, StartPos)
-, m_pPlayer(&Player)
+CRIEnemy::CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
+  : CRIGameObject(Size, StartPos)
+  , m_pPlayer(&Player)
 {
-    SetMaxHealth(30); // @FIXME hardcoded
+    SetMaxHealth(30);        // @FIXME hardcoded
     ForceSetHealthValue(30); // @FIXME hardcoded
     m_Reload.SetReloadTime(800);
 }
 
 void CRIEnemy::LogicUpdate(const float Dt)
 {
-    if (m_IsParalyzed)
-    {
+    if (m_IsParalyzed) {
         m_IsParalyzed = m_ParalyzedTimer.IsExpired();
         return;
     }
 
     UpdateAngle();
 
-    if (m_Sleep)
-    {
+    if (m_Sleep) {
         --m_Sleep;
         return;
     }
 
-    if (m_NeedRespawn)
-    {
+    if (m_NeedRespawn) {
         TryRespawn();
     }
 
-    if (m_CheckBlocked)
-    {
+    if (m_CheckBlocked) {
         m_CheckBlocked = false;
         CheckBlocked();
         return;
     }
-    if (m_Blocked)
-    {
+    if (m_Blocked) {
         CheckBlocked();
         return;
     }
@@ -67,14 +62,12 @@ void CRIEnemy::LogicUpdate(const float Dt)
     BoxT player_box = m_pPlayer->GetAABB();
     player_box.m_HalfSize.x += 15.f;
     player_box.m_HalfSize.y += 15.f;
-    if (TouchOrIntersect(GetAABB(), player_box))
-    {
+    if (TouchOrIntersect(GetAABB(), player_box)) {
         OnCaughtPlayer();
         return;
     }
     PosT Direction = m_pPlayer->GetCenterPos() - GetCenterPos();
-    if (Direction.length() > m_MaxPursuitRange)
-    {
+    if (Direction.length() > m_MaxPursuitRange) {
         m_Sleep = SleepAfterLosingTrail;
         return;
     }
@@ -87,24 +80,22 @@ void CRIEnemy::OnCaughtPlayer()
     SetVelocity(VelT());
 
     // @TODO: refactor out as weapon
-    if (m_Reload.IsReady())
-    {
+    if (m_Reload.IsReady()) {
         m_pPlayer->ModifyHealth(-20); // @FIXME hard coded
         m_Reload.OnShot();
     }
 }
 
-void CRIEnemy::OnCollisionWithEnemy( const CRIEnemy& Rhs )
+void CRIEnemy::OnCollisionWithEnemy(const CRIEnemy& Rhs)
 {
     using std::find;
 
     const float MyDistance = m_pPlayer->GetCenterPos().distance(GetCenterPos());
-    const float OtherDistance = m_pPlayer->GetCenterPos().distance(
-        Rhs.GetCenterPos());
-    if (MyDistance > OtherDistance)
-    {
-        if (find(m_Blockers.begin(), m_Blockers.end(), &Rhs) == m_Blockers.end())
-        {
+    const float OtherDistance =
+        m_pPlayer->GetCenterPos().distance(Rhs.GetCenterPos());
+    if (MyDistance > OtherDistance) {
+        if (find(m_Blockers.begin(), m_Blockers.end(), &Rhs) ==
+            m_Blockers.end()) {
             m_Blockers.push_back(&Rhs);
         }
         m_CheckBlocked = true;
@@ -113,22 +104,20 @@ void CRIEnemy::OnCollisionWithEnemy( const CRIEnemy& Rhs )
 
 void CRIEnemy::CheckBlocked()
 {
-    using ci::Vec2f; using ci::Vec2i;
+    using ci::Vec2f;
+    using ci::Vec2i;
     using std::abs;
 
     bool Blocked = false;
-    for (auto i = m_Blockers.begin(); i != m_Blockers.end(); /*omitted*/)
-    {
-        if (!Intersect(GetMovementAABB(), (*i)->GetMovementAABB()))
-        {
+    for (auto i = m_Blockers.begin(); i != m_Blockers.end(); /*omitted*/) {
+        if (!Intersect(GetMovementAABB(), (*i)->GetMovementAABB())) {
             i = m_Blockers.erase(i);
             continue;
         }
 
         Vec2f MyDistance = m_pPlayer->GetCenterPos() - GetCenterPos();
         Vec2f OtherDistance = m_pPlayer->GetCenterPos() - (*i)->GetCenterPos();
-        if (MyDistance.length() < OtherDistance.length())
-        {
+        if (MyDistance.length() < OtherDistance.length()) {
             ++i;
             continue;
         }
@@ -145,25 +134,20 @@ void CRIEnemy::CheckBlocked()
 
         const bool BlockedX = Normal.x != 0 && Diff.x > Diff.y;
         const bool BlockedY = Normal.y != 0 && Diff.y > Diff.x;
-        if (BlockedX || BlockedY)
-        {
-            if (!m_Blocked)
-            {
+        if (BlockedX || BlockedY) {
+            if (!m_Blocked) {
                 m_Blocked = true;
-                if (Diff.x > Diff.y)
-                {
+                if (Diff.x > Diff.y) {
                     NewVelocity.x = 0.f;
                     NewVelocity.y = NewVelocity.y > 0.f ? m_Speed : -m_Speed;
                 }
-                else
-                {
+                else {
                     NewVelocity.y = 0.f;
                     NewVelocity.x = NewVelocity.x > 0.f ? m_Speed : -m_Speed;
                 }
             }
         }
-        else if (m_Blocked)
-        {
+        else if (m_Blocked) {
             NewVelocity = NewVelocity * -1.f;
         }
 
@@ -172,12 +156,10 @@ void CRIEnemy::CheckBlocked()
         ++i;
     }
 
-    if (m_Blocked && !Blocked)
-    {
+    if (m_Blocked && !Blocked) {
         m_Blocked = false;
     }
-    else
-    {
+    else {
         m_Sleep = SleepAfterBlocking;
     }
 }
@@ -194,25 +176,24 @@ void CRIEnemy::OnHealthDepleted()
 
 void CRIEnemy::TryRespawn()
 {
-    using ci::randBool; using ci::Rectf; using ci::Vec2i;
+    using ci::randBool;
+    using ci::Rectf;
+    using ci::Vec2i;
     using std::pair;
 
     const CRICollider& Collider = GetScene().GetCollider();
     Vec2i Rows, Cols;
-    if (randBool())
-    {
+    if (randBool()) {
         Rows = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
         Cols = Vec2i(0, 1000);
     }
-    else
-    {
+    else {
         Cols = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
         Rows = Vec2i(0, 1000);
     }
 
     const pair<bool, Rectf> EmptyCell = Collider.GetEmptyCell(Rows, Cols);
-    if (EmptyCell.first)
-    {
+    if (EmptyCell.first) {
         const Rectf& Cell = EmptyCell.second;
         assert(Cell.getWidth() > GetSize().x && Cell.getHeight() > GetSize().y);
         Respawn(Cell.getCenter());
@@ -222,7 +203,7 @@ void CRIEnemy::TryRespawn()
     m_Sleep = SleepAfterRespawnAttempt;
 }
 
-void CRIEnemy::Respawn( const PosT Pos )
+void CRIEnemy::Respawn(const PosT Pos)
 {
     GetScene().OnEnemyRespawn(GetCenterPos());
 
@@ -232,23 +213,20 @@ void CRIEnemy::Respawn( const PosT Pos )
 
     SetCenterPos(Pos);
 
-    SetMaxHealth(20); // @FIXME hardcoded
+    SetMaxHealth(20);        // @FIXME hardcoded
     ForceSetHealthValue(20); // @FIXME hardcoded
 }
 
-void CRIEnemy::SetParalyzed( const int Milliseconds )
+void CRIEnemy::SetParalyzed(const int Milliseconds)
 {
     SetVelocity(VelT());
     m_IsParalyzed = true;
     m_ParalyzedTimer.SetExpiresFromNow(static_cast<int>(Milliseconds) / 1000.0);
 }
 
-bool CRIEnemy::IsParalyzed() const
-{
-    return m_IsParalyzed;
-}
+bool CRIEnemy::IsParalyzed() const { return m_IsParalyzed; }
 
-void CRIEnemy::SetSpeed( const int Speed )
+void CRIEnemy::SetSpeed(const int Speed)
 {
     assert(Speed >= 0);
     m_Speed = Speed;
@@ -256,11 +234,12 @@ void CRIEnemy::SetSpeed( const int Speed )
 
 void CRIEnemy::UpdateAngle()
 {
-    using ci::Vec2f; using ci::math;
+    using ci::Vec2f;
+    using ci::math;
 
     Vec2f Dir = m_pPlayer->GetCenterPos() - GetCenterPos();
     Dir.safeNormalize();
-    const float Angle = math<float>::atan2(0.f, -1.f) -
-        math<float>::atan2(Dir.x, Dir.y);
+    const float Angle =
+        math<float>::atan2(0.f, -1.f) - math<float>::atan2(Dir.x, Dir.y);
     SetAngle(Angle * 180.f / M_PI);
 }

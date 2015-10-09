@@ -10,24 +10,18 @@
 #include <map>
 #include <string>
 
-class CRIHighscore : public CRIGameObject, public CRIInterfaceInput
-{
-public:
+class CRIHighscore : public CRIGameObject, public CRIInterfaceInput {
+  public:
     explicit CRIHighscore(int NewScore);
 
     void Load(const std::string& FileName);
 
     void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event) override;
 
-private:
-    typedef std::multimap<int, std::string, std::greater<int> > ScoresContT;
+  private:
+    typedef std::multimap<int, std::string, std::greater<int>> ScoresContT;
 
-    enum class States
-    {
-	Death,
-	Prompt,
-	Display
-    };
+    enum class States { Death, Prompt, Display };
 
     void DoDraw() override;
 

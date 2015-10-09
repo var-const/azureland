@@ -10,39 +10,33 @@
 
 namespace {
 
-template <class T>
-T* GetObjByType( CRIGameObject& Base )
+template <class T> T* GetObjByType(CRIGameObject& Base)
 {
-    if (typeid(Base) == typeid(T))
-    {
+    if (typeid(Base) == typeid(T)) {
         return dynamic_cast<T*>(&Base);
     }
     return nullptr;
 }
 
-template <class T>
-T* GetObjByType( CRIGameObject& Lhs, CRIGameObject& Rhs )
+template <class T> T* GetObjByType(CRIGameObject& Lhs, CRIGameObject& Rhs)
 {
     T* Result = GetObjByType<T>(Lhs);
-    if (!Result)
-    {
+    if (!Result) {
         Result = GetObjByType<T>(Rhs);
     }
     return Result;
 }
 
 template <class T, class U>
-bool TryProcessCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
+bool TryProcessCollision(CRIGameObject& Lhs, CRIGameObject& Rhs)
 {
     T* pT = GetObjByType<T>(Lhs, Rhs);
-    if (!pT)
-    {
+    if (!pT) {
         return false;
     }
-    U* pU = GetObjByType<U>(static_cast<CRIGameObject*>(pT) ==
-        &Lhs ? Rhs : Lhs);
-    if (!pU)
-    {
+    U* pU =
+        GetObjByType<U>(static_cast<CRIGameObject*>(pT) == &Lhs ? Rhs : Lhs);
+    if (!pU) {
         return false;
     }
 
@@ -53,42 +47,33 @@ bool TryProcessCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
 
 // Double dispatch using typeids. Not elegant, but easy to implement
 
-void HandleCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
+void HandleCollision(CRIGameObject& Lhs, CRIGameObject& Rhs)
 {
-    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIObstacle>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIEnemy, CRIObstacle>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIPlayer, CRIObstacle>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIPlayer, CRIObstacle>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIProjectile>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIEnemy, CRIProjectile>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIForcefield>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIEnemy, CRIForcefield>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIObstacle, CRIProjectile>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIObstacle, CRIProjectile>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIPlayer, CRIHealthPickup>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIPlayer, CRIHealthPickup>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIHealthPickup>(Lhs, Rhs))
-    {
+    if (TryProcessCollision<CRIEnemy, CRIHealthPickup>(Lhs, Rhs)) {
         return;
     }
 }

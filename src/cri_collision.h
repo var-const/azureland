@@ -8,19 +8,18 @@
 
 class CRIGameObject;
 
-struct CRICollision
-{
+struct CRICollision {
     CRIGameObject* m_pObjA{};
     CRIGameObject* m_pObjB{};
     float m_Time{};
 };
 
-struct CRICollisionsInfo
-{
+struct CRICollisionsInfo {
 #ifdef PASS_BY_VALUE
     CRICollisionsInfo(float Time, CollisionsIterT Begin, CollisionsIterT End);
 #else
-    CRICollisionsInfo(float Time, CollisionsIterT const& Begin, CollisionsIterT const& End);
+    CRICollisionsInfo(
+        float Time, CollisionsIterT const& Begin, CollisionsIterT const& End);
 #endif
     bool IsEmpty() const;
     int GetSize() const;

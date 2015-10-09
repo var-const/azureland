@@ -15,15 +15,16 @@
 #include <utility>
 #include <vector>
 
-namespace cinder { template <typename T> class RectT;
-    template <typename T> class Vec2; }
+namespace cinder {
+template <typename T> class RectT;
+template <typename T> class Vec2;
+}
 
 class CRIGameObject;
 struct CRICollisionsInfo;
 
-class CRICollider
-{
-public:
+class CRICollider {
+  public:
     typedef std::vector<CRIGameObject*> ObjContT;
     typedef ObjContT::iterator ObjIterT;
     typedef ObjContT::const_iterator ObjConstIterT;
@@ -36,14 +37,13 @@ public:
     // be overkill
     CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
 
-
     ObjIterT CopyColliding(cinder::Vec2<int> LeftUpper,
         cinder::Vec2<int> RightLower, ObjIterT OutputIter) const;
 
-    std::pair<bool, cinder::RectT<float> > GetEmptyCell(cinder::Vec2<int>
-        RowLimits, cinder::Vec2<int> ColLimits) const;
+    std::pair<bool, cinder::RectT<float>> GetEmptyCell(
+        cinder::Vec2<int> RowLimits, cinder::Vec2<int> ColLimits) const;
 
-private:
+  private:
     typedef CRISpatialGrid<30, 30> GridT;
     typedef std::pair<CRIGameObject*, CRIGameObject*> CheckT;
     typedef std::vector<CheckT> ChecksContT;
@@ -54,7 +54,8 @@ private:
 #ifdef PASS_BY_VALUE
     void AddChecks(CRIGameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);
 #else
-    void AddChecks(CRIGameObject* Obj, ObjConstIterT const& Begin, ObjConstIterT const& End);
+    void AddChecks(CRIGameObject* Obj, ObjConstIterT const& Begin,
+        ObjConstIterT const& End);
 #endif
     void NarrowPhase(float Time);
     void TryAddCollision(CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);

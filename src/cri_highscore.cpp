@@ -17,26 +17,22 @@
 using ci::app::KeyEvent;
 using std::string;
 
-namespace
-{
+namespace {
 
 bool IsChar(const KeyEvent& Event)
 {
     const int Code = Event.getCode();
-    if (Code >= 32 && Code <= 64)
-    {
+    if (Code >= 32 && Code <= 64) {
         return true;
     }
-    if (Code >= 91 && Code <= 122)
-    {
+    if (Code >= 91 && Code <= 122) {
         return true;
     }
 
     return false;
 }
 
-template <typename T>
-string ToString(const T& Val)
+template <typename T> string ToString(const T& Val)
 {
     using std::stringstream;
 
@@ -48,13 +44,13 @@ string ToString(const T& Val)
 
 } // unnamed
 
-CRIHighscore::CRIHighscore( const int NewScore )
-: CRIGameObject(PosT(), SizeT())
-, m_NewScore(NewScore)
+CRIHighscore::CRIHighscore(const int NewScore)
+  : CRIGameObject(PosT(), SizeT())
+  , m_NewScore(NewScore)
 {
 }
 
-void CRIHighscore::Load( const string& FileName )
+void CRIHighscore::Load(const string& FileName)
 {
     m_FileName = FileName;
     ReadFromFile();
@@ -64,64 +60,53 @@ void CRIHighscore::ReadFromFile()
 {
     using ci::app::console;
     using std::exception;
-    using std::endl; using std::make_pair;
+    using std::endl;
+    using std::make_pair;
 
-    try
-    {
+    try {
         const YAML::Node Scores = YAML::LoadFile(m_FileName);
-        if (Scores && Scores.IsSequence())
-        {
-            for (auto&& s : Scores)
-            {
+        if (Scores && Scores.IsSequence()) {
+            for (auto&& s : Scores) {
                 const int Score = s["score"].as<int>(0);
                 const string& Name = s["name"].as<string>("");
                 m_Scores.insert(make_pair(Score, Name));
             }
         }
     }
-    catch (exception& E)
-    {
+    catch (exception& E) {
         console() << E.what() << endl;
     }
 }
 
-void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
+void CRIHighscore::OnKeyDown(const int KeyCode, const KeyEvent Event)
 {
-    if (m_State == States::Display)
-    {
+    if (m_State == States::Display) {
         return;
     }
 
-    if (m_State == States::Death)
-    {
-        if (KeyCode != KeyEvent::KEY_RETURN)
-        {
+    if (m_State == States::Death) {
+        if (KeyCode != KeyEvent::KEY_RETURN) {
             return;
         }
 
         if (m_Scores.size() < m_MaxEntries ||
-            m_Scores.rbegin()->first < m_NewScore)
-        {
+            m_Scores.rbegin()->first < m_NewScore) {
             PromptForName();
         }
-        else
-        {
+        else {
             DisplayScores();
         }
         return;
     }
 
-    if (KeyCode == KeyEvent::KEY_RETURN && !m_CurName.empty())
-    {
+    if (KeyCode == KeyEvent::KEY_RETURN && !m_CurName.empty()) {
         AddScore();
         DisplayScores();
     }
-    else if (KeyCode == KeyEvent::KEY_BACKSPACE && !m_CurName.empty())
-    {
+    else if (KeyCode == KeyEvent::KEY_BACKSPACE && !m_CurName.empty()) {
         m_CurName.resize(m_CurName.size() - 1);
     }
-    else if (IsChar(Event) && m_CurName.size() < m_MaxNameLength)
-    {
+    else if (IsChar(Event) && m_CurName.size() < m_MaxNameLength) {
         m_CurName += Event.getChar();
     }
 }
@@ -130,8 +115,11 @@ void CRIHighscore::DoDraw()
 {
     using ci::Vec2f;
     using ci::app::getWindowBounds;
-    using ci::gl::color; using ci::gl::drawSolidRect; using ci::gl::drawString;
-    using ci::gl::enableAlphaBlending; using ci::gl::SaveColorState;
+    using ci::gl::color;
+    using ci::gl::drawSolidRect;
+    using ci::gl::drawString;
+    using ci::gl::enableAlphaBlending;
+    using ci::gl::SaveColorState;
 
     {
         SaveColorState S;
@@ -140,30 +128,26 @@ void CRIHighscore::DoDraw()
         drawSolidRect(getWindowBounds());
     }
 
-    if (m_State == States::Death)
-    {
-        drawString("The inevitable happened", Vec2f(400.f, 400.f), m_Color,
-            m_Font);
+    if (m_State == States::Death) {
+        drawString(
+            "The inevitable happened", Vec2f(400.f, 400.f), m_Color, m_Font);
     }
 
-    if (m_State == States::Prompt)
-    {
-        drawString("Your sacrifice is timeless", Vec2f(380.f, 350.f), m_Color, m_Font);
+    if (m_State == States::Prompt) {
+        drawString(
+            "Your sacrifice is timeless", Vec2f(380.f, 350.f), m_Color, m_Font);
         drawString("Enter your name:", Vec2f(450.f, 450.f), m_Color, m_Font);
         drawString(m_CurName, Vec2f(450.f, 550.f), m_Color, m_Font);
     }
 
-    if (m_State == States::Display)
-    {
+    if (m_State == States::Display) {
         drawString("Here, obedient to Spartan law, we lie:",
             Vec2f(300.f, 100.f), m_Color, m_Font);
 
         Vec2f CurOffset = Vec2f(200.f, 200.f);
         int Counter = 1;
-        for (auto&& score : m_Scores)
-        {
-            if (Counter == m_MaxEntries + 1)
-            {
+        for (auto&& score : m_Scores) {
+            if (Counter == m_MaxEntries + 1) {
                 break;
             }
 
@@ -180,7 +164,8 @@ void CRIHighscore::DoDraw()
 
 void CRIHighscore::AddScore()
 {
-    using std::make_pair; using std::ofstream;
+    using std::make_pair;
+    using std::ofstream;
 
     assert(Validate());
 
@@ -188,11 +173,9 @@ void CRIHighscore::AddScore()
     assert(m_Scores.size() <= m_MaxEntries);
 
     ofstream Output = ofstream(m_FileName);
-    if (Output)
-    {
+    if (Output) {
         YAML::Node Text;
-        for (auto&& score : m_Scores)
-        {
+        for (auto&& score : m_Scores) {
             YAML::Node Entry;
             Entry["score"] = score.first;
             Entry["name"] = score.second;
@@ -203,17 +186,11 @@ void CRIHighscore::AddScore()
     }
 }
 
-void CRIHighscore::DisplayScores()
-{
-    m_State = States::Display;
-}
+void CRIHighscore::DisplayScores() { m_State = States::Display; }
 
 bool CRIHighscore::Validate()
 {
     return !m_CurName.empty() && m_CurName.length() < m_MaxNameLength;
 }
 
-void CRIHighscore::PromptForName()
-{
-    m_State = States::Prompt;
-}
+void CRIHighscore::PromptForName() { m_State = States::Prompt; }

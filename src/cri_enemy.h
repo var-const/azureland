@@ -11,9 +11,8 @@
 
 class CRIPlayer;
 
-class CRIEnemy : public CRIGameObject, public CRIHealthMixin
-{
-public:
+class CRIEnemy : public CRIGameObject, public CRIHealthMixin {
+  public:
     CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
 
     void SetSpeed(int Speed);
@@ -26,7 +25,7 @@ public:
     void UnsetParalyzed();
     bool IsParalyzed() const;
 
-private:
+  private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
 
     void UpdateAngle();

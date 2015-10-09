@@ -3,8 +3,7 @@
 #include <cinder/Rect.h>
 #include <cinder/Vector.h>
 
-struct CRI_AABB
-{
+struct CRI_AABB {
     typedef ci::Vec2f VecT;
 
     CRI_AABB() = default;
@@ -43,12 +42,14 @@ bool TouchOnly(CRI_AABB const& A, CRI_AABB const& B);
 
 CRI_AABB::VecT IntersectionDepth(CRI_AABB const& A, CRI_AABB const& B);
 CRI_AABB::VecT IntersectionNormal(CRI_AABB const& A, CRI_AABB const& B);
-CRI_AABB::VecT IntersectionNormal(CRI_AABB const& A, CRI_AABB const& B, CRI_AABB::VecT const& depth);
+CRI_AABB::VecT IntersectionNormal(
+    CRI_AABB const& A, CRI_AABB const& B, CRI_AABB::VecT const& depth);
 
 bool AContainsB(CRI_AABB const& A, CRI_AABB const& B);
 
 ci::Rectf ToRect(CRI_AABB const& Box);
-void SetAABB(CRI_AABB& Box, CRI_AABB::VecT const& Center, CRI_AABB::VecT const& HalfSize);
+void SetAABB(CRI_AABB& Box, CRI_AABB::VecT const& Center,
+    CRI_AABB::VecT const& HalfSize);
 
 CRI_AABB::VecT GetLeftUpper(CRI_AABB const& Box);
 CRI_AABB::VecT GetRightLower(CRI_AABB const& Box);

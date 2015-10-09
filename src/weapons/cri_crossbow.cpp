@@ -10,7 +10,7 @@
 
 using ci::Vec2f;
 
-void CRICrossbow::DoShoot( const Vec2f StartPos, const Vec2f TargetPos )
+void CRICrossbow::DoShoot(const Vec2f StartPos, const Vec2f TargetPos)
 {
     typedef CRIMovable::SizeT SizeT;
 

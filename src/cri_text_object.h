@@ -7,16 +7,15 @@
 
 #include <string>
 
-class CRITextObject : public CRIGameObject
-{
-public:
+class CRITextObject : public CRIGameObject {
+  public:
     explicit CRITextObject(const PosT& Pos);
 
     void SetText(const std::string& Text);
     void SetFont(const ci::Font& Font);
     void SetColor(const ci::ColorA& Color);
 
-private:
+  private:
     void DoDraw() override;
 
     std::string m_Text;

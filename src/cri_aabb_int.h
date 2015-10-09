@@ -3,8 +3,7 @@
 #include <cinder/Rect.h>
 #include <cinder/Vector.h>
 
-struct CRI_AABBd
-{
+struct CRI_AABBd {
     typedef ci::Vec2d VecT;
 
     CRI_AABBd() = default;
@@ -27,7 +26,8 @@ bool TouchOnly(CRI_AABBd A, CRI_AABBd B);
 
 CRI_AABBd::VecT IntersectionDepth(CRI_AABBd A, CRI_AABBd B);
 CRI_AABBd::VecT IntersectionNormal(CRI_AABBd A, CRI_AABBd B);
-CRI_AABBd::VecT IntersectionNormal(CRI_AABBd A, CRI_AABBd B, CRI_AABBd::VecT depth);
+CRI_AABBd::VecT IntersectionNormal(
+    CRI_AABBd A, CRI_AABBd B, CRI_AABBd::VecT depth);
 
 bool AContainsB(CRI_AABBd A, CRI_AABBd B);
 
@@ -44,7 +44,8 @@ bool TouchOnly(CRI_AABBd const& A, CRI_AABBd const& B);
 
 CRI_AABBd::VecT IntersectionDepth(CRI_AABBd const& A, CRI_AABBd const& B);
 CRI_AABBd::VecT IntersectionNormal(CRI_AABBd const& A, CRI_AABBd const& B);
-CRI_AABBd::VecT IntersectionNormal(CRI_AABBd const& A, CRI_AABBd const& B, CRI_AABBd::VecT depth);
+CRI_AABBd::VecT IntersectionNormal(
+    CRI_AABBd const& A, CRI_AABBd const& B, CRI_AABBd::VecT depth);
 
 bool AContainsB(CRI_AABBd const& A, CRI_AABBd const& B);
 

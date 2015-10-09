@@ -10,9 +10,8 @@
 // @TODO: it could make sense to extract size and pos to
 // another class, because, for example, obstacles don't move
 
-class CRIMovable
-{
-public:
+class CRIMovable {
+  public:
     typedef ci::Vec2f SizeT;
     typedef ci::Vec2f PosT;
     typedef ci::Vec2f VelT;
@@ -58,12 +57,12 @@ public:
 
     void CacheMovementAABB(ci::Rectf Rect);
 
-protected:
+  protected:
     void SetSize(const SizeT& Size);
     void SetAngle(float Deg);
     void SetScale(float Scale);
 
-private:
+  private:
     // Cache the box to avoid recalculating it several times during the frame
     void UpdateBoundingBox();
 
@@ -84,5 +83,5 @@ private:
 CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta);
 void ShiftPos(CRIMovable& Object, CRIMovable::PosT Shift);
 CRIMovable::BoxT GetMovementAABB(const CRIMovable& Object, float Delta);
-std::pair<ci::Vec2i, ci::Vec2i> GetMovementBounds( CRIMovable& Object,
-    float Delta);
+std::pair<ci::Vec2i, ci::Vec2i> GetMovementBounds(
+    CRIMovable& Object, float Delta);

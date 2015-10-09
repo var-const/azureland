@@ -2,14 +2,15 @@
 
 #include "cri_reload.h"
 
-namespace cinder { template <typename T> class Vec2; }
+namespace cinder {
+template <typename T> class Vec2;
+}
 
 class CRIGameScene;
 class CRIWeapon;
 
-class CRIWeapon
-{
-public:
+class CRIWeapon {
+  public:
     virtual ~CRIWeapon() {}
 
     void SetReloadTime(int Milliseconds);
@@ -18,13 +19,13 @@ public:
 
     void SetScene(CRIGameScene& Scene);
 
-protected:
+  protected:
     CRIGameScene& GetScene();
     const CRIGameScene& GetScene() const;
 
-private:
-    virtual void DoShoot(cinder::Vec2<float> StartPos,
-        cinder::Vec2<float> TargetPos) = 0;
+  private:
+    virtual void DoShoot(
+        cinder::Vec2<float> StartPos, cinder::Vec2<float> TargetPos) = 0;
 
     CRIReload m_Reload;
     CRIGameScene* m_pScene{};

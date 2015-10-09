@@ -9,14 +9,15 @@
 #include <vector>
 #include <utility>
 
-namespace cinder { template <typename T> class Vec2; }
+namespace cinder {
+template <typename T> class Vec2;
+}
 
 class CRIApp;
 class CRIGameObject;
 
-class CRIGameScene
-{
-public:
+class CRIGameScene {
+  public:
     CRIGameScene(CRIApp& App, int Width, int Height);
 
     void Draw();
@@ -42,7 +43,7 @@ public:
     void EndGame(int Score);
     void SetPause(bool Val);
 
-private:
+  private:
     // No need
     CRIGameScene(const CRIGameScene&);
     CRIGameScene& operator=(const CRIGameScene&);

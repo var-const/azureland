@@ -14,23 +14,23 @@ class CRICrosshair;
 class CRITextObject;
 class CRIWeapon;
 
-class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
-    public CRIInterfaceInput
-{
-public:
+class CRIPlayer : public CRIGameObject,
+                  public CRIHealthMixin,
+                  public CRIInterfaceInput {
+  public:
     CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health, CRIApp& App);
 
     void SetSpeed(float Speed);
     void AddScore(int Amount);
 
-    void OnMouseDown(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) override;
-    void OnMouseUp(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) override;
-    void OnMouseMove(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) override;
-    void OnMouseDrag(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event) override;
+    void OnMouseDown(
+        const cinder::Vec2<float>& Pos, cinder::app::MouseEvent Event) override;
+    void OnMouseUp(
+        const cinder::Vec2<float>& Pos, cinder::app::MouseEvent Event) override;
+    void OnMouseMove(
+        const cinder::Vec2<float>& Pos, cinder::app::MouseEvent Event) override;
+    void OnMouseDrag(
+        const cinder::Vec2<float>& Pos, cinder::app::MouseEvent Event) override;
     void OnMouseWheel(float Increment, cinder::app::MouseEvent Event) override;
     void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event) override;
     void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event) override;
@@ -38,7 +38,7 @@ public:
     void LogicUpdate(float Dt) override;
     void BeforeRemoveFromScene() override;
 
-private:
+  private:
     void DoDraw() override;
     void DoUpdate(float Dt) override;
     void OnDestroyed() override;

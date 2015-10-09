@@ -5,22 +5,19 @@
 #include <utility>
 
 #ifdef PASS_BY_VALUE
-CRICollisionsInfo::CRICollisionsInfo( const float Time,
-    const CollisionsIterT Begin, const CollisionsIterT End )
+CRICollisionsInfo::CRICollisionsInfo(
+    const float Time, const CollisionsIterT Begin, const CollisionsIterT End)
 #else
-CRICollisionsInfo::CRICollisionsInfo( const float Time,
-    CollisionsIterT const& Begin, CollisionsIterT const& End )
+CRICollisionsInfo::CRICollisionsInfo(
+    const float Time, CollisionsIterT const& Begin, CollisionsIterT const& End)
 #endif
-: m_Time(Time)
-, m_Begin(Begin)
-, m_End(End)
+  : m_Time(Time)
+  , m_Begin(Begin)
+  , m_End(End)
 {
 }
 
-bool CRICollisionsInfo::IsEmpty() const
-{
-    return m_Begin == m_End;
-}
+bool CRICollisionsInfo::IsEmpty() const { return m_Begin == m_End; }
 
 int CRICollisionsInfo::GetSize() const
 {

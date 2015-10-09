@@ -10,10 +10,7 @@ void CRIReload::OnShot()
     m_Timer.SetExpiresFromNow(m_ReloadTime);
 }
 
-bool CRIReload::IsReady() const
-{
-    return m_Timer.IsExpired();
-}
+bool CRIReload::IsReady() const { return m_Timer.IsExpired(); }
 
 void CRIReload::SetReloadTime(const int Milliseconds)
 {

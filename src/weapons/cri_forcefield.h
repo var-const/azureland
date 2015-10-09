@@ -7,9 +7,8 @@
 class CRIEnemy;
 class CRIPlayer;
 
-class CRIForcefield : public CRIGameObject
-{
-public:
+class CRIForcefield : public CRIGameObject {
+  public:
     CRIForcefield(const float Radius, const PosT& Pos, int Time, int Damage,
         float PushForce, const CRIPlayer& Player);
 
@@ -21,7 +20,7 @@ public:
 
     static int TextureDescr;
 
-private:
+  private:
     typedef std::vector<const CRIEnemy*> AffectedContT;
 
     void DoDraw() override;

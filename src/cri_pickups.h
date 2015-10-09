@@ -3,9 +3,8 @@
 #include "cri_game_object.h"
 #include "cri_timer.h"
 
-class CRIHealthPickup : public CRIGameObject
-{
-public:
+class CRIHealthPickup : public CRIGameObject {
+  public:
     CRIHealthPickup(const SizeT& Size, const PosT& StartPos, int Amount,
         int LifetimeSeconds);
 
@@ -15,7 +14,7 @@ public:
 
     static int TextureDescr;
 
-private:
+  private:
     int m_Amount{};
     CRICountdownTimer m_Timer;
 };

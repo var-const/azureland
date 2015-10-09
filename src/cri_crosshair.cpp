@@ -4,9 +4,9 @@
 
 #include "cri_camera.h"
 
-CRICrosshair::CRICrosshair( const SizeT& Size, const PosT& Pos )
-: CRIGameObject(Size, Pos)
-, m_Texture(TextureFromAsset("crosshair.png"))
+CRICrosshair::CRICrosshair(const SizeT& Size, const PosT& Pos)
+  : CRIGameObject(Size, Pos)
+  , m_Texture(TextureFromAsset("crosshair.png"))
 {
 }
 

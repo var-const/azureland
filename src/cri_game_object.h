@@ -6,9 +6,8 @@
 
 class CRIGameScene;
 
-class CRIGameObject : public CRIMovable
-{
-public:
+class CRIGameObject : public CRIMovable {
+  public:
     CRIGameObject(const SizeT& Size, const PosT& StartPos);
 
     void Draw();
@@ -26,13 +25,13 @@ public:
 
     void SetScene(CRIGameScene& Scene);
 
-protected:
+  protected:
     CRIGameScene& GetScene();
     const CRIGameScene& GetScene() const;
 
     void Ressurect();
 
-private:
+  private:
     virtual void DoDraw();
     virtual void DoUpdate(float Dt);
     virtual void OnDestroyed();
@@ -46,4 +45,5 @@ private:
     int m_TextureDescriptor{-1};
 };
 
-void Draw(const CRIGameObject& Object, float Angle, const ci::gl::Texture& Texture);
+void Draw(
+    const CRIGameObject& Object, float Angle, const ci::gl::Texture& Texture);

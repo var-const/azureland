@@ -7,8 +7,7 @@
 #include "cri_math.h"
 #include "cri_movable.h"
 
-namespace
-{
+namespace {
 
 typedef std::pair<float, float> TimeframeT; // @TODO: move out of here
 
@@ -20,8 +19,8 @@ TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
 TimeframeT GetTimeframe(TimeframeT const& A, TimeframeT const& B);
 #endif
 
-CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
-    const float Time )
+CRICollision CreateCollision(
+    CRIGameObject& Lhs, CRIGameObject& Rhs, const float Time)
 {
     CRICollision Result;
 
@@ -32,55 +31,52 @@ CRICollision CreateCollision( CRIGameObject& Lhs, CRIGameObject& Rhs,
     return Result;
 }
 
-float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
+float GetCollisionTime(CRIMovable& Lhs, CRIMovable& Rhs, const float Time)
 {
     using ci::Vec2f;
-    using std::abs; using std::make_pair; using std::max; using std::min;
+    using std::abs;
+    using std::make_pair;
+    using std::max;
+    using std::min;
     typedef CRIMovable::BoxT BoxT;
 
     Vec2f TEnter;
     Vec2f TLeave;
 
     const Vec2f VDiff = Lhs.GetVelocity() - Rhs.GetVelocity();
-    if (VDiff.x < 0.001f)
-    {
-        const bool AreIntersecting = abs(Lhs.GetCenterPos().x -
-            Rhs.GetCenterPos().x) < Lhs.GetHalfSize().x + Rhs.GetHalfSize().x;
-        if (AreIntersecting)
-        {
+    if (VDiff.x < 0.001f) {
+        const bool AreIntersecting =
+            abs(Lhs.GetCenterPos().x - Rhs.GetCenterPos().x) <
+            Lhs.GetHalfSize().x + Rhs.GetHalfSize().x;
+        if (AreIntersecting) {
             TEnter.x = 0.f;
             TLeave.x = Time;
         }
-        else
-        {
+        else {
             // If they were not intersecting to begin with, they never would
             return -1.f;
         }
     }
-    else
-    {
+    else {
         const Vec2f LBounds = Lhs.GetXBounds();
         const Vec2f RBounds = Rhs.GetXBounds();
         TEnter.x = (RBounds.x - LBounds.y) / VDiff.x;
         TLeave.x = (RBounds.y - LBounds.x) / VDiff.x;
     }
 
-    if (VDiff.y < 0.001f)
-    {
-        const bool AreIntersecting = abs(Lhs.GetCenterPos().y -
-            Rhs.GetCenterPos().y) < Lhs.GetHalfSize().y + Rhs.GetHalfSize().y;
-        if (AreIntersecting)
-        {
+    if (VDiff.y < 0.001f) {
+        const bool AreIntersecting =
+            abs(Lhs.GetCenterPos().y - Rhs.GetCenterPos().y) <
+            Lhs.GetHalfSize().y + Rhs.GetHalfSize().y;
+        if (AreIntersecting) {
             TEnter.y = 0.f;
             TLeave.y = Time;
         }
-        else
-        {
+        else {
             return -1.f;
         }
     }
-    else
-    {
+    else {
         const Vec2f LBounds = Lhs.GetYBounds();
         const Vec2f RBounds = Rhs.GetYBounds();
         TEnter.y = (RBounds.x - LBounds.y) / VDiff.y;
@@ -88,17 +84,17 @@ float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
     }
 
 
-    const TimeframeT Tx = make_pair(min(TEnter.x, TLeave.x), max(TEnter.x, TLeave.x));
-    const TimeframeT Ty = make_pair(min(TEnter.y, TLeave.y), max(TEnter.y, TLeave.y));
+    const TimeframeT Tx =
+        make_pair(min(TEnter.x, TLeave.x), max(TEnter.x, TLeave.x));
+    const TimeframeT Ty =
+        make_pair(min(TEnter.y, TLeave.y), max(TEnter.y, TLeave.y));
     // Find if there was a timeframe during which there was an
     // intersection for both axes
     const TimeframeT Timeframe = GetTimeframe(Tx, Ty);
-    if (Timeframe.first > 0.f)
-    {
+    if (Timeframe.first > 0.f) {
         return Timeframe.first;
     }
-    else
-    {
+    else {
         return Timeframe.second > 0.f ? 0.f : -1.f;
     }
 }
@@ -109,13 +105,13 @@ TimeframeT GetTimeframe(const TimeframeT A, const TimeframeT B)
 TimeframeT GetTimeframe(TimeframeT const& A, TimeframeT const& B)
 #endif
 {
-    using std::max; using std::min;
+    using std::max;
+    using std::min;
 
     TimeframeT Result;
     Result.first = max(A.first, B.first);
     Result.second = min(A.second, B.second);
-    if (Result.second < Result.first)
-    {
+    if (Result.second < Result.first) {
         Result.first = Result.second = -1.f; // @FIXME arbitrary value
     }
     return Result;

@@ -1,16 +1,17 @@
 #pragma once
 
-namespace cinder { template <typename T> class Vec2; }
+namespace cinder {
+template <typename T> class Vec2;
+}
 
 class CRIGameScene;
 
-class CRIPickupGenerator
-{
-public:
+class CRIPickupGenerator {
+  public:
     void Invoke(cinder::Vec2<float> PosForPickUp);
 
     void SetScene(CRIGameScene& Scene);
 
-private:
+  private:
     CRIGameScene* m_pScene{};
 };

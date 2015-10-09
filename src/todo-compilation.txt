@@ -30,7 +30,6 @@ main.cpp
 weapons/cri_crossbow.cpp
 weapons/cri_forcefield.cpp
 weapons/cri_forcefield_emitter.cpp
-weapons/cri_weapon_helpers.cpp
 
 DONE:
 rand.cpp
@@ -38,3 +37,4 @@ cri_timer.cpp
 weapons/cri_reload.cpp
 cri_math.cpp
 weapons/cri_weapon.cpp
+weapons/cri_weapon_helpers.cpp

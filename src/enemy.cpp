@@ -77,6 +77,9 @@ void Enemy::LogicUpdate(const float Dt)
 
 void Enemy::OnCaughtPlayer()
 {
+    if (IsDying()) {
+        return;
+    }
     SetVelocity(VelT());
 
     // @TODO: refactor out as weapon

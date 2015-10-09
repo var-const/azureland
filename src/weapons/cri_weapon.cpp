@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "../cri_stdafx.h"
 
 #include "cri_weapon.h"
 
-#include "math_vector.h"
+#include "../math_vector.h"
 
 #include <cassert>
 #include <cstddef>

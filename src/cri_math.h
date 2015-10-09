@@ -1,6 +1,7 @@
 #pragma once
 
 #include <limits>
+#include <type_traits>
 
 bool IsFpointEq(float LHS, float RHS, float Eps =
     std::numeric_limits<float>::epsilon() );

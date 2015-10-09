@@ -15,7 +15,6 @@ cri_handle_collision.cpp
 cri_health_mixin.cpp
 cri_highscore.cpp
 cri_interface_input.cpp
-cri_math.cpp
 cri_movable.cpp
 cri_movement_controller.cpp
 cri_obstacle.cpp
@@ -31,10 +30,11 @@ main.cpp
 weapons/cri_crossbow.cpp
 weapons/cri_forcefield.cpp
 weapons/cri_forcefield_emitter.cpp
-weapons/cri_weapon.cpp
 weapons/cri_weapon_helpers.cpp
 
 DONE:
 rand.cpp
 cri_timer.cpp
 weapons/cri_reload.cpp
+cri_math.cpp
+weapons/cri_weapon.cpp

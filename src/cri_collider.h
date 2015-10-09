@@ -36,6 +36,7 @@ public:
     // be overkill
     CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
 
+
     ObjIterT CopyColliding(cinder::Vec2<int> LeftUpper,
         cinder::Vec2<int> RightLower, ObjIterT OutputIter) const;
 

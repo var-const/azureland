@@ -28,7 +28,6 @@ public:
 
 private:
     typedef std::vector<const CRIEnemy*> BlockersContT;
-    typedef BlockersContT::iterator BlockersIterT;
 
     void UpdateAngle();
 

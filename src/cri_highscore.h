@@ -21,7 +21,6 @@ public:
 
 private:
     typedef std::multimap<int, std::string, std::greater<int> > ScoresContT;
-    typedef ScoresContT::const_iterator ScoresConstIterT;
 
 	enum States
 	{

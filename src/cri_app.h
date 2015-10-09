@@ -38,7 +38,6 @@ public:
 
 private:
     typedef std::vector<CRIInterfaceInput*> InputListenersContT;
-    typedef InputListenersContT::iterator InputListenersIterT;
 
     // No need
     CRIApp(const CRIApp&);

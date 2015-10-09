@@ -23,7 +23,6 @@ public:
 
 private:
     typedef std::vector<const CRIEnemy*> AffectedContT;
-    typedef AffectedContT::iterator AffectedIterT;
 
     void DoDraw(); // override
 

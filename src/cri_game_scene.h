@@ -54,7 +54,6 @@ private:
     void UpdateObjects(float Dt);
 
     typedef std::vector<std::unique_ptr<CRIGameObject>> ObjectsContT;
-    typedef ObjectsContT::iterator ObjectsItT;
 
     ObjectsContT m_Objects;
     ObjectsContT m_PendingObjects;

@@ -35,9 +35,7 @@ public:
 
 private:
     typedef std::vector<const CRIMovable*> DrawBufferT;
-    typedef DrawBufferT::iterator DrawBufferIterT;
     typedef std::vector<DrawBufferT> BuffersContT;
-    typedef BuffersContT::iterator BuffersIterT;
 
     typedef std::vector<CRIGameObject*> CollisionsBufferT;
     typedef CollisionsBufferT::iterator CollisionsIterT;

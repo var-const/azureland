@@ -1,1 +1,1 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"

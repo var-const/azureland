@@ -1,11 +1,11 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_collision_detail.h"
+#include "collision_detail.h"
 
-#include "cri_axis_getter.h"
-#include "cri_collision.h"
-#include "cri_math.h"
-#include "cri_movable.h"
+#include "axis_getter.h"
+#include "collision.h"
+#include "math.h"
+#include "movable.h"
 
 namespace {
 

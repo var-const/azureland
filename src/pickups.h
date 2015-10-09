@@ -1,7 +1,7 @@
 #pragma once
 
-#include "cri_game_object.h"
-#include "cri_timer.h"
+#include "game_object.h"
+#include "timer.h"
 
 class CRIHealthPickup : public CRIGameObject {
   public:

@@ -1,11 +1,11 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_player.h"
+#include "player.h"
 
-#include "cri_app.h"
-#include "cri_crosshair.h"
-#include "cri_game_scene.h"
-#include "cri_text_object.h"
+#include "app.h"
+#include "crosshair.h"
+#include "game_scene.h"
+#include "text_object.h"
 #include "weapons/cri_crossbow.h"
 #include "weapons/cri_forcefield_emitter.h"
 

@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_pickups.h"
+#include "pickups.h"
 
 CRIHealthPickup::CRIHealthPickup(const SizeT& Size, const PosT& StartPos,
     const int Amount, const int LifetimeSeconds)

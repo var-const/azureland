@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cri_movable.h"
+#include "movable.h"
 
 #include <cinder/gl/Texture.h> // @TODO: move to cpp
 

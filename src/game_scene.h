@@ -1,9 +1,9 @@
 #pragma once
 
-#include "cri_camera.h"
-#include "cri_collider.h"
-#include "cri_obstacle.h"
-#include "cri_pickup_generator.h"
+#include "camera.h"
+#include "collider.h"
+#include "obstacle.h"
+#include "pickup_generator.h"
 
 #include <memory>
 #include <vector>

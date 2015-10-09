@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_movement_controller.h"
+#include "movement_controller.h"
 
-#include "cri_movable.h"
+#include "movable.h"
 
 #include <cinder/Vector.h>
 #include <cinder/app/KeyEvent.h>

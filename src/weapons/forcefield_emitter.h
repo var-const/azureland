@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cri_weapon.h"
+#include "weapon.h"
 
 namespace cinder {
 template <typename T> class Vec2;

@@ -1,11 +1,11 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_enemy.h"
+#include "enemy.h"
 
-#include "cri_collider.h"
-#include "cri_game_scene.h"
-#include "cri_math.h"
-#include "cri_player.h"
+#include "collider.h"
+#include "game_scene.h"
+#include "math.h"
+#include "player.h"
 
 #include <cinder/CinderMath.h>
 #include <cinder/Rand.h>

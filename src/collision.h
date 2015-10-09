@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cri_collision_typedefs.h"
+#include "collision_typedefs.h"
 
 #include <cinder/Vector.h>
 

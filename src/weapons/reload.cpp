@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_reload.h"
+#include "reload.h"
 
 #include <cassert>
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "cri_game_object.h"
-#include "cri_health_mixin.h"
-#include "cri_timer.h"
+#include "game_object.h"
+#include "health_mixin.h"
+#include "timer.h"
 #include "weapons/cri_reload.h"
 
 #include <cinder/gl/Texture.h>

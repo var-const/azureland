@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_highscore.h"
+#include "highscore.h"
 
 #include <cinder/Vector.h>
 #include <cinder/app/App.h>

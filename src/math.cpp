@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_math.h"
+#include "math.h"
 
 #include <algorithm>
 #include <cmath>

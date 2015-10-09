@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_aabb.h"
+#include "aabb.h"
 
 #include <cinder/Rect.h>
 

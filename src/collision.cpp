@@ -1,6 +1,6 @@
 
-#include "cri_stdafx.h"
-#include "cri_collision.h"
+#include "stdafx.h"
+#include "collision.h"
 
 #include <utility>
 

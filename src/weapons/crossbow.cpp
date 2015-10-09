@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_crossbow.h"
+#include "crossbow.h"
 
-#include "cri_weapon_helpers.h"
+#include "weapon_helpers.h"
 #include "../cri_game_scene.h"
 #include "../cri_projectile.h"
 

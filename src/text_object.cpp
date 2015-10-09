@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_text_object.h"
+#include "text_object.h"
 
 #include <cinder/gl/gl.h>
 

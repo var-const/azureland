@@ -1,11 +1,11 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_camera.h"
+#include "camera.h"
 
-#include "cri_collider.h"
-#include "cri_container_helpers.h"
-#include "cri_game_object.h"
-#include "cri_movable.h"
+#include "collider.h"
+#include "container_helpers.h"
+#include "game_object.h"
+#include "movable.h"
 
 #include <cinder/CinderMath.h>
 #include <cinder/ImageIo.h>

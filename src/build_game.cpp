@@ -1,12 +1,12 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_build_game.h"
+#include "build_game.h"
 
-#include "cri_app.h"
-#include "cri_camera.h"
-#include "cri_game_objects.h"
-#include "cri_game_scene.h"
-#include "cri_projectile.h"
+#include "app.h"
+#include "camera.h"
+#include "game_objects.h"
+#include "game_scene.h"
+#include "projectile.h"
 #include "weapons/cri_forcefield.h"
 
 #include <cinder/ImageIo.h>

@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_forcefield.h"
+#include "forcefield.h"
 
-#include "cri_player.h"
+#include "player.h"
 
 #include <cinder/Vector.h>
 #include <cinder/gl/gl.h>

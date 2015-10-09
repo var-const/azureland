@@ -1,7 +1,7 @@
 #pragma once
 
-#include "cri_game_object.h"
-#include "cri_interface_input.h"
+#include "game_object.h"
+#include "interface_input.h"
 
 #include <cinder/Font.h>
 #include <cinder/Color.h>

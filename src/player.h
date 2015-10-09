@@ -1,9 +1,9 @@
 #pragma once
 
-#include "cri_game_object.h"
-#include "cri_health_mixin.h"
-#include "cri_interface_input.h"
-#include "cri_movement_controller.h"
+#include "game_object.h"
+#include "health_mixin.h"
+#include "interface_input.h"
+#include "movement_controller.h"
 
 #include <cinder/gl/Texture.h>
 

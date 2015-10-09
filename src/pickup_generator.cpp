@@ -1,9 +1,9 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_pickup_generator.h"
+#include "pickup_generator.h"
 
-#include "cri_game_scene.h"
-#include "cri_pickups.h"
+#include "game_scene.h"
+#include "pickups.h"
 
 #include <cinder/Rand.h>
 #include <cinder/Vector.h>

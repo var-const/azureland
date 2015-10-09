@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_projectile.h"
+#include "projectile.h"
 
 CRIProjectile::CRIProjectile(
     const SizeT& Size, const PosT& Pos, const VelT& Velocity, const int Damage)

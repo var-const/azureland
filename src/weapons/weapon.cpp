@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_weapon.h"
+#include "weapon.h"
 
 #include <cinder/Vector.h>
 

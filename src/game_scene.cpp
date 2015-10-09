@@ -1,12 +1,12 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_game_scene.h"
+#include "game_scene.h"
 
-#include "cri_app.h"
-#include "cri_collision.h"
-#include "cri_game_object.h"
-#include "cri_handle_collision.h"
-#include "cri_highscore.h"
+#include "app.h"
+#include "collision.h"
+#include "game_object.h"
+#include "handle_collision.h"
+#include "highscore.h"
 
 #include <algorithm>
 #include <cassert>

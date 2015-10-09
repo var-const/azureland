@@ -6,8 +6,8 @@
 #endif
 #endif
 
-#include "cri_collision_typedefs.h"
-#include "cri_spatial_grid.h"
+#include "collision_typedefs.h"
+#include "spatial_grid.h"
 
 #ifdef PERFORMANCE_METRICS
 #include <fstream>

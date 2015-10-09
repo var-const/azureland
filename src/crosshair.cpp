@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_crosshair.h"
+#include "crosshair.h"
 
-#include "cri_camera.h"
+#include "camera.h"
 
 CRICrosshair::CRICrosshair(const SizeT& Size, const PosT& Pos)
   : CRIGameObject(Size, Pos)

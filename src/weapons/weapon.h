@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cri_reload.h"
+#include "reload.h"
 
 namespace cinder {
 template <typename T> class Vec2;

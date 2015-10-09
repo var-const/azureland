@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_movable.h"
+#include "movable.h"
 
-#include "cri_math.h"
+#include "math.h"
 
 using ci::Vec2f;
 using ci::Vec2i;

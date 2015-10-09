@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cri_game_object.h"
+#include "game_object.h"
 
 #include <cinder/Color.h>
 #include <cinder/Font.h>

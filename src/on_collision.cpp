@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_on_collision.h"
+#include "on_collision.h"
 
-#include "cri_game_objects.h"
+#include "game_objects.h"
 
 void OnCollision(CRIEnemy& Enemy, CRIPlayer& Player)
 {

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "cri_aabb.h"
+#include "aabb.h"
 
 #include <cinder/Vector.h>
 
 #include <utility>
-#include "cri_aabb_int.h"
+#include "aabb_int.h"
 
 // @TODO: it could make sense to extract size and pos to
 // another class, because, for example, obstacles don't move

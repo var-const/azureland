@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_game_object.h"
+#include "game_object.h"
 
-#include "cri_game_scene.h"
+#include "game_scene.h"
 
 #include <cinder/gl/gl.h>
 

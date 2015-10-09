@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_health_mixin.h"
+#include "health_mixin.h"
 
 #include <cinder/CinderMath.h>
 

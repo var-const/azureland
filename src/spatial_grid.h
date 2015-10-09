@@ -1,6 +1,6 @@
 #pragma once
-#include "cri_aabb.h"
-#include "cri_movable.h"
+#include "aabb.h"
+#include "movable.h"
 
 #include <cinder/Rect.h>
 #include <cinder/Vector.h>

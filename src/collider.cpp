@@ -1,12 +1,12 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_collider.h"
+#include "collider.h"
 
-#include "cri_collision.h"
-#include "cri_collision_detail.h"
-#include "cri_container_helpers.h"
-#include "cri_game_object.h"
-#include "cri_math.h"
+#include "collision.h"
+#include "collision_detail.h"
+#include "container_helpers.h"
+#include "game_object.h"
+#include "math.h"
 
 #include <cinder/CinderMath.h>
 #include <cinder/Rect.h>

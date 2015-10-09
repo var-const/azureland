@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_timer.h"
+#include "timer.h"
 
 bool CRICountdownTimer::IsExpired() const
 {

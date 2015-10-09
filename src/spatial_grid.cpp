@@ -1,3 +1,3 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_game_object.h"
+#include "game_object.h"

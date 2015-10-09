@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_interface_input.h"
+#include "interface_input.h"
 
 #include <cinder/Vector.h>
 #include <cinder/app/KeyEvent.h>

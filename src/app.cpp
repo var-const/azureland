@@ -1,10 +1,10 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_app.h"
+#include "app.h"
 
-#include "cri_build_game.h"
-#include "cri_game_scene.h"
-#include "cri_interface_input.h"
+#include "build_game.h"
+#include "game_scene.h"
+#include "interface_input.h"
 
 #include <cassert>
 #include <cstdlib>

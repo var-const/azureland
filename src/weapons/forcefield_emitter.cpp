@@ -1,8 +1,8 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_forcefield_emitter.h"
+#include "forcefield_emitter.h"
 
-#include "cri_forcefield.h"
+#include "forcefield.h"
 #include "../cri_game_scene.h"
 
 #include <cinder/Vector.h>

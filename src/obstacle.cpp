@@ -1,6 +1,6 @@
-#include "cri_stdafx.h"
+#include "stdafx.h"
 
-#include "cri_obstacle.h"
+#include "obstacle.h"
 
 CRIObstacle::CRIObstacle(const SizeT& Size, const PosT& Pos)
   : CRIGameObject(Size, Pos)

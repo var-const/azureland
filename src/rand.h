@@ -18,7 +18,7 @@ private:
 int rand_int(RNG& rng, int const max_val) { return rng.rand_int() % max_val; }
 int rand_int(RNG& rng, int const min_val, int const max_val)
     { return rand_int(rng, max_val - min_val) + min_val; }
-bool rand_bool(RNG& rng) { return rng.rand_int(2); }
+bool rand_bool(RNG& rng) { return rand_int(rng, 2); }
 float rand_float(RNG& rng, float const max_val) { return rng.rand_float() * max_val; }
 float rand_float(RNG& rng, float const min_val, float const max_val)
     { return rng.rand_float() * (max_val - min_val) +  min_val; }
@@ -27,7 +27,7 @@ float rand_float(RNG& rng, float const min_val, float const max_val)
 // Utility functions
 RNG& rng_singleton();
 
-int rand_int() { return rand_int(rng_singleton()); }
+int rand_int() { return rng_singleton().rand_int(); }
 int rand_int(int const max_val) { return rand_int(rng_singleton(), max_val); }
 int rand_int(int const min_val, int const max_val)
     { return rand_int(rng_singleton(), min_val, max_val); }

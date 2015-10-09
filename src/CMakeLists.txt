@@ -12,4 +12,5 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color")
 endif()
 
-add_executable(azureland ../src/rand.cpp ../src/cri_timer.cpp)
+set(PROJECT_SOURCE_DIR ../src)
+add_executable(azureland rand.cpp cri_timer.cpp weapons/cri_reload.cpp)

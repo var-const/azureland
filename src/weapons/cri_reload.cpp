@@ -1,4 +1,4 @@
-#include "cri_stdafx.h"
+#include "../cri_stdafx.h"
 
 #include "cri_reload.h"
 

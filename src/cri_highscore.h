@@ -22,11 +22,11 @@ public:
 private:
     typedef std::multimap<int, std::string, std::greater<int> > ScoresContT;
 
-    enum States
+    enum class States
     {
-	StateDeath,
-	StatePrompt,
-	StateDisplay
+	Death,
+	Prompt,
+	Display
     };
 
     void DoDraw() override;
@@ -47,7 +47,7 @@ private:
     std::string m_CurName;
     int m_MaxNameLength{16};
 
-    States m_State{StateDeath};
+    States m_State{States::Death};
 
     ci::Font m_Font{"Verdana", 48};
     ci::Color m_Color{1.f, 1.f, 1.f};

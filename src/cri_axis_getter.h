@@ -6,10 +6,10 @@
 
 struct AxisGetter
 {
-    enum Axes
+    enum class Axes
     {
-        AxisX,
-        AxisY
+        X,
+        Y
     };
 
     AxisGetter(Axes OwnAxis);
@@ -19,7 +19,7 @@ struct AxisGetter
     template <typename T> T& OtherAxis(ci::Vec2<T>& p) const;
     template <typename T> const T& OtherAxis(const ci::Vec2<T>& p) const;
 
-    Axes m_OwnAxis{};
+    Axes m_OwnAxis{X};
 };
 
 
@@ -30,23 +30,23 @@ struct AxisGetter
 template <typename T> 
 T& AxisGetter::ThisAxis(ci::Vec2<T>& p) const
 {
-    return m_OwnAxis == AxisX ? p.x : p.y;
+    return m_OwnAxis == Axes::X ? p.x : p.y;
 }
 
 template <typename T>
 const T& AxisGetter::ThisAxis(const ci::Vec2<T>& p) const
 {
-    return m_OwnAxis == AxisX ? p.x : p.y;
+    return m_OwnAxis == Axes::X ? p.x : p.y;
 }
 
 template <typename T>
 T& AxisGetter::OtherAxis(ci::Vec2<T>& p) const
 {
-    return m_OwnAxis == AxisX ? p.y : p.x;
+    return m_OwnAxis == Axes::X ? p.y : p.x;
 }
 
 template <typename T>
 const T& AxisGetter::OtherAxis(const ci::Vec2<T>& p) const
 {
-    return m_OwnAxis == AxisX ? p.y : p.x;
+    return m_OwnAxis == Axes::X ? p.y : p.x;
 }

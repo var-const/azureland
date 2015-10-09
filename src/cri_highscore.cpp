@@ -89,12 +89,12 @@ void CRIHighscore::ReadFromFile()
 
 void CRIHighscore::OnKeyDown( const int KeyCode, const KeyEvent Event )
 {
-    if (m_State == StateDisplay)
+    if (m_State == States::Display)
     {
         return;
     }
 
-    if (m_State == StateDeath)
+    if (m_State == States::Death)
     {
         if (KeyCode != KeyEvent::KEY_RETURN)
         {
@@ -142,20 +142,20 @@ void CRIHighscore::DoDraw()
         drawSolidRect(getWindowBounds());
     }
 
-    if (m_State == StateDeath)
+    if (m_State == States::Death)
     {
         drawString("The inevitable happened", Vec2f(400.f, 400.f), m_Color,
             m_Font);
     }
 
-    if (m_State == StatePrompt)
+    if (m_State == States::Prompt)
     {
         drawString("Your sacrifice is timeless", Vec2f(380.f, 350.f), m_Color, m_Font);
         drawString("Enter your name:", Vec2f(450.f, 450.f), m_Color, m_Font);
         drawString(m_CurName, Vec2f(450.f, 550.f), m_Color, m_Font);
     }
 
-    if (m_State == StateDisplay)
+    if (m_State == States::Display)
     {
         drawString("Here, obedient to Spartan law, we lie:",
             Vec2f(300.f, 100.f), m_Color, m_Font);
@@ -207,7 +207,7 @@ void CRIHighscore::AddScore()
 
 void CRIHighscore::DisplayScores()
 {
-    m_State = StateDisplay;
+    m_State = States::Display;
 }
 
 bool CRIHighscore::Validate()
@@ -217,5 +217,5 @@ bool CRIHighscore::Validate()
 
 void CRIHighscore::PromptForName()
 {
-    m_State = StatePrompt;
+    m_State = States::Prompt;
 }

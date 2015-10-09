@@ -11,83 +11,83 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\cri_aabb.cpp" />
-    <ClCompile Include="..\src\cri_aabb_int.cpp" />
-    <ClCompile Include="..\src\cri_app.cpp" />
-    <ClCompile Include="..\src\cri_build_game.cpp" />
-    <ClCompile Include="..\src\cri_camera.cpp" />
-    <ClCompile Include="..\src\cri_collider.cpp" />
-    <ClCompile Include="..\src\cri_collision.cpp" />
-    <ClCompile Include="..\src\cri_collision_detail.cpp" />
-    <ClCompile Include="..\src\cri_crosshair.cpp" />
-    <ClCompile Include="..\src\cri_enemy.cpp" />
-    <ClCompile Include="..\src\cri_health_mixin.cpp" />
-    <ClCompile Include="..\src\cri_highscore.cpp" />
-    <ClCompile Include="..\src\cri_movement_controller.cpp" />
-    <ClCompile Include="..\src\cri_game_object.cpp" />
-    <ClCompile Include="..\src\cri_game_scene.cpp" />
-    <ClCompile Include="..\src\cri_interface_input.cpp" />
-    <ClCompile Include="..\src\cri_math.cpp" />
-    <ClCompile Include="..\src\cri_movable.cpp" />
-    <ClCompile Include="..\src\cri_obstacle.cpp" />
-    <ClCompile Include="..\src\cri_on_collision.cpp" />
-    <ClCompile Include="..\src\cri_pickups.cpp" />
-    <ClCompile Include="..\src\cri_pickup_generator.cpp" />
-    <ClCompile Include="..\src\cri_player.cpp" />
-    <ClCompile Include="..\src\cri_handle_collision.cpp" />
-    <ClCompile Include="..\src\cri_projectile.cpp" />
-    <ClCompile Include="..\src\cri_stdafx.cpp">
+    <ClCompile Include="..\src\aabb.cpp" />
+    <ClCompile Include="..\src\aabb_int.cpp" />
+    <ClCompile Include="..\src\app.cpp" />
+    <ClCompile Include="..\src\build_game.cpp" />
+    <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\collider.cpp" />
+    <ClCompile Include="..\src\collision.cpp" />
+    <ClCompile Include="..\src\collision_detail.cpp" />
+    <ClCompile Include="..\src\crosshair.cpp" />
+    <ClCompile Include="..\src\enemy.cpp" />
+    <ClCompile Include="..\src\health_mixin.cpp" />
+    <ClCompile Include="..\src\highscore.cpp" />
+    <ClCompile Include="..\src\movement_controller.cpp" />
+    <ClCompile Include="..\src\game_object.cpp" />
+    <ClCompile Include="..\src\game_scene.cpp" />
+    <ClCompile Include="..\src\interface_input.cpp" />
+    <ClCompile Include="..\src\math.cpp" />
+    <ClCompile Include="..\src\movable.cpp" />
+    <ClCompile Include="..\src\obstacle.cpp" />
+    <ClCompile Include="..\src\on_collision.cpp" />
+    <ClCompile Include="..\src\pickups.cpp" />
+    <ClCompile Include="..\src\pickup_generator.cpp" />
+    <ClCompile Include="..\src\player.cpp" />
+    <ClCompile Include="..\src\handle_collision.cpp" />
+    <ClCompile Include="..\src\projectile.cpp" />
+    <ClCompile Include="..\src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\src\cri_text_object.cpp" />
-    <ClCompile Include="..\src\cri_timer.cpp" />
-    <ClCompile Include="..\src\weapons\cri_crossbow.cpp" />
-    <ClCompile Include="..\src\weapons\cri_forcefield.cpp" />
-    <ClCompile Include="..\src\weapons\cri_forcefield_emitter.cpp" />
-    <ClCompile Include="..\src\weapons\cri_reload.cpp" />
-    <ClCompile Include="..\src\weapons\cri_weapon.cpp" />
-    <ClCompile Include="..\src\weapons\cri_weapon_helpers.cpp" />
+    <ClCompile Include="..\src\text_object.cpp" />
+    <ClCompile Include="..\src\timer.cpp" />
+    <ClCompile Include="..\src\weapons\crossbow.cpp" />
+    <ClCompile Include="..\src\weapons\forcefield.cpp" />
+    <ClCompile Include="..\src\weapons\forcefield_emitter.cpp" />
+    <ClCompile Include="..\src\weapons\reload.cpp" />
+    <ClCompile Include="..\src\weapons\weapon.cpp" />
+    <ClCompile Include="..\src\weapons\weapon_helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\cri_aabb.h" />
-    <ClInclude Include="..\src\cri_aabb_int.h" />
-    <ClInclude Include="..\src\cri_app.h" />
-    <ClInclude Include="..\src\cri_build_game.h" />
-    <ClInclude Include="..\src\cri_camera.h" />
-    <ClInclude Include="..\src\cri_collider.h" />
-    <ClInclude Include="..\src\cri_collision.h" />
-    <ClInclude Include="..\src\cri_collision_detail.h" />
-    <ClInclude Include="..\src\cri_collision_typedefs.h" />
-    <ClInclude Include="..\src\cri_container_helpers.h" />
-    <ClInclude Include="..\src\cri_crosshair.h" />
-    <ClInclude Include="..\src\cri_enemy.h" />
-    <ClInclude Include="..\src\cri_game_objects.h" />
-    <ClInclude Include="..\src\cri_health_mixin.h" />
-    <ClInclude Include="..\src\cri_highscore.h" />
-    <ClInclude Include="..\src\cri_movement_controller.h" />
-    <ClInclude Include="..\src\cri_game_object.h" />
-    <ClInclude Include="..\src\cri_game_scene.h" />
-    <ClInclude Include="..\src\cri_interface_input.h" />
-    <ClInclude Include="..\src\cri_math.h" />
-    <ClInclude Include="..\src\cri_movable.h" />
-    <ClInclude Include="..\src\cri_obstacle.h" />
-    <ClInclude Include="..\src\cri_on_collision.h" />
-    <ClInclude Include="..\src\cri_pickups.h" />
-    <ClInclude Include="..\src\cri_pickup_generator.h" />
-    <ClInclude Include="..\src\cri_player.h" />
-    <ClInclude Include="..\src\cri_handle_collision.h" />
-    <ClInclude Include="..\src\cri_projectile.h" />
-    <ClInclude Include="..\src\cri_spatial_grid.h" />
-    <ClInclude Include="..\src\cri_stdafx.h" />
-    <ClInclude Include="..\src\cri_text_object.h" />
-    <ClInclude Include="..\src\cri_timer.h" />
-    <ClInclude Include="..\src\weapons\cri_crossbow.h" />
-    <ClInclude Include="..\src\weapons\cri_forcefield.h" />
-    <ClInclude Include="..\src\weapons\cri_forcefield_emitter.h" />
-    <ClInclude Include="..\src\weapons\cri_reload.h" />
-    <ClInclude Include="..\src\weapons\cri_weapon.h" />
-    <ClInclude Include="..\src\weapons\cri_weapon_helpers.h" />
+    <ClInclude Include="..\src\aabb.h" />
+    <ClInclude Include="..\src\aabb_int.h" />
+    <ClInclude Include="..\src\app.h" />
+    <ClInclude Include="..\src\build_game.h" />
+    <ClInclude Include="..\src\camera.h" />
+    <ClInclude Include="..\src\collider.h" />
+    <ClInclude Include="..\src\collision.h" />
+    <ClInclude Include="..\src\collision_detail.h" />
+    <ClInclude Include="..\src\collision_typedefs.h" />
+    <ClInclude Include="..\src\container_helpers.h" />
+    <ClInclude Include="..\src\crosshair.h" />
+    <ClInclude Include="..\src\enemy.h" />
+    <ClInclude Include="..\src\game_objects.h" />
+    <ClInclude Include="..\src\health_mixin.h" />
+    <ClInclude Include="..\src\highscore.h" />
+    <ClInclude Include="..\src\movement_controller.h" />
+    <ClInclude Include="..\src\game_object.h" />
+    <ClInclude Include="..\src\game_scene.h" />
+    <ClInclude Include="..\src\interface_input.h" />
+    <ClInclude Include="..\src\math.h" />
+    <ClInclude Include="..\src\movable.h" />
+    <ClInclude Include="..\src\obstacle.h" />
+    <ClInclude Include="..\src\on_collision.h" />
+    <ClInclude Include="..\src\pickups.h" />
+    <ClInclude Include="..\src\pickup_generator.h" />
+    <ClInclude Include="..\src\player.h" />
+    <ClInclude Include="..\src\handle_collision.h" />
+    <ClInclude Include="..\src\projectile.h" />
+    <ClInclude Include="..\src\spatial_grid.h" />
+    <ClInclude Include="..\src\stdafx.h" />
+    <ClInclude Include="..\src\text_object.h" />
+    <ClInclude Include="..\src\timer.h" />
+    <ClInclude Include="..\src\weapons\crossbow.h" />
+    <ClInclude Include="..\src\weapons\forcefield.h" />
+    <ClInclude Include="..\src\weapons\forcefield_emitter.h" />
+    <ClInclude Include="..\src\weapons\reload.h" />
+    <ClInclude Include="..\src\weapons\weapon.h" />
+    <ClInclude Include="..\src\weapons\weapon_helpers.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B9269863-664C-4BBD-B04A-AE918DBFE3DE}</ProjectGuid>
@@ -138,7 +138,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeaderFile>cri_stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <TreatSpecificWarningsAsErrors>4172;4715;4099</TreatSpecificWarningsAsErrors>
     </ClCompile>
@@ -166,7 +166,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeaderFile>cri_stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <TreatSpecificWarningsAsErrors>4172;4715;4099</TreatSpecificWarningsAsErrors>
     </ClCompile>

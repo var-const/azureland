@@ -24,7 +24,7 @@ Timer::SecondsT ticks_to_sec(Timer::TicksT const ticks)
     return static_cast<Timer::SecondsT>(ticks / Timer::SecondsT{1000.f});
 }
 
-Timer::SecondsT get_seconds_elapsed(const Timer& timer) const
+Timer::SecondsT get_seconds_elapsed(const Timer& timer)
     { return ticks_to_sec(timer.get_ticks_elapsed()); }
 
 class CRICountdownTimer

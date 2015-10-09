@@ -27,7 +27,6 @@ cri_projectile.cpp
 cri_spatial_grid.cpp
 cri_stdafx.cpp
 cri_text_object.cpp
-cri_timer.cpp
 main.cpp
 weapons/cri_crossbow.cpp
 weapons/cri_forcefield.cpp
@@ -38,3 +37,4 @@ weapons/cri_weapon_helpers.cpp
 
 DONE:
 rand.cpp
+cri_timer.cpp

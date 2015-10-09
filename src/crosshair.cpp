@@ -4,13 +4,13 @@
 
 #include "camera.h"
 
-CRICrosshair::CRICrosshair(const SizeT& Size, const PosT& Pos)
-  : CRIGameObject(Size, Pos)
+Crosshair::Crosshair(const SizeT& Size, const PosT& Pos)
+  : GameObject(Size, Pos)
   , m_Texture(TextureFromAsset("crosshair.png"))
 {
 }
 
-void CRICrosshair::DoDraw()
+void Crosshair::DoDraw()
 {
     using namespace ci::gl;
 

@@ -4,17 +4,17 @@ namespace cinder {
 template <typename T> class Vec2;
 }
 
-class CRIMovable;
+class Movable;
 
-class CRIMovementController {
+class MovementController {
   public:
     void SetSpeed(float Speed);
 
     cinder::Vec2<float> GetVector(int Key) const;
 
-    void Deccelerate(CRIMovable& Object);
+    void Deccelerate(Movable& Object);
 
-    void OnKeyDown(int Key, CRIMovable& Object);
+    void OnKeyDown(int Key, Movable& Object);
     void OnKeyUp(int key);
 
   private:

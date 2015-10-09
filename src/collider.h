@@ -20,22 +20,22 @@ template <typename T> class RectT;
 template <typename T> class Vec2;
 }
 
-class CRIGameObject;
-struct CRICollisionsInfo;
+class GameObject;
+struct CollisionsInfo;
 
-class CRICollider {
+class Collider {
   public:
-    typedef std::vector<CRIGameObject*> ObjContT;
+    typedef std::vector<GameObject*> ObjContT;
     typedef ObjContT::iterator ObjIterT;
     typedef ObjContT::const_iterator ObjConstIterT;
 
-    CRICollider(int Width, int Height);
+    Collider(int Width, int Height);
 
     void Reserve(int Amount);
 
     // Could be templated on iterator types, but I thought that would
     // be overkill
-    CRICollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
+    CollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
 
     ObjIterT CopyColliding(cinder::Vec2<int> LeftUpper,
         cinder::Vec2<int> RightLower, ObjIterT OutputIter) const;
@@ -44,21 +44,21 @@ class CRICollider {
         cinder::Vec2<int> RowLimits, cinder::Vec2<int> ColLimits) const;
 
   private:
-    typedef CRISpatialGrid<30, 30> GridT;
-    typedef std::pair<CRIGameObject*, CRIGameObject*> CheckT;
+    typedef SpatialGrid<30, 30> GridT;
+    typedef std::pair<GameObject*, GameObject*> CheckT;
     typedef std::vector<CheckT> ChecksContT;
     typedef ChecksContT::iterator ChecksIterT;
     typedef ChecksContT::const_iterator ChecksConstIterT;
 
     void BroadPhase(ObjIterT Begin, ObjIterT End, float Time);
 #ifdef PASS_BY_VALUE
-    void AddChecks(CRIGameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);
+    void AddChecks(GameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);
 #else
-    void AddChecks(CRIGameObject* Obj, ObjConstIterT const& Begin,
+    void AddChecks(GameObject* Obj, ObjConstIterT const& Begin,
         ObjConstIterT const& End);
 #endif
     void NarrowPhase(float Time);
-    void TryAddCollision(CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);
+    void TryAddCollision(GameObject& Lhs, GameObject& Rhs, float Time);
 
 #ifdef PERFORMANCE_METRICS
     void OutputPerformanceMetrics(int ObjectsC);

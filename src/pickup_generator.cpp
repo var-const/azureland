@@ -10,18 +10,18 @@
 
 using ci::Vec2f;
 
-void CRIPickupGenerator::Invoke(const Vec2f PosForPickUp)
+void PickupGenerator::Invoke(const Vec2f PosForPickUp)
 {
     using ci::randBool;
-    typedef CRIMovable::SizeT SizeT;
+    typedef Movable::SizeT SizeT;
 
     assert(m_pScene);
 
     if (randBool()) {
-        CRIHealthPickup* const Pickup =
-            new CRIHealthPickup(SizeT(8.f, 8.f), PosForPickUp, 50, 10);
+        HealthPickup* const Pickup =
+            new HealthPickup(SizeT(8.f, 8.f), PosForPickUp, 50, 10);
         m_pScene->AddObject(*Pickup);
     }
 }
 
-void CRIPickupGenerator::SetScene(CRIGameScene& Scene) { m_pScene = &Scene; }
+void PickupGenerator::SetScene(GameScene& Scene) { m_pScene = &Scene; }

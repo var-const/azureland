@@ -4,7 +4,7 @@
 
 #include "game_objects.h"
 
-void OnCollision(CRIEnemy& Enemy, CRIPlayer& Player)
+void OnCollision(Enemy& Enemy, Player& Player)
 {
     using std::min;
 
@@ -12,16 +12,16 @@ void OnCollision(CRIEnemy& Enemy, CRIPlayer& Player)
         return;
     }
 
-    const CRI_AABB::VecT Depth =
+    const AABB::VecT Depth =
         IntersectionDepth(Enemy.GetAABB(), Player.GetAABB());
-    const CRI_AABB::VecT Normal =
+    const AABB::VecT Normal =
         IntersectionNormal(Enemy.GetAABB(), Player.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
     ShiftPos(Enemy, Normal * Shift * 0.9f);
     ShiftPos(Player, Normal * Shift * -0.1f);
 }
 
-void OnCollision(CRIEnemy& Lhs, CRIEnemy& Rhs)
+void OnCollision(Enemy& Lhs, Enemy& Rhs)
 {
     using std::min;
 
@@ -29,9 +29,9 @@ void OnCollision(CRIEnemy& Lhs, CRIEnemy& Rhs)
         return;
     }
 
-    const CRI_AABB::VecT Depth =
+    const AABB::VecT Depth =
         IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
-    const CRI_AABB::VecT Normal =
+    const AABB::VecT Normal =
         IntersectionNormal(Lhs.GetAABB(), Rhs.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
     ShiftPos(Lhs, Normal * Shift / 2.f);
@@ -41,31 +41,31 @@ void OnCollision(CRIEnemy& Lhs, CRIEnemy& Rhs)
     Rhs.OnCollisionWithEnemy(Lhs);
 }
 
-void OnCollision(CRIEnemy& Lhs, CRIObstacle& Rhs)
+void OnCollision(Enemy& Lhs, Obstacle& Rhs)
 {
     using std::min;
 
-    const CRI_AABB::VecT Depth =
+    const AABB::VecT Depth =
         IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
-    const CRI_AABB::VecT Normal =
+    const AABB::VecT Normal =
         IntersectionNormal(Lhs.GetAABB(), Rhs.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
     ShiftPos(Lhs, Normal * Shift);
 }
 
-void OnCollision(CRIPlayer& Lhs, CRIObstacle& Rhs)
+void OnCollision(Player& Lhs, Obstacle& Rhs)
 {
     using std::min;
 
-    const CRI_AABB::VecT Depth =
+    const AABB::VecT Depth =
         IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
-    const CRI_AABB::VecT Normal =
+    const AABB::VecT Normal =
         IntersectionNormal(Lhs.GetAABB(), Rhs.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
     ShiftPos(Lhs, Normal * Shift);
 }
 
-void OnCollision(CRIEnemy& Lhs, CRIProjectile& Rhs)
+void OnCollision(Enemy& Lhs, Projectile& Rhs)
 {
     if (Lhs.IsDying() || Rhs.IsDying()) {
         return;
@@ -75,7 +75,7 @@ void OnCollision(CRIEnemy& Lhs, CRIProjectile& Rhs)
     Rhs.Destroy();
 }
 
-void OnCollision(CRIObstacle& Lhs, CRIProjectile& Rhs)
+void OnCollision(Obstacle& Lhs, Projectile& Rhs)
 {
     if (Rhs.IsDying()) {
         return;
@@ -84,7 +84,7 @@ void OnCollision(CRIObstacle& Lhs, CRIProjectile& Rhs)
     Rhs.Destroy();
 }
 
-void OnCollision(CRIPlayer& Lhs, CRIHealthPickup& Rhs)
+void OnCollision(Player& Lhs, HealthPickup& Rhs)
 {
     if (Lhs.IsDying() || Rhs.IsDying()) {
         return;
@@ -97,7 +97,7 @@ void OnCollision(CRIPlayer& Lhs, CRIHealthPickup& Rhs)
     Rhs.Destroy();
 }
 
-void OnCollision(CRIEnemy& Lhs, CRIForcefield& Rhs)
+void OnCollision(Enemy& Lhs, Forcefield& Rhs)
 {
     if (Lhs.IsDying() || Rhs.IsDying()) {
         return;
@@ -109,7 +109,7 @@ void OnCollision(CRIEnemy& Lhs, CRIForcefield& Rhs)
     }
 }
 
-void OnCollision(CRIEnemy& Lhs, CRIHealthPickup& Rhs)
+void OnCollision(Enemy& Lhs, HealthPickup& Rhs)
 {
     if (Lhs.IsDying() || Rhs.IsDying()) {
         return;

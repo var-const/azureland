@@ -19,10 +19,10 @@ TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
 TimeframeT GetTimeframe(TimeframeT const& A, TimeframeT const& B);
 #endif
 
-CRICollision CreateCollision(
-    CRIGameObject& Lhs, CRIGameObject& Rhs, const float Time)
+Collision CreateCollision(
+    GameObject& Lhs, GameObject& Rhs, const float Time)
 {
-    CRICollision Result;
+    Collision Result;
 
     Result.m_pObjA = &Lhs;
     Result.m_pObjB = &Rhs;
@@ -31,14 +31,14 @@ CRICollision CreateCollision(
     return Result;
 }
 
-float GetCollisionTime(CRIMovable& Lhs, CRIMovable& Rhs, const float Time)
+float GetCollisionTime(Movable& Lhs, Movable& Rhs, const float Time)
 {
     using ci::Vec2f;
     using std::abs;
     using std::make_pair;
     using std::max;
     using std::min;
-    typedef CRIMovable::BoxT BoxT;
+    typedef Movable::BoxT BoxT;
 
     Vec2f TEnter;
     Vec2f TLeave;

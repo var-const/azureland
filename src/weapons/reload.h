@@ -2,7 +2,7 @@
 
 #include "../cri_timer.h"
 
-class CRIReload {
+class Reload {
   public:
     void SetReloadTime(int Milliseconds);
     void OnShot();
@@ -10,5 +10,5 @@ class CRIReload {
 
   private:
     double m_ReloadTime{};
-    CRICountdownTimer m_Timer;
+    CountdownTimer m_Timer;
 };

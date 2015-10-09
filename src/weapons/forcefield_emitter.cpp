@@ -9,22 +9,22 @@
 
 using ci::Vec2f;
 
-CRIForcefieldEmitter::CRIForcefieldEmitter(const CRIPlayer& Player)
+ForcefieldEmitter::ForcefieldEmitter(const Player& Player)
   : m_pPlayer(&Player)
 {
 }
 
-void CRIForcefieldEmitter::SetPlayer(const CRIPlayer& Player)
+void ForcefieldEmitter::SetPlayer(const Player& Player)
 {
     m_pPlayer = &Player;
 }
 
-void CRIForcefieldEmitter::DoShoot(const Vec2f StartPos, const Vec2f TargetPos)
+void ForcefieldEmitter::DoShoot(const Vec2f StartPos, const Vec2f TargetPos)
 {
-    typedef CRIMovable::SizeT SizeT;
+    typedef Movable::SizeT SizeT;
 
     assert(m_pPlayer);
-    CRIForcefield* const Field =
-        new CRIForcefield(200.f, StartPos, 300, 10, 500.f, *m_pPlayer);
+    Forcefield* const Field =
+        new Forcefield(200.f, StartPos, 300, 10, 500.f, *m_pPlayer);
     GetScene().AddObject(*Field);
 }

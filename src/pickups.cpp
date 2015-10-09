@@ -2,22 +2,22 @@
 
 #include "pickups.h"
 
-CRIHealthPickup::CRIHealthPickup(const SizeT& Size, const PosT& StartPos,
+HealthPickup::HealthPickup(const SizeT& Size, const PosT& StartPos,
     const int Amount, const int LifetimeSeconds)
-  : CRIGameObject(Size, StartPos)
+  : GameObject(Size, StartPos)
   , m_Amount(Amount)
 {
     m_Timer.SetExpiresFromNow(static_cast<double>(LifetimeSeconds));
     SetTextureDescriptor(TextureDescr);
 }
 
-int CRIHealthPickup::GetAmount() const { return m_Amount; }
+int HealthPickup::GetAmount() const { return m_Amount; }
 
-void CRIHealthPickup::LogicUpdate(const float Dt)
+void HealthPickup::LogicUpdate(const float Dt)
 {
     if (!IsDying() && m_Timer.IsExpired()) {
         Destroy();
     }
 }
 
-int CRIHealthPickup::TextureDescr = -1;
+int HealthPickup::TextureDescr = -1;

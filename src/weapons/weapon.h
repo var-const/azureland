@@ -6,27 +6,27 @@ namespace cinder {
 template <typename T> class Vec2;
 }
 
-class CRIGameScene;
-class CRIWeapon;
+class GameScene;
+class Weapon;
 
-class CRIWeapon {
+class Weapon {
   public:
-    virtual ~CRIWeapon() {}
+    virtual ~Weapon() {}
 
     void SetReloadTime(int Milliseconds);
     void Shoot(cinder::Vec2<float> StartPos, cinder::Vec2<float> TargetPos);
     bool IsReady() const;
 
-    void SetScene(CRIGameScene& Scene);
+    void SetScene(GameScene& Scene);
 
   protected:
-    CRIGameScene& GetScene();
-    const CRIGameScene& GetScene() const;
+    GameScene& GetScene();
+    const GameScene& GetScene() const;
 
   private:
     virtual void DoShoot(
         cinder::Vec2<float> StartPos, cinder::Vec2<float> TargetPos) = 0;
 
-    CRIReload m_Reload;
-    CRIGameScene* m_pScene{};
+    Reload m_Reload;
+    GameScene* m_pScene{};
 };

@@ -4,11 +4,11 @@
 
 #include <cinder/gl/Texture.h> // @TODO: move to cpp
 
-class CRIGameScene;
+class GameScene;
 
-class CRIGameObject : public CRIMovable {
+class GameObject : public Movable {
   public:
-    CRIGameObject(const SizeT& Size, const PosT& StartPos);
+    GameObject(const SizeT& Size, const PosT& StartPos);
 
     void Draw();
     void Update(float Dt);
@@ -23,11 +23,11 @@ class CRIGameObject : public CRIMovable {
     bool IsDying() const;
     bool IsDead() const;
 
-    void SetScene(CRIGameScene& Scene);
+    void SetScene(GameScene& Scene);
 
   protected:
-    CRIGameScene& GetScene();
-    const CRIGameScene& GetScene() const;
+    GameScene& GetScene();
+    const GameScene& GetScene() const;
 
     void Ressurect();
 
@@ -39,11 +39,11 @@ class CRIGameObject : public CRIMovable {
 
     bool m_IsDead{};
 
-    CRIGameScene* m_pScene{};
+    GameScene* m_pScene{};
 
     // @TODO: InvalidDescriptor
     int m_TextureDescriptor{-1};
 };
 
 void Draw(
-    const CRIGameObject& Object, float Angle, const ci::gl::Texture& Texture);
+    const GameObject& Object, float Angle, const ci::gl::Texture& Texture);

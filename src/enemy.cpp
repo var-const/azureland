@@ -20,8 +20,8 @@ const int SleepAfterBlocking = 3;
 const int SleepAfterRespawnAttempt = 10;
 const int SleepAfterLosingTrail = 15;
 
-CRIEnemy::CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
-  : CRIGameObject(Size, StartPos)
+Enemy::Enemy(Player& Player, const SizeT& Size, const PosT& StartPos)
+  : GameObject(Size, StartPos)
   , m_pPlayer(&Player)
 {
     SetMaxHealth(30);        // @FIXME hardcoded
@@ -29,7 +29,7 @@ CRIEnemy::CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
     m_Reload.SetReloadTime(800);
 }
 
-void CRIEnemy::LogicUpdate(const float Dt)
+void Enemy::LogicUpdate(const float Dt)
 {
     if (m_IsParalyzed) {
         m_IsParalyzed = m_ParalyzedTimer.IsExpired();
@@ -75,7 +75,7 @@ void CRIEnemy::LogicUpdate(const float Dt)
     SetVelocity(Direction * m_Speed);
 }
 
-void CRIEnemy::OnCaughtPlayer()
+void Enemy::OnCaughtPlayer()
 {
     SetVelocity(VelT());
 
@@ -86,7 +86,7 @@ void CRIEnemy::OnCaughtPlayer()
     }
 }
 
-void CRIEnemy::OnCollisionWithEnemy(const CRIEnemy& Rhs)
+void Enemy::OnCollisionWithEnemy(const Enemy& Rhs)
 {
     using std::find;
 
@@ -102,7 +102,7 @@ void CRIEnemy::OnCollisionWithEnemy(const CRIEnemy& Rhs)
     }
 }
 
-void CRIEnemy::CheckBlocked()
+void Enemy::CheckBlocked()
 {
     using ci::Vec2f;
     using ci::Vec2i;
@@ -164,7 +164,7 @@ void CRIEnemy::CheckBlocked()
     }
 }
 
-void CRIEnemy::OnHealthDepleted()
+void Enemy::OnHealthDepleted()
 {
     assert(m_pPlayer);
     m_pPlayer->AddScore(m_PointsForKilling);
@@ -174,14 +174,14 @@ void CRIEnemy::OnHealthDepleted()
     TryRespawn();
 }
 
-void CRIEnemy::TryRespawn()
+void Enemy::TryRespawn()
 {
     using ci::randBool;
     using ci::Rectf;
     using ci::Vec2i;
     using std::pair;
 
-    const CRICollider& Collider = GetScene().GetCollider();
+    const Collider& Collider = GetScene().GetCollider();
     Vec2i Rows, Cols;
     if (randBool()) {
         Rows = randBool() ? Vec2i(0, 1) : Vec2i(-2, -1);
@@ -203,7 +203,7 @@ void CRIEnemy::TryRespawn()
     m_Sleep = SleepAfterRespawnAttempt;
 }
 
-void CRIEnemy::Respawn(const PosT Pos)
+void Enemy::Respawn(const PosT Pos)
 {
     GetScene().OnEnemyRespawn(GetCenterPos());
 
@@ -217,22 +217,22 @@ void CRIEnemy::Respawn(const PosT Pos)
     ForceSetHealthValue(20); // @FIXME hardcoded
 }
 
-void CRIEnemy::SetParalyzed(const int Milliseconds)
+void Enemy::SetParalyzed(const int Milliseconds)
 {
     SetVelocity(VelT());
     m_IsParalyzed = true;
     m_ParalyzedTimer.SetExpiresFromNow(static_cast<int>(Milliseconds) / 1000.0);
 }
 
-bool CRIEnemy::IsParalyzed() const { return m_IsParalyzed; }
+bool Enemy::IsParalyzed() const { return m_IsParalyzed; }
 
-void CRIEnemy::SetSpeed(const int Speed)
+void Enemy::SetSpeed(const int Speed)
 {
     assert(Speed >= 0);
     m_Speed = Speed;
 }
 
-void CRIEnemy::UpdateAngle()
+void Enemy::UpdateAngle()
 {
     using ci::Vec2f;
     using ci::math;

@@ -4,9 +4,9 @@
 
 #include <cinder/gl/Texture.h>
 
-class CRICrosshair : public CRIGameObject {
+class Crosshair : public GameObject {
   public:
-    CRICrosshair(const SizeT& Size, const PosT& Pos);
+    Crosshair(const SizeT& Size, const PosT& Pos);
 
   private:
     void DoDraw() override;

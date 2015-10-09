@@ -9,15 +9,15 @@
 
 #include <vector>
 
-class CRIPlayer;
+class Player;
 
-class CRIEnemy : public CRIGameObject, public CRIHealthMixin {
+class Enemy : public GameObject, public HealthMixin {
   public:
-    CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
+    Enemy(Player& Player, const SizeT& Size, const PosT& StartPos);
 
     void SetSpeed(int Speed);
 
-    void OnCollisionWithEnemy(const CRIEnemy& Rhs);
+    void OnCollisionWithEnemy(const Enemy& Rhs);
 
     void LogicUpdate(float Dt) override;
 
@@ -26,7 +26,7 @@ class CRIEnemy : public CRIGameObject, public CRIHealthMixin {
     bool IsParalyzed() const;
 
   private:
-    typedef std::vector<const CRIEnemy*> BlockersContT;
+    typedef std::vector<const Enemy*> BlockersContT;
 
     void UpdateAngle();
 
@@ -38,7 +38,7 @@ class CRIEnemy : public CRIGameObject, public CRIHealthMixin {
 
     void OnCaughtPlayer();
 
-    CRIPlayer* m_pPlayer{};
+    Player* m_pPlayer{};
     BlockersContT m_Blockers;
     int m_Sleep{};
     bool m_Blocked{};
@@ -50,10 +50,10 @@ class CRIEnemy : public CRIGameObject, public CRIHealthMixin {
 
     float m_Speed{};
 
-    CRIReload m_Reload;
+    Reload m_Reload;
 
     int m_PointsForKilling{10};
 
     bool m_IsParalyzed{};
-    CRICountdownTimer m_ParalyzedTimer;
+    CountdownTimer m_ParalyzedTimer;
 };

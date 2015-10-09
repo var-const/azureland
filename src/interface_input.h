@@ -11,9 +11,9 @@ class MouseEvent;
 }
 
 // @TODO: a better name
-class CRIInterfaceInput {
+class InterfaceInput {
   public:
-    virtual ~CRIInterfaceInput() {}
+    virtual ~InterfaceInput() {}
 
     virtual void OnMouseDown(
         const cinder::Vec2<float>& Pos, cinder::app::MouseEvent Event);

@@ -44,19 +44,19 @@ template <typename T> string ToString(const T& Val)
 
 } // unnamed
 
-CRIHighscore::CRIHighscore(const int NewScore)
-  : CRIGameObject(PosT(), SizeT())
+Highscore::Highscore(const int NewScore)
+  : GameObject(PosT(), SizeT())
   , m_NewScore(NewScore)
 {
 }
 
-void CRIHighscore::Load(const string& FileName)
+void Highscore::Load(const string& FileName)
 {
     m_FileName = FileName;
     ReadFromFile();
 }
 
-void CRIHighscore::ReadFromFile()
+void Highscore::ReadFromFile()
 {
     using ci::app::console;
     using std::exception;
@@ -78,7 +78,7 @@ void CRIHighscore::ReadFromFile()
     }
 }
 
-void CRIHighscore::OnKeyDown(const int KeyCode, const KeyEvent Event)
+void Highscore::OnKeyDown(const int KeyCode, const KeyEvent Event)
 {
     if (m_State == States::Display) {
         return;
@@ -111,7 +111,7 @@ void CRIHighscore::OnKeyDown(const int KeyCode, const KeyEvent Event)
     }
 }
 
-void CRIHighscore::DoDraw()
+void Highscore::DoDraw()
 {
     using ci::Vec2f;
     using ci::app::getWindowBounds;
@@ -162,7 +162,7 @@ void CRIHighscore::DoDraw()
     }
 }
 
-void CRIHighscore::AddScore()
+void Highscore::AddScore()
 {
     using std::make_pair;
     using std::ofstream;
@@ -186,11 +186,11 @@ void CRIHighscore::AddScore()
     }
 }
 
-void CRIHighscore::DisplayScores() { m_State = States::Display; }
+void Highscore::DisplayScores() { m_State = States::Display; }
 
-bool CRIHighscore::Validate()
+bool Highscore::Validate()
 {
     return !m_CurName.empty() && m_CurName.length() < m_MaxNameLength;
 }
 
-void CRIHighscore::PromptForName() { m_State = States::Prompt; }
+void Highscore::PromptForName() { m_State = States::Prompt; }

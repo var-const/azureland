@@ -9,10 +9,10 @@
 
 using ci::Vec2f;
 
-CRIForcefield::CRIForcefield(const float Radius, const PosT& Pos,
+Forcefield::Forcefield(const float Radius, const PosT& Pos,
     const int Time, const int Damage, const float PushForce,
-    const CRIPlayer& Player)
-  : CRIGameObject(SizeT(), Pos)
+    const Player& Player)
+  : GameObject(SizeT(), Pos)
   , m_TimeLeft(static_cast<float>(Time) / 1000.f)
   , m_EffectTime(static_cast<float>(Time) / 1000.f)
   , m_Damage(Damage)
@@ -23,7 +23,7 @@ CRIForcefield::CRIForcefield(const float Radius, const PosT& Pos,
     SetTextureDescriptor(TextureDescr);
 }
 
-void CRIForcefield::LogicUpdate(const float Dt)
+void Forcefield::LogicUpdate(const float Dt)
 {
     m_TimeLeft -= Dt;
     if (m_TimeLeft < 0.f) {
@@ -37,15 +37,15 @@ void CRIForcefield::LogicUpdate(const float Dt)
     SetScale(Scale);
 }
 
-void CRIForcefield::DoDraw()
+void Forcefield::DoDraw()
 {
     using ci::gl::drawStrokedCircle;
     drawStrokedCircle(GetCenterPos(), GetSize().x / 2.f);
 }
 
-int CRIForcefield::GetDamage() const { return m_Damage; }
+int Forcefield::GetDamage() const { return m_Damage; }
 
-bool CRIForcefield::Affect(const CRIEnemy& Enemy)
+bool Forcefield::Affect(const Enemy& Enemy)
 {
     using std::find;
 
@@ -58,7 +58,7 @@ bool CRIForcefield::Affect(const CRIEnemy& Enemy)
     return true;
 }
 
-Vec2f CRIForcefield::GetPushVector(const Vec2f ToPos) const
+Vec2f Forcefield::GetPushVector(const Vec2f ToPos) const
 {
     Vec2f Result = ToPos - GetCenterPos();
     Result.safeNormalize();
@@ -66,4 +66,4 @@ Vec2f CRIForcefield::GetPushVector(const Vec2f ToPos) const
     return Result;
 }
 
-int CRIForcefield::TextureDescr = -1;
+int Forcefield::TextureDescr = -1;

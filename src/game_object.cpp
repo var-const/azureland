@@ -8,19 +8,19 @@
 
 using ci::gl::Texture;
 
-CRIGameObject::CRIGameObject(const SizeT& Size, const PosT& StartPos)
-  : CRIMovable(Size, StartPos)
+GameObject::GameObject(const SizeT& Size, const PosT& StartPos)
+  : Movable(Size, StartPos)
 {
 }
 
-void CRIGameObject::Draw()
+void GameObject::Draw()
 {
     using ci::gl::drawStrokedRect;
     // drawStrokedRect( ToRect(GetAABB()) );
     DoDraw();
 }
 
-void CRIGameObject::Update(const float Dt)
+void GameObject::Update(const float Dt)
 {
     if (IsDying()) {
         return;
@@ -29,7 +29,7 @@ void CRIGameObject::Update(const float Dt)
     DoUpdate(Dt);
 }
 
-void CRIGameObject::Destroy()
+void GameObject::Destroy()
 {
     if (IsDead()) {
         return;
@@ -42,55 +42,55 @@ void CRIGameObject::Destroy()
     OnDestroyed();
 }
 
-bool CRIGameObject::IsDying() const { return m_IsDead; }
+bool GameObject::IsDying() const { return m_IsDead; }
 
-bool CRIGameObject::IsDead() const { return m_IsDead; }
+bool GameObject::IsDead() const { return m_IsDead; }
 
-void CRIGameObject::DoDraw() {}
+void GameObject::DoDraw() {}
 
-void CRIGameObject::DoUpdate(const float Dt) {}
+void GameObject::DoUpdate(const float Dt) {}
 
-void CRIGameObject::LogicUpdate(const float Dt) {}
+void GameObject::LogicUpdate(const float Dt) {}
 
-void CRIGameObject::OnAddedToScene() {}
+void GameObject::OnAddedToScene() {}
 
-void CRIGameObject::OnDestroyed() {}
+void GameObject::OnDestroyed() {}
 
-void CRIGameObject::SetScene(CRIGameScene& Scene)
+void GameObject::SetScene(GameScene& Scene)
 {
     m_pScene = &Scene;
     OnAddedToScene();
 }
 
-CRIGameScene& CRIGameObject::GetScene()
+GameScene& GameObject::GetScene()
 {
     assert(m_pScene);
     return *m_pScene;
 }
 
-const CRIGameScene& CRIGameObject::GetScene() const
+const GameScene& GameObject::GetScene() const
 {
     assert(m_pScene);
     return *m_pScene;
 }
 
-void CRIGameObject::Ressurect()
+void GameObject::Ressurect()
 {
     assert(m_IsDead);
     m_IsDead = false;
 }
 
-void CRIGameObject::SetDying() { m_IsDead = true; }
+void GameObject::SetDying() { m_IsDead = true; }
 
-void CRIGameObject::SetTextureDescriptor(const int Descr)
+void GameObject::SetTextureDescriptor(const int Descr)
 {
     m_TextureDescriptor = Descr;
 }
 
-int CRIGameObject::GetTextureDescriptor() const { return m_TextureDescriptor; }
+int GameObject::GetTextureDescriptor() const { return m_TextureDescriptor; }
 
 void Draw(
-    const CRIGameObject& Object, const float Angle, const Texture& Texture)
+    const GameObject& Object, const float Angle, const Texture& Texture)
 {
     using namespace ci;
 

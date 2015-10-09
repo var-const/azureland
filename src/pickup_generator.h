@@ -4,14 +4,14 @@ namespace cinder {
 template <typename T> class Vec2;
 }
 
-class CRIGameScene;
+class GameScene;
 
-class CRIPickupGenerator {
+class PickupGenerator {
   public:
     void Invoke(cinder::Vec2<float> PosForPickUp);
 
-    void SetScene(CRIGameScene& Scene);
+    void SetScene(GameScene& Scene);
 
   private:
-    CRIGameScene* m_pScene{};
+    GameScene* m_pScene{};
 };

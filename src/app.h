@@ -5,10 +5,10 @@
 
 #include <memory>
 
-class CRIGameScene;
-class CRIInterfaceInput;
+class GameScene;
+class InterfaceInput;
 
-class CRIApp : public ci::app::AppBasic {
+class App : public ci::app::AppBasic {
   public:
     void prepareSettings(Settings* settings) override;
     void setup() override;
@@ -24,18 +24,18 @@ class CRIApp : public ci::app::AppBasic {
     void keyDown(ci::app::KeyEvent Event) override;
     void keyUp(ci::app::KeyEvent Event) override;
 
-    void SetScene(std::unique_ptr<CRIGameScene> Scene);
-    void AddInputListener(CRIInterfaceInput& Listener);
-    void RemoveInputListener(CRIInterfaceInput& Listener);
+    void SetScene(std::unique_ptr<GameScene> Scene);
+    void AddInputListener(InterfaceInput& Listener);
+    void RemoveInputListener(InterfaceInput& Listener);
 
   private:
-    typedef std::vector<CRIInterfaceInput*> InputListenersContT;
+    typedef std::vector<InterfaceInput*> InputListenersContT;
 
     // No need
-    CRIApp(const CRIApp&);
-    CRIApp& operator=(const CRIApp&);
+    App(const App&);
+    App& operator=(const App&);
 
-    std::unique_ptr<CRIGameScene> m_pScene;
+    std::unique_ptr<GameScene> m_pScene;
 
     InputListenersContT m_InputListeners; // Non-owning
 

@@ -8,14 +8,14 @@ using ci::Vec2f;
 using ci::Vec2i;
 using std::pair;
 
-CRIMovable::CRIMovable(const SizeT& Size, const PosT& StartPos)
+Movable::Movable(const SizeT& Size, const PosT& StartPos)
   : m_Size(Size)
   , m_Pos(StartPos)
 {
     UpdateBoundingBox();
 }
 
-CRIMovable::CRIMovable(
+Movable::Movable(
     const SizeT& Size, const PosT& StartPos, const VelT& Velocity)
   : m_Size(Size)
   , m_Pos(StartPos)
@@ -24,61 +24,61 @@ CRIMovable::CRIMovable(
     UpdateBoundingBox();
 }
 
-const CRIMovable::VelT& CRIMovable::GetVelocity() const { return m_Velocity; }
+const Movable::VelT& Movable::GetVelocity() const { return m_Velocity; }
 
-void CRIMovable::SetVelocity(const VelT& V)
+void Movable::SetVelocity(const VelT& V)
 {
     m_IsMoving = !IsFpointEq(V.x, 0.f) || !IsFpointEq(V.y, 0.f);
     m_Velocity = V;
 }
 
-const CRIMovable::PosT& CRIMovable::GetCenterPos() const { return m_Pos; }
+const Movable::PosT& Movable::GetCenterPos() const { return m_Pos; }
 
-void CRIMovable::SetCenterPos(const PosT& Pos)
+void Movable::SetCenterPos(const PosT& Pos)
 {
     m_Pos = Pos;
     UpdateBoundingBox();
 }
 
-const CRIMovable::SizeT& CRIMovable::GetSize() const { return m_Size; }
+const Movable::SizeT& Movable::GetSize() const { return m_Size; }
 
-void CRIMovable::SetSize(const SizeT& Size)
+void Movable::SetSize(const SizeT& Size)
 {
     m_Size = Size;
     UpdateBoundingBox();
 }
 
-void CRIMovable::Move(const float Delta)
+void Movable::Move(const float Delta)
 {
     SetCenterPos(GetFuturePos(*this, Delta));
 }
 
-const CRIMovable::BoxT& CRIMovable::GetAABBRef() const { return m_AABB; }
+const Movable::BoxT& Movable::GetAABBRef() const { return m_AABB; }
 
 #ifdef PASS_BY_VALUE
-CRIMovable::BoxT CRIMovable::GetAABB() const
+Movable::BoxT Movable::GetAABB() const
 #else
-CRIMovable::BoxT const& CRIMovable::GetAABB() const
+Movable::BoxT const& Movable::GetAABB() const
 #endif
 {
     return m_AABB;
 }
 
-const CRI_AABBd& CRIMovable::GetMovementAABBRef() const
+const AABBd& Movable::GetMovementAABBRef() const
 {
     return m_MovementAABB;
 }
 
 #ifdef PASS_BY_VALUE
-CRI_AABBd CRIMovable::GetMovementAABB() const
+AABBd Movable::GetMovementAABB() const
 #else
-CRI_AABBd const& CRIMovable::GetMovementAABB() const
+AABBd const& Movable::GetMovementAABB() const
 #endif
 {
     return m_MovementAABB;
 }
 
-void CRIMovable::UpdateBoundingBox()
+void Movable::UpdateBoundingBox()
 {
     using ::GetMovementAABB;
     SetAABB(m_AABB, m_Pos, m_Size / 2.f);
@@ -89,65 +89,65 @@ void CRIMovable::UpdateBoundingBox()
     // m_MovementAABB = GetMovementAABB(*this, 1.f / 60.f);
 }
 
-bool CRIMovable::IsMoving() const { return m_IsMoving; }
+bool Movable::IsMoving() const { return m_IsMoving; }
 
-void CRIMovable::CacheMovementAABB(ci::Rectf Rect)
+void Movable::CacheMovementAABB(ci::Rectf Rect)
 {
-    m_MovementAABB = CRI_AABBd(Rect);
+    m_MovementAABB = AABBd(Rect);
 }
 
 #ifdef PASS_BY_VALUE
-Vec2f CRIMovable::GetHalfSize() const
+Vec2f Movable::GetHalfSize() const
 #else
-Vec2f const& CRIMovable::GetHalfSize() const
+Vec2f const& Movable::GetHalfSize() const
 #endif
 {
     return m_AABB.m_HalfSize;
 }
 
 #ifdef PASS_BY_VALUE
-Vec2f CRIMovable::GetXBounds() const
+Vec2f Movable::GetXBounds() const
 #else
-Vec2f const& CRIMovable::GetXBounds() const
+Vec2f const& Movable::GetXBounds() const
 #endif
 {
     return m_XBounds;
 }
 
 #ifdef PASS_BY_VALUE
-Vec2f CRIMovable::GetYBounds() const
+Vec2f Movable::GetYBounds() const
 #else
-Vec2f const& CRIMovable::GetYBounds() const
+Vec2f const& Movable::GetYBounds() const
 #endif
 {
     return m_YBounds;
 }
 
-void CRIMovable::SetAngle(const float Deg) { m_Angle = Deg; }
+void Movable::SetAngle(const float Deg) { m_Angle = Deg; }
 
-float CRIMovable::GetAngle() const { return m_Angle; }
+float Movable::GetAngle() const { return m_Angle; }
 
-void CRIMovable::SetScale(const float Scale) { m_Scale.x = m_Scale.y = Scale; }
+void Movable::SetScale(const float Scale) { m_Scale.x = m_Scale.y = Scale; }
 
-Vec2f CRIMovable::GetScale() const { return m_Scale; }
+Vec2f Movable::GetScale() const { return m_Scale; }
 
-CRIMovable::PosT GetFuturePos(const CRIMovable& Object, const float Delta)
+Movable::PosT GetFuturePos(const Movable& Object, const float Delta)
 {
-    const CRIMovable::VelT Path = Object.GetVelocity() * Delta;
+    const Movable::VelT Path = Object.GetVelocity() * Delta;
     return Object.GetCenterPos() + Path;
 }
 
-void ShiftPos(CRIMovable& Object, const CRIMovable::PosT Shift)
+void ShiftPos(Movable& Object, const Movable::PosT Shift)
 {
     Object.SetCenterPos(Object.GetCenterPos() + Shift);
 }
 
-CRIMovable::BoxT GetMovementAABB(const CRIMovable& Object, const float Delta)
+Movable::BoxT GetMovementAABB(const Movable& Object, const float Delta)
 {
     using ci::Rectf;
-    typedef CRIMovable::BoxT BoxT;
-    typedef CRIMovable::PosT PosT;
-    typedef CRIMovable::SizeT SizeT;
+    typedef Movable::BoxT BoxT;
+    typedef Movable::PosT PosT;
+    typedef Movable::SizeT SizeT;
 
     const SizeT HalfSize = Object.GetSize() / 2.f;
     const Rectf CurBox = Rectf(
@@ -159,14 +159,14 @@ CRIMovable::BoxT GetMovementAABB(const CRIMovable& Object, const float Delta)
     return BoxT(NewBox);
 }
 
-pair<Vec2i, Vec2i> GetMovementBounds(CRIMovable& Object, float Delta)
+pair<Vec2i, Vec2i> GetMovementBounds(Movable& Object, float Delta)
 {
     using ci::Rectf;
     using ci::Vec2f;
     using std::make_pair;
-    typedef CRIMovable::BoxT BoxT;
-    typedef CRIMovable::PosT PosT;
-    typedef CRIMovable::SizeT SizeT;
+    typedef Movable::BoxT BoxT;
+    typedef Movable::PosT PosT;
+    typedef Movable::SizeT SizeT;
 
     const SizeT HalfSize = Object.GetSize() / 2.f;
     const Rectf CurBox = Rectf(

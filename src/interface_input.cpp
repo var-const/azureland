@@ -10,19 +10,19 @@ using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
 
-void CRIInterfaceInput::OnMouseDown(const Vec2f& Pos, const MouseEvent Event) {}
+void InterfaceInput::OnMouseDown(const Vec2f& Pos, const MouseEvent Event) {}
 
-void CRIInterfaceInput::OnMouseUp(const Vec2f& Pos, const MouseEvent Event) {}
+void InterfaceInput::OnMouseUp(const Vec2f& Pos, const MouseEvent Event) {}
 
-void CRIInterfaceInput::OnMouseMove(const Vec2f& Pos, const MouseEvent Event) {}
+void InterfaceInput::OnMouseMove(const Vec2f& Pos, const MouseEvent Event) {}
 
-void CRIInterfaceInput::OnMouseDrag(const Vec2f& Pos, const MouseEvent Event) {}
+void InterfaceInput::OnMouseDrag(const Vec2f& Pos, const MouseEvent Event) {}
 
-void CRIInterfaceInput::OnMouseWheel(
+void InterfaceInput::OnMouseWheel(
     const float Increment, const MouseEvent Event)
 {
 }
 
-void CRIInterfaceInput::OnKeyDown(const int KeyCode, const KeyEvent Event) {}
+void InterfaceInput::OnKeyDown(const int KeyCode, const KeyEvent Event) {}
 
-void CRIInterfaceInput::OnKeyUp(const int KeyCode, const KeyEvent Event) {}
+void InterfaceInput::OnKeyUp(const int KeyCode, const KeyEvent Event) {}

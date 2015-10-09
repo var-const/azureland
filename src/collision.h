@@ -6,19 +6,19 @@
 
 #include <vector>
 
-class CRIGameObject;
+class GameObject;
 
-struct CRICollision {
-    CRIGameObject* m_pObjA{};
-    CRIGameObject* m_pObjB{};
+struct Collision {
+    GameObject* m_pObjA{};
+    GameObject* m_pObjB{};
     float m_Time{};
 };
 
-struct CRICollisionsInfo {
+struct CollisionsInfo {
 #ifdef PASS_BY_VALUE
-    CRICollisionsInfo(float Time, CollisionsIterT Begin, CollisionsIterT End);
+    CollisionsInfo(float Time, CollisionsIterT Begin, CollisionsIterT End);
 #else
-    CRICollisionsInfo(
+    CollisionsInfo(
         float Time, CollisionsIterT const& Begin, CollisionsIterT const& End);
 #endif
     bool IsEmpty() const;

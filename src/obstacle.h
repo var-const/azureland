@@ -2,7 +2,7 @@
 
 #include "game_object.h"
 
-class CRIObstacle : public CRIGameObject {
+class Obstacle : public GameObject {
   public:
-    CRIObstacle(const SizeT& Size, const PosT& Pos);
+    Obstacle(const SizeT& Size, const PosT& Pos);
 };

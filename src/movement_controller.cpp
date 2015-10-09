@@ -30,11 +30,11 @@ bool IsMoveKey(const int Key)
 
 } // unnamed
 
-void CRIMovementController::SetSpeed(const float Speed) { m_Speed = Speed; }
+void MovementController::SetSpeed(const float Speed) { m_Speed = Speed; }
 
-cinder::Vec2<float> CRIMovementController::GetVector(const int Key) const
+cinder::Vec2<float> MovementController::GetVector(const int Key) const
 {
-    CRIMovable::VelT Result;
+    Movable::VelT Result;
 
     switch (Key) {
     case KeysT::KEY_LEFT:
@@ -50,18 +50,18 @@ cinder::Vec2<float> CRIMovementController::GetVector(const int Key) const
     return Result;
 }
 
-void CRIMovementController::Deccelerate(CRIMovable& Object)
+void MovementController::Deccelerate(Movable& Object)
 {
     // Avoid jerky movements
     if (m_IsMoveKeyPressed) {
         return;
     }
     else {
-        Object.SetVelocity(CRIMovable::VelT());
+        Object.SetVelocity(Movable::VelT());
     }
 }
 
-void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
+void MovementController::OnKeyDown(const int Key, Movable& Object)
 {
     using std::abs;
 
@@ -73,8 +73,8 @@ void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
     }
 
     // @FIXME hacky
-    const CRIMovable::VelT Vec = GetVector(Key);
-    CRIMovable::VelT NewVelocity = Object.GetVelocity();
+    const Movable::VelT Vec = GetVector(Key);
+    Movable::VelT NewVelocity = Object.GetVelocity();
     if (abs(Vec.x) >= abs(NewVelocity.x)) {
         NewVelocity.x = Vec.x;
     }
@@ -84,7 +84,7 @@ void CRIMovementController::OnKeyDown(const int Key, CRIMovable& Object)
     Object.SetVelocity(NewVelocity);
 }
 
-void CRIMovementController::OnKeyUp(const int Key)
+void MovementController::OnKeyUp(const int Key)
 {
     if (m_IsMoveKeyPressed && IsMoveKey(Key)) {
         m_IsMoveKeyPressed = false;

@@ -8,19 +8,19 @@ using ci::ColorA;
 using ci::Font;
 using std::string;
 
-CRITextObject::CRITextObject(const PosT& Pos)
-  : CRIGameObject({}, Pos)
+TextObject::TextObject(const PosT& Pos)
+  : GameObject({}, Pos)
 {
 }
 
-void CRITextObject::SetText(const string& Text) { m_Text = Text; }
+void TextObject::SetText(const string& Text) { m_Text = Text; }
 
-void CRITextObject::DoDraw()
+void TextObject::DoDraw()
 {
     using ci::gl::drawString;
     drawString(m_Text, GetCenterPos(), m_Color, m_Font);
 }
 
-void CRITextObject::SetFont(const Font& Font) { m_Font = Font; }
+void TextObject::SetFont(const Font& Font) { m_Font = Font; }
 
-void CRITextObject::SetColor(const ColorA& Color) { m_Color = Color; }
+void TextObject::SetColor(const ColorA& Color) { m_Color = Color; }

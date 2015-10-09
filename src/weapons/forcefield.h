@@ -4,15 +4,15 @@
 
 #include <vector>
 
-class CRIEnemy;
-class CRIPlayer;
+class Enemy;
+class Player;
 
-class CRIForcefield : public CRIGameObject {
+class Forcefield : public GameObject {
   public:
-    CRIForcefield(const float Radius, const PosT& Pos, int Time, int Damage,
-        float PushForce, const CRIPlayer& Player);
+    Forcefield(const float Radius, const PosT& Pos, int Time, int Damage,
+        float PushForce, const Player& Player);
 
-    bool Affect(const CRIEnemy& Enemy);
+    bool Affect(const Enemy& Enemy);
     int GetDamage() const;
 
     void LogicUpdate(float Dt) override;
@@ -21,7 +21,7 @@ class CRIForcefield : public CRIGameObject {
     static int TextureDescr;
 
   private:
-    typedef std::vector<const CRIEnemy*> AffectedContT;
+    typedef std::vector<const Enemy*> AffectedContT;
 
     void DoDraw() override;
 
@@ -32,5 +32,5 @@ class CRIForcefield : public CRIGameObject {
     float m_TargetRadius{};
 
     AffectedContT m_Affected;
-    const CRIPlayer* m_pPlayer{};
+    const Player* m_pPlayer{};
 };

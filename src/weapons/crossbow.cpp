@@ -10,11 +10,11 @@
 
 using ci::Vec2f;
 
-void CRICrossbow::DoShoot(const Vec2f StartPos, const Vec2f TargetPos)
+void Crossbow::DoShoot(const Vec2f StartPos, const Vec2f TargetPos)
 {
-    typedef CRIMovable::SizeT SizeT;
+    typedef Movable::SizeT SizeT;
 
-    CRIProjectile* const Projectile = new CRIProjectile(SizeT(10.f, 10.f),
+    Projectile* const Projectile = new Projectile(SizeT(10.f, 10.f),
         StartPos, 800.f * GetTargetVector(StartPos, TargetPos), 10);
     GetScene().AddObject(*Projectile);
 }

@@ -13,30 +13,30 @@ namespace cinder {
 template <typename T> class Vec2;
 }
 
-class CRIApp;
-class CRIGameObject;
+class App;
+class GameObject;
 
-class CRIGameScene {
+class GameScene {
   public:
-    CRIGameScene(CRIApp& App, int Width, int Height);
+    GameScene(App& App, int Width, int Height);
 
     void Draw();
     void Update(float Dt);
 
-    void AddObject(std::unique_ptr<CRIGameObject> Object);
-    CRIGameObject* AddGUIObject(std::unique_ptr<CRIGameObject> Object);
+    void AddObject(std::unique_ptr<GameObject> Object);
+    GameObject* AddGUIObject(std::unique_ptr<GameObject> Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
-    void DestroyObject(CRIGameObject& Obj);
+    void DestroyObject(GameObject& Obj);
 
     cinder::Vec2<int> GetSize() const;
 
     cinder::Vec2<float> ToScreenPos(cinder::Vec2<float> GamePos) const;
     cinder::Vec2<float> ToGamePos(cinder::Vec2<float> ScreenPos) const;
 
-    const CRICollider& GetCollider() const;
-    CRICamera& GetCamera();
-    const CRICamera& GetCamera() const;
+    const Collider& GetCollider() const;
+    Camera& GetCamera();
+    const Camera& GetCamera() const;
 
     void OnEnemyRespawn(cinder::Vec2<float> PosForPickUp);
 
@@ -45,15 +45,15 @@ class CRIGameScene {
 
   private:
     // No need
-    CRIGameScene(const CRIGameScene&);
-    CRIGameScene& operator=(const CRIGameScene&);
+    GameScene(const GameScene&);
+    GameScene& operator=(const GameScene&);
 
     void AddPendingObjects();
     void RemoveDeadObjects();
 
     void UpdateObjects(float Dt);
 
-    typedef std::vector<std::unique_ptr<CRIGameObject>> ObjectsContT;
+    typedef std::vector<std::unique_ptr<GameObject>> ObjectsContT;
 
     ObjectsContT m_Objects;
     ObjectsContT m_PendingObjects;
@@ -61,15 +61,15 @@ class CRIGameScene {
     ObjectsContT m_GUIObjects;
     ObjectsContT m_PendingGUIObjects;
 
-    CRICollider m_Collider;
-    CRICamera m_Camera;
+    Collider m_Collider;
+    Camera m_Camera;
 
-    std::pair<CRIObstacle, CRIObstacle> m_XBounds;
-    std::pair<CRIObstacle, CRIObstacle> m_YBounds;
+    std::pair<Obstacle, Obstacle> m_XBounds;
+    std::pair<Obstacle, Obstacle> m_YBounds;
 
-    CRIPickupGenerator m_Pickups;
+    PickupGenerator m_Pickups;
 
     bool m_IsPaused{};
 
-    CRIApp* m_pApp{};
+    App* m_pApp{};
 };

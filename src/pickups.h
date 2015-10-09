@@ -3,9 +3,9 @@
 #include "game_object.h"
 #include "timer.h"
 
-class CRIHealthPickup : public CRIGameObject {
+class HealthPickup : public GameObject {
   public:
-    CRIHealthPickup(const SizeT& Size, const PosT& StartPos, int Amount,
+    HealthPickup(const SizeT& Size, const PosT& StartPos, int Amount,
         int LifetimeSeconds);
 
     int GetAmount() const;
@@ -16,5 +16,5 @@ class CRIHealthPickup : public CRIGameObject {
 
   private:
     int m_Amount{};
-    CRICountdownTimer m_Timer;
+    CountdownTimer m_Timer;
 };

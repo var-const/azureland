@@ -14,13 +14,13 @@
 #define NO_VSYNC
 #endif
 
-void CRIApp::prepareSettings(Settings* const settings)
+void App::prepareSettings(Settings* const settings)
 {
     settings->setWindowSize(1280, 1024);
     settings->setFrameRate(60.f);
 }
 
-void CRIApp::setup()
+void App::setup()
 {
     using std::srand;
     using std::time;
@@ -33,7 +33,7 @@ void CRIApp::setup()
     BuildGame(*this);
 }
 
-void CRIApp::draw()
+void App::draw()
 {
     using namespace ci;
 
@@ -53,7 +53,7 @@ void CRIApp::draw()
     gl::drawString(s.str(), Vec2f());
 }
 
-void CRIApp::update()
+void App::update()
 {
     if (m_pScene) {
         m_pScene->Update(static_cast<float>(m_Timer.getSeconds()));
@@ -61,68 +61,68 @@ void CRIApp::update()
     }
 }
 
-void CRIApp::SetScene(std::unique_ptr<CRIGameScene> pScene)
+void App::SetScene(std::unique_ptr<GameScene> pScene)
 {
     m_pScene = std::move(pScene);
 }
 
-void CRIApp::mouseDown(const ci::app::MouseEvent Event)
+void App::mouseDown(const ci::app::MouseEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnMouseDown(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseUp(const ci::app::MouseEvent Event)
+void App::mouseUp(const ci::app::MouseEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnMouseUp(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseMove(const ci::app::MouseEvent Event)
+void App::mouseMove(const ci::app::MouseEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnMouseMove(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseDrag(const ci::app::MouseEvent Event)
+void App::mouseDrag(const ci::app::MouseEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnMouseDrag(Event.getPos(), Event);
     }
 }
 
-void CRIApp::mouseWheel(const ci::app::MouseEvent Event)
+void App::mouseWheel(const ci::app::MouseEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnMouseWheel(Event.getWheelIncrement(), Event);
     }
 }
 
-void CRIApp::keyDown(const ci::app::KeyEvent Event)
+void App::keyDown(const ci::app::KeyEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnKeyDown(Event.getCode(), Event);
     }
 }
 
-void CRIApp::keyUp(const ci::app::KeyEvent Event)
+void App::keyUp(const ci::app::KeyEvent Event)
 {
     for (auto&& listener : m_InputListeners) {
         listener->OnKeyUp(Event.getCode(), Event);
     }
 }
 
-void CRIApp::AddInputListener(CRIInterfaceInput& Listener)
+void App::AddInputListener(InterfaceInput& Listener)
 {
     assert(std::find(m_InputListeners.begin(), m_InputListeners.end(),
                &Listener) == m_InputListeners.end());
     m_InputListeners.push_back(&Listener);
 }
 
-void CRIApp::RemoveInputListener(CRIInterfaceInput& Listener)
+void App::RemoveInputListener(InterfaceInput& Listener)
 {
     using std::find;
 
@@ -136,4 +136,4 @@ void CRIApp::RemoveInputListener(CRIInterfaceInput& Listener)
     }
 }
 
-CINDER_APP_BASIC(CRIApp, ci::app::RendererGl)
+CINDER_APP_BASIC(App, ci::app::RendererGl)

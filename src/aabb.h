@@ -3,16 +3,16 @@
 #include <cinder/Rect.h>
 #include <cinder/Vector.h>
 
-struct CRI_AABB {
+struct AABB {
     typedef ci::Vec2f VecT;
 
-    CRI_AABB() = default;
+    AABB() = default;
 #ifdef PASS_BY_VALUE
-    explicit CRI_AABB(ci::Rectf Rect);
-    CRI_AABB(VecT Center, VecT HalfSize);
+    explicit AABB(ci::Rectf Rect);
+    AABB(VecT Center, VecT HalfSize);
 #else
-    explicit CRI_AABB(ci::Rectf const& Rect);
-    CRI_AABB(VecT const& Center, VecT const& HalfSize);
+    explicit AABB(ci::Rectf const& Rect);
+    AABB(VecT const& Center, VecT const& HalfSize);
 #endif
 
     VecT m_Center;
@@ -20,37 +20,37 @@ struct CRI_AABB {
 };
 
 #ifdef PASS_BY_VALUE
-bool Intersect(CRI_AABB A, CRI_AABB B);
-bool TouchOrIntersect(CRI_AABB A, CRI_AABB B);
-bool TouchOnly(CRI_AABB A, CRI_AABB B);
+bool Intersect(AABB A, AABB B);
+bool TouchOrIntersect(AABB A, AABB B);
+bool TouchOnly(AABB A, AABB B);
 
-CRI_AABB::VecT IntersectionDepth(CRI_AABB A, CRI_AABB B);
-CRI_AABB::VecT IntersectionNormal(CRI_AABB A, CRI_AABB B);
-CRI_AABB::VecT IntersectionNormal(CRI_AABB A, CRI_AABB B, CRI_AABB::VecT depth);
+AABB::VecT IntersectionDepth(AABB A, AABB B);
+AABB::VecT IntersectionNormal(AABB A, AABB B);
+AABB::VecT IntersectionNormal(AABB A, AABB B, AABB::VecT depth);
 
-bool AContainsB(CRI_AABB A, CRI_AABB B);
+bool AContainsB(AABB A, AABB B);
 
-ci::Rectf ToRect(CRI_AABB Box);
-void SetAABB(CRI_AABB& Box, CRI_AABB::VecT Center, CRI_AABB::VecT HalfSize);
+ci::Rectf ToRect(AABB Box);
+void SetAABB(AABB& Box, AABB::VecT Center, AABB::VecT HalfSize);
 
-CRI_AABB::VecT GetLeftUpper(CRI_AABB Box);
-CRI_AABB::VecT GetRightLower(CRI_AABB Box);
+AABB::VecT GetLeftUpper(AABB Box);
+AABB::VecT GetRightLower(AABB Box);
 #else
-bool Intersect(CRI_AABB const& A, CRI_AABB const& B);
-bool TouchOrIntersect(CRI_AABB const& A, CRI_AABB const& B);
-bool TouchOnly(CRI_AABB const& A, CRI_AABB const& B);
+bool Intersect(AABB const& A, AABB const& B);
+bool TouchOrIntersect(AABB const& A, AABB const& B);
+bool TouchOnly(AABB const& A, AABB const& B);
 
-CRI_AABB::VecT IntersectionDepth(CRI_AABB const& A, CRI_AABB const& B);
-CRI_AABB::VecT IntersectionNormal(CRI_AABB const& A, CRI_AABB const& B);
-CRI_AABB::VecT IntersectionNormal(
-    CRI_AABB const& A, CRI_AABB const& B, CRI_AABB::VecT const& depth);
+AABB::VecT IntersectionDepth(AABB const& A, AABB const& B);
+AABB::VecT IntersectionNormal(AABB const& A, AABB const& B);
+AABB::VecT IntersectionNormal(
+    AABB const& A, AABB const& B, AABB::VecT const& depth);
 
-bool AContainsB(CRI_AABB const& A, CRI_AABB const& B);
+bool AContainsB(AABB const& A, AABB const& B);
 
-ci::Rectf ToRect(CRI_AABB const& Box);
-void SetAABB(CRI_AABB& Box, CRI_AABB::VecT const& Center,
-    CRI_AABB::VecT const& HalfSize);
+ci::Rectf ToRect(AABB const& Box);
+void SetAABB(AABB& Box, AABB::VecT const& Center,
+    AABB::VecT const& HalfSize);
 
-CRI_AABB::VecT GetLeftUpper(CRI_AABB const& Box);
-CRI_AABB::VecT GetRightLower(CRI_AABB const& Box);
+AABB::VecT GetLeftUpper(AABB const& Box);
+AABB::VecT GetRightLower(AABB const& Box);
 #endif

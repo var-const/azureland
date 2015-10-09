@@ -9,16 +9,16 @@
 
 #include <memory>
 
-class CRIApp;
-class CRICrosshair;
-class CRITextObject;
-class CRIWeapon;
+class App;
+class Crosshair;
+class TextObject;
+class Weapon;
 
-class CRIPlayer : public CRIGameObject,
-                  public CRIHealthMixin,
-                  public CRIInterfaceInput {
+class Player : public GameObject,
+                  public HealthMixin,
+                  public InterfaceInput {
   public:
-    CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health, CRIApp& App);
+    Player(const SizeT& Size, const PosT& StartPos, int Health, App& App);
 
     void SetSpeed(float Speed);
     void AddScore(int Amount);
@@ -47,25 +47,25 @@ class CRIPlayer : public CRIGameObject,
     void OnHealthModified(int NewVal, int Modifier) override;
     void OnHealthDepleted() override;
 
-    void Shoot(CRIWeapon& Weapon);
+    void Shoot(Weapon& Weapon);
     PosT GetCrosshairPos() const;
     void UpdateAngle();
 
     void Paralyze(int Frames);
 
-    CRIMovementController m_MovementController;
+    MovementController m_MovementController;
 
-    CRICrosshair* m_pCrosshair{};
-    std::unique_ptr<CRIWeapon> m_pWeaponA;
+    Crosshair* m_pCrosshair{};
+    std::unique_ptr<Weapon> m_pWeaponA;
     bool m_AutofireWeaponA{};
-    std::unique_ptr<CRIWeapon> m_pWeaponB;
+    std::unique_ptr<Weapon> m_pWeaponB;
     bool m_AutofireWeaponB{};
 
-    CRITextObject* m_pHealthLabel{};
-    CRITextObject* m_pScoreLabel{};
+    TextObject* m_pHealthLabel{};
+    TextObject* m_pScoreLabel{};
     int m_Score{};
 
-    CRIApp* m_pApp{};
+    App* m_pApp{};
 
     int m_ParalyzedCounter{};
 };

@@ -1,8 +1,8 @@
 #pragma once
 
-class CRIHealthMixin {
+class HealthMixin {
   public:
-    virtual ~CRIHealthMixin() {}
+    virtual ~HealthMixin() {}
 
     void SetMaxHealth(int Max);
     void ModifyHealth(int Val);
@@ -19,4 +19,4 @@ class CRIHealthMixin {
     int m_MaxVal{};
 };
 
-bool HasFullHealth(const CRIHealthMixin& Mixin);
+bool HasFullHealth(const HealthMixin& Mixin);

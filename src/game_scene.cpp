@@ -17,23 +17,23 @@
 using ci::Vec2f;
 using ci::Vec2i;
 
-CRIGameScene::CRIGameScene(CRIApp& App, const int Width, const int Height)
+GameScene::GameScene(App& App, const int Width, const int Height)
   : m_Collider(Width, Height)
   , m_Camera(Vec2i(Width, Height), Vec2i(1280, 1024))
   , m_pApp(&App)
   , m_XBounds(std::make_pair(
-        CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)),
-        CRIObstacle(Vec2f(1280 * 3, 50),
+        Obstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f)),
+        Obstacle(Vec2f(1280 * 3, 50),
             Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f))))
   , m_YBounds(std::make_pair(
-        CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)),
-        CRIObstacle(Vec2f(50, 1024 * 3),
+        Obstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f)),
+        Obstacle(Vec2f(50, 1024 * 3),
             Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f))))
 {
     m_Pickups.SetScene(*this);
 }
 
-void CRIGameScene::Draw()
+void GameScene::Draw()
 {
     m_Camera.Draw();
 
@@ -44,7 +44,7 @@ void CRIGameScene::Draw()
     // m_Collider.Draw();
 }
 
-void CRIGameScene::Update(const float Dt)
+void GameScene::Update(const float Dt)
 {
     AddPendingObjects();
     RemoveDeadObjects();
@@ -60,7 +60,7 @@ void CRIGameScene::Update(const float Dt)
     m_Camera.UpdateVisibility(m_Collider);
 }
 
-void CRIGameScene::AddPendingObjects()
+void GameScene::AddPendingObjects()
 {
     m_Objects.insert(m_Objects.end(),
         std::make_move_iterator(m_PendingObjects.begin()),
@@ -75,7 +75,7 @@ void CRIGameScene::AddPendingObjects()
     m_PendingGUIObjects.clear();
 }
 
-void CRIGameScene::RemoveDeadObjects()
+void GameScene::RemoveDeadObjects()
 {
     using std::find;
 
@@ -92,30 +92,30 @@ void CRIGameScene::RemoveDeadObjects()
     m_DeadObjects.clear();
 }
 
-void CRIGameScene::DestroyObject(CRIGameObject& Obj)
+void GameScene::DestroyObject(GameObject& Obj)
 {
     m_DeadObjects.push_back(&Obj);
 }
 
-void CRIGameScene::AddObject(std::unique_ptr<CRIGameObject> Object)
+void GameScene::AddObject(std::unique_ptr<GameObject> Object)
 {
     Object.SetScene(*this);
     m_PendingObjects.push_back(std::move(Object));
 }
 
-CRIGameObject* CRIGameScene::AddGUIObject(std::unique_ptr<CRIGameObject> Object)
+GameObject* GameScene::AddGUIObject(std::unique_ptr<GameObject> Object)
 {
     Object.SetScene(*this);
     m_PendingGUIObjects.push_back(std::move(Object));
     return m_PendingGUIObjects.back().get();
 }
 
-void CRIGameScene::UpdateObjects(float Dt)
+void GameScene::UpdateObjects(float Dt)
 {
     const float FrameDt = Dt;
 
     for (int i = 0; i != 10; ++i) {
-        const CRICollisionsInfo Collisions =
+        const CollisionsInfo Collisions =
             m_Collider.BuildCollisions(m_Objects.begin(), m_Objects.end(), Dt);
         if (Collisions.IsEmpty()) {
             break;
@@ -148,41 +148,41 @@ void CRIGameScene::UpdateObjects(float Dt)
     }
 }
 
-void CRIGameScene::MoveCamera(const Vec2f NewCenter)
+void GameScene::MoveCamera(const Vec2f NewCenter)
 {
     m_Camera.Move(NewCenter);
 }
 
-Vec2f CRIGameScene::ToScreenPos(const Vec2f GamePos) const
+Vec2f GameScene::ToScreenPos(const Vec2f GamePos) const
 {
     return m_Camera.ToScreenPos(GamePos);
 }
 
-Vec2f CRIGameScene::ToGamePos(const Vec2f ScreenPos) const
+Vec2f GameScene::ToGamePos(const Vec2f ScreenPos) const
 {
     return m_Camera.ToGamePos(ScreenPos);
 }
 
-const CRICollider& CRIGameScene::GetCollider() const { return m_Collider; }
+const Collider& GameScene::GetCollider() const { return m_Collider; }
 
-CRICamera& CRIGameScene::GetCamera() { return m_Camera; }
+Camera& GameScene::GetCamera() { return m_Camera; }
 
-const CRICamera& CRIGameScene::GetCamera() const { return m_Camera; }
+const Camera& GameScene::GetCamera() const { return m_Camera; }
 
-void CRIGameScene::OnEnemyRespawn(const Vec2f PosForPickUp)
+void GameScene::OnEnemyRespawn(const Vec2f PosForPickUp)
 {
     m_Pickups.Invoke(PosForPickUp);
 }
 
-Vec2i CRIGameScene::GetSize() const { return m_Camera.GetSize(); }
+Vec2i GameScene::GetSize() const { return m_Camera.GetSize(); }
 
-void CRIGameScene::EndGame(const int Score)
+void GameScene::EndGame(const int Score)
 {
     SetPause(true);
-    std::unique_ptr<CRIHighscore> Highscore = new CRIHighscore(Score);
+    std::unique_ptr<Highscore> Highscore = new Highscore(Score);
     m_pApp->AddInputListener(*Highscore);
     AddGUIObject(std::move(Highscore));
     Highscore->Load("scores.yaml");
 }
 
-void CRIGameScene::SetPause(const bool Val) { m_IsPaused = Val; }
+void GameScene::SetPause(const bool Val) { m_IsPaused = Val; }

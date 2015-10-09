@@ -2,7 +2,7 @@
 
 #include <vector>
 
-struct CRICollision;
+struct Collision;
 
-typedef std::vector<CRICollision> CollisionsContT;
+typedef std::vector<Collision> CollisionsContT;
 typedef CollisionsContT::iterator CollisionsIterT;

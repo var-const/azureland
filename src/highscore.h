@@ -10,9 +10,9 @@
 #include <map>
 #include <string>
 
-class CRIHighscore : public CRIGameObject, public CRIInterfaceInput {
+class Highscore : public GameObject, public InterfaceInput {
   public:
-    explicit CRIHighscore(int NewScore);
+    explicit Highscore(int NewScore);
 
     void Load(const std::string& FileName);
 

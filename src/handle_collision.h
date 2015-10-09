@@ -1,5 +1,5 @@
 #pragma once
 
-struct CRICollision;
+struct Collision;
 
-void HandleCollision(const CRICollision& Collision);
+void HandleCollision(const Collision& Collision);

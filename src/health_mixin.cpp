@@ -7,13 +7,13 @@
 #include <algorithm>
 #include <cassert>
 
-void CRIHealthMixin::SetMaxHealth(const int Max)
+void HealthMixin::SetMaxHealth(const int Max)
 {
     assert(Max >= 0);
     m_MaxVal = Max;
 }
 
-void CRIHealthMixin::ModifyHealth(const int Val)
+void HealthMixin::ModifyHealth(const int Val)
 {
     using ci::math;
     using std::max;
@@ -26,7 +26,7 @@ void CRIHealthMixin::ModifyHealth(const int Val)
     }
 }
 
-void CRIHealthMixin::ForceSetHealthValue(const int Val)
+void HealthMixin::ForceSetHealthValue(const int Val)
 {
     const int OldVal = m_CurVal;
     m_CurVal = Val;
@@ -36,13 +36,13 @@ void CRIHealthMixin::ForceSetHealthValue(const int Val)
     }
 }
 
-int CRIHealthMixin::GetCurHealthValue() const { return m_CurVal; }
+int HealthMixin::GetCurHealthValue() const { return m_CurVal; }
 
-int CRIHealthMixin::GetMaxHealthValue() const { return m_MaxVal; }
+int HealthMixin::GetMaxHealthValue() const { return m_MaxVal; }
 
-void CRIHealthMixin::OnHealthModified(const int NewVal, const int Modifier) {}
+void HealthMixin::OnHealthModified(const int NewVal, const int Modifier) {}
 
-bool HasFullHealth(const CRIHealthMixin& Mixin)
+bool HasFullHealth(const HealthMixin& Mixin)
 {
     return Mixin.GetCurHealthValue() >= Mixin.GetMaxHealthValue();
 }

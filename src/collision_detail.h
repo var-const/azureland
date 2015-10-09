@@ -1,9 +1,9 @@
 #pragma once
 
-struct CRICollision;
-class CRIGameObject;
-class CRIMovable;
+struct Collision;
+class GameObject;
+class Movable;
 
-CRICollision CreateCollision(
-    CRIGameObject& Lhs, CRIGameObject& Rhs, float Time);
-float GetCollisionTime(CRIMovable& Lhs, CRIMovable& Rhs, float Time);
+Collision CreateCollision(
+    GameObject& Lhs, GameObject& Rhs, float Time);
+float GetCollisionTime(Movable& Lhs, Movable& Rhs, float Time);

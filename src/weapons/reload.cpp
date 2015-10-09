@@ -4,15 +4,15 @@
 
 #include <cassert>
 
-void CRIReload::OnShot()
+void Reload::OnShot()
 {
     assert(IsReady());
     m_Timer.SetExpiresFromNow(m_ReloadTime);
 }
 
-bool CRIReload::IsReady() const { return m_Timer.IsExpired(); }
+bool Reload::IsReady() const { return m_Timer.IsExpired(); }
 
-void CRIReload::SetReloadTime(const int Milliseconds)
+void Reload::SetReloadTime(const int Milliseconds)
 {
     assert(Milliseconds >= 0);
     m_ReloadTime = static_cast<double>(Milliseconds) / 1000.0;

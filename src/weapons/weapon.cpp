@@ -9,12 +9,12 @@
 
 using ci::Vec2f;
 
-void CRIWeapon::SetReloadTime(const int Milliseconds)
+void Weapon::SetReloadTime(const int Milliseconds)
 {
     m_Reload.SetReloadTime(Milliseconds);
 }
 
-void CRIWeapon::Shoot(const Vec2f StartPos, const Vec2f TargetPos)
+void Weapon::Shoot(const Vec2f StartPos, const Vec2f TargetPos)
 {
     if (!m_Reload.IsReady()) {
         return;
@@ -23,17 +23,17 @@ void CRIWeapon::Shoot(const Vec2f StartPos, const Vec2f TargetPos)
     m_Reload.OnShot();
 }
 
-bool CRIWeapon::IsReady() const { return m_Reload.IsReady(); }
+bool Weapon::IsReady() const { return m_Reload.IsReady(); }
 
-void CRIWeapon::SetScene(CRIGameScene& Scene) { m_pScene = &Scene; }
+void Weapon::SetScene(GameScene& Scene) { m_pScene = &Scene; }
 
-CRIGameScene& CRIWeapon::GetScene()
+GameScene& Weapon::GetScene()
 {
     assert(m_pScene);
     return *m_pScene;
 }
 
-const CRIGameScene& CRIWeapon::GetScene() const
+const GameScene& Weapon::GetScene() const
 {
     assert(m_pScene);
     return *m_pScene;

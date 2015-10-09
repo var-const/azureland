@@ -26,30 +26,30 @@ using std::vector;
 //#define CHEATS
 #endif
 
-void CreateObstacle(CRIGameScene& Scene, const float LeftUpperTileX,
+void CreateObstacle(GameScene& Scene, const float LeftUpperTileX,
     const float LeftUpperTileY, const float TileWidth, const float TileHeight)
 {
     static const float TileSize = 51.f;
     const Vec2f Size = Vec2f(TileWidth, TileHeight) * TileSize;
     const Vec2f Pos = Vec2f(LeftUpperTileX, LeftUpperTileY) * TileSize;
-    Scene.AddObject(std::unique_ptr<CRIGameObject>(
-        new CRIObstacle(Size, Pos + Size / 2.f)));
+    Scene.AddObject(std::unique_ptr<GameObject>(
+        new Obstacle(Size, Pos + Size / 2.f)));
 }
 
-void BuildGame(CRIApp& App)
+void BuildGame(App& App)
 {
     using ci::Vec2f;
 
-    std::unique_ptr<CRIGameScene> Scene =
-        new CRIGameScene(App, 1280 * 3, 1024 * 3);
+    std::unique_ptr<GameScene> Scene =
+        new GameScene(App, 1280 * 3, 1024 * 3);
 
-    Scene->AddObject(std::unique_ptr<CRIGameObject>(
-        new CRIObstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f))));
-    Scene->AddObject(std::unique_ptr<CRIGameObject>(new CRIObstacle(
+    Scene->AddObject(std::unique_ptr<GameObject>(
+        new Obstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f))));
+    Scene->AddObject(std::unique_ptr<GameObject>(new Obstacle(
         Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 1024.f * 3.f - 25.f))));
-    Scene->AddObject(std::unique_ptr<CRIGameObject>(
-        new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f))));
-    Scene->AddObject(std::unique_ptr<CRIGameObject>(new CRIObstacle(
+    Scene->AddObject(std::unique_ptr<GameObject>(
+        new Obstacle(Vec2f(50, 1024 * 3), Vec2f(25.f, 1024.f * 3.f / 2.f))));
+    Scene->AddObject(std::unique_ptr<GameObject>(new Obstacle(
         Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f))));
 
     // Centurion
@@ -107,26 +107,26 @@ void BuildGame(CRIApp& App)
 
     const int ProjectileTexture =
         Scene->GetCamera().RegisterTexture("energy.png");
-    CRIProjectile::TextureDescr = ProjectileTexture;
+    Projectile::TextureDescr = ProjectileTexture;
     const int FieldTexture = Scene->GetCamera().RegisterTexture("field.png");
-    CRIForcefield::TextureDescr = FieldTexture;
+    Forcefield::TextureDescr = FieldTexture;
     const int HealthTexture = Scene->GetCamera().RegisterTexture("health.png");
-    CRIHealthPickup::TextureDescr = HealthTexture;
+    HealthPickup::TextureDescr = HealthTexture;
 
     App.SetScene(std::move(Scene));
 }
 
-std::unique_ptr<CRIPlayer> CreatePlayer(CRIApp& App, CRIGameScene& Scene)
+std::unique_ptr<Player> CreatePlayer(App& App, GameScene& Scene)
 {
     using ci::app::getWindowSize;
 
     // @FIXME hard coded values
-    const CRIMovable::SizeT Size = CRIMovable::SizeT(85.f, 85.f);
-    const CRIMovable::PosT Pos = CRIMovable::PosT(440.f,
+    const Movable::SizeT Size = Movable::SizeT(85.f, 85.f);
+    const Movable::PosT Pos = Movable::PosT(440.f,
         // getWindowSize().y - 30.f);
         1500.f);
 // 90.f);
-// const CRIMovable::PosT Pos = CRIMovable::PosT(getWindowSize().x / 2.f,
+// const Movable::PosT Pos = Movable::PosT(getWindowSize().x / 2.f,
 //    getWindowSize().y - 30.f);
 #ifdef CHEATS
     const int PlayerHealth = 1000000;
@@ -135,8 +135,8 @@ std::unique_ptr<CRIPlayer> CreatePlayer(CRIApp& App, CRIGameScene& Scene)
 // const int PlayerHealth = 10000;
 #endif
 
-    std::unique_ptr<CRIPlayer> Player =
-        new CRIPlayer(Size, Pos, PlayerHealth, App);
+    std::unique_ptr<Player> Player =
+        new Player(Size, Pos, PlayerHealth, App);
 #ifdef CHEATS
     Player->SetSpeed(1800.f);
 #else
@@ -145,13 +145,13 @@ std::unique_ptr<CRIPlayer> CreatePlayer(CRIApp& App, CRIGameScene& Scene)
 #endif
     const int TextureDescr = Scene.GetCamera().RegisterTexture("player.png");
     Player->SetTextureDescriptor(TextureDescr);
-    // Player->SetVelocity(CRIMovable::VelT(0.f, -300.f));
+    // Player->SetVelocity(Movable::VelT(0.f, -300.f));
     App.AddInputListener(*Player);
 
     return Player;
 }
 
-void CreateEnemies(CRIGameScene& Scene, CRIPlayer& Player)
+void CreateEnemies(GameScene& Scene, Player& Player)
 {
     vector<int> Textures;
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy.png"));
@@ -171,7 +171,7 @@ void CreateEnemies(CRIGameScene& Scene, CRIPlayer& Player)
     SpawnEnemies(Scene, Player, 50, Vec2f(2240.f, 610.f), 25, 5.f, Textures);
 }
 
-void SpawnEnemies(CRIGameScene& Scene, CRIPlayer& Player, const int Count,
+void SpawnEnemies(GameScene& Scene, Player& Player, const int Count,
     const Vec2f From, const int MaxRowLength, const float Dispersion,
     const vector<int>& Textures)
 {
@@ -186,17 +186,17 @@ void SpawnEnemies(CRIGameScene& Scene, CRIPlayer& Player, const int Count,
 
     // @FIXME hard coded values
 
-    const CRIMovable::SizeT Size = CRIMovable::SizeT(60.f, 60.f);
-    const CRIMovable::VelT VelocityBase = CRIMovable::VelT(200.f, 200.f);
-    CRIMovable::PosT CurPos = From;
+    const Movable::SizeT Size = Movable::SizeT(60.f, 60.f);
+    const Movable::VelT VelocityBase = Movable::VelT(200.f, 200.f);
+    Movable::PosT CurPos = From;
 
     int CurRow = 0;
     for (int i = 0; i != Count; ++i) {
         // const float Speed = randInt(10) < 9 ? 100 : 200;
         const float Speed = 50;
         // const float Speed = 10;
-        std::unique_ptr<CRIEnemy> const Enemy =
-            new CRIEnemy(Player, Size, CurPos);
+        std::unique_ptr<Enemy> const Enemy =
+            new Enemy(Player, Size, CurPos);
         Enemy->SetTextureDescriptor(Textures[randInt() % Textures.size()]);
         Enemy->SetSpeed(Speed);
         Scene.AddObject(std::move(Enemy));

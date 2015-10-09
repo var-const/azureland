@@ -21,7 +21,7 @@ using ci::gl::Texture;
 using std::string;
 
 
-CRICamera::CRICamera(const Vec2i SceneSize, const Vec2i ViewSize)
+Camera::Camera(const Vec2i SceneSize, const Vec2i ViewSize)
   : m_ViewHalfSize(ViewSize / 2.f)
   , m_HorizBounds(0.f, SceneSize.x - ViewSize.x)
   , m_VertBounds(0.f, SceneSize.y - ViewSize.y)
@@ -31,7 +31,7 @@ CRICamera::CRICamera(const Vec2i SceneSize, const Vec2i ViewSize)
     m_Back = TextureFromAsset("back.png");
 }
 
-int CRICamera::RegisterTexture(const string& Id)
+int Camera::RegisterTexture(const string& Id)
 {
     using ci::loadImage;
     using ci::app::loadAsset;
@@ -41,7 +41,7 @@ int CRICamera::RegisterTexture(const string& Id)
     return m_Textures.size() - 1;
 }
 
-void CRICamera::Draw()
+void Camera::Draw()
 {
     using ::Draw;
     using namespace ci;
@@ -66,7 +66,7 @@ void CRICamera::Draw()
     gl::popModelView();
 }
 
-void CRICamera::UpdateVisibility(const CRICollider& Collider)
+void Camera::UpdateVisibility(const Collider& Collider)
 {
     using std::sort;
     using std::unique;
@@ -94,9 +94,9 @@ void CRICamera::UpdateVisibility(const CRICollider& Collider)
 }
 
 #ifdef PASS_BY_VALUE
-void CRICamera::Move(const Vec2f NewCenter)
+void Camera::Move(const Vec2f NewCenter)
 #else
-void CRICamera::Move(Vec2f const& NewCenter)
+void Camera::Move(Vec2f const& NewCenter)
 #endif
 {
     using ci::math;
@@ -109,29 +109,29 @@ void CRICamera::Move(Vec2f const& NewCenter)
 }
 
 #ifdef PASS_BY_VALUE
-Vec2f CRICamera::ToScreenPos(const Vec2f GamePos) const
+Vec2f Camera::ToScreenPos(const Vec2f GamePos) const
 #else
-Vec2f CRICamera::ToScreenPos(Vec2f const& GamePos) const
+Vec2f Camera::ToScreenPos(Vec2f const& GamePos) const
 #endif
 {
     return GamePos + m_CurTranslation;
 }
 
 #ifdef PASS_BY_VALUE
-Vec2f CRICamera::ToGamePos(const Vec2f ScreenPos) const
+Vec2f Camera::ToGamePos(const Vec2f ScreenPos) const
 #else
-Vec2f CRICamera::ToGamePos(Vec2f const& ScreenPos) const
+Vec2f Camera::ToGamePos(Vec2f const& ScreenPos) const
 #endif
 {
     return ScreenPos - m_CurTranslation;
 }
 
-Vec2i CRICamera::GetSize() const
+Vec2i Camera::GetSize() const
 {
     return Vec2i(m_HorizBounds.y, m_VertBounds.y);
 }
 
-void CRICamera::DrawBack()
+void Camera::DrawBack()
 {
     using namespace ci;
 
@@ -179,7 +179,7 @@ void CRICamera::DrawBack()
 
 void BindTexture(const Texture& Tex) { Tex.enableAndBind(); }
 
-void Draw(const CRIMovable& DrawData,
+void Draw(const Movable& DrawData,
     const Texture& Tex) // @Remove second param
 {
     using namespace ci;

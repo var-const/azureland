@@ -7,9 +7,9 @@
 
 #include <string>
 
-class CRITextObject : public CRIGameObject {
+class TextObject : public GameObject {
   public:
-    explicit CRITextObject(const PosT& Pos);
+    explicit TextObject(const PosT& Pos);
 
     void SetText(const std::string& Text);
     void SetFont(const ci::Font& Font);

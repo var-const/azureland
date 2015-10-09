@@ -2,7 +2,7 @@
 
 #include <cinder/Timer.h>
 
-class CRICountdownTimer {
+class CountdownTimer {
   public:
     void SetExpiresFromNow(double Seconds);
     double ExpiresFromNow() const;

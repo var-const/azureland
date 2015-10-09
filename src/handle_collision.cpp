@@ -10,7 +10,7 @@
 
 namespace {
 
-template <class T> T* GetObjByType(CRIGameObject& Base)
+template <class T> T* GetObjByType(GameObject& Base)
 {
     if (typeid(Base) == typeid(T)) {
         return dynamic_cast<T*>(&Base);
@@ -18,7 +18,7 @@ template <class T> T* GetObjByType(CRIGameObject& Base)
     return nullptr;
 }
 
-template <class T> T* GetObjByType(CRIGameObject& Lhs, CRIGameObject& Rhs)
+template <class T> T* GetObjByType(GameObject& Lhs, GameObject& Rhs)
 {
     T* Result = GetObjByType<T>(Lhs);
     if (!Result) {
@@ -28,14 +28,14 @@ template <class T> T* GetObjByType(CRIGameObject& Lhs, CRIGameObject& Rhs)
 }
 
 template <class T, class U>
-bool TryProcessCollision(CRIGameObject& Lhs, CRIGameObject& Rhs)
+bool TryProcessCollision(GameObject& Lhs, GameObject& Rhs)
 {
     T* pT = GetObjByType<T>(Lhs, Rhs);
     if (!pT) {
         return false;
     }
     U* pU =
-        GetObjByType<U>(static_cast<CRIGameObject*>(pT) == &Lhs ? Rhs : Lhs);
+        GetObjByType<U>(static_cast<GameObject*>(pT) == &Lhs ? Rhs : Lhs);
     if (!pU) {
         return false;
     }
@@ -47,40 +47,40 @@ bool TryProcessCollision(CRIGameObject& Lhs, CRIGameObject& Rhs)
 
 // Double dispatch using typeids. Not elegant, but easy to implement
 
-void HandleCollision(CRIGameObject& Lhs, CRIGameObject& Rhs)
+void HandleCollision(GameObject& Lhs, GameObject& Rhs)
 {
-    if (TryProcessCollision<CRIEnemy, CRIEnemy>(Lhs, Rhs)) {
+    if (TryProcessCollision<Enemy, Enemy>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIPlayer>(Lhs, Rhs)) {
+    if (TryProcessCollision<Enemy, Player>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIObstacle>(Lhs, Rhs)) {
+    if (TryProcessCollision<Enemy, Obstacle>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIPlayer, CRIObstacle>(Lhs, Rhs)) {
+    if (TryProcessCollision<Player, Obstacle>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIProjectile>(Lhs, Rhs)) {
+    if (TryProcessCollision<Enemy, Projectile>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIForcefield>(Lhs, Rhs)) {
+    if (TryProcessCollision<Enemy, Forcefield>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIObstacle, CRIProjectile>(Lhs, Rhs)) {
+    if (TryProcessCollision<Obstacle, Projectile>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIPlayer, CRIHealthPickup>(Lhs, Rhs)) {
+    if (TryProcessCollision<Player, HealthPickup>(Lhs, Rhs)) {
         return;
     }
-    if (TryProcessCollision<CRIEnemy, CRIHealthPickup>(Lhs, Rhs)) {
+    if (TryProcessCollision<Enemy, HealthPickup>(Lhs, Rhs)) {
         return;
     }
 }
 
 } // unnamed
 
-void HandleCollision(const CRICollision& Collision)
+void HandleCollision(const Collision& Collision)
 {
     HandleCollision(*Collision.m_pObjA, *Collision.m_pObjB);
 }

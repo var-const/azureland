@@ -23,11 +23,11 @@ using ci::app::KeyEvent;
 using ci::app::MouseEvent;
 using ci::gl::Texture;
 
-CRIPlayer::CRIPlayer(
-    const SizeT& Size, const PosT& StartPos, const int Health, CRIApp& App)
-  : CRIGameObject(Size, StartPos)
-  , m_pWeaponA(new CRICrossbow())
-  , m_pWeaponB(new CRIForcefieldEmitter(*this))
+Player::Player(
+    const SizeT& Size, const PosT& StartPos, const int Health, App& App)
+  : GameObject(Size, StartPos)
+  , m_pWeaponA(new Crossbow())
+  , m_pWeaponB(new ForcefieldEmitter(*this))
   , m_pApp(&App)
 {
     using ci::Font;
@@ -41,7 +41,7 @@ CRIPlayer::CRIPlayer(
     ForceSetHealthValue(Health);
 }
 
-void CRIPlayer::OnAddedToScene()
+void Player::OnAddedToScene()
 {
     assert(m_pWeaponA);
     assert(m_pWeaponB);
@@ -49,12 +49,12 @@ void CRIPlayer::OnAddedToScene()
     m_pWeaponA->SetScene(GetScene());
     m_pWeaponB->SetScene(GetScene());
 
-    m_pCrosshair = GetScene().AddGUIObject(std::unique_ptr<CRIGameObject>(
-        new CRICrosshair(SizeT(10.f, 10.f), PosT())));
+    m_pCrosshair = GetScene().AddGUIObject(std::unique_ptr<GameObject>(
+        new Crosshair(SizeT(10.f, 10.f), PosT())));
     m_pHealthLabel = GetScene().AddGUIObject(
-        std::unique_ptr<CRIGameObject>(new CRITextObject(PosT(100.f, 50.f))));
+        std::unique_ptr<GameObject>(new TextObject(PosT(100.f, 50.f))));
     m_pScoreLabel = GetScene().AddGUIObject(
-        std::unique_ptr<CRIGameObject>(new CRITextObject(PosT(1100.f, 50.f))));
+        std::unique_ptr<GameObject>(new TextObject(PosT(1100.f, 50.f))));
 
     m_pHealthLabel->SetFont(Font("Verdana", 32));
     OnHealthModified(GetCurHealthValue(), 0);
@@ -62,12 +62,12 @@ void CRIPlayer::OnAddedToScene()
     AddScore(0);
 }
 
-void CRIPlayer::SetSpeed(const float Speed)
+void Player::SetSpeed(const float Speed)
 {
     m_MovementController.SetSpeed(Speed);
 }
 
-void CRIPlayer::DoUpdate(const float Dt)
+void Player::DoUpdate(const float Dt)
 {
     if (m_ParalyzedCounter) {
         --m_ParalyzedCounter;
@@ -77,7 +77,7 @@ void CRIPlayer::DoUpdate(const float Dt)
     m_MovementController.Deccelerate(*this);
 }
 
-void CRIPlayer::LogicUpdate(const float Dt)
+void Player::LogicUpdate(const float Dt)
 {
     UpdateAngle();
 
@@ -96,7 +96,7 @@ void CRIPlayer::LogicUpdate(const float Dt)
     }
 }
 
-void CRIPlayer::OnMouseDown(const Vec2f& Pos, const MouseEvent Event)
+void Player::OnMouseDown(const Vec2f& Pos, const MouseEvent Event)
 {
     if (IsDying()) {
         return;
@@ -117,18 +117,18 @@ void CRIPlayer::OnMouseDown(const Vec2f& Pos, const MouseEvent Event)
     }
 }
 
-void CRIPlayer::Shoot(CRIWeapon& Weapon)
+void Player::Shoot(Weapon& Weapon)
 {
     Weapon.Shoot(GetCenterPos(), GetCrosshairPos());
 }
 
-CRIMovable::PosT CRIPlayer::GetCrosshairPos() const
+Movable::PosT Player::GetCrosshairPos() const
 {
     assert(m_pCrosshair);
     return GetScene().ToGamePos(m_pCrosshair->GetCenterPos());
 }
 
-void CRIPlayer::OnMouseUp(const Vec2f& Pos, const MouseEvent Event)
+void Player::OnMouseUp(const Vec2f& Pos, const MouseEvent Event)
 {
     if (IsDying()) {
         return;
@@ -142,7 +142,7 @@ void CRIPlayer::OnMouseUp(const Vec2f& Pos, const MouseEvent Event)
     }
 }
 
-void CRIPlayer::OnMouseMove(const Vec2f& Pos, const MouseEvent Event)
+void Player::OnMouseMove(const Vec2f& Pos, const MouseEvent Event)
 {
     if (IsDying()) {
         return;
@@ -152,7 +152,7 @@ void CRIPlayer::OnMouseMove(const Vec2f& Pos, const MouseEvent Event)
     m_pCrosshair->SetCenterPos(Pos);
 }
 
-void CRIPlayer::OnMouseDrag(const Vec2f& Pos, const MouseEvent Event)
+void Player::OnMouseDrag(const Vec2f& Pos, const MouseEvent Event)
 {
     if (IsDying()) {
         return;
@@ -161,7 +161,7 @@ void CRIPlayer::OnMouseDrag(const Vec2f& Pos, const MouseEvent Event)
     OnMouseMove(Pos, Event);
 }
 
-void CRIPlayer::OnMouseWheel(const float Increment, const MouseEvent Event)
+void Player::OnMouseWheel(const float Increment, const MouseEvent Event)
 {
     if (IsDying()) {
         return;
@@ -169,7 +169,7 @@ void CRIPlayer::OnMouseWheel(const float Increment, const MouseEvent Event)
     // @TODO
 }
 
-void CRIPlayer::OnKeyDown(const int KeyCode, const KeyEvent Event)
+void Player::OnKeyDown(const int KeyCode, const KeyEvent Event)
 {
     if (IsDying()) {
         return;
@@ -180,7 +180,7 @@ void CRIPlayer::OnKeyDown(const int KeyCode, const KeyEvent Event)
     }
 }
 
-void CRIPlayer::OnKeyUp(const int KeyCode, const KeyEvent Event)
+void Player::OnKeyUp(const int KeyCode, const KeyEvent Event)
 {
     if (IsDying()) {
         return;
@@ -188,9 +188,9 @@ void CRIPlayer::OnKeyUp(const int KeyCode, const KeyEvent Event)
     m_MovementController.OnKeyUp(KeyCode);
 }
 
-void CRIPlayer::OnHealthDepleted() { Destroy(); }
+void Player::OnHealthDepleted() { Destroy(); }
 
-void CRIPlayer::OnHealthModified(const int NewVal, const int Modifier)
+void Player::OnHealthModified(const int NewVal, const int Modifier)
 {
     using std::stringstream;
 
@@ -202,7 +202,7 @@ void CRIPlayer::OnHealthModified(const int NewVal, const int Modifier)
     m_pHealthLabel->SetText(stream.str());
 }
 
-void CRIPlayer::AddScore(const int Amount)
+void Player::AddScore(const int Amount)
 {
     using std::stringstream;
 
@@ -217,13 +217,13 @@ void CRIPlayer::AddScore(const int Amount)
     m_pScoreLabel->SetText(stream.str());
 }
 
-void CRIPlayer::OnDestroyed()
+void Player::OnDestroyed()
 {
     m_pApp->RemoveInputListener(*this);
     GetScene().EndGame(m_Score);
 }
 
-void CRIPlayer::UpdateAngle()
+void Player::UpdateAngle()
 {
     using ci::math;
     using ci::Vec2f;
@@ -235,12 +235,12 @@ void CRIPlayer::UpdateAngle()
     SetAngle(Angle * 180.f / M_PI);
 }
 
-void CRIPlayer::DoDraw()
+void Player::DoDraw()
 {
     //::Draw(*this, GetAngle(), m_Texture);
 }
 
-void CRIPlayer::Paralyze(const int Frames)
+void Player::Paralyze(const int Frames)
 {
     m_ParalyzedCounter = Frames;
     SetVelocity(VelT());

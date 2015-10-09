@@ -2,15 +2,15 @@
 
 #include "projectile.h"
 
-CRIProjectile::CRIProjectile(
+Projectile::Projectile(
     const SizeT& Size, const PosT& Pos, const VelT& Velocity, const int Damage)
-  : CRIGameObject(Size, Pos)
+  : GameObject(Size, Pos)
   , m_Damage(Damage)
 {
     SetVelocity(Velocity);
     SetTextureDescriptor(TextureDescr);
 }
 
-int CRIProjectile::GetDamage() const { return m_Damage; }
+int Projectile::GetDamage() const { return m_Damage; }
 
-int CRIProjectile::TextureDescr = -1;
+int Projectile::TextureDescr = -1;

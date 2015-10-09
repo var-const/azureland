@@ -5,17 +5,17 @@
 
 #include <vector>
 
-class CRICollider;
-class CRIGameObject;
-class CRIMovable;
+class Collider;
+class GameObject;
+class Movable;
 
-class CRICamera {
+class Camera {
   public:
-    CRICamera(ci::Vec2i SceneSize, ci::Vec2i ViewSize);
+    Camera(ci::Vec2i SceneSize, ci::Vec2i ViewSize);
 
     int RegisterTexture(const std::string& Id);
     void Draw();
-    void UpdateVisibility(const CRICollider& Collider);
+    void UpdateVisibility(const Collider& Collider);
 
 #ifdef PASS_BY_VALUE
     void Move(ci::Vec2f NewCenter);
@@ -33,10 +33,10 @@ class CRICamera {
 #endif
 
   private:
-    typedef std::vector<const CRIMovable*> DrawBufferT;
+    typedef std::vector<const Movable*> DrawBufferT;
     typedef std::vector<DrawBufferT> BuffersContT;
 
-    typedef std::vector<CRIGameObject*> CollisionsBufferT;
+    typedef std::vector<GameObject*> CollisionsBufferT;
     typedef CollisionsBufferT::iterator CollisionsIterT;
 
     void DrawBack();
@@ -58,4 +58,4 @@ class CRICamera {
 
 ci::gl::Texture TextureFromAsset(const std::string& Id);
 void BindTexture(const ci::gl::Texture& Texture);
-void Draw(const CRIMovable& DrawData, const ci::gl::Texture& Texture);
+void Draw(const Movable& DrawData, const ci::gl::Texture& Texture);

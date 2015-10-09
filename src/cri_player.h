@@ -17,7 +17,7 @@ class CRIWeapon;
 class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
     public CRIInterfaceInput
 {
-public:	
+public:
     CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health, CRIApp& App);
 
     void SetSpeed(float Speed);

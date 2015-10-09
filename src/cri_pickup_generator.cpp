@@ -20,7 +20,7 @@ void CRIPickupGenerator::Invoke( const Vec2f PosForPickUp )
     if (randBool())
     {
         CRIHealthPickup* const Pickup = new CRIHealthPickup(SizeT(8.f, 8.f),
-            PosForPickUp, 50, 10); 
+            PosForPickUp, 50, 10);
         m_pScene->AddObject(*Pickup);
     }
 }

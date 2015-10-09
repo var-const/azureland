@@ -10,7 +10,7 @@ class CRIInterfaceInput;
 
 class CRIApp : public ci::app::AppBasic
 {
-public:	
+public:
     void prepareSettings(Settings* settings) override;
     void setup() override;
 

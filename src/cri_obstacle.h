@@ -4,6 +4,6 @@
 
 class CRIObstacle : public CRIGameObject
 {
-public:	
+public:
     CRIObstacle(const SizeT& Size, const PosT& Pos);
 };

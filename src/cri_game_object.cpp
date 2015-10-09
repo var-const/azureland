@@ -10,7 +10,7 @@ using ci::gl::Texture;
 
 CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos )
 : CRIMovable(Size, StartPos)
-{ 
+{
 }
 
 void CRIGameObject::Draw()
@@ -55,11 +55,11 @@ bool CRIGameObject::IsDead() const
 }
 
 void CRIGameObject::DoDraw()
-{ 
+{
 }
 
 void CRIGameObject::DoUpdate( const float Dt )
-{ 
+{
 }
 
 void CRIGameObject::LogicUpdate(const float Dt)
@@ -67,11 +67,11 @@ void CRIGameObject::LogicUpdate(const float Dt)
 }
 
 void CRIGameObject::OnAddedToScene()
-{ 
+{
 }
 
 void CRIGameObject::OnDestroyed()
-{ 
+{
 }
 
 void CRIGameObject::SetScene( CRIGameScene& Scene )
@@ -132,16 +132,16 @@ void Draw(const CRIGameObject& Object, const float Angle, const Texture& Texture
 	glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
 
     const Rectf destRect = Texture.getCleanBounds();
-	verts[0*2+0] = destRect.getX2(); verts[0*2+1] = destRect.getY1();	
-	verts[1*2+0] = destRect.getX1(); verts[1*2+1] = destRect.getY1();	
-	verts[2*2+0] = destRect.getX2(); verts[2*2+1] = destRect.getY2();	
-	verts[3*2+0] = destRect.getX1(); verts[3*2+1] = destRect.getY2();	
+	verts[0*2+0] = destRect.getX2(); verts[0*2+1] = destRect.getY1();
+	verts[1*2+0] = destRect.getX1(); verts[1*2+1] = destRect.getY1();
+	verts[2*2+0] = destRect.getX2(); verts[2*2+1] = destRect.getY2();
+	verts[3*2+0] = destRect.getX1(); verts[3*2+1] = destRect.getY2();
 
 	const Rectf srcCoords = Texture.getAreaTexCoords( Texture.getCleanBounds() );
-	texCoords[0*2+0] = srcCoords.getX2(); texCoords[0*2+1] = srcCoords.getY1();	
-	texCoords[1*2+0] = srcCoords.getX1(); texCoords[1*2+1] = srcCoords.getY1();	
-	texCoords[2*2+0] = srcCoords.getX2(); texCoords[2*2+1] = srcCoords.getY2();	
-	texCoords[3*2+0] = srcCoords.getX1(); texCoords[3*2+1] = srcCoords.getY2();	
+	texCoords[0*2+0] = srcCoords.getX2(); texCoords[0*2+1] = srcCoords.getY1();
+	texCoords[1*2+0] = srcCoords.getX1(); texCoords[1*2+1] = srcCoords.getY1();
+	texCoords[2*2+0] = srcCoords.getX2(); texCoords[2*2+1] = srcCoords.getY2();
+	texCoords[3*2+0] = srcCoords.getX1(); texCoords[3*2+1] = srcCoords.getY2();
 
 
     for (int i = 0; i != 2400; ++i)

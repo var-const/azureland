@@ -16,7 +16,7 @@ class CRIGameObject;
 
 class CRIGameScene
 {
-public:	
+public:
     CRIGameScene(CRIApp& App, int Width, int Height);
 
     void Draw();

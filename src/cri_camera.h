@@ -11,7 +11,7 @@ class CRIMovable;
 
 class CRICamera
 {
-public:	
+public:
     CRICamera(ci::Vec2i SceneSize, ci::Vec2i ViewSize);
 
     int RegisterTexture(const std::string& Id);

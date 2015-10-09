@@ -23,7 +23,7 @@ const int SleepAfterLosingTrail = 15;
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
 : CRIGameObject(Size, StartPos)
 , m_pPlayer(&Player)
-{ 
+{
     SetMaxHealth(30); // @FIXME hardcoded
     ForceSetHealthValue(30); // @FIXME hardcoded
     m_Reload.SetReloadTime(800);

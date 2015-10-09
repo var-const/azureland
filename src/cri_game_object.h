@@ -8,7 +8,7 @@ class CRIGameScene;
 
 class CRIGameObject : public CRIMovable
 {
-public:	
+public:
     CRIGameObject(const SizeT& Size, const PosT& StartPos);
 
     void Draw();

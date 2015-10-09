@@ -5,12 +5,12 @@
 
 class CRIHealthPickup : public CRIGameObject
 {
-public:	
+public:
     CRIHealthPickup(const SizeT& Size, const PosT& StartPos, int Amount,
         int LifetimeSeconds);
 
     int GetAmount() const;
-    
+
     void LogicUpdate(float Dt) override;
 
     static int TextureDescr;

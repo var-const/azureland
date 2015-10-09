@@ -6,7 +6,7 @@ class CRIGameScene;
 
 class CRIPickupGenerator
 {
-public:	
+public:
     void Invoke(cinder::Vec2<float> PosForPickUp);
 
     void SetScene(CRIGameScene& Scene);

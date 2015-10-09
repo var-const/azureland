@@ -27,7 +27,7 @@ struct AxisGetter
 // Impl
 //////////////////////////////////////////////////////////////////////////
 
-template <typename T> 
+template <typename T>
 T& AxisGetter::ThisAxis(ci::Vec2<T>& p) const
 {
     return m_OwnAxis == Axes::X ? p.x : p.y;

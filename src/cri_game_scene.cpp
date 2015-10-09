@@ -32,7 +32,7 @@ CRIGameScene::CRIGameScene(CRIApp& App, const int Width, const int Height)
         CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f))
     )
 )
-{ 
+{
     m_Pickups.SetScene(*this);
 }
 
@@ -161,7 +161,7 @@ void CRIGameScene::UpdateObjects(float Dt)
     {
         obj->LogicUpdate(FrameDt);
     }
-} 
+}
 
 void CRIGameScene::MoveCamera( const Vec2f NewCenter )
 {

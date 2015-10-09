@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include "cri_aabb.h"
 #include "cri_movable.h"
 
@@ -63,7 +63,7 @@ void CRISpatialGrid<MaxRows, MaxCols>::Reinit( const ObjIterT Begin,
 {
     using ci::Vec2i;
     using std::max; using std::min; using std::pair;
-    
+
     assert(m_CellSize != Vec2i::zero());
 
     for (int Row = 0; Row != MaxRows; ++Row)

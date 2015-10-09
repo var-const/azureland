@@ -13,11 +13,11 @@ class CRIPlayer;
 
 class CRIEnemy : public CRIGameObject, public CRIHealthMixin
 {
-public:	
+public:
     CRIEnemy(CRIPlayer& Player, const SizeT& Size, const PosT& StartPos);
 
     void SetSpeed(int Speed);
-    
+
     void OnCollisionWithEnemy(const CRIEnemy& Rhs);
 
     void LogicUpdate(float Dt) override;

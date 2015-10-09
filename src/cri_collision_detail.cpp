@@ -87,7 +87,7 @@ float GetCollisionTime( CRIMovable& Lhs, CRIMovable& Rhs, const float Time )
         TLeave.y = (RBounds.y - LBounds.x) / VDiff.y;
     }
 
-    
+
     const TimeframeT Tx = make_pair(min(TEnter.x, TLeave.x), max(TEnter.x, TLeave.x));
     const TimeframeT Ty = make_pair(min(TEnter.y, TLeave.y), max(TEnter.y, TLeave.y));
     // Find if there was a timeframe during which there was an

@@ -6,7 +6,7 @@
 
 class CRICrosshair : public CRIGameObject
 {
-public:	
+public:
     CRICrosshair(const SizeT& Size, const PosT& Pos);
 
 private:

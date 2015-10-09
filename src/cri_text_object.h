@@ -9,9 +9,9 @@
 
 class CRITextObject : public CRIGameObject
 {
-public:	
+public:
     explicit CRITextObject(const PosT& Pos);
-    
+
     void SetText(const std::string& Text);
     void SetFont(const ci::Font& Font);
     void SetColor(const ci::ColorA& Color);

@@ -47,7 +47,7 @@ void BuildGame( CRIApp& App )
     Scene->AddObject(std::unique_ptr<CRIGameObject>( new CRIObstacle(Vec2f(50, 1024 * 3), Vec2f(1280.f * 3.f - 25.f, 1024.f * 3.f / 2.f))) );
 
     // Centurion
-    CreateObstacle(*Scene, 15.627f, 16.875f, 11.408f, 12.656f); 
+    CreateObstacle(*Scene, 15.627f, 16.875f, 11.408f, 12.656f);
     // Pipes
     CreateObstacle(*Scene, 41.355f, 0.238f, 1.485f, 27.510f);
     // Bridge 1
@@ -105,7 +105,7 @@ void BuildGame( CRIApp& App )
     CRIForcefield::TextureDescr = FieldTexture;
     const int HealthTexture = Scene->GetCamera().RegisterTexture("health.png");
     CRIHealthPickup::TextureDescr = HealthTexture;
-    
+
     App.SetScene(std::move(Scene));
 }
 
@@ -179,7 +179,7 @@ void SpawnEnemies( CRIGameScene& Scene, CRIPlayer& Player, const int Count,
     const CRIMovable::SizeT Size = CRIMovable::SizeT(60.f, 60.f);
     const CRIMovable::VelT VelocityBase = CRIMovable::VelT(200.f, 200.f);
     CRIMovable::PosT CurPos = From;
-    
+
     int CurRow = 0;
     for (int i = 0; i != Count; ++i)
     {

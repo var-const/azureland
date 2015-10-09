@@ -18,7 +18,7 @@ CRIForcefield::CRIForcefield( const float Radius, const PosT& Pos, const int Tim
 , m_PushForce(PushForce)
 , m_TargetRadius(Radius)
 , m_pPlayer(&Player)
-{ 
+{
     SetTextureDescriptor(TextureDescr);
 }
 

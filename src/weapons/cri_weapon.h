@@ -9,7 +9,7 @@ class CRIWeapon;
 
 class CRIWeapon
 {
-public:	
+public:
     virtual ~CRIWeapon() {}
 
     void SetReloadTime(int Milliseconds);

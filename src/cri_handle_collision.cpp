@@ -45,7 +45,7 @@ bool TryProcessCollision( CRIGameObject& Lhs, CRIGameObject& Rhs )
     {
         return false;
     }
-    
+
     OnCollision(*pT, *pU);
 
     return true;

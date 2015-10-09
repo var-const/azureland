@@ -29,7 +29,7 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
 , m_pWeaponA(new CRICrossbow())
 , m_pWeaponB(new CRIForcefieldEmitter(*this))
 , m_pApp(&App)
-{ 
+{
     using ci::Font;
 
     assert(Health > 0);

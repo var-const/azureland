@@ -6,7 +6,7 @@ namespace cinder { namespace app { class KeyEvent; class MouseEvent; } }
 // @TODO: a better name
 class CRIInterfaceInput
 {
-public:	
+public:
     virtual ~CRIInterfaceInput() {}
 
     virtual void OnMouseDown(const cinder::Vec2<float>& Pos,

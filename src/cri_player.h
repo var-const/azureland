@@ -19,7 +19,6 @@ class CRIPlayer : public CRIGameObject, public CRIHealthMixin,
 {
 public:	
     CRIPlayer(const SizeT& Size, const PosT& StartPos, int Health, CRIApp& App);
-    ~CRIPlayer();
 
     void SetSpeed(float Speed);
     void AddScore(int Amount);

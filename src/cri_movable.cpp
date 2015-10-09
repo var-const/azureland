@@ -23,8 +23,6 @@ CRIMovable::CRIMovable(const SizeT& Size, const PosT& StartPos,
     UpdateBoundingBox();
 }
 
-CRIMovable::~CRIMovable() {}
-
 const CRIMovable::VelT& CRIMovable::GetVelocity() const
 {
     return m_Velocity;

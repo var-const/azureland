@@ -11,7 +11,7 @@ public:
 
     int GetAmount() const;
     
-    void LogicUpdate(float Dt); // override
+    void LogicUpdate(float Dt) override;
 
     static int TextureDescr;
 

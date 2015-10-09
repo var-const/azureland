@@ -13,42 +13,42 @@
 class CRIHighscore : public CRIGameObject, public CRIInterfaceInput
 {
 public:
-	explicit CRIHighscore(const int NewScore);
+    explicit CRIHighscore(const int NewScore);
 
-	void Load(const std::string& FileName);
+    void Load(const std::string& FileName);
 
-    void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event); // override
+    void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event) override;
 
 private:
     typedef std::multimap<int, std::string, std::greater<int> > ScoresContT;
 
-	enum States
-	{
-		StateDeath,
-		StatePrompt,
-		StateDisplay
-	};
+    enum States
+    {
+	    StateDeath,
+	    StatePrompt,
+	    StateDisplay
+    };
 
-	void DoDraw(); // override
+    void DoDraw() override;
 
     void ReadFromFile();
 
-	void AddScore();
-	void DisplayScores();
-	void PromptForName();
+    void AddScore();
+    void DisplayScores();
+    void PromptForName();
 
-	bool Validate();
+    bool Validate();
 
     int m_NewScore;
     ScoresContT m_Scores;
     int m_MaxEntries;
-	std::string m_FileName;
+    std::string m_FileName;
 
-	std::string m_CurName;
-	int m_MaxNameLength;
+    std::string m_CurName;
+    int m_MaxNameLength;
 
-	States m_State;
+    States m_State;
 
-	ci::Font m_Font;
-	ci::Color m_Color;
+    ci::Font m_Font;
+    ci::Color m_Color;
 };

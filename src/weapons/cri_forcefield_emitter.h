@@ -16,7 +16,7 @@ public:
 
 private:
     void DoShoot(cinder::Vec2<float> StartPos,
-        cinder::Vec2<float> TargetPos); // override
+        cinder::Vec2<float> TargetPos) override;
 
     const CRIPlayer* m_pPlayer;
 };

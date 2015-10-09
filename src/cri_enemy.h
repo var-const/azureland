@@ -20,7 +20,7 @@ public:
     
     void OnCollisionWithEnemy(const CRIEnemy& Rhs);
 
-    void LogicUpdate(float Dt); // override
+    void LogicUpdate(float Dt) override;
 
     void SetParalyzed(int Milliseconds);
     void UnsetParalyzed();
@@ -31,7 +31,7 @@ private:
 
     void UpdateAngle();
 
-    void OnHealthDepleted(); // override
+    void OnHealthDepleted() override;
     void TryRespawn();
     void Respawn(PosT Pos);
 

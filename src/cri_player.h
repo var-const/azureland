@@ -24,31 +24,29 @@ public:
     void SetSpeed(float Speed);
     void AddScore(int Amount);
 
-    // Overrides
-
     void OnMouseDown(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event);
+        cinder::app::MouseEvent Event) override;
     void OnMouseUp(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event);
+        cinder::app::MouseEvent Event) override;
     void OnMouseMove(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event);
+        cinder::app::MouseEvent Event) override;
     void OnMouseDrag(const cinder::Vec2<float>& Pos,
-        cinder::app::MouseEvent Event);
-    void OnMouseWheel(float Increment, cinder::app::MouseEvent Event);
-    void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event);
-    void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event);
+        cinder::app::MouseEvent Event) override;
+    void OnMouseWheel(float Increment, cinder::app::MouseEvent Event) override;
+    void OnKeyDown(int KeyCode, cinder::app::KeyEvent Event) override;
+    void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event) override;
 
-    void LogicUpdate(float Dt); // Override
-    void BeforeRemoveFromScene(); // Override
+    void LogicUpdate(float Dt) override;
+    void BeforeRemoveFromScene() override;
 
 private:
-    void DoDraw(); // Override
-    void DoUpdate(float Dt); // Override
-    void OnDestroyed(); // Override
-    void OnAddedToScene(); // Override
+    void DoDraw() override;
+    void DoUpdate(float Dt) override;
+    void OnDestroyed() override;
+    void OnAddedToScene() override;
 
-    void OnHealthModified(int NewVal, int Modifier); // Override
-    void OnHealthDepleted(); // Override
+    void OnHealthModified(int NewVal, int Modifier) override;
+    void OnHealthDepleted() override;
 
     void Shoot(CRIWeapon& Weapon);
     PosT GetCrosshairPos() const;

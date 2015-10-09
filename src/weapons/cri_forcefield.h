@@ -16,7 +16,7 @@ public:
     bool Affect(const CRIEnemy& Enemy);
     int GetDamage() const;
 
-    void LogicUpdate(float Dt); // override
+    void LogicUpdate(float Dt) override;
     ci::Vec2f GetPushVector(ci::Vec2f ToPos) const;
 
     static int TextureDescr;
@@ -24,7 +24,7 @@ public:
 private:
     typedef std::vector<const CRIEnemy*> AffectedContT;
 
-    void DoDraw(); // override
+    void DoDraw() override;
 
     float m_TimeLeft;
     float m_EffectTime;

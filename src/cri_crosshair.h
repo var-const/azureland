@@ -10,7 +10,7 @@ public:
     CRICrosshair(const SizeT& Size, const PosT& Pos);
 
 private:
-    void DoDraw(); // override
+    void DoDraw() override;
 
     ci::gl::Texture m_Texture;
 };

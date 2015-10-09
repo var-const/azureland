@@ -17,7 +17,7 @@ public:
     void SetColor(const ci::ColorA& Color);
 
 private:
-    void DoDraw(); // override
+    void DoDraw() override;
 
     std::string m_Text;
     ci::Font m_Font;

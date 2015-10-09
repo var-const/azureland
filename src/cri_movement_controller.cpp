@@ -34,11 +34,6 @@ bool IsMoveKey(const int Key)
 
 } // unnamed
 
-CRIMovementController::CRIMovementController()
-: m_IsMoveKeyPressed(false)
-, m_Speed(0.f)
-{}
-
 void CRIMovementController::SetSpeed(const float Speed)
 {
     m_Speed = Speed;

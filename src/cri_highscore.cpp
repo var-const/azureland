@@ -51,11 +51,6 @@ string ToString(const T& Val)
 CRIHighscore::CRIHighscore( const int NewScore )
 : CRIGameObject(PosT(), SizeT())
 , m_NewScore(NewScore)
-, m_State(StateDeath)
-, m_MaxNameLength(16)
-, m_MaxEntries(5)
-, m_Color(1.f, 1.f, 1.f)
-, m_Font("Verdana", 48)
 {
 }
 

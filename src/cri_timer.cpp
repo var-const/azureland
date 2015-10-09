@@ -2,11 +2,6 @@
 
 #include "cri_timer.h"
 
-CRICountdownTimer::CRICountdownTimer()
-: m_EndTime(0)
-{
-}
-
 bool CRICountdownTimer::IsExpired() const
 {
     return m_Timer.getSeconds() >= m_EndTime;

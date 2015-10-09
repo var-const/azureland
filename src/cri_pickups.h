@@ -16,6 +16,6 @@ public:
     static int TextureDescr;
 
 private:
-    int m_Amount;
+    int m_Amount{};
     CRICountdownTimer m_Timer;
 };

@@ -8,8 +8,7 @@ using ci::ColorA; using ci::Font;
 using std::string;
 
 CRITextObject::CRITextObject( const PosT& Pos )
-: CRIGameObject(SizeT(), Pos)
-, m_Color(1.f, 1.f, 1.f, 1.f)
+: CRIGameObject({}, Pos)
 {
 }
 

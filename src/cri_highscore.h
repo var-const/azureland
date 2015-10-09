@@ -13,7 +13,7 @@
 class CRIHighscore : public CRIGameObject, public CRIInterfaceInput
 {
 public:
-    explicit CRIHighscore(const int NewScore);
+    explicit CRIHighscore(int NewScore);
 
     void Load(const std::string& FileName);
 
@@ -24,9 +24,9 @@ private:
 
     enum States
     {
-	    StateDeath,
-	    StatePrompt,
-	    StateDisplay
+	StateDeath,
+	StatePrompt,
+	StateDisplay
     };
 
     void DoDraw() override;
@@ -39,16 +39,16 @@ private:
 
     bool Validate();
 
-    int m_NewScore;
+    int m_NewScore{};
     ScoresContT m_Scores;
-    int m_MaxEntries;
+    int m_MaxEntries{5};
     std::string m_FileName;
 
     std::string m_CurName;
-    int m_MaxNameLength;
+    int m_MaxNameLength{16};
 
-    States m_State;
+    States m_State{StateDeath};
 
-    ci::Font m_Font;
-    ci::Color m_Color;
+    ci::Font m_Font{"Verdana", 48};
+    ci::Color m_Color{1.f, 1.f, 1.f};
 };

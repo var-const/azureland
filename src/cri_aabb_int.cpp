@@ -6,10 +6,6 @@
 
 #include <cmath>
 
-CRI_AABBd::CRI_AABBd()
-{ 
-}
-
 #ifdef PASS_BY_VALUE
 CRI_AABBd::CRI_AABBd( const VecT Center, const VecT HalfSize )
 : m_Center(Center)
@@ -33,6 +29,7 @@ bool Intersect( const CRI_AABBd A, const CRI_AABBd B )
 bool TouchOrIntersect( const CRI_AABBd A, const CRI_AABBd B )
 {
     using std::abs;
+
     return abs(A.m_Center.x - B.m_Center.x) <=
         A.m_HalfSize.x + B.m_HalfSize.x &&
         abs(A.m_Center.y - B.m_Center.y) <=

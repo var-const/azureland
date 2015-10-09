@@ -9,7 +9,6 @@ class CRIPlayer;
 class CRIForcefieldEmitter : public CRIWeapon
 {
 public:
-    CRIForcefieldEmitter();
     explicit CRIForcefieldEmitter(const CRIPlayer& Player);
 
     void SetPlayer(const CRIPlayer& Player);
@@ -18,5 +17,5 @@ private:
     void DoShoot(cinder::Vec2<float> StartPos,
         cinder::Vec2<float> TargetPos) override;
 
-    const CRIPlayer* m_pPlayer;
+    const CRIPlayer* m_pPlayer{};
 };

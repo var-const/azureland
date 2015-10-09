@@ -58,15 +58,15 @@ private:
 
     CRICrosshair* m_pCrosshair{};
     std::unique_ptr<CRIWeapon> m_pWeaponA;
-    bool m_AutofireWeaponA;
+    bool m_AutofireWeaponA{};
     std::unique_ptr<CRIWeapon> m_pWeaponB;
-    bool m_AutofireWeaponB;
+    bool m_AutofireWeaponB{};
 
     CRITextObject* m_pHealthLabel{};
     CRITextObject* m_pScoreLabel{};
-    int m_Score;
+    int m_Score{};
 
-    CRIApp* m_pApp; // Non-owning
+    CRIApp* m_pApp{};
 
-    int m_ParalyzedCounter; 
+    int m_ParalyzedCounter{};
 };

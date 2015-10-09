@@ -10,8 +10,7 @@ class CRIWeapon;
 class CRIWeapon
 {
 public:	
-    CRIWeapon();
-    virtual ~CRIWeapon();
+    virtual ~CRIWeapon() {}
 
     void SetReloadTime(int Milliseconds);
     void Shoot(cinder::Vec2<float> StartPos, cinder::Vec2<float> TargetPos);
@@ -28,5 +27,5 @@ private:
         cinder::Vec2<float> TargetPos) = 0;
 
     CRIReload m_Reload;
-    CRIGameScene* m_pScene; // Non-owning
+    CRIGameScene* m_pScene{};
 };

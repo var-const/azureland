@@ -10,11 +10,6 @@
 
 using ci::Vec2f;
 
-CRIPickupGenerator::CRIPickupGenerator()
-: m_pScene(NULL)
-{
-}
-
 void CRIPickupGenerator::Invoke( const Vec2f PosForPickUp )
 {
     using ci::randBool;

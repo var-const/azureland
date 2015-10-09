@@ -74,14 +74,14 @@ private:
     CollisionsIterT m_CollisionsEndIter;
     ChecksContT m_Checks;
     ChecksIterT m_ChecksEndIter;
-    float m_CurMinTime;
+    float m_CurMinTime{};
     GridT m_Grid;
 
 #ifdef PERFORMANCE_METRICS
-    int m_ChecksC;
-    int m_CollisionsC;
-    int m_SimpleChecks;
-    int m_Duplicates;
-    std::ofstream m_PerformanceLog;
+    int m_ChecksC{};
+    int m_CollisionsC{};
+    int m_SimpleChecks{};
+    int m_Duplicates{};
+    std::ofstream m_PerformanceLog{"performance_log.txt"};
 #endif
 };

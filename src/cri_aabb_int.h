@@ -7,7 +7,7 @@ struct CRI_AABBd
 {
     typedef ci::Vec2d VecT;
 
-    CRI_AABBd();
+    CRI_AABBd() = default;
 #ifdef PASS_BY_VALUE
     explicit CRI_AABBd(ci::Rectf Rect);
     CRI_AABBd(VecT Center, VecT HalfSize);

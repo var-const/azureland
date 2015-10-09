@@ -11,9 +11,6 @@ class CRIInterfaceInput;
 class CRIApp : public ci::app::AppBasic
 {
 public:	
-    CRIApp();
-    ~CRIApp();
-
     void prepareSettings(Settings* settings) override;
     void setup() override;
 

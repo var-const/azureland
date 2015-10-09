@@ -6,10 +6,6 @@
 
 #include <cmath>
 
-CRI_AABB::CRI_AABB()
-{ 
-}
-
 #ifdef PASS_BY_VALUE
 CRI_AABB::CRI_AABB( const VecT Center, const VecT HalfSize )
 #else

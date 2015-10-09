@@ -18,7 +18,6 @@ class CRIGameScene
 {
 public:	
     CRIGameScene(CRIApp& App, int Width, int Height);
-    ~CRIGameScene();
 
     void Draw();
     void Update(float Dt);
@@ -69,7 +68,7 @@ private:
 
     CRIPickupGenerator m_Pickups;
 
-    bool m_IsPaused;
+    bool m_IsPaused{};
 
-    CRIApp* m_pApp; // Non-owning
+    CRIApp* m_pApp{};
 };

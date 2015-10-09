@@ -10,11 +10,9 @@ class CRIGameObject;
 
 struct CRICollision
 {
-    CRICollision();
-
-    CRIGameObject* m_pObjA;
-    CRIGameObject* m_pObjB;
-    float m_Time;
+    CRIGameObject* m_pObjA{};
+    CRIGameObject* m_pObjB{};
+    float m_Time{};
 };
 
 struct CRICollisionsInfo
@@ -27,7 +25,7 @@ struct CRICollisionsInfo
     bool IsEmpty() const;
     int GetSize() const;
 
-    float m_Time;
+    float m_Time{};
     CollisionsIterT m_Begin;
     CollisionsIterT m_End;
 };

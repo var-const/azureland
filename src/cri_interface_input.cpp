@@ -8,10 +8,6 @@
 
 using ci::Vec2f; using ci::app::KeyEvent; using ci::app::MouseEvent;
 
-CRIInterfaceInput::~CRIInterfaceInput()
-{ 
-}
-
 void CRIInterfaceInput::OnMouseDown( const Vec2f& Pos, const MouseEvent Event )
 {
 }

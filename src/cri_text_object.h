@@ -21,5 +21,5 @@ private:
 
     std::string m_Text;
     ci::Font m_Font;
-    ci::ColorA m_Color;
+    ci::Color m_Color{1.f, 1.f, 1.f, 1.f};
 };

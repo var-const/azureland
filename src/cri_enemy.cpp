@@ -23,13 +23,6 @@ const int SleepAfterLosingTrail = 15;
 CRIEnemy::CRIEnemy( CRIPlayer& Player, const SizeT& Size, const PosT& StartPos)
 : CRIGameObject(Size, StartPos)
 , m_pPlayer(&Player)
-, m_Sleep(0)
-, m_Blocked(false)
-, m_CheckBlocked(false)
-, m_NeedRespawn(false)
-, m_PointsForKilling(10)
-, m_MaxPursuitRange(2000.f)
-, m_IsParalyzed(false)
 { 
     SetMaxHealth(30); // @FIXME hardcoded
     ForceSetHealthValue(30); // @FIXME hardcoded

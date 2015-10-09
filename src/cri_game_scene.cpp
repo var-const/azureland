@@ -19,7 +19,6 @@ using ci::Vec2f; using ci::Vec2i;
 CRIGameScene::CRIGameScene(CRIApp& App, const int Width, const int Height)
 : m_Collider(Width, Height)
 , m_Camera(Vec2i(Width, Height), Vec2i(1280, 1024))
-, m_IsPaused(false)
 , m_pApp(&App)
 , m_XBounds(
     std::make_pair(

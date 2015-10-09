@@ -13,5 +13,5 @@ public:
     static int TextureDescr;
 
 private:
-    int m_Damage;
+    int m_Damage{};
 };

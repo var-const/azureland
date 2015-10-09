@@ -19,7 +19,7 @@ struct AxisGetter
     template <typename T> T& OtherAxis(ci::Vec2<T>& p) const;
     template <typename T> const T& OtherAxis(const ci::Vec2<T>& p) const;
 
-    Axes m_OwnAxis;
+    Axes m_OwnAxis{};
 };
 
 

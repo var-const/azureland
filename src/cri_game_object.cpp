@@ -10,15 +10,7 @@ using ci::gl::Texture;
 
 CRIGameObject::CRIGameObject( const SizeT& Size, const PosT& StartPos )
 : CRIMovable(Size, StartPos)
-, m_IsDead(false)
-, m_pScene(NULL)
-, m_TextureDescriptor(-1) // @TODO: InvalidDescriptor
 { 
-}
-
-CRIGameObject::~CRIGameObject()
-{
-    m_pScene = NULL;
 }
 
 void CRIGameObject::Draw()

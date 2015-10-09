@@ -39,22 +39,22 @@ private:
 
     void OnCaughtPlayer();
 
-    CRIPlayer* m_pPlayer;
+    CRIPlayer* m_pPlayer{};
     BlockersContT m_Blockers;
-    int m_Sleep;
-    bool m_Blocked;
-    bool m_CheckBlocked;
+    int m_Sleep{};
+    bool m_Blocked{};
+    bool m_CheckBlocked{};
 
-    float m_MaxPursuitRange;
+    float m_MaxPursuitRange{2000.f};
 
-    bool m_NeedRespawn;
+    bool m_NeedRespawn{};
 
-    float m_Speed;
+    float m_Speed{};
 
     CRIReload m_Reload;
 
-    int m_PointsForKilling;
+    int m_PointsForKilling{10};
 
-    bool m_IsParalyzed;
+    bool m_IsParalyzed{};
     CRICountdownTimer m_ParalyzedTimer;
 };

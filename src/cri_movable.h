@@ -20,7 +20,7 @@ public:
 
     CRIMovable(const SizeT& Size, const PosT& StartPos);
     CRIMovable(const SizeT& Size, const PosT& StartPos, const VelT& Velocity);
-    virtual ~CRIMovable();
+    virtual ~CRIMovable() {}
 
     void SetVelocity(const VelT& v);
     const VelT& GetVelocity() const;
@@ -75,10 +75,10 @@ private:
     ci::Vec2f m_XBounds;
     ci::Vec2f m_YBounds;
 
-    float m_Angle;
-    ci::Vec2f m_Scale;
+    float m_Angle{};
+    ci::Vec2f m_Scale{1.f, 1.f};
 
-    bool m_IsMoving;
+    bool m_IsMoving{};
 };
 
 CRIMovable::PosT GetFuturePos(const CRIMovable& Object, float Delta);

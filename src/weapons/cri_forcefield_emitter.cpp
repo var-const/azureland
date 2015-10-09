@@ -9,11 +9,6 @@
 
 using ci::Vec2f;
 
-CRIForcefieldEmitter::CRIForcefieldEmitter()
-: m_pPlayer(NULL)
-{
-}
-
 CRIForcefieldEmitter::CRIForcefieldEmitter( const CRIPlayer& Player )
 : m_pPlayer(&Player)
 {

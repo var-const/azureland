@@ -3,8 +3,7 @@
 class CRIHealthMixin
 {
 public:
-    CRIHealthMixin();
-    virtual ~CRIHealthMixin();
+    virtual ~CRIHealthMixin() {}
 
     void SetMaxHealth(int Max);
     void ModifyHealth(int Val);
@@ -17,8 +16,8 @@ private:
     virtual void OnHealthDepleted() = 0;
     virtual void OnHealthModified(int NewVal, int Modifier);
 
-    int m_CurVal;
-    int m_MaxVal;
+    int m_CurVal{};
+    int m_MaxVal{};
 };
 
 bool HasFullHealth(const CRIHealthMixin& Mixin);

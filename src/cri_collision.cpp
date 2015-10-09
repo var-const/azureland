@@ -1,15 +1,8 @@
-#include "cri_stdafx.h"
 
+#include "cri_stdafx.h"
 #include "cri_collision.h"
 
 #include <utility>
-
-CRICollision::CRICollision()
-: m_pObjA(NULL)
-, m_pObjB(NULL)
-, m_Time(0.f)
-{
-}
 
 #ifdef PASS_BY_VALUE
 CRICollisionsInfo::CRICollisionsInfo( const float Time,

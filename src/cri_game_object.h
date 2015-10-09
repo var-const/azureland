@@ -10,7 +10,6 @@ class CRIGameObject : public CRIMovable
 {
 public:	
     CRIGameObject(const SizeT& Size, const PosT& StartPos);
-    ~CRIGameObject();
 
     void Draw();
     void Update(float Dt);
@@ -39,11 +38,12 @@ private:
     virtual void OnDestroyed();
     virtual void OnAddedToScene();
 
-    bool m_IsDead;
+    bool m_IsDead{};
 
-    CRIGameScene* m_pScene; // Non-owning
+    CRIGameScene* m_pScene{};
 
-    int m_TextureDescriptor;
+    // @TODO: InvalidDescriptor
+    int m_TextureDescriptor{-1};
 };
 
 void Draw(const CRIGameObject& Object, float Angle, const ci::gl::Texture& Texture);

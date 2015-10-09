@@ -21,14 +21,6 @@ using std::pair;
 
 CRICollider::CRICollider(const int Width, const int Height)
 : m_Grid(Width, Height)
-, m_CurMinTime(0.f)
-#ifdef PERFORMANCE_METRICS
-, m_ChecksC(0)
-, m_CollisionsC(0)
-, m_SimpleChecks(0)
-, m_Duplicates(0)
-, m_PerformanceLog("performance_log.txt")
-#endif
 {
 }
 

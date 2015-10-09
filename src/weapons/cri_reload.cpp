@@ -4,11 +4,6 @@
 
 #include <cassert>
 
-CRIReload::CRIReload()
-: m_ReloadTime()
-{
-}
-
 void CRIReload::OnShot()
 {
     assert(IsReady());

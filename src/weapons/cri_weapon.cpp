@@ -9,15 +9,6 @@
 
 using ci::Vec2f;
 
-CRIWeapon::CRIWeapon()
-: m_pScene(NULL)
-{ 
-}
-
-CRIWeapon::~CRIWeapon()
-{
-}
-
 void CRIWeapon::SetReloadTime( const int Milliseconds )
 {
     m_Reload.SetReloadTime(Milliseconds);

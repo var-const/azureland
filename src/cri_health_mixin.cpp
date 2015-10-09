@@ -7,16 +7,6 @@
 #include <algorithm>
 #include <cassert>
 
-CRIHealthMixin::CRIHealthMixin()
-: m_CurVal(0)
-, m_MaxVal(0)
-{ 
-}
-
-CRIHealthMixin::~CRIHealthMixin()
-{
-}
-
 void CRIHealthMixin::SetMaxHealth( const int Max )
 {
     assert(Max >= 0);

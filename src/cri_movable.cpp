@@ -10,9 +10,6 @@ using std::pair;
 CRIMovable::CRIMovable( const SizeT& Size, const PosT& StartPos )
 : m_Size(Size)
 , m_Pos(StartPos)
-, m_IsMoving(false)
-, m_Angle(0.f)
-, m_Scale(1.f, 1.f)
 {
     UpdateBoundingBox();
 }
@@ -22,9 +19,6 @@ CRIMovable::CRIMovable(const SizeT& Size, const PosT& StartPos,
 : m_Size(Size)
 , m_Pos(StartPos)
 , m_Velocity(Velocity)
-, m_IsMoving(false)
-, m_Angle(0.f)
-, m_Scale(1.f, 1.f)
 {
     UpdateBoundingBox();
 }

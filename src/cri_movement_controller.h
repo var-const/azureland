@@ -7,8 +7,6 @@ class CRIMovable;
 class CRIMovementController
 {
 public:
-    CRIMovementController();
-
     void SetSpeed(float Speed);
 
     cinder::Vec2<float> GetVector(int Key) const;
@@ -20,6 +18,6 @@ public:
 
 private:
     // @TODO: need a flag for both movement keys
-    bool m_IsMoveKeyPressed;
-    float m_Speed;
+    bool m_IsMoveKeyPressed{};
+    float m_Speed{};
 };

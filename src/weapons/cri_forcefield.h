@@ -26,12 +26,12 @@ private:
 
     void DoDraw() override;
 
-    float m_TimeLeft;
-    float m_EffectTime;
-    int m_Damage;
-    float m_PushForce;
-    float m_TargetRadius;
+    float m_TimeLeft{};
+    float m_EffectTime{};
+    int m_Damage{};
+    float m_PushForce{};
+    float m_TargetRadius{};
 
     AffectedContT m_Affected;
-    const CRIPlayer* m_pPlayer;
+    const CRIPlayer* m_pPlayer{};
 };

@@ -28,11 +28,7 @@ CRIPlayer::CRIPlayer( const SizeT& Size, const PosT& StartPos, const int Health,
 : CRIGameObject(Size, StartPos)
 , m_pWeaponA(new CRICrossbow())
 , m_pWeaponB(new CRIForcefieldEmitter(*this))
-, m_AutofireWeaponA(false)
-, m_AutofireWeaponB(false)
-, m_Score(0)
 , m_pApp(&App)
-, m_ParalyzedCounter(0)
 { 
     using ci::Font;
 

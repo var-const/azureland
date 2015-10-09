@@ -34,8 +34,7 @@ bool TryProcessCollision(GameObject& Lhs, GameObject& Rhs)
     if (!pT) {
         return false;
     }
-    U* pU =
-        GetObjByType<U>(static_cast<GameObject*>(pT) == &Lhs ? Rhs : Lhs);
+    U* pU = GetObjByType<U>(static_cast<GameObject*>(pT) == &Lhs ? Rhs : Lhs);
     if (!pU) {
         return false;
     }

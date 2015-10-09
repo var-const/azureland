@@ -19,8 +19,7 @@ TimeframeT GetTimeframe(TimeframeT A, TimeframeT B);
 TimeframeT GetTimeframe(TimeframeT const& A, TimeframeT const& B);
 #endif
 
-Collision CreateCollision(
-    GameObject& Lhs, GameObject& Rhs, const float Time)
+Collision CreateCollision(GameObject& Lhs, GameObject& Rhs, const float Time)
 {
     Collision Result;
 

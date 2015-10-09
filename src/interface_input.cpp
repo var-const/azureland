@@ -18,8 +18,7 @@ void InterfaceInput::OnMouseMove(const Vec2f& Pos, const MouseEvent Event) {}
 
 void InterfaceInput::OnMouseDrag(const Vec2f& Pos, const MouseEvent Event) {}
 
-void InterfaceInput::OnMouseWheel(
-    const float Increment, const MouseEvent Event)
+void InterfaceInput::OnMouseWheel(const float Increment, const MouseEvent Event)
 {
 }
 

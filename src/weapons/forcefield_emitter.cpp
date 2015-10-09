@@ -14,10 +14,7 @@ ForcefieldEmitter::ForcefieldEmitter(const Player& Player)
 {
 }
 
-void ForcefieldEmitter::SetPlayer(const Player& Player)
-{
-    m_pPlayer = &Player;
-}
+void ForcefieldEmitter::SetPlayer(const Player& Player) { m_pPlayer = &Player; }
 
 void ForcefieldEmitter::DoShoot(const Vec2f StartPos, const Vec2f TargetPos)
 {

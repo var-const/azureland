@@ -29,8 +29,7 @@ void OnCollision(Enemy& Lhs, Enemy& Rhs)
         return;
     }
 
-    const AABB::VecT Depth =
-        IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
+    const AABB::VecT Depth = IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
     const AABB::VecT Normal =
         IntersectionNormal(Lhs.GetAABB(), Rhs.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
@@ -45,8 +44,7 @@ void OnCollision(Enemy& Lhs, Obstacle& Rhs)
 {
     using std::min;
 
-    const AABB::VecT Depth =
-        IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
+    const AABB::VecT Depth = IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
     const AABB::VecT Normal =
         IntersectionNormal(Lhs.GetAABB(), Rhs.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;
@@ -57,8 +55,7 @@ void OnCollision(Player& Lhs, Obstacle& Rhs)
 {
     using std::min;
 
-    const AABB::VecT Depth =
-        IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
+    const AABB::VecT Depth = IntersectionDepth(Lhs.GetAABB(), Rhs.GetAABB());
     const AABB::VecT Normal =
         IntersectionNormal(Lhs.GetAABB(), Rhs.GetAABB(), Depth);
     const float Shift = min(Depth.x, Depth.y) + 2.5f;

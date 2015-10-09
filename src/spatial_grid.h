@@ -41,8 +41,7 @@ template <int MaxRows, int MaxCols> class SpatialGrid {
 
 
 template <int MaxRows, int MaxCols>
-SpatialGrid<MaxRows, MaxCols>::SpatialGrid(
-    const int Width, const int Height)
+SpatialGrid<MaxRows, MaxCols>::SpatialGrid(const int Width, const int Height)
 {
     SetSize(ci::Vec2i(Width, Height));
 }

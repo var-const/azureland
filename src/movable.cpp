@@ -15,8 +15,7 @@ Movable::Movable(const SizeT& Size, const PosT& StartPos)
     UpdateBoundingBox();
 }
 
-Movable::Movable(
-    const SizeT& Size, const PosT& StartPos, const VelT& Velocity)
+Movable::Movable(const SizeT& Size, const PosT& StartPos, const VelT& Velocity)
   : m_Size(Size)
   , m_Pos(StartPos)
   , m_Velocity(Velocity)
@@ -64,10 +63,7 @@ Movable::BoxT const& Movable::GetAABB() const
     return m_AABB;
 }
 
-const AABBd& Movable::GetMovementAABBRef() const
-{
-    return m_MovementAABB;
-}
+const AABBd& Movable::GetMovementAABBRef() const { return m_MovementAABB; }
 
 #ifdef PASS_BY_VALUE
 AABBd Movable::GetMovementAABB() const

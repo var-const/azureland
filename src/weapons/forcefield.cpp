@@ -9,9 +9,8 @@
 
 using ci::Vec2f;
 
-Forcefield::Forcefield(const float Radius, const PosT& Pos,
-    const int Time, const int Damage, const float PushForce,
-    const Player& Player)
+Forcefield::Forcefield(const float Radius, const PosT& Pos, const int Time,
+    const int Damage, const float PushForce, const Player& Player)
   : GameObject(SizeT(), Pos)
   , m_TimeLeft(static_cast<float>(Time) / 1000.f)
   , m_EffectTime(static_cast<float>(Time) / 1000.f)

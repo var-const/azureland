@@ -83,5 +83,4 @@ class Movable {
 Movable::PosT GetFuturePos(const Movable& Object, float Delta);
 void ShiftPos(Movable& Object, Movable::PosT Shift);
 Movable::BoxT GetMovementAABB(const Movable& Object, float Delta);
-std::pair<ci::Vec2i, ci::Vec2i> GetMovementBounds(
-    Movable& Object, float Delta);
+std::pair<ci::Vec2i, ci::Vec2i> GetMovementBounds(Movable& Object, float Delta);

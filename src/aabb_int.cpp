@@ -85,22 +85,15 @@ ci::Rectf ToRect(const AABBd Box)
     return Rectf(Box.m_Center - Box.m_HalfSize, Box.m_Center + Box.m_HalfSize);
 }
 
-void SetAABB(AABBd& Box, const AABBd::VecT Center,
-    const AABBd::VecT HalfSize)
+void SetAABB(AABBd& Box, const AABBd::VecT Center, const AABBd::VecT HalfSize)
 {
     Box.m_Center = Center;
     Box.m_HalfSize = HalfSize;
 }
 
-AABBd::VecT GetLeftUpper(AABBd Box)
-{
-    return Box.m_Center - Box.m_HalfSize;
-}
+AABBd::VecT GetLeftUpper(AABBd Box) { return Box.m_Center - Box.m_HalfSize; }
 
-AABBd::VecT GetRightLower(AABBd Box)
-{
-    return Box.m_Center + Box.m_HalfSize;
-}
+AABBd::VecT GetRightLower(AABBd Box) { return Box.m_Center + Box.m_HalfSize; }
 
 #else
 AABBd::AABBd(VecT const& Center, VecT const& HalfSize)

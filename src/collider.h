@@ -54,8 +54,8 @@ class Collider {
 #ifdef PASS_BY_VALUE
     void AddChecks(GameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);
 #else
-    void AddChecks(GameObject* Obj, ObjConstIterT const& Begin,
-        ObjConstIterT const& End);
+    void AddChecks(
+        GameObject* Obj, ObjConstIterT const& Begin, ObjConstIterT const& End);
 #endif
     void NarrowPhase(float Time);
     void TryAddCollision(GameObject& Lhs, GameObject& Rhs, float Time);

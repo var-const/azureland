@@ -89,8 +89,7 @@ void GameObject::SetTextureDescriptor(const int Descr)
 
 int GameObject::GetTextureDescriptor() const { return m_TextureDescriptor; }
 
-void Draw(
-    const GameObject& Object, const float Angle, const Texture& Texture)
+void Draw(const GameObject& Object, const float Angle, const Texture& Texture)
 {
     using namespace ci;
 

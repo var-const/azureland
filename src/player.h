@@ -14,9 +14,7 @@ class Crosshair;
 class TextObject;
 class Weapon;
 
-class Player : public GameObject,
-                  public HealthMixin,
-                  public InterfaceInput {
+class Player : public GameObject, public HealthMixin, public InterfaceInput {
   public:
     Player(const SizeT& Size, const PosT& StartPos, int Health, App& App);
 

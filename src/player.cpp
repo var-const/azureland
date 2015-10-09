@@ -49,8 +49,8 @@ void Player::OnAddedToScene()
     m_pWeaponA->SetScene(GetScene());
     m_pWeaponB->SetScene(GetScene());
 
-    m_pCrosshair = GetScene().AddGUIObject(std::unique_ptr<GameObject>(
-        new Crosshair(SizeT(10.f, 10.f), PosT())));
+    m_pCrosshair = GetScene().AddGUIObject(
+        std::unique_ptr<GameObject>(new Crosshair(SizeT(10.f, 10.f), PosT())));
     m_pHealthLabel = GetScene().AddGUIObject(
         std::unique_ptr<GameObject>(new TextObject(PosT(100.f, 50.f))));
     m_pScoreLabel = GetScene().AddGUIObject(

@@ -48,8 +48,7 @@ AABB::VecT IntersectionNormal(
 bool AContainsB(AABB const& A, AABB const& B);
 
 ci::Rectf ToRect(AABB const& Box);
-void SetAABB(AABB& Box, AABB::VecT const& Center,
-    AABB::VecT const& HalfSize);
+void SetAABB(AABB& Box, AABB::VecT const& Center, AABB::VecT const& HalfSize);
 
 AABB::VecT GetLeftUpper(AABB const& Box);
 AABB::VecT GetRightLower(AABB const& Box);

@@ -92,22 +92,15 @@ ci::Rectf ToRect(const AABB Box)
     return Rectf(Box.m_Center - Box.m_HalfSize, Box.m_Center + Box.m_HalfSize);
 }
 
-void SetAABB(
-    AABB& Box, const AABB::VecT Center, const AABB::VecT HalfSize)
+void SetAABB(AABB& Box, const AABB::VecT Center, const AABB::VecT HalfSize)
 {
     Box.m_Center = Center;
     Box.m_HalfSize = HalfSize;
 }
 
-AABB::VecT GetLeftUpper(AABB Box)
-{
-    return Box.m_Center - Box.m_HalfSize;
-}
+AABB::VecT GetLeftUpper(AABB Box) { return Box.m_Center - Box.m_HalfSize; }
 
-AABB::VecT GetRightLower(AABB Box)
-{
-    return Box.m_Center + Box.m_HalfSize;
-}
+AABB::VecT GetRightLower(AABB Box) { return Box.m_Center + Box.m_HalfSize; }
 
 #else
 bool Intersect(AABB const& A, AABB const& B)
@@ -175,8 +168,7 @@ ci::Rectf ToRect(AABB const& Box)
     return Rectf(Box.m_Center - Box.m_HalfSize, Box.m_Center + Box.m_HalfSize);
 }
 
-void SetAABB(
-    AABB& Box, AABB::VecT const& Center, AABB::VecT const& HalfSize)
+void SetAABB(AABB& Box, AABB::VecT const& Center, AABB::VecT const& HalfSize)
 {
     Box.m_Center = Center;
     Box.m_HalfSize = HalfSize;

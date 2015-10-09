@@ -32,16 +32,15 @@ void CreateObstacle(GameScene& Scene, const float LeftUpperTileX,
     static const float TileSize = 51.f;
     const Vec2f Size = Vec2f(TileWidth, TileHeight) * TileSize;
     const Vec2f Pos = Vec2f(LeftUpperTileX, LeftUpperTileY) * TileSize;
-    Scene.AddObject(std::unique_ptr<GameObject>(
-        new Obstacle(Size, Pos + Size / 2.f)));
+    Scene.AddObject(
+        std::unique_ptr<GameObject>(new Obstacle(Size, Pos + Size / 2.f)));
 }
 
 void BuildGame(App& App)
 {
     using ci::Vec2f;
 
-    std::unique_ptr<GameScene> Scene =
-        new GameScene(App, 1280 * 3, 1024 * 3);
+    std::unique_ptr<GameScene> Scene = new GameScene(App, 1280 * 3, 1024 * 3);
 
     Scene->AddObject(std::unique_ptr<GameObject>(
         new Obstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f))));
@@ -135,8 +134,7 @@ std::unique_ptr<Player> CreatePlayer(App& App, GameScene& Scene)
 // const int PlayerHealth = 10000;
 #endif
 
-    std::unique_ptr<Player> Player =
-        new Player(Size, Pos, PlayerHealth, App);
+    std::unique_ptr<Player> Player = new Player(Size, Pos, PlayerHealth, App);
 #ifdef CHEATS
     Player->SetSpeed(1800.f);
 #else
@@ -195,8 +193,7 @@ void SpawnEnemies(GameScene& Scene, Player& Player, const int Count,
         // const float Speed = randInt(10) < 9 ? 100 : 200;
         const float Speed = 50;
         // const float Speed = 10;
-        std::unique_ptr<Enemy> const Enemy =
-            new Enemy(Player, Size, CurPos);
+        std::unique_ptr<Enemy> const Enemy = new Enemy(Player, Size, CurPos);
         Enemy->SetTextureDescriptor(Textures[randInt() % Textures.size()]);
         Enemy->SetSpeed(Speed);
         Scene.AddObject(std::move(Enemy));

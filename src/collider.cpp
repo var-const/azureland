@@ -75,11 +75,11 @@ void Collider::BroadPhase(
 }
 
 #ifdef PASS_BY_VALUE
-void Collider::AddChecks(GameObject* const Obj, const ObjConstIterT Begin,
-    const ObjConstIterT End)
+void Collider::AddChecks(
+    GameObject* const Obj, const ObjConstIterT Begin, const ObjConstIterT End)
 #else
-void Collider::AddChecks(GameObject* const Obj,
-    ObjConstIterT const& Begin, ObjConstIterT const& End)
+void Collider::AddChecks(
+    GameObject* const Obj, ObjConstIterT const& Begin, ObjConstIterT const& End)
 #endif
 {
     using std::make_pair;
@@ -112,9 +112,8 @@ void Collider::NarrowPhase(const float Time)
     }
 
     m_CollisionsEndIter = remove_if(m_CollisionsBuffer.begin(),
-        m_CollisionsEndIter, [this](const Collision& other) {
-            return other.m_Time > m_CurMinTime;
-        });
+        m_CollisionsEndIter,
+        [this](const Collision& other) { return other.m_Time > m_CurMinTime; });
 }
 
 void Collider::TryAddCollision(

@@ -26,8 +26,7 @@ bool TouchOnly(AABBd A, AABBd B);
 
 AABBd::VecT IntersectionDepth(AABBd A, AABBd B);
 AABBd::VecT IntersectionNormal(AABBd A, AABBd B);
-AABBd::VecT IntersectionNormal(
-    AABBd A, AABBd B, AABBd::VecT depth);
+AABBd::VecT IntersectionNormal(AABBd A, AABBd B, AABBd::VecT depth);
 
 bool AContainsB(AABBd A, AABBd B);
 

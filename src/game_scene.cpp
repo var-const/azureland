@@ -148,10 +148,7 @@ void GameScene::UpdateObjects(float Dt)
     }
 }
 
-void GameScene::MoveCamera(const Vec2f NewCenter)
-{
-    m_Camera.Move(NewCenter);
-}
+void GameScene::MoveCamera(const Vec2f NewCenter) { m_Camera.Move(NewCenter); }
 
 Vec2f GameScene::ToScreenPos(const Vec2f GamePos) const
 {

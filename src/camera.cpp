@@ -126,10 +126,7 @@ Vec2f Camera::ToGamePos(Vec2f const& ScreenPos) const
     return ScreenPos - m_CurTranslation;
 }
 
-Vec2i Camera::GetSize() const
-{
-    return Vec2i(m_HorizBounds.y, m_VertBounds.y);
-}
+Vec2i Camera::GetSize() const { return Vec2i(m_HorizBounds.y, m_VertBounds.y); }
 
 void Camera::DrawBack()
 {
@@ -179,8 +176,7 @@ void Camera::DrawBack()
 
 void BindTexture(const Texture& Tex) { Tex.enableAndBind(); }
 
-void Draw(const Movable& DrawData,
-    const Texture& Tex) // @Remove second param
+void Draw(const Movable& DrawData, const Texture& Tex) // @Remove second param
 {
     using namespace ci;
 

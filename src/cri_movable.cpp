@@ -201,8 +201,8 @@ pair<Vec2i, Vec2i> GetMovementBounds( CRIMovable& Object, float Delta )
     const PosT NewPos = GetFuturePos(Object, Delta);
     Rectf NewBox = Rectf(NewPos - HalfSize, NewPos + HalfSize);
     NewBox.include(CurBox);
-    const Vec2i LeftUpper = NewBox.getUpperLeft();
-    const Vec2i RightLower = NewBox.getLowerRight() + Vec2f(1.f, 1.f);
+    const Vec2i LeftUpper = NewBox.get_upper_left();
+    const Vec2i RightLower = NewBox.get_lower_right() + Vec2f(1.f, 1.f);
     Object.CacheMovementAABB(NewBox);
 
     return make_pair(LeftUpper, RightLower);

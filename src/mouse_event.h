@@ -1,3 +1,5 @@
+#pragma once
+
 #include "math_vector.h"
 
 #include <SDL/SDL_events.h>

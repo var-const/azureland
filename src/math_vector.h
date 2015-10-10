@@ -1,3 +1,5 @@
+#pragma once
+
 #include "cri_math.h"
 #include <SDL2pp/Point.hh>
 #include <cmath>
@@ -8,6 +10,8 @@ public:
     Vec2() = default;
     Vec2(const SDL2pp::Point& p) : x{p.GetX()}, y{p.GetY()} {}
     Vec2(T const from_x, T const from_y) : x{from_x}, y{from_y} {}
+    template <typename U>
+    Vec2(Vec2<U> const from) : x(from.x), y(from.y) {}
 
     T magnitude() const { return std::sqrt(x*x + y*y); }
 
@@ -29,17 +33,17 @@ public:
     T y{};
 };
 
-template <typename T>
-Vec2<T> operator+(Vec2<T> const lhs, Vec2<T> const rhs)
+template <typename T, typename U>
+Vec2<T> operator+(Vec2<T> const lhs, Vec2<U> const rhs)
     { return {lhs.x + rhs.x, lhs.y + rhs.y}; }
-template <typename T>
-Vec2<T> operator-(Vec2<T> const lhs, Vec2<T> const rhs)
+template <typename T, typename U>
+Vec2<T> operator-(Vec2<T> const lhs, Vec2<U> const rhs)
     { return {lhs.x - rhs.x, lhs.y - rhs.y}; }
-template <typename T>
-Vec2<T> operator*(Vec2<T> const vec, T const scalar)
+template <typename T, typename U>
+Vec2<T> operator*(Vec2<T> const vec, U const scalar)
     { return {vec.x * scalar, vec.y * scalar}; }
-template <typename T>
-Vec2<T> operator/(Vec2<T> const vec, T const scalar)
+template <typename T, typename U>
+Vec2<T> operator/(Vec2<T> const vec, U const scalar)
     { return {vec.x / scalar, vec.y / scalar}; }
 
 using Vec2i = Vec2<int>;

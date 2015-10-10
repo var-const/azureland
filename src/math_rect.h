@@ -1,3 +1,5 @@
+#pragma once
+
 #include "math_vector.h"
 
 template <typename T>
@@ -10,7 +12,7 @@ public:
     // @TODO: snake_case
     // @TODO: make free functions
     Vec2<T> getSize() const { return {get_x2() - get_x1(), get_y2() - get_y1()}; }
-    Vec2<T> get_center() const { return {get_x1() + get_x2(), get_y1() + get_y2()} / T{2}; }
+    Vec2<T> get_center() const { return Vec2<T>{get_x1() + get_x2(), get_y1() + get_y2()} / T{2}; }
     T get_x1() const { return left_upper_.x; }
     T get_y1() const { return left_upper_.y; }
     T get_x2() const { return right_lower_.x; }

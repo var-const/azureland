@@ -1,5 +1,3 @@
-cri_aabb.cpp
-cri_aabb_int.cpp
 cri_app.cpp
 cri_axis_getter.cpp
 cri_build_game.cpp
@@ -38,3 +36,5 @@ weapons/cri_reload.cpp
 cri_math.cpp
 weapons/cri_weapon.cpp
 weapons/cri_weapon_helpers.cpp
+cri_aabb.cpp
+cri_aabb_int.cpp

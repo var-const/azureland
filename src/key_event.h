@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SDL/SDL_keysym.h>
 #include <bitset>
 

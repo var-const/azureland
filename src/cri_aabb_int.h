@@ -5,7 +5,7 @@
 
 struct CRI_AABBd
 {
-    typedef Vec2d VecT;
+    typedef Vec2i VecT;
 
     CRI_AABBd();
 #ifdef PASS_BY_VALUE

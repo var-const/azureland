@@ -1,29 +1,45 @@
-cri_app.cpp
-cri_build_game.cpp
-cri_camera.cpp
-cri_collider.cpp
-cri_crosshair.cpp
-cri_enemy.cpp
-cri_game_object.cpp
-cri_game_scene.cpp
-cri_handle_collision.cpp
-cri_highscore.cpp
-cri_interface_input.cpp
-cri_movement_controller.cpp
-cri_obstacle.cpp
-cri_on_collision.cpp
-cri_pickup_generator.cpp
-cri_pickups.cpp
-cri_player.cpp
-cri_projectile.cpp
-cri_text_object.cpp
+// depend on sdl only
 fps_limit.h
 key_event.h
 mouse_event.h
-main.cpp
+
+// depend on events
+cri_movement_controller.cpp
+cri_interface_input.cpp
+
+// need textures, interdependant
+cri_camera.cpp
+cri_collider.cpp
+cri_game_object.cpp
+cri_game_scene.cpp
+cri_app.cpp
+cri_build_game.cpp
 weapons/cri_crossbow.cpp
 weapons/cri_forcefield.cpp
 weapons/cri_forcefield_emitter.cpp
+
+// need gameobject
+cri_text_object.cpp
+cri_highscore.cpp
+cri_projectile.cpp
+cri_obstacle.cpp
+cri_enemy.cpp
+cri_player.cpp
+cri_pickups.cpp
+cri_crosshair.cpp
+
+// need all game objects
+cri_on_collision.cpp
+cri_handle_collision.cpp
+
+// need pickup
+cri_pickup_generator.cpp
+
+// new
+draw_shapes
+render_string
+
+main.cpp
 
 DONE:
 rand.cpp

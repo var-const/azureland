@@ -22,4 +22,5 @@ private:
     std::string m_Text;
     ci::Font m_Font;
     ci::ColorA m_Color;
+
 };

@@ -1,0 +1,1 @@
+This is the original final version of the game. It can be compiled under Visual Studio 2010 out of the box, and most likely with later Visual Studio versions if you convert the project file. The code was written in a pretty old-fashioned style, work to [modernize it](https://github.com/var-const/azureland/tree/modernize) is underway.

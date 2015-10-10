@@ -24,7 +24,7 @@ void CRIHealthMixin::SetMaxHealth( const int Max )
 
 void CRIHealthMixin::ModifyHealth( const int Val )
 {
-    using ci::math; using std::max;
+    using std::max;
 
     const int OldVal = m_CurVal;
     m_CurVal = clamp(m_CurVal + Val, 0, max(m_CurVal, m_MaxVal));

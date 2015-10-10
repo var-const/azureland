@@ -13,4 +13,4 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 set(PROJECT_SOURCE_DIR ../src)
-add_executable(azureland cri_aabb.cpp cri_aabb_int.cpp cri_axis_getter.cpp cri_movable.cpp rand.cpp cri_timer.cpp cri_math.cpp weapons/cri_reload.cpp weapons/cri_weapon.cpp weapons/cri_weapon_helpers.cpp)
+add_executable(azureland cri_aabb.cpp cri_aabb_int.cpp cri_axis_getter.cpp cri_collision.cpp cri_collision_detail.cpp cri_health_mixin.cpp cri_movable.cpp cri_spatial_grid.cpp rand.cpp cri_timer.cpp cri_math.cpp weapons/cri_reload.cpp weapons/cri_weapon.cpp weapons/cri_weapon_helpers.cpp)

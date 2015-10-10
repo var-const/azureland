@@ -2,14 +2,11 @@ cri_app.cpp
 cri_build_game.cpp
 cri_camera.cpp
 cri_collider.cpp
-cri_collision.cpp
-cri_collision_detail.cpp
 cri_crosshair.cpp
 cri_enemy.cpp
 cri_game_object.cpp
 cri_game_scene.cpp
 cri_handle_collision.cpp
-cri_health_mixin.cpp
 cri_highscore.cpp
 cri_interface_input.cpp
 cri_movement_controller.cpp
@@ -19,9 +16,10 @@ cri_pickup_generator.cpp
 cri_pickups.cpp
 cri_player.cpp
 cri_projectile.cpp
-cri_spatial_grid.cpp
-cri_stdafx.cpp
 cri_text_object.cpp
+fps_limit.h
+key_event.h
+mouse_event.h
 main.cpp
 weapons/cri_crossbow.cpp
 weapons/cri_forcefield.cpp
@@ -38,3 +36,7 @@ cri_aabb.cpp
 cri_aabb_int.cpp
 cri_axis_getter.cpp
 cri_movable.cpp
+cri_spatial_grid.cpp
+cri_collision.cpp
+cri_collision_detail.cpp
+cri_health_mixin.cpp

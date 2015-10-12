@@ -18,9 +18,7 @@ void PickupGenerator::Invoke(const Vec2f PosForPickUp)
     assert(m_pScene);
 
     if (randBool()) {
-        HealthPickup* const Pickup =
-            new HealthPickup(SizeT(8.f, 8.f), PosForPickUp, 50, 10);
-        m_pScene->AddObject(*Pickup);
+        m_pScene->AddObject(std::make_unique<HealthPickup>(SizeT(8.f, 8.f), PosForPickUp, 50, 10));
     }
 }
 

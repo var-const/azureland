@@ -4,7 +4,7 @@
 
 #include "collider.h"
 #include "game_scene.h"
-#include "math.h"
+#include "math_helpers.h"
 #include "player.h"
 
 #include <cinder/CinderMath.h>

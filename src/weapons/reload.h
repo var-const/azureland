@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cri_timer.h"
+#include "../timer.h"
 
 class Reload {
   public:

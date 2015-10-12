@@ -34,7 +34,6 @@ class Player : public GameObject, public HealthMixin, public InterfaceInput {
     void OnKeyUp(int KeyCode, cinder::app::KeyEvent Event) override;
 
     void LogicUpdate(float Dt) override;
-    void BeforeRemoveFromScene() override;
 
   private:
     void DoDraw() override;

@@ -25,7 +25,8 @@ template <int MaxRows, int MaxCols> class SpatialGrid {
     SpatialGrid(int Width, int Height);
 
     void SetSize(ci::Vec2i Size);
-    void Reinit(ObjIterT Begin, ObjIterT End, float Time);
+	template <typename IterT>
+    void Reinit(IterT Begin, IterT End, float Time);
 
     ci::Vec2i GetCellCenter(int Row, int Col) const;
     ci::Rectf GetCellRect(int Row, int Col) const;
@@ -54,8 +55,9 @@ void SpatialGrid<MaxRows, MaxCols>::SetSize(const ci::Vec2i Size)
 }
 
 template <int MaxRows, int MaxCols>
+template <typename IterT>
 void SpatialGrid<MaxRows, MaxCols>::Reinit(
-    const ObjIterT Begin, const ObjIterT End, const float Time)
+    const IterT Begin, const IterT End, const float Time)
 {
     using ci::Vec2i;
     using std::max;
@@ -79,7 +81,7 @@ void SpatialGrid<MaxRows, MaxCols>::Reinit(
              Row < min(MaxRows, RightLower.y + 1); ++Row) {
             for (int Col = max(LeftUpper.x, 0);
                  Col < min(MaxCols, RightLower.x + 1); ++Col) {
-                m_Cells[Row][Col].push_back(*ObjIter);
+                m_Cells[Row][Col].push_back(ObjIter->get());
             }
         }
     }

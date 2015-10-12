@@ -6,10 +6,10 @@
 
 #ifdef PASS_BY_VALUE
 CollisionsInfo::CollisionsInfo(
-    const float Time, const CollisionsIterT Begin, const CollisionsIterT End)
+    const float Time, const Collision::CollisionsIterT Begin, const Collision::CollisionsIterT End)
 #else
 CollisionsInfo::CollisionsInfo(
-    const float Time, CollisionsIterT const& Begin, CollisionsIterT const& End)
+    const float Time, Collision::CollisionsIterT const& Begin, Collision::CollisionsIterT const& End)
 #endif
   : m_Time(Time)
   , m_Begin(Begin)

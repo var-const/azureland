@@ -6,7 +6,7 @@
 #endif
 #endif
 
-#include "collision_typedefs.h"
+#include "collision.h"
 #include "spatial_grid.h"
 
 #ifdef PERFORMANCE_METRICS
@@ -33,9 +33,8 @@ class Collider {
 
     void Reserve(int Amount);
 
-    // Could be templated on iterator types, but I thought that would
-    // be overkill
-    CollisionsInfo BuildCollisions(ObjIterT Begin, ObjIterT End, float Time);
+	template <typename IterT>
+    CollisionsInfo BuildCollisions(IterT Begin, IterT End, float Time);
 
     ObjIterT CopyColliding(cinder::Vec2<int> LeftUpper,
         cinder::Vec2<int> RightLower, ObjIterT OutputIter) const;
@@ -50,7 +49,8 @@ class Collider {
     typedef ChecksContT::iterator ChecksIterT;
     typedef ChecksContT::const_iterator ChecksConstIterT;
 
-    void BroadPhase(ObjIterT Begin, ObjIterT End, float Time);
+	template <typename IterT>
+    void BroadPhase(IterT Begin, IterT End, float Time);
 #ifdef PASS_BY_VALUE
     void AddChecks(GameObject* Obj, ObjConstIterT Begin, ObjConstIterT End);
 #else
@@ -64,8 +64,8 @@ class Collider {
     void OutputPerformanceMetrics(int ObjectsC);
 #endif
 
-    CollisionsContT m_CollisionsBuffer;
-    CollisionsIterT m_CollisionsEndIter;
+    Collision::CollisionsContT m_CollisionsBuffer;
+    Collision::CollisionsIterT m_CollisionsEndIter;
     ChecksContT m_Checks;
     ChecksIterT m_ChecksEndIter;
     float m_CurMinTime{};

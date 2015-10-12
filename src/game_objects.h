@@ -5,4 +5,4 @@
 #include "pickups.h"
 #include "player.h"
 #include "projectile.h"
-#include "weapons/cri_forcefield.h"
+#include "weapons/forcefield.h"

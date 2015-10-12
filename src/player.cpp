@@ -6,8 +6,8 @@
 #include "crosshair.h"
 #include "game_scene.h"
 #include "text_object.h"
-#include "weapons/cri_crossbow.h"
-#include "weapons/cri_forcefield_emitter.h"
+#include "weapons/crossbow.h"
+#include "weapons/forcefield_emitter.h"
 
 #include <cinder/Font.h>
 #include <cinder/Vector.h>
@@ -18,6 +18,7 @@
 
 #include <cmath>
 
+using ci::Font;
 using ci::Vec2f;
 using ci::app::KeyEvent;
 using ci::app::MouseEvent;
@@ -49,12 +50,15 @@ void Player::OnAddedToScene()
     m_pWeaponA->SetScene(GetScene());
     m_pWeaponB->SetScene(GetScene());
 
-    m_pCrosshair = GetScene().AddGUIObject(
-        std::unique_ptr<GameObject>(new Crosshair(SizeT(10.f, 10.f), PosT())));
-    m_pHealthLabel = GetScene().AddGUIObject(
-        std::unique_ptr<GameObject>(new TextObject(PosT(100.f, 50.f))));
-    m_pScoreLabel = GetScene().AddGUIObject(
-        std::unique_ptr<GameObject>(new TextObject(PosT(1100.f, 50.f))));
+	auto crosshair = std::make_unique<Crosshair>(SizeT(10.f, 10.f), PosT());
+	m_pCrosshair = crosshair.get();
+	GetScene().AddGUIObject(std::move(crosshair));
+	auto health_label = std::make_unique<TextObject>(PosT(100.f, 50.f));
+	m_pHealthLabel = health_label.get();
+	GetScene().AddGUIObject(std::move(health_label));
+	auto score_label = std::make_unique<TextObject>(PosT(1100.f, 50.f));
+	m_pScoreLabel = score_label.get();
+	GetScene().AddGUIObject(std::move(score_label));
 
     m_pHealthLabel->SetFont(Font("Verdana", 32));
     OnHealthModified(GetCurHealthValue(), 0);

@@ -2,7 +2,7 @@
 
 #include "movable.h"
 
-#include "math.h"
+#include "math_helpers.h"
 
 using ci::Vec2f;
 using ci::Vec2i;

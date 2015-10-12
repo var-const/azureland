@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "math.h"
+#include "math_helpers.h"
 
 #include <algorithm>
 #include <cmath>

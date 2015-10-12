@@ -24,6 +24,7 @@ class GameScene {
     void Update(float Dt);
 
     void AddObject(std::unique_ptr<GameObject> Object);
+	// @TODO: no need returning the object
     GameObject* AddGUIObject(std::unique_ptr<GameObject> Object);
     void MoveCamera(cinder::Vec2<float> NewCenter);
 
@@ -57,7 +58,7 @@ class GameScene {
 
     ObjectsContT m_Objects;
     ObjectsContT m_PendingObjects;
-    ObjectsContT m_DeadObjects;
+    std::vector<GameObject*> m_DeadObjects;
     ObjectsContT m_GUIObjects;
     ObjectsContT m_PendingGUIObjects;
 

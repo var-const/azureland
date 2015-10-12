@@ -7,7 +7,7 @@
 #include "game_objects.h"
 #include "game_scene.h"
 #include "projectile.h"
-#include "weapons/cri_forcefield.h"
+#include "weapons/forcefield.h"
 
 #include <cinder/ImageIo.h>
 #include <cinder/Rand.h>
@@ -40,7 +40,7 @@ void BuildGame(App& App)
 {
     using ci::Vec2f;
 
-    std::unique_ptr<GameScene> Scene = new GameScene(App, 1280 * 3, 1024 * 3);
+    auto Scene = std::make_unique<GameScene>(App, 1280 * 3, 1024 * 3);
 
     Scene->AddObject(std::unique_ptr<GameObject>(
         new Obstacle(Vec2f(1280 * 3, 50), Vec2f(1280.f * 3.f / 2.f, 25.f))));
@@ -100,9 +100,11 @@ void BuildGame(App& App)
     CreateObstacle(*Scene, 26.039f, 38.078f, 7.725f, 3.882f);
     CreateObstacle(*Scene, 34.039f, 38.118f, 7.804f, 3.882f);
 
-    Scene->AddObject(CreatePlayer(App, *Scene));
+	auto player_owning = CreatePlayer(App, *Scene);
+	auto player = player_owning.get();
+    Scene->AddObject(std::move(player_owning));
 
-    CreateEnemies(*Scene, *Player);
+    CreateEnemies(*Scene, *player);
 
     const int ProjectileTexture =
         Scene->GetCamera().RegisterTexture("energy.png");
@@ -134,42 +136,42 @@ std::unique_ptr<Player> CreatePlayer(App& App, GameScene& Scene)
 // const int PlayerHealth = 10000;
 #endif
 
-    std::unique_ptr<Player> Player = new Player(Size, Pos, PlayerHealth, App);
+	auto player = std::make_unique<Player>(Size, Pos, PlayerHealth, App);
 #ifdef CHEATS
-    Player->SetSpeed(1800.f);
+    player->SetSpeed(1800.f);
 #else
     // Player->SetSpeed(130.f);
-    Player->SetSpeed(180.f);
+    player->SetSpeed(180.f);
 #endif
     const int TextureDescr = Scene.GetCamera().RegisterTexture("player.png");
-    Player->SetTextureDescriptor(TextureDescr);
+    player->SetTextureDescriptor(TextureDescr);
     // Player->SetVelocity(Movable::VelT(0.f, -300.f));
-    App.AddInputListener(*Player);
+    App.AddInputListener(*player);
 
-    return Player;
+    return player;
 }
 
-void CreateEnemies(GameScene& Scene, Player& Player)
+void CreateEnemies(GameScene& Scene, Player& player)
 {
     vector<int> Textures;
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy.png"));
     Textures.push_back(Scene.GetCamera().RegisterTexture("enemy2.png"));
 
     // Bottom
-    SpawnEnemies(Scene, Player, 600, Vec2f(60.f, 2500.f), 70, 5.f, Textures);
+    SpawnEnemies(Scene, player, 600, Vec2f(60.f, 2500.f), 70, 5.f, Textures);
     // Top
-    SpawnEnemies(Scene, Player, 230, Vec2f(60.f, 60.f), 30, 5.f, Textures);
+    SpawnEnemies(Scene, player, 230, Vec2f(60.f, 60.f), 30, 5.f, Textures);
     // Start screen 1
-    SpawnEnemies(Scene, Player, 50, Vec2f(60.f, 920.f), 10, 5.f, Textures);
+    SpawnEnemies(Scene, player, 50, Vec2f(60.f, 920.f), 10, 5.f, Textures);
     // Start screen 2
-    SpawnEnemies(Scene, Player, 50, Vec2f(60.f, 1830.f), 10, 5.f, Textures);
+    SpawnEnemies(Scene, player, 50, Vec2f(60.f, 1830.f), 10, 5.f, Textures);
     // Bridge
-    SpawnEnemies(Scene, Player, 20, Vec2f(1530.f, 1530.f), 10, 5.f, Textures);
+    SpawnEnemies(Scene, player, 20, Vec2f(1530.f, 1530.f), 10, 5.f, Textures);
     // Near the ship
-    SpawnEnemies(Scene, Player, 50, Vec2f(2240.f, 610.f), 25, 5.f, Textures);
+    SpawnEnemies(Scene, player, 50, Vec2f(2240.f, 610.f), 25, 5.f, Textures);
 }
 
-void SpawnEnemies(GameScene& Scene, Player& Player, const int Count,
+void SpawnEnemies(GameScene& Scene, Player& player, const int Count,
     const Vec2f From, const int MaxRowLength, const float Dispersion,
     const vector<int>& Textures)
 {
@@ -193,10 +195,10 @@ void SpawnEnemies(GameScene& Scene, Player& Player, const int Count,
         // const float Speed = randInt(10) < 9 ? 100 : 200;
         const float Speed = 50;
         // const float Speed = 10;
-        std::unique_ptr<Enemy> const Enemy = new Enemy(Player, Size, CurPos);
-        Enemy->SetTextureDescriptor(Textures[randInt() % Textures.size()]);
-        Enemy->SetSpeed(Speed);
-        Scene.AddObject(std::move(Enemy));
+        auto enemy = std::make_unique<Enemy>(player, Size, CurPos);
+        enemy->SetTextureDescriptor(Textures[randInt() % Textures.size()]);
+        enemy->SetSpeed(Speed);
+        Scene.AddObject(std::move(enemy));
 
         CurPos.x += Size.x + randFloat(1.f, Dispersion);
         if (CurRow++ == MaxRowLength) {

@@ -28,9 +28,6 @@
     <ClCompile Include="..\src\aabb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\math.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\interface_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,6 +109,9 @@
     <ClCompile Include="..\src\highscore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\math_helpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\app.h">
@@ -130,9 +130,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\aabb.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\interface_input.h">
@@ -226,6 +223,9 @@
       <Filter>Source Files\weapons</Filter>
     </ClInclude>
     <ClInclude Include="..\src\highscore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math_helpers.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@
 
 #include "axis_getter.h"
 #include "collision.h"
-#include "math.h"
+#include "math_helpers.h"
 #include "movable.h"
 
 namespace {

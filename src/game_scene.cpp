@@ -82,7 +82,8 @@ void GameScene::RemoveDeadObjects()
     for (auto Obj = m_DeadObjects.begin(); Obj != m_DeadObjects.end(); ++Obj) {
         // Search from the end, because most of our objects never die,
         // and those that do are all appended at end during the game
-        const auto Found = find(m_Objects.rbegin(), m_Objects.rend(), *Obj);
+		const auto Found = find_if(m_Objects.rbegin(), m_Objects.rend(), [Obj](auto& rhs)
+			{ return *Obj == rhs.get(); });
         assert(Found != m_Objects.rend());
         if (Found != m_Objects.rend()) {
             m_Objects.erase((Found + 1).base());
@@ -99,13 +100,13 @@ void GameScene::DestroyObject(GameObject& Obj)
 
 void GameScene::AddObject(std::unique_ptr<GameObject> Object)
 {
-    Object.SetScene(*this);
+    Object->SetScene(*this);
     m_PendingObjects.push_back(std::move(Object));
 }
 
 GameObject* GameScene::AddGUIObject(std::unique_ptr<GameObject> Object)
 {
-    Object.SetScene(*this);
+    Object->SetScene(*this);
     m_PendingGUIObjects.push_back(std::move(Object));
     return m_PendingGUIObjects.back().get();
 }
@@ -176,10 +177,10 @@ Vec2i GameScene::GetSize() const { return m_Camera.GetSize(); }
 void GameScene::EndGame(const int Score)
 {
     SetPause(true);
-    std::unique_ptr<Highscore> Highscore = new Highscore(Score);
-    m_pApp->AddInputListener(*Highscore);
-    AddGUIObject(std::move(Highscore));
-    Highscore->Load("scores.yaml");
+    auto highscore = std::make_unique<Highscore>(Score);
+    m_pApp->AddInputListener(*highscore);
+    AddGUIObject(std::move(highscore));
+    highscore->Load("scores.yaml");
 }
 
 void GameScene::SetPause(const bool Val) { m_IsPaused = Val; }

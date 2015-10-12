@@ -3,7 +3,7 @@
 #include "game_object.h"
 #include "health_mixin.h"
 #include "timer.h"
-#include "weapons/cri_reload.h"
+#include "weapons/reload.h"
 
 #include <cinder/gl/Texture.h>
 

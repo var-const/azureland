@@ -20,5 +20,5 @@ class TextObject : public GameObject {
 
     std::string m_Text;
     ci::Font m_Font;
-    ci::Color m_Color{1.f, 1.f, 1.f, 1.f};
+    ci::ColorA m_Color{ 1.f, 1.f, 1.f};
 };

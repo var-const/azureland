@@ -10,6 +10,7 @@ class InterfaceInput;
 
 class App : public ci::app::AppBasic {
   public:
+	App() = default;
     void prepareSettings(Settings* settings) override;
     void setup() override;
 

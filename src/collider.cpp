@@ -6,7 +6,7 @@
 #include "collision_detail.h"
 #include "container_helpers.h"
 #include "game_object.h"
-#include "math.h"
+#include "math_helpers.h"
 
 #include <cinder/CinderMath.h>
 #include <cinder/Rect.h>
@@ -33,8 +33,9 @@ void Collider::Reserve(const int Amount)
     ResizeAtLeast(m_Checks, Amount * 100);
 }
 
+template <typename IterT>
 CollisionsInfo Collider::BuildCollisions(
-    const ObjIterT Begin, const ObjIterT End, const float Time)
+    const IterT Begin, const IterT End, const float Time)
 {
     using ci::Vec2i;
     using std::make_pair;
@@ -57,8 +58,9 @@ CollisionsInfo Collider::BuildCollisions(
         m_CurMinTime, m_CollisionsBuffer.begin(), m_CollisionsEndIter);
 }
 
+template <typename IterT>
 void Collider::BroadPhase(
-    const ObjIterT Begin, const ObjIterT End, const float Time)
+    const IterT Begin, const IterT End, const float Time)
 {
     m_Grid.Reinit(Begin, End, Time);
     m_ChecksEndIter = m_Checks.begin();

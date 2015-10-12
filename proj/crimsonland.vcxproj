@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -27,7 +27,7 @@
     <ClCompile Include="..\src\game_object.cpp" />
     <ClCompile Include="..\src\game_scene.cpp" />
     <ClCompile Include="..\src\interface_input.cpp" />
-    <ClCompile Include="..\src\math.cpp" />
+    <ClCompile Include="..\src\math_helpers.cpp" />
     <ClCompile Include="..\src\movable.cpp" />
     <ClCompile Include="..\src\obstacle.cpp" />
     <ClCompile Include="..\src\on_collision.cpp" />
@@ -69,7 +69,7 @@
     <ClInclude Include="..\src\game_object.h" />
     <ClInclude Include="..\src\game_scene.h" />
     <ClInclude Include="..\src\interface_input.h" />
-    <ClInclude Include="..\src\math.h" />
+    <ClInclude Include="..\src\math_helpers.h" />
     <ClInclude Include="..\src\movable.h" />
     <ClInclude Include="..\src\obstacle.h" />
     <ClInclude Include="..\src\on_collision.h" />
@@ -93,18 +93,19 @@
     <ProjectGuid>{B9269863-664C-4BBD-B04A-AE918DBFE3DE}</ProjectGuid>
     <RootNamespace>eventTest</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>azureland</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
